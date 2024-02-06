@@ -1,8 +1,14 @@
 # Neetcode 150
 
-**Brute Force[]:**  
+**Brute Force:**  
 
-**Optimized Approach[]:** 
+- Time Complexity:
+- Space Complexity:
+
+**Optimized Approach:**
+
+- ****Time Complexity
+- Space Complexity:
 
 **Solution:**
 
@@ -115,3 +121,18 @@
     - Moving dummy node to the next node: mergedList -> [dummy node] -> [1]
     - Moving dummy node to the next node: mergedList -> [dummy node] -> [1] -> [2]
     - Returning the next node of mergedList:  [1] -> [2]
+    
+
+## 141 - Linked List Cycle
+
+**Brute Force: Visit each node using a set**
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach: Visit each node using pointers**
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** The solution uses Floyd's Tortoise and Hare algorithm, where two pointers move at different speeds through the list, and a cycle is detected if the slow pointer meets the fast pointer.
