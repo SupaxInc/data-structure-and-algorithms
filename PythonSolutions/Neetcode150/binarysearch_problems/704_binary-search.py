@@ -5,7 +5,7 @@ class Solution:
         lo, hi = 0, len(nums)-1
 
         while lo <= hi:
-            mid = (lo + hi) // 2
+            mid = lo + ((hi - lo) // 2) # A normal (hi + lo) // 2 could lead to an arithmetic overflow
 
             if nums[mid] == target:
                 return mid
