@@ -168,3 +168,16 @@
 **BFS Solution:** Do a level order traversal by using a queue and adding the left and right nodes to the queue. Use a for loop with range length of queue inside a while loop to only traverse through nodes in each level.
 
 **DFS Solution:** Add a 1 for the current level then add with the max between the left and right sub tree.
+
+## 543 - Diameter of Binary Tree
+
+**DFS Approach:** Use a recursive approach
+
+- ****Time Complexity: O(n)
+- Space Complexity: O(h)
+
+**DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree and add the left and right sub tree every time the stack pops to get max diameter. 
+
+**Unique uses:**
+
+- Nonlocal keyword to use variables outside of the scope function.
