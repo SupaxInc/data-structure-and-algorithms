@@ -181,3 +181,16 @@
 **Unique uses:**
 
 - Nonlocal keyword to use variables outside of the scope function.
+
+## 110 - Balanced Binary Tree
+
+**DFS Approach:** Use a recursive approach
+
+- ****Time Complexity: O(n)
+- Space Complexity: O(h)
+
+**DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree then check for an imbalance between the left and right sub tree by a value of greater than 1. (e.g. 3-1 = 2, unbalanced)
+
+**Unique uses:**
+
+- Continuously return a value up the call stack if no further work is necessary
