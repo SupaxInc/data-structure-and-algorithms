@@ -12,6 +12,10 @@
 
 **Solution:**
 
+**Unique uses:**
+
+- 
+
 # Arrays
 
 ## 217 - Contains Duplicate
@@ -218,3 +222,25 @@
 **Unique uses:**
 
 - Uses recursion within a recursion
+
+# Heap/Priority Queues
+
+## 703 - Kth Largest Number
+
+**Brute Force:**  Sort the array each time and return the kth index
+
+- Time Complexity: O(nlogn)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a min heap
+
+- ****Time Complexity: O(n) → heapify, O(log n) → adding to heap
+- Space Complexity: O(k), array will be as large as kth elements
+
+**Solution:** Using a min-heap, maintaining a heap of size k to ensure the kth largest element is always at the top, with adjustments made upon each new addition.
+
+**Unique uses:**
+
+- Uses a heap:
+    - Heapify → O(n)
+    - Heappop/Heappush → O(logn)
