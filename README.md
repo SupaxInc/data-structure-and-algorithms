@@ -194,3 +194,12 @@
 **Unique uses:**
 
 - Continuously return a value up the call stack if no further work is necessary
+
+## 100 - Same Tree
+
+**DFS Approach:** Use a recursive approach
+
+- ****Time Complexity: O(p+q) 2 trees to traverse to
+- Space Complexity: O(h)
+
+**DFS Solution:** Traverse through both trees left and right nodes. You know their the same tree if you are able to reach the depths with a None value.
