@@ -203,3 +203,18 @@
 - Space Complexity: O(h)
 
 **DFS Solution:** Traverse through both trees left and right nodes. You know their the same tree if you are able to reach the depths with a None value.
+
+## 572 - Subtree of Another Tree
+
+**DFS Approach:** Use two recursive DFS approaches
+
+- ****Time Complexity: O(m * n)
+    - Where m is the nodes of the Root tree and n is the nodes of the sub root
+- Space Complexity: O(max(m, n))
+    - Depends on the height of the recursion stack for either root or sub root
+
+**DFS Solution:** DFS through the root tree and run another DFS on a node of a root tree if you haven’t hit the end of the root tree. The second DFS runs a check if the root tree or sub root tree are the same trees.
+
+**Unique uses:**
+
+- Uses recursion within a recursion
