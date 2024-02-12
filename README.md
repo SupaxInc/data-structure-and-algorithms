@@ -244,3 +244,23 @@
 - Uses a heap:
     - Heapify → O(n)
     - Heappop/Heappush → O(logn)
+
+## 1046 - Last Stone Weight
+
+**Brute Force:**  Sort the array in descending and pop values for the stones
+
+- Time Complexity: O(n) → first while loop, O(nlogn) → inside while loop = O(n^2 log n)
+- Space Complexity: O(1) → memory is in-place
+
+**Optimized Approach:** Create a max heap 
+
+- ****Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Create a max heap to get the 2 largest stones then just follow the instructions.
+
+**NOTE:** Result array does not have to be in-order because we are just popping values
+
+**Unique uses:**
+
+- Creates a max heap work around by multiplying by -1
