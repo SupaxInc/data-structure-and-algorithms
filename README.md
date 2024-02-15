@@ -264,3 +264,46 @@
 **Unique uses:**
 
 - Creates a max heap work around by multiplying by -1
+
+# Dynamic Programming
+
+## 70 - Climbing Stairs
+
+**Brute Force:**  Use DFS recursive approach similar to Fibonacci sequence 
+**(climb_stairs_dfs(n-1) + climb_stairs_dfs(n-2))**
+
+```markdown
+			                   5
+                       /   \
+                      4     3
+                    /  \   / \
+                   3    2 2   1
+                  / \  /|  |\
+                 2  1 1 0 1  0
+                /|
+               1 0
+Basecase: if n <= 1, return 1. So if n is 0 or 1, that is a way of climbing the stairs
+Answer: 7 ways
+```
+
+- Time Complexity: O(2^n) exponential, we end up repeating the same sub problem every time, e.g. above, starting from 4, how many ways to get from 1 to 0?
+
+Similar to picture below, sub problem 2 is repeated twice. What if we just store it in cache so the calculation doesn’t repeat again?
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5cd80a82-d66a-4c6f-ad9f-0e46932ac8be/Untitled.png)
+
+- Space Complexity: O(h) height of recursive stack
+
+**Optimized Approach:** Bottom-up iterative approach, start at base case and work your way up.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9480d24-eacb-432e-a725-d5c60826a20b/Untitled.png)
+
+- ****Time Complexity: O(n), only solving each sub problem once using DP
+- Space Complexity: O(n)
+
+**Solution:** Building up from the base cases using a list to store results and returning the last calculated value as the number of ways to climb **`n`** stairs. 
+
+**Unique uses:**
+
+- Uses memoization
+- GOTCHA moment: Base case would be 1,1 since there’s also one way of climbing 0 stairs which is doing nothing

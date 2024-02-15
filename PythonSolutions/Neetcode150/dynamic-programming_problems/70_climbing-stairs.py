@@ -5,7 +5,7 @@ class BottomUpSolution:
 
         result = [1, 1] # Base cases: 1 way to climb 0 and 1 stairs.
 
-        for i in range(2, n + 1): # Start from 2 as we already know the first two cases.
+        for i in range(2, n + 1): # Start from 2 as we already know the first two cases. n+1 is similar to i <= n in Python
             result.append(result[i-1] + result[i-2])
         
         return result.pop() # Return the last element in the list which corresponds to `n` stairs.
