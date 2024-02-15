@@ -1,3 +1,15 @@
+class BottomUpSolution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 1:
+            return 1 # There's only one way to climb 0 or 1 stair.
+
+        result = [1, 1] # Base cases: 1 way to climb 0 and 1 stairs.
+
+        for i in range(2, n + 1): # Start from 2 as we already know the first two cases.
+            result.append(result[i-1] + result[i-2])
+        
+        return result.pop() # Return the last element in the list which corresponds to `n` stairs.
+
 class BruteForceSolution:
     def climb_stairs_dfs(n):
         # Base case: when n is 0 or 1, there is only one way to climb the stairs (either you're already there, or you take one step).
