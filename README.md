@@ -305,5 +305,7 @@ Similar to picture below, sub problem 2 is repeated twice. What if we just store
 
 **Unique uses:**
 
-- Uses memoization
+- The following two approaches can be vice versa:
+    - Bottom up approach: iteratively
+    - Top down approach: recursively
 - GOTCHA moment: Base case would be 1,1 since there’s also one way of climbing 0 stairs which is doing nothing
