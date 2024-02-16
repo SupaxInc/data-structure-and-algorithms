@@ -10,6 +10,24 @@ class BottomUpSolution:
         
         return result.pop() # Return the last element in the list which corresponds to `n` stairs.
 
+class TopDownSolution:
+    def climbStairs(self, n: int) -> int:
+        cache = {}
+
+        def dfs(n):
+            nonlocal cache
+            if n in cache:
+                return cache[n]
+            else:
+                if n <= 1:
+                    return 1 # Return 1 at 0 or 1 steps because there is 1 way to do something at 0 steps.
+                
+                cache[n] = dfs(n-1) + dfs(n-2)
+                return cache[n]
+        
+        return dfs(n)
+
+
 class BruteForceSolution:
     def climb_stairs_dfs(n):
         # Base case: when n is 0 or 1, there is only one way to climb the stairs (either you're already there, or you take one step).
