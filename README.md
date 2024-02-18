@@ -321,6 +321,8 @@ Similar to picture below, sub problem 2 is repeated twice. What if we just store
 
 See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
 
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
+
 - ****Time Complexity: O(n)
 - Space Complexity: O(n)
 
