@@ -309,3 +309,19 @@ Similar to picture below, sub problem 2 is repeated twice. What if we just store
     - Bottom up approach: iteratively
     - Top down approach: recursively
 - GOTCHA moment: Base case would be 1,1 since there’s also one way of climbing 0 stairs which is doing nothing
+
+## 746 - Min Cost Climbing Stairs
+
+**Brute Force:**  Use recursion to calculate all sub problems for taking one step and taking two steps.
+
+- Time Complexity: O(2^n), exponential since some sub problems repeat
+- Space Complexity: O(h)
+
+**Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
+
+See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
+
+- ****Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Update an array with the cost for each step based on the cheaper cumulative cost of the two previous steps, concluding with the minimum of the last two calculated costs to account for the final step choice.
