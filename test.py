@@ -1,1 +1,2 @@
-print(abs(1-2))
+cost = [10,15,20]
+print(cost[3])
