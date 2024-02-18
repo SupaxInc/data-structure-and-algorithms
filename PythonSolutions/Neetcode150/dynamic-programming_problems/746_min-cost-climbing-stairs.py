@@ -14,3 +14,21 @@ class BottomUpSolution:
         # Return the last 2 steps since it has cumulative min cost was between the 2 steps
             # and we can take the 2nd last step or the 1st step to reach the end.
         return min(mccs[-1], mccs[-2])
+    
+class TopDownSolution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        cache = {}
+
+        def dfsMinCost(n):
+            if n in cache:
+                return cache[n]
+            else:
+                if n < 2:
+                    return cost[n]
+                
+                cache[n] = cost[n] + min(dfsMinCost(n-1), dfsMinCost(n-2))
+                return cache[n]
+        
+        costLength = len(cost)
+        dfsMinCost(costLength-1)
+        return min(dfsMinCost(costLength-1), dfsMinCost(costLength-2))
