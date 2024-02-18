@@ -327,3 +327,32 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
 - Space Complexity: O(n)
 
 **Solution:** Update an array with the cost for each step based on the cheaper cumulative cost of the two previous steps, concluding with the minimum of the last two calculated costs to account for the final step choice.
+
+**Unique uses:**
+
+- **DICTIONARIES DONT NEED TO BE NONLOCALIZED**
+    - This is due to the fact that dictionaries are mutable, we are modifying the content rather than reassigning the cache variable itself
+
+# Intervals
+
+## 252 - Meeting Rooms
+
+**Brute Force:**  Compare every interval with each other to see if there are overlaps
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Sort the intervals by start time in ASC order then iterate
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/922fd683-0956-44c4-b54c-ec5702953c85/Untitled.png)
+
+- ****Time Complexity: O(nlogn)
+- Space Complexity: O(n)
+
+**Solution:** Overlap = startTime2 < endTime1, since the 2nd class starts before the previous class ended.
+
+**Unique uses:**
+
+- Using lambda to sort
+- Sort the intervals by start time allows us to not compare with every other interval because the next start times will be greater than the previous start times.
+    - This means if the previous start time did not overlap, then that means the next start times could never overlap as well.
