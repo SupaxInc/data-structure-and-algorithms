@@ -1,2 +1,3 @@
 cost = [10,15,20]
-print(cost[3])
+L = [1] * len(cost) 
+print(L)
