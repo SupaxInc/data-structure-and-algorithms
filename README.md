@@ -356,3 +356,25 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
 - Using lambda to sort
 - Sort the intervals by start time allows us to not compare with every other interval because the next start times will be greater than the previous start times.
     - This means if the previous start time did not overlap, then that means the next start times could never overlap as well.
+
+# Math & Geometry
+
+## 202 - Happy Number
+
+**Brute Force:**  Calculate the next number until it cycles or hits a 1 using a hashmap or set
+
+- Time Complexity: O(n), calculate next digit using list comprehension. Uses math and array
+- Space Complexity: O(n), uses sets
+
+**Optimized Approach:** Use linked list cycle
+
+- ****Time Complexity: O(n) calculate next digit using remainders and quotients
+- Space Complexity: O(1), uses pointers
+
+**Solution:** Implements the Floyd's Cycle Detection algorithm ("tortoise and hare") to efficiently determine if a number is happy by using a slow and fast pointer to detect cycles in the sequence of squared digit sums, concluding the number is happy if the process reaches 1.
+
+**Unique uses:**
+
+- Uses **divmod** function in python:
+    - Divide by 10 → get quotient (last digit in a number)
+    - Mod by 10 → get remainder (numbers last digit)

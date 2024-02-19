@@ -9,12 +9,16 @@ class OptimizedSolution:
                 total += remainder ** 2
             return total
 
-
+        # SLow and fast pointer to detect a cycle
         slow, fast = n, getNextNumber(n)
+        # If n is already 1 then don't look
+        # If slow = fast, then a cycle was detected
         while n != 1 and slow != fast:
             slow = getNextNumber(slow)
+            # Fast pointer moves twice as fast
             fast = getNextNumber(getNextNumber(fast))
         
+        # Check if its a happy number when the cycle was detected
         return slow == 1
     
 class BruteForceSolution:
