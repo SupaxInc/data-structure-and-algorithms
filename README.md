@@ -496,3 +496,29 @@ n = n & n -1 similar to Leetcode 191. This will check if right most bit is a 1, 
 - Space Complexity: O(n)
 
 **Solution:** Reverses the bits of an integer by shifting the result leftward to accumulate each rightmost bit of the input number.
+
+## 268 - Missing Number
+
+**Brute Force:  Loop over 0 to n, use (if i not in nums) check which is an O(n) operation**
+
+- Time Complexity: O(n^2) due to the check inside the for loop
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use bit manipulation
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d480ec6a-bab5-4434-977e-9ab7f46b3c4c/Untitled.png)
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** 
+
+- You can XOR all indices and values, including **`n`** (since the array is from **`0`** to **`n-1`**), and the result will be the missing number because the missing number will not be cancelled out.
+
+**Unique uses:**
+
+- Uses XOR
+    - A number XOR itself gives 0.
+    - A number XOR 0 gives the number itself.
+    - XOR is commutative and associative.
+- Use arithmetic series formula for summation optimized approach
