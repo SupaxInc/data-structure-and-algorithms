@@ -431,3 +431,30 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
     - This allows you to XOR a set of numbers in any order and still get the same result.
 1. **Pair Disappearance**: If you have two of the same number and you XOR them, they cancel out and give you 0. It's like they vanish!
 2. **Lonely Number Stays**: Since pairs cancel each other out, if there's a number without a pair (a unique number), it won't disappear because there's nothing to cancel it out. So, after XORing everything together, this unique number is the only one left.
+    
+    
+
+## 191 - Number of 1 Bits
+
+**Brute Force:**  Iterate through the array and just count the 1’s
+
+- Time Complexity: O(32) → O(1)
+- Space Complexity: O(32) → O(1)
+
+**Optimized Approach:** Use AND operator to check if right most bit is a 1
+
+- Time Complexity: O(32) → O(1)
+- Space Complexity: O(32)
+
+**A more bit manipulation approach:** Use n = n & (n - 1)
+
+- Subtracting value by 1 removes the right-most bit
+    - Then AND operator filters it out from original value
+- If subtracting by 1 does not remove right-most bit then it shifts the 1’s over creating multiple 1’s
+    - Then AND operator filters out the other 1 from the original value because it compares with the complement of 0s and 1s
+
+**Solution:** Use AND operator of the value with “1” → “0001”, checks if right most bit of a digit is a 1 then we shift >> the number by 1, to filter out the right-most digit. Cycle until 32 but is complete.
+
+**Unique uses:**
+
+- Uses shift operator and AND operator
