@@ -450,11 +450,33 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
 
 - Subtracting value by 1 removes the right-most bit
     - Then AND operator filters it out from original value
-- If subtracting by 1 does not remove right-most bit then it shifts the 1’s over creating multiple 1’s
+- If subtracting by 1 does not remove right-most bit then it moves the 1’s over creating multiple 1’s since we subtracted the most significant bit
     - Then AND operator filters out the other 1 from the original value because it compares with the complement of 0s and 1s
+- Each iteration we count
 
 **Solution:** Use AND operator of the value with “1” → “0001”, checks if right most bit of a digit is a 1 then we shift >> the number by 1, to filter out the right-most digit. Cycle until 32 but is complete.
 
 **Unique uses:**
 
 - Uses shift operator and AND operator
+
+## 338 - Counting Bits
+
+**Brute Force:**  Create a list of n + 1 then convert to binary each iteration. Count the 1’s by doing 
+n = n & n -1 similar to Leetcode 191. This will check if right most bit is a 1, if it is increment count then shift the bits to check the next right most bit.
+
+- Time Complexity: O(nlogn), for every integer how many times can you divide it (or AND) it by 2?
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use DP to find a sub problem that repeats for increasing digits.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d999c4d2-9030-4ba1-88b9-c5ade336322f/Untitled.png)
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** DP solution to count the number of 1 bits for all numbers up to **`n`**, leveraging the pattern that each number's 1 bits count is 1 plus the count of a previous number, determined by subtracting the most recent power of 2 (MSB) from the current number.
+
+**Unique uses:**
+
+- Uses DP to solve a bit manipulation problem using **most significant bit** as an offset
