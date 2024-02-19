@@ -16,3 +16,21 @@ class OptimizedSolution:
             fast = getNextNumber(getNextNumber(fast))
         
         return slow == 1
+    
+class BruteForceSolution:
+    def isHappy(self, n: int) -> bool:
+        mySet = set()
+        total = n
+
+        while True:
+            if total == 1:
+                break
+
+            total = int(sum([math.pow(int(digit),2) for digit in str(total)]))
+
+            if total in mySet:
+                return False
+            
+            mySet.add(total)
+
+        return True
