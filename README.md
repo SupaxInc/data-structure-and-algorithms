@@ -480,3 +480,19 @@ n = n & n -1 similar to Leetcode 191. This will check if right most bit is a 1, 
 **Unique uses:**
 
 - Uses DP to solve a bit manipulation problem using **most significant bit** as an offset
+
+## 190 - Reverse Bits
+
+**Brute Force:**  Manipulate it as a string and just reverse the string
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use shifts and bitwise operators to manipulate a new result array
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/90952219-5da7-4b62-9ad6-770760f1ab3e/Untitled.png)
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Reverses the bits of an integer by shifting the result leftward to accumulate each rightmost bit of the input number.
