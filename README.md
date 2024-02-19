@@ -7,7 +7,7 @@
 
 **Optimized Approach:**
 
-- ****Time Complexity
+- Time Complexity:
 - Space Complexity:
 
 **Solution:**
@@ -381,7 +381,7 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c127af6e-5783-40bc-b948-294f031b0f9a/Untitled.png)
 
-# 66 - Plus One
+## 66 - Plus One
 
 **Brute Force:**  Convert digits list to integer then add one then convert back to array (**not a very good way to solve problems and show off to interviewers**)
 
@@ -402,3 +402,32 @@ See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](htt
 - Reversing an array from n to 0: **for i in range(len(digits)-1, -1, -1)**
 - List concatenation since python doesn’t have a built in unshift method:
     - [1] + digits
+    
+
+# Bit Manipulation
+
+**Guide: [How to Solve: Bit Manipulation](https://www.notion.so/How-to-Solve-Bit-Manipulation-8f8e50b940144e84b5eb6925ce4f4c7a?pvs=21)** 
+
+## 136 - Single Number
+
+**Brute Force:**  Use a hash set and remove the value if it shows twice. Check hash set at the end to see if there are dupes
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use bit manipulation
+
+- ****Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Finds the single non-duplicate number in a list by XOR-ing all numbers, utilizing the property that a number XORed with itself cancels out, leaving only the unique number as the result.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ff5b9543-20ce-4956-a3d4-084479c39fd5/Untitled.png)
+
+**Unique uses:**
+
+- Using XOR to manipulate all numbers in an array
+    - **The XOR operation is commutative and associative, which means that the order in which you XOR the numbers does not matter.**
+    - This allows you to XOR a set of numbers in any order and still get the same result.
+1. **Pair Disappearance**: If you have two of the same number and you XOR them, they cancel out and give you 0. It's like they vanish!
+2. **Lonely Number Stays**: Since pairs cancel each other out, if there's a number without a pair (a unique number), it won't disappear because there's nothing to cancel it out. So, after XORing everything together, this unique number is the only one left.
