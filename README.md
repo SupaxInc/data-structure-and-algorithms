@@ -44,6 +44,34 @@
 
 **Solution:** Uses a hashmap to store and look up the complement of each number (target - current number) to find the indices of the two numbers that add up to the target.
 
+## 49 - Group Anagrams
+
+**Brute Force:**  Sort the strings then compare each character in a string with all the other characters of other strings
+
+- Time Complexity: O(n ^ 2 * nlogn)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Sort the string and add the sorted string into a hashmap
+
+- Time Complexity: O(n * m log m)
+- Space Complexity: O(n)
+
+**Most Optimized Approach:** Use a tuple of 26 length for alphabet characters as a key in the hashmap
+
+- Time Complexity: O(n * m)
+- Space Complexity: O(n)
+
+**Solution:** Create an array of 26 length to represent the alphabet and use the ascii code of letter a to get the index position of the character you are on. Convert the array to tuple as a key to a hashmap.
+
+**Unique uses:**
+
+- Uses defaultdict
+    - Helps optimize checking for existing keys
+    - It’ll automatically create a new key for you without check if it exists
+- Uses tuples as a key in a hashmap
+- Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
+    - Sorts characters in a string lexicographically
+
 # Pointers
 
 ## 125 - Valid Palindrome
