@@ -1,1 +1,1 @@
-print('0' + 1)
+print(tuple([0] * 3))
