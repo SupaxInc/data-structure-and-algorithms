@@ -1,1 +1,1 @@
-print(tuple([0] * 3))
+print(''.join(sorted('eat', key=str.lower)))

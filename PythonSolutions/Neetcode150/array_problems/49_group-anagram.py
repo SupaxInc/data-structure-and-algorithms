@@ -25,6 +25,21 @@ class MySolution:
                 countStrs[alphabetCountStr] = [string]
         
         return list(countStrs.values())
+    
+class LessOptimizedSolution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        if len(strs) < 2:
+            return [strs]
+        
+        res = defaultdict(list)
+
+        for string in strs:
+            sortedStr = ''.join(sorted(string, key=str.lower))
+
+            res[sortedStr].append(string)
+        
+        return list(res.values())
+
 
 class MoreOptimizedSolution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
@@ -33,10 +48,10 @@ class MoreOptimizedSolution:
         # defaultdict removes the need to check if a key exists
         res = defaultdict(list) 
 
-        for string in strs:
-            alphabetCount = [0] * 26
+        for string in strs: # O(n)
+            alphabetCount = [0] * 26 # O(26)
             asciiPos = ord("a")
-            for char in string:
+            for char in string: # O(m)
                 alphabetCount[ord(char) - asciiPos] += 1
             
             # Turn into tuple since we can't directly join an integer array to a string
