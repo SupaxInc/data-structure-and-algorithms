@@ -24,3 +24,28 @@ class OptimizedSolution:
         # Worst case time complexity: O(k * n)
             
         return res
+
+class MoreOptimizedSolution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = defaultdict(int)
+        # Create a bucket based on length of nums array
+        # An element can only show length(nums) of times
+        bucket = [[] for _ in range(len(nums)+1)] 
+        res = []
+
+        # Create a frequency map
+        for num in nums:
+            count[num] += 1
+
+        # The index will be used as the count
+        # The value will be an array of elements since elements could show up same amount of times
+        for key, val in count.items():
+            bucket[val].append(key)
+    
+        # Iterate backwards to get the most found elements
+        for i in range(len(bucket)-1, -1, -1): # O(n)
+            for number in bucket[i]: # O(k)
+                if len(res) < k:
+                    res.append(number)
+        
+        return res
