@@ -72,6 +72,36 @@
 - Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
     - Sorts characters in a string lexicographically
 
+## 347 - Top K Frequent Elements
+
+**Brute Force:**  Create a frequency map then sort the map
+
+- Time Complexity:  O(n log n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a max heap to sort a key value pair of tuples or array
+
+- Time Complexity: O(k * logn), mostly better than brute force IF k < n
+- Space Complexity: O(n)
+
+**Most Optimized Approach:** Use an array to bucket sort
+
+- Time Complexity: O(k + n) → O(n) since we are doing more n operations and only adding k amount
+- Space Complexity: O(n)
+
+**Solution:** Use an array to bucket sort (index→count, value→[elements]), the length of the array will be the length of elements we need to count since the element can only show up length amount of times.
+
+**Unique uses:**
+
+- 1st approach:
+    - Use a max heap to heapify the first value of tuple or array
+- 2nd approach
+    - A bucket sort is when you use the index of an array as the key and the value is the element of the index
+        - In this case, you can use the key (index) as the frequency count then place an array in the index filled with elements that has the count
+        
+        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/86e71971-75fe-4af2-b74a-4e46a3b5a639/Untitled.png)
+        
+
 # Pointers
 
 ## 125 - Valid Palindrome
