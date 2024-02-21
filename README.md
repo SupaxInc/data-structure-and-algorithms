@@ -102,6 +102,89 @@
         ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/86e71971-75fe-4af2-b74a-4e46a3b5a639/Untitled.png)
         
 
+## 238 - Product of Array Except Self
+
+**Brute Force:**  Nested for loop
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Calculate the product of all elements then divide by the element we are on. 
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Another Optimized Approach (w/o division):** We make two lists: one has the product of all numbers before each element, and the other has the product of all numbers after each element. Multiply the prefix and postfix for any element we are on, we get the product of all other numbers except the one we are on.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69a6aabc-6ae9-4ad4-bdfb-cd45e159a16b/Untitled.png)
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**A more optimized approach with better extra space complexity:** No need for prefix and product arrays, just calculate it within output array itself.
+
+- Time Complexity: O(n)
+- Space Complexity: O(1) since output array doesn’t count as extra space
+
+**Solution:**  First calculate the prefix product into the result array then calculate the postfix product into the already calculated prefix result array.
+
+**Unique uses:**
+
+- Uses concept of prefix, postfix, and infix notation:
+    
+    ```python
+    infix:    a + b
+    prefix:   + a b
+    postfix:  a b +
+    ```
+    
+
+### Explaining 238 to interviewers
+
+### **Understand the Problem**
+
+Start by summarizing the problem to show you understand what's being asked:
+
+- "The problem requires finding the product of all elements in an array except the current element, for each element, without using division. This means we need a way to 'exclude' the current element from the product calculation efficiently."
+
+### **Identify the Constraints**
+
+Highlight the constraints and why they guide your solution:
+
+- "Since division is not allowed, we can't use the straightforward approach of calculating the total product and then dividing by the current element for each element in the array."
+- "The need for O(n) time complexity suggests we can't afford nested loops, implying a single pass or linear solution."
+
+### **Conceptualize the Core Idea**
+
+Explain the core idea that led to your solution:
+
+- "To 'exclude' the current element from the product, I thought about how we can accumulate products from both sides—left and right—of each element. **This way, for any given element, we can multiply the accumulated product from its left with the accumulated product from its right, effectively skipping the element itself."**
+- "This approach is inspired by how prefix sums are used to calculate cumulative sums up to a point in an array. Similarly, we can calculate 'prefix products' and 'postfix products'."
+    - **Prefix Sums**: This is a technique used in arrays to calculate the cumulative sum of elements up to a certain index. For example, given an array **`[a, b, c, d]`**, the prefix sum array would be **`[a, a+b, a+b+c, a+b+c+d]`**. This allows for efficient calculations of sums over a range of elements in an array.
+        - **It is a useful strategy for various algorithmic problems that require efficient aggregate value calculations.**
+
+### **Break Down the Solution**
+
+Detail the steps of your solution:
+
+1. **Prefix Products**: "First, we calculate the prefix product for each element, which is the product of all elements to its left. This can be done in a single pass from the beginning of the array."
+2. **Postfix Products**: "Similarly, we calculate the postfix product for each element, which is the product of all elements to its right. This requires another pass, but from the end of the array backward."
+3. **Combining Prefix and Postfix Products**: "Finally, for each element, we multiply its prefix product with its postfix product to get the desired result. This skips the product of the element itself, as neither the prefix nor postfix products include it."
+
+### **Justify the Efficiency**
+
+Explain why this solution is efficient and meets the constraints:
+
+- "This solution requires only two linear passes through the array (one for prefix products and one for postfix products), plus an additional pass to calculate the final results, making it O(n) in time complexity. It meets the problem's constraints by not using division and efficiently calculating the result for each element."
+- "While it uses extra space for the prefix and postfix product arrays, this trade-off is necessary to achieve the desired time complexity and avoid division."
+
+### **Final Thoughts**
+
+Conclude with any final insights or alternative considerations:
+
+- "This solution demonstrates a balance between space and time complexity, leveraging the idea of cumulative products. It's a common strategy in problems where direct computation isn't feasible due to constraints like the prohibition of division."
+- "Exploring variations of this problem could involve optimizing space usage further or considering edge cases, such as arrays with zeros, which this approach naturally handles well."
+
 # Pointers
 
 ## 125 - Valid Palindrome
