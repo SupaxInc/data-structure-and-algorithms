@@ -226,6 +226,28 @@ Conclude with any final insights or alternative considerations:
 - Uses string.find(’#’, i) to get the index of a character in a string
 - Uses string splicing
 
+## 128 - Longest Consecutive Sequence
+
+**Brute Force:**  Sort the array then check if each value is greater
+
+- Time Complexity: O(nlogn)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use a hash set to check sequences
+
+- Time Complexity: O(n)
+- Space Complexity: O(2n) → O(n)
+    - If a number is part of a sequence, it’ll be visited at most twice
+    - But if its a sequence itself, then visited once
+
+**Solution:** Using a hash set helps find left neighbors, if there aren’t it is the start of a sequence then we can loop to begin the consecutive sequence.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/577030d0-e93b-4132-b03e-b4f6eb467503/Untitled.png)
+
+**Unique uses:**
+
+- Uses a hash set
+
 # Pointers
 
 ## 125 - Valid Palindrome
