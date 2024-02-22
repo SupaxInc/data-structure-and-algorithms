@@ -1,1 +1,1 @@
-print(''.join(sorted('eat', key=str.lower)))
+print(2 // 3)
