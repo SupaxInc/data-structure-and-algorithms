@@ -185,6 +185,22 @@ Conclude with any final insights or alternative considerations:
 - "This solution demonstrates a balance between space and time complexity, leveraging the idea of cumulative products. It's a common strategy in problems where direct computation isn't feasible due to constraints like the prohibition of division."
 - "Exploring variations of this problem could involve optimizing space usage further or considering edge cases, such as arrays with zeros, which this approach naturally handles well."
 
+## 36 - Valid Sudoku
+
+**Optimized Approach: Use a set to check if a value already exists**
+
+- Time Complexity: O(9^2)
+- Space Complexity: O(1)
+
+**Solution:** Check duplicates for each rule by: Add values to a row using index of row were on as key, add values to a column using index of column were on as key, use integer division for each row and column to identify the 3x3 square (key = (r//3, c//3) we are on.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/05ecacab-086e-4894-bab3-002331ac6c93/Untitled.png)
+
+**Unique uses:**
+
+- Uses integer division to round down to nearest whole number,  effectively grouping a range of numbers into discrete buckets. In this case, 3x3 squares.
+- Uses a tuple as coordinate keys
+
 # Pointers
 
 ## 125 - Valid Palindrome
