@@ -201,6 +201,31 @@ Conclude with any final insights or alternative considerations:
 - Uses integer division to round down to nearest whole number,  effectively grouping a range of numbers into discrete buckets. In this case, 3x3 squares.
 - Uses a tuple as coordinate keys
 
+## 271 - Encode and Decode Strings
+
+**Harder Approach:** Use a string delimiter such as “#” and if you see one in the original string just escape it.
+
+**Issue:** Escape character may appear in original string, so we also have to escape the escape character
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Easier Approach:** Use the length of a string plus a string delimiter
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/57c9ef07-e57b-4299-8fa8-af5ba9ad8553/Untitled.png)
+
+- Time Complexity: O(n)
+    - Integer conversion from a string is generally O(m) where m is the number of digits, and since the lengths of strings being encoded/decoded are likely small relative to the total length of the input, their impact is minimal on the overall time complexity.
+- Space Complexity: O(n)
+
+**Solution:** “len(str)#” delimiter allows us to know the length of the string to slice the string that needs to be decoded.
+
+**Unique uses:**
+
+- Better than escaping characters “\#” which is more complex as we have to figure out a solution to escape escape characters
+- Uses string.find(’#’, i) to get the index of a character in a string
+- Uses string splicing
+
 # Pointers
 
 ## 125 - Valid Palindrome
