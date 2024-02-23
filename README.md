@@ -286,6 +286,24 @@ Conclude with any final insights or alternative considerations:
 
 **Solution:** Iteratively updates the lowest price seen so far and calculates the maximum profit possible at each step by comparing the current price with the lowest price.
 
+## 167 - Two Sum II, Input Array is Sorted
+
+**Brute Force:**  Nested for loop, compare each number
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use left and right pointer
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Use a left and right pointer and compare the sum of both pointers to the target, right goes down if total is greater, left goes up if total is smaller.
+
+**Unique uses:**
+
+- Left and right pointer
+
 # Stacks
 
 ## 20 - Valid Parentheses
