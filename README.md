@@ -304,6 +304,24 @@ Conclude with any final insights or alternative considerations:
 
 - Left and right pointer
 
+## 11 - Container with Most Water
+
+**Brute Force:**  Nested for loop, compare each number
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use left and right pointer
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Use a left and right pointer and find the area using min height to prevent water overflow. Move pointers based on which has smaller height
+
+**Unique uses:**
+
+- Left and right pointer
+
 # Stacks
 
 ## 20 - Valid Parentheses
