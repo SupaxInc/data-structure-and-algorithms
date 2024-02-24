@@ -318,9 +318,33 @@ Conclude with any final insights or alternative considerations:
 
 **Solution:** Use a left and right pointer and find the area using min height to prevent water overflow. Move pointers based on which has smaller height
 
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8adfa2cb-f5ca-43f5-a72d-83c09e5a3027/Untitled.png)
+
 **Unique uses:**
 
 - Left and right pointer
+
+## 15 - 3Sum
+
+**Brute Force:**  3 nested loops
+
+- Time Complexity: O(n^3)
+- Space Complexity: O(1)
+
+**Optimized Approach:** 2 nested loops, 1 loop to iterate 1st index, another loop to iterate 2nd and 3rd index using two pointers
+
+- Time Complexity: O(nlogn) + O(n^2) = O(n^2)
+- Space Complexity: O(1)
+
+**Solution:** Sort the numbers to easily find duplicates together, then use a loop for 1st index and a 2nd loop that has a two pointer approach to help reach target 0.
+
+**Unique uses:**
+
+- Two pointer approach to find if the target equals to 0
+    - Uses a while loop to move the other pointers
+- Sorting the array to easily find duplicates as neighbors.
+    - Only need to find duplicates based on 1st and 2nd index
+    - 3rd index is taken care of because at this point the left pointer has moved enough which means moving the right pointer to the same value will make the total too large. So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
 
 # Stacks
 
@@ -331,6 +355,8 @@ Conclude with any final insights or alternative considerations:
 **Optimized Approach[O(n)]:** Use a hashmap and stack
 
 **Solution:** Uses a stack to ensure that each closing bracket correctly matches and properly follows its corresponding opening bracket, returning false if the stack is empty or the top of the stack doesn't match the expected opening bracket for a given closing bracket.
+
+[([)]]
 
 # Binary Search
 

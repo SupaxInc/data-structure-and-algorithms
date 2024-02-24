@@ -27,25 +27,34 @@ class MySolution:
 class OptimalSolution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
-        nums.sort()
+        nums.sort() # Sort the numbers to find duplicate values as neighbours
 
         for i in range(0, len(nums)):
+            # Check the left neighbour of the 1st index for duplicates
             if i > 0 and nums[i] == nums[i-1]:
                 continue
             
+            # Create a left and right pointer after the 1st index
             l, r = i+1, len(nums) - 1
             while l < r:
-                
                 total = nums[i] + nums[l] + nums[r]
+                # Move pointers depending if the total is greater than or less than the target
                 if total < 0:
                     l += 1
                 elif total > 0:
                     r -= 1
                 else:
                     res.append([nums[i], nums[l], nums[r]])
+                    # If the target is currently at 0, we can move the left or right pointers. Doesn't matter which.
                     l += 1
+
+                    # Check for left neighbour duplicates for the 2nd index.
+                    # Loop until it's no longer a duplicate
                     while nums[l-1] == nums[l] and l < r:
                         l += 1
+                    # Do not need to check for neighbour duplicates for 3rd index
+                    # Since we move the right pointer based on if the total is too big
+                    # If we move the right pointer and get the same value then it'll just move it again because total is still big
         
         return res
                 
