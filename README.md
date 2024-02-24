@@ -268,24 +268,6 @@ Conclude with any final insights or alternative considerations:
 
 **Solution:**  Go through the string and create a new string by filtering out non-alphanumeric characters (is.digit(), is.alpha()). Compare the new string with the reverse of it.
 
-## 121 - Best Time to Buy and Sell Stock
-
-**Solution 1:**
-
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** Two pointers, 1 for loop
-
-**Solution:** Two-pointer approach to find the maximum profit by buying low and selling high, dynamically updating the pointers based on the current and next day's prices.
-
-**Solution 2:**
-
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** For loop
-
-**Solution:** Iteratively updates the lowest price seen so far and calculates the maximum profit possible at each step by comparing the current price with the lowest price.
-
 ## 167 - Two Sum II, Input Array is Sorted
 
 **Brute Force:**  Nested for loop, compare each number
@@ -345,6 +327,50 @@ Conclude with any final insights or alternative considerations:
 - Sorting the array to easily find duplicates as neighbors.
     - Only need to find duplicates based on 1st and 2nd index
     - 3rd index is taken care of because at this point the left pointer has moved enough which means moving the right pointer to the same value will make the total too large. So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
+
+# Sliding Window
+
+## 121 - Best Time to Buy and Sell Stock
+
+**Solution 1:**
+
+**Brute Force[O(n^2)]:** Nested for loop  ****
+
+**Optimized Approach[O(n)]:** Two pointers, 1 for loop
+
+**Solution:** Sliding window two-pointer approach to find the maximum profit by buying low and selling high, dynamically updating the pointers based on the current and next day's prices.
+
+**Unique Uses:**
+
+- Uses a dynamic sliding window technique
+    - It continues to slide the right side of the window until it hits some sort of parameter then moves the left side of the window
+
+**Solution 2:**
+
+**Brute Force[O(n^2)]:** Nested for loop  ****
+
+**Optimized Approach[O(n)]:** For loop
+
+**Solution:** Iteratively updates the lowest price seen so far and calculates the maximum profit possible at each step by comparing the current price with the lowest price.
+
+## 3 - Longest Substring Without Repeating Characters
+
+**Brute Force:**  Generate all possible substrings in a nested for loop using string[i:j+1] then generate a new set for each new spliced substring.
+
+- Time Complexity: O(n^3), O(n^2) for generating all substrings, O(n) for generating a set for each new substring. Therefore, O(n^2) * O(n) = O(n^3)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use dynamic sized sliding window
+
+- Time Complexity: O(2n), first for loop O(n) goes through all chars in string, second while loop that removes characters from the set could worst case be another O(n) if the entire string is entirely unique until the last character. Therefore, O(2n) = O(n).
+- Space Complexity: O(n)
+
+**Solution:** Use a dynamic sized sliding window, shrink it if the next character is already in a set, make it larger if its not in a set.
+
+**Unique uses:**
+
+- Uses a dynamic sliding window with auxiliary
+    - In this case it uses a hash set to check for duplicated characters
 
 # Stacks
 
