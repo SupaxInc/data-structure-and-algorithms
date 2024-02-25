@@ -398,7 +398,7 @@ Conclude with any final insights or alternative considerations:
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f8b86622-dae8-4442-bbb5-820e8f6cb4df/Untitled.png)
 
-- Solution 2: Instead of calculating the max count every iteration, just keep track of the max frequency.
+- Solution 2: Instead of calculating the max count every iteration, just keep track of the max frequency. All we really care about is which letter has the highest count in a given window since the max count that is first seen will always be the answer with the longest length of a valid window.
 
 **Unique uses:**
 
@@ -417,6 +417,41 @@ Conclude with any final insights or alternative considerations:
 2. **Maintaining `maxFreq`**: Describe how, instead of finding the max count each time, you opted to update a **`maxFreq`** variable whenever a character's frequency in the current window exceeded the previously recorded maximum. This change means that you only need to calculate the character frequency when it could potentially increase the **`maxFreq`**, significantly reducing the number of operations.
 3. **Adjusting the Window Based on `maxFreq`**: Clarify that with the **`maxFreq`** value, you could efficiently determine the window's validity by checking if the current window size minus **`maxFreq`** exceeded **`k`**. This check ensures that you're always working with a window that could potentially be made valid with up to **`k`** replacements.
 4. **Window Shrink Logic**: Mention that when shrinking the window (by incrementing the **`start`** pointer), you didn't need to decrement **`maxFreq`** because the window's validity is determined based on the difference between the window size and **`maxFreq`**. This avoids the need for recalculating **`maxFreq`** when shrinking the window, further optimizing the solution.
+
+## 567 - Permutation in String
+
+**Brute Force:**  Use “from itertools import permutations” to generate permutations of the input string. Then check if all permutations are in s2 (O(n) operation).
+
+- Time Complexity: O(n! * m) where m is length of s2 and n! is the possibilities of different permutations for a given string.
+- Space Complexity: O(n!) since we may need to store n! strings.
+
+**Optimized Approach:** Use two hashmaps to count frequencies between both strings then compare them.
+
+- Time Complexity: O(26) + O(n) + O(m) = O(m) where m is length of s2. O(26) is comparing 26 keys between both hashmaps every iteration.
+- Space Complexity: O(n)
+
+**Most Optimized Approach:** Use 1 hashmap to count s1 letters then use a matches variable. 
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** 
+
+- Solution 1: Use two hashmaps to count the frequency in a fixed window length based on string 1 length. Decrease count for s2 count when we move the window. Compare the two hash maps for a valid permutation if both character frequencies are the same.
+- Solution 2: Use one hashmap to count string 1 and have a new matches variable, decrease the counts in string 1 if its found in string 2. If the counts in string 1 becomes 0 then it matches, so increment the matches counter. If matches == length of string 1 then its a permutation.
+
+**Unique uses:**
+
+- Uses a matches variable to increment if a frequency count is 0 based on if its found on the valid window length
+- Uses fixed sliding window
+
+### What is a permutation?
+
+A string permutation refers to any of the possible arrangements of its characters. For example, if you have the string "abc," its permutations include "abc," "acb," "bac," "bca," "cab," and "cba." In a broader algorithmic or combinatorial context, the term "permutation" can refer to the act of rearranging the elements of a set in all possible ways.
+
+Similar to an anagram.
+
+**Permutation Comparison**: Depending on the context, comparing string permutations might loosely imply checking if both strings contain the same set of characters without regard to order. It might not strictly require that the character frequencies match unless explicitly stated.
 
 # Stacks
 
