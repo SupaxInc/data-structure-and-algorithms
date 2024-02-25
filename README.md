@@ -438,6 +438,9 @@ Conclude with any final insights or alternative considerations:
 **Solution:** 
 
 - Solution 1: Use two hashmaps to count the frequency in a fixed window length based on string 1 length. Decrease count for s2 count when we move the window. Compare the two hash maps for a valid permutation if both character frequencies are the same.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/96b15fbb-ae73-4a20-95a4-203862571fd8/Untitled.png)
+
 - Solution 2: Use one hashmap to count string 1 and have a new matches variable, decrease the counts in string 1 if its found in string 2. If the counts in string 1 becomes 0 then it matches, so increment the matches counter. If matches == length of string 1 then its a permutation.
 
 **Unique uses:**
@@ -463,7 +466,26 @@ Similar to an anagram.
 
 **Solution:** Uses a stack to ensure that each closing bracket correctly matches and properly follows its corresponding opening bracket, returning false if the stack is empty or the top of the stack doesn't match the expected opening bracket for a given closing bracket.
 
-[([)]]
+## 155 - Min Stack
+
+**Brute Force:**  Use a min function for the entire stack array every time getMin is called
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a second stack to place all the min numbers
+
+- Time Complexity: O(1)
+- Space Complexity: O(n)
+
+**Solution:** Use two stacks, 1 for the actual stack, the other for the min numbers for the current position of the actual stack.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/dfa2452c-b65e-44bc-ac48-fcd614cf78dd/Untitled.png)
+
+**Unique uses:**
+
+- Uses a second stack to see what min number is within an array
+- Compares with a positive infinite number to find the min number
 
 # Binary Search
 
