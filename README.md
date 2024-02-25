@@ -367,10 +367,56 @@ Conclude with any final insights or alternative considerations:
 
 **Solution:** Use a dynamic sized sliding window, shrink it if the next character is already in a set, make it larger if its not in a set.
 
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a41dd81f-fd3f-459d-ad8c-feb58ab095a5/Untitled.png)
+
 **Unique uses:**
 
 - Uses a dynamic sliding window with auxiliary
     - In this case it uses a hash set to check for duplicated characters
+    - Uses a while loop with left pointer to shrink the sliding window
+
+## 424 - Longest Repeating Character Replacement
+
+**Brute Force:**  Find all substrings and check the max length of a non repeating character for each susbtring
+
+- Time Complexity: O(n^3)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use a frequency map and keep track of the max count in the map.
+
+- Time Complexity: O(n) for iterating over all chars in string + O(26) checking the max of counts every iteration for a total of 26 letters= O(26n) = O(n)
+- Space Complexity: O(1)
+
+**Most Optimized Approach:** Keep track of the max frequency character seen so far and no need to recalculate. If **`maxFreq`** were to be significantly overestimated, it would only temporarily allow a larger window, which is corrected by the while loop condition without needing to explicitly decrease **`maxFreq`**.
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** 
+
+- Solution 1:  Keep track of the most frequent characters in a map, shrink the window if length of the window minus max count of the map is greater than K (the amount of letters we can replace) since max count is classified as the longest repeating character.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f8b86622-dae8-4442-bbb5-820e8f6cb4df/Untitled.png)
+
+- Solution 2: Instead of calculating the max count every iteration, just keep track of the max frequency.
+
+**Unique uses:**
+
+- Uses dynamic size window with auxiliary
+
+### Explaining 424 to interviewers to reach most optimal solution
+
+### **Initial Approach Explanation**
+
+1. **Initial Strategy**: Start by explaining your initial approach, emphasizing that you aimed to ensure correctness by dynamically calculating the count of the most frequent character in the window to determine if the window could be valid with at most **`k`** replacements.
+2. **Identified Bottleneck**: Acknowledge that while the initial solution correctly solves the problem, you recognized a performance bottleneck. Specifically, recalculating **`max(count.values())`** for each iteration introduces unnecessary computational overhead, especially since this calculation is constant-time per iteration but multiplied across all **`n`** iterations, leading to O(26n) complexity.
+
+### **Transition to Optimized Solution**
+
+1. **Optimization Insight**: Explain that upon reviewing the problem, you realized that the key to optimizing was to reduce the repeated work done in calculating the maximum frequency character in each iteration. By maintaining the maximum frequency seen so far (**`maxFreq`**) as characters are added to the window, you could avoid recalculating the max frequency from scratch.
+2. **Maintaining `maxFreq`**: Describe how, instead of finding the max count each time, you opted to update a **`maxFreq`** variable whenever a character's frequency in the current window exceeded the previously recorded maximum. This change means that you only need to calculate the character frequency when it could potentially increase the **`maxFreq`**, significantly reducing the number of operations.
+3. **Adjusting the Window Based on `maxFreq`**: Clarify that with the **`maxFreq`** value, you could efficiently determine the window's validity by checking if the current window size minus **`maxFreq`** exceeded **`k`**. This check ensures that you're always working with a window that could potentially be made valid with up to **`k`** replacements.
+4. **Window Shrink Logic**: Mention that when shrinking the window (by incrementing the **`start`** pointer), you didn't need to decrement **`maxFreq`** because the window's validity is determined based on the difference between the window size and **`maxFreq`**. This avoids the need for recalculating **`maxFreq`** when shrinking the window, further optimizing the solution.
 
 # Stacks
 
