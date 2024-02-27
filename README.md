@@ -487,6 +487,23 @@ Similar to an anagram.
 - Uses a second stack to see what min number is within an array
 - Compares with a positive infinite number to find the min number
 
+## 150 - Evaluate Reverse Polish Notation
+
+**Approach:** Use a stack
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Push numbers to the stack, pop the stack when an operator shows and perform the operation on the last 2 numbers (the 2nd popped number should be first in the operation). Push the result to the stack.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a2960a10-46a4-46f9-ab2c-fcb481deac55/Untitled.png)
+
+**Unique uses:**
+
+- Converts a floating point number to an int to truncate to 0
+    - Floor division with //, is wrong here as it truncates to -Infinity
+- isdigit() cannot be used to check if a string is a number as it only checks for 0-9
+
 # Binary Search
 
 ## 704 - Binary Search

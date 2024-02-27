@@ -1,1 +1,1 @@
-print('-11'.isdigit())
+print(int(20/13))

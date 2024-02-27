@@ -14,5 +14,8 @@ class Solution:
                 elif token == '*':
                     stack.append(left * right)
                 elif token == '/':
-                    stack.append(int(float(left) / right))
+                    # Dividing left and right would create a floating point number
+                    # We convert it to an int so that it truncates to 0 (e.g -3.5 to -3)
+                    # // would not work here as it truncates to -Infinity (e.g -3.5 to -4)
+                    stack.append(int(left / right))
         return stack[0]
