@@ -504,6 +504,29 @@ Similar to an anagram.
     - Floor division with //, is wrong here as it truncates to -Infinity
 - isdigit() cannot be used to check if a string is a number as it only checks for 0-9
 
+## 739 - Daily Temperatures
+
+**Brute Force:** Nested for loop that checks current temperature across all temperatures except for current
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use monotonic decreasing stack
+
+- Time Complexity: O(n)
+    - While loop simply pops out stack elements one by one and there can’t be more than n elements pushed inside the stack as every element is pushed once. Therefore nested while loop will also not execute more than n times. The inner loop will not be counted as a nested loop until its covers n elements.
+- Space Complexity: O(n)
+
+**Solution:** Use a monotonic decreasing 2d array stack to help find the next greatest temp number. Check the top of the stack and pop when you find the next greatest number.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9a49265-ddef-4476-b90d-9c15927237cb/Untitled.png)
+
+**Unique uses:**
+
+- 2D array helps keep track of what index the previous temp number was
+- Monotonic decreasing stack is uses to maintain elements in a decreasing order from the bottom to top
+    - In this specific problem, we use it to find the next greatest element of a previous temperature
+
 # Binary Search
 
 ## 704 - Binary Search
