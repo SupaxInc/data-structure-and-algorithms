@@ -529,6 +529,8 @@ Similar to an anagram.
 
 ## 853 - Car Fleets
 
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fd8b7178-aeae-4c6e-b228-e6aa32b86a81/Untitled.png)
+
 **Brute Force:**  Calculate the time using a sorted list of position and speed, then iterate through the times and count the new fleets.
 
 - Time Complexity:  O(n), could become more expensive dealing with fleet mergers
@@ -540,6 +542,8 @@ Similar to an anagram.
 - Space Complexity: O(n)
 
 **Solution:** Zip the position and speed. Sort it to get cars beside each other to easily find which cars join a fleet. Calculate the time it takes for a car to reach target and push it to a stack if it is a fleet. 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/709ef3ff-b3eb-43dd-972b-58461f88b809/Untitled.png)
 
 **Unique uses:**
 
