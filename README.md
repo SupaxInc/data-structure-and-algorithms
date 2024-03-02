@@ -527,6 +527,28 @@ Similar to an anagram.
 - Monotonic decreasing stack is uses to maintain elements in a decreasing order from the bottom to top
     - In this specific problem, we use it to find the next greatest element of a previous temperature
 
+## 853 - Car Fleets
+
+**Brute Force:**  Calculate the time using a sorted list of position and speed, then iterate through the times and count the new fleets.
+
+- Time Complexity:  O(n), could become more expensive dealing with fleet mergers
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a monotonic decreasing stack 
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Zip the position and speed. Sort it to get cars beside each other to easily find which cars join a fleet. Calculate the time it takes for a car to reach target and push it to a stack if it is a fleet. 
+
+**Unique uses:**
+
+- Uses sorted and zip
+    - Sorted sorts an iterable list like tuples, list, dictionaries, etc.
+    - Zip combines two arrays by joining the elements in the same index as a tuple
+- Uses reverse=True to reverse an array
+- Uses a monotonic decrease stack algorithm to find the next greater element
+
 # Binary Search
 
 ## 704 - Binary Search
