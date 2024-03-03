@@ -661,6 +661,27 @@ Similar to an anagram.
     - If the mid number is greater than end then it means its rotated in a way that the smaller numbers are on the left.
     - If the mid number is smaller than the end then it means its rotated where the smaller numbers are on the right.
 
+## 33 - Search in Rotated Sorted Array
+
+**Brute Force:**  Just iterate through array and find index of target
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use binary search
+
+- Time Complexity: O(log n)
+- Space Complexity: O(1)
+
+**Solution:** Find out if you are in right or left sorted portion of the array. Binary search based on which side you are on and if target is on the rotated portion or if it is greater or less than our current mid index.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/08c16a56-47cc-4265-830e-632dbd508557/Untitled.png)
+
+**Unique uses:**
+
+- Binary searching a rotated sorted array
+    - Checks which portion of the sorted array you are on
+
 # Linked List
 
 ## 206 - Reversed Linked List
