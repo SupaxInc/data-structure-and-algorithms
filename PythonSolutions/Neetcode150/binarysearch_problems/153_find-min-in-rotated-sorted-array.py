@@ -8,8 +8,8 @@ class Solution:
             minNum = min(minNum, nums[mid])
 
             # If the number in the middle is greater than the number at the end
-            # Then we search on the left side of the array
-            # This is because if the array is sorted then the end will have a different value than the middle
+            # Then we search on the right side of the array
+            # This is because the array will be sorted in a way that the min numbers are on the right
             if nums[mid] > nums[hi]:
                 lo = mid + 1
             else:
