@@ -639,6 +639,28 @@ Similar to an anagram.
 - Loops through an array within a binary search
 - Math.ceil to round up
 
+## 153 - Find Minimum in Rotated Sorted Array
+
+**Brute Force:**  Loop through entire array and calculate min each element
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use binary search
+
+- Time Complexity: O(log n)
+- Space Complexity: O(1)
+
+**Solution:** Binary search to check if the middle number is greater than the end, if it is search left, else search right.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ca01a870-b529-459e-9616-42cfcc7a1dda/Untitled.png)
+
+**Unique uses:**
+
+- Binary searching on a rotated sorted array
+    - If the mid number is greater than end then it means its rotated in a way that the smaller numbers are on the left.
+    - If the mid number is smaller than the end then it means its rotated where the smaller numbers are on the right.
+
 # Linked List
 
 ## 206 - Reversed Linked List
