@@ -617,6 +617,28 @@ Similar to an anagram.
 1. **Flattening the Matrix**: Describe how you "flatten" the matrix in a logical sense (without actually creating a new array) by mapping a 1D index to 2D row and column indices. Clarify the use of the formulas for row and column (**`row = idx // n`** and **`col = idx % n`**) and why dividing by the number of columns (**`n`**) correctly maps indices.
 2. **Binary Search Application**: Detail how you apply binary search using the 1D index over the virtual flattened array. Highlight the reduction in time complexity to O(log(m*n)) because you're now performing a single binary search over the entire matrix, treating it as a sorted list.
 
+## 875 - Koko Eating Bananas
+
+**Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the piles then loop through each K per banana piles
+
+- Time Complexity: O(p * max(P))
+- Space Complexity: O(max(P))
+
+**Optimized Approach:** Use binary search within a K array
+
+- Time Complexity: O(p * log(max(P)))
+    - Max of the piles since we know for sure the if bananas per hour eat speed is equal to the max piles. Koko would be able to hit the hour limit.
+- Space Complexity: O(1)
+
+**Solution:** Have a low and high pointer where it is the range of amount of bananas Koko can eat per hour. Binary search this range to find the min K to check if the hours to take to eat the piles is within the hour limit.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/cb83cbe7-f454-42b8-8b5e-ed5ad3ed286e/Untitled.png)
+
+**Unique uses:**
+
+- Loops through an array within a binary search
+- Math.ceil to round up
+
 # Linked List
 
 ## 206 - Reversed Linked List
