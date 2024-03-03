@@ -682,6 +682,28 @@ Similar to an anagram.
 - Binary searching a rotated sorted array
     - Checks which portion of the sorted array you are on
 
+## 981 - Time Based Key Value Store
+
+**Brute Force:** Just normally loop through the list of time map values
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Binary search the list of time map values
+
+- Time Complexity: O(log n)
+- Space Complexity: O(n)
+
+**Solution:** Timestamps are added strictly ascending, since its sorted we can binary search it. If the mid time stamp value is less or equal to target timestamp search on the right to find the highest previous time stamp.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/83d1294a-1368-430f-a8ce-3faa3b2820b2/Untitled.png)
+
+**Unique uses:**
+
+- Uses a hash table that maps values to a 2d array of value, timestamp pairing.
+    - Timestamps are added ascending so we can binary search to find the highest previous time stamp or equal to target time stamp.
+- Uses default dict
+
 # Linked List
 
 ## 206 - Reversed Linked List
