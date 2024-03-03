@@ -26,8 +26,8 @@ class OptimizedSolution:
         start = 0
 
         for end in range(len(s)):
-            # Update the count for the current character
             count[s[end]] += 1
+            
             # Update maxFreq if the current character's frequency is the highest seen so far
             maxFreq = max(maxFreq, count[s[end]])
 
