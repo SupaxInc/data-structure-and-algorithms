@@ -588,12 +588,16 @@ Similar to an anagram.
 **Unique uses:**
 
 - Finds coordinates of an index in a 2d matrix
-    - y coordinate: index // n
+    - **y coordinate: index // n**
         - **`n`**, the number of columns, represents the width of each row.
         - Therefore, dividing a linear index (**`idx`**) by **`n`** gives you the row index because it tells you how many full rows you've "passed" to reach the position represented by **`idx`**.
-    - x coordinate: index % n
+            - For example, index = 6, number of columns = 4
+                - 6 // 4 = 1, tells us that we’ve passed 1 full row of 4 columns.
+    - **x coordinate: index % n**
         - We need to determine the position within the row.
         - The modulus operation (**`idx % n`**) gives the column index because it represents the remainder after dividing **`idx`** by the row width (**`n`**), indicating the offset from the start of the row.
+            - For example, index = 6, number of columns = 4
+                - 6 % 4 = 2, tells us the start of the row we’re in
 - Flattening a 2d array as a 1d array
 
 ### Explaining 74 to an interviewer
