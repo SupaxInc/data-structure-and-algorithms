@@ -710,7 +710,7 @@ Similar to an anagram.
 
 **Optimized Approach[O(n)]:** Normal traversal through a linked list
 
-**Solution:** Iteratively reverse a singly-linked list by using a temp pointer of the next current node then using the next node of the current node to point to the previous node effectively creating a reversal. The current node then becomes the temp pointer to restart the process again. 
+**Solution:** Point a temp pointer to ****the next current node then using the next node of the current node to point to the previous node effectively creating a reversal. The current node then becomes the temp pointer to restart the process again. 
 
 ## 21 - Merged Two Sorted Lists
 
@@ -742,6 +742,29 @@ Similar to an anagram.
 - Space Complexity: O(1)
 
 **Solution:** The solution uses Floyd's Tortoise and Hare algorithm, where two pointers move at different speeds through the list, and a cycle is detected if the slow pointer meets the fast pointer.
+
+## 143 - Reorder List
+
+**Brute Force:**  Convert linked list to array, reorder the array, rebuild the linked list
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Re-build linked list in-memory
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Find mid point using slow and fast pointers, get second list from slow pointer, reverse second list, then merge the lists.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fa7d1b48-e72c-4815-8787-405be58f4090/Untitled.png)
+
+**Unique uses:**
+
+- Slow and fast pointers to find mid point of a linked list
+- Rebuilding a linked list in memory by referencing the head to new variables and variable point to new places in memory
+- Reversing a linked list
+- Merging two linked lists together using 2 temp pointers
 
 # Binary Tree
 
