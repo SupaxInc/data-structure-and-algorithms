@@ -766,6 +766,28 @@ Similar to an anagram.
 - Reversing a linked list
 - Merging two linked lists together using 2 temp pointers
 
+## 19 - Remove Nth Node from End of List
+
+**Brute Force:**  Reverse the list
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Optimized Approach:** Use two pointers, similar to slow and fast pointers
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Slow and fast pointer approach but the fast pointer does not go faster, it just gets a head start of nth times. Slow pointer will end up at target node, so we need a dummy node that points to the head.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8cbd93cc-16f9-44e0-908d-29a9abf1ee08/Untitled.png)
+
+**Unique uses:**
+
+- Slow and fast pointer approach to get nth node from end.
+    - Slow ends up at target node since fast pointer has a head start of nth amount
+- Uses a dummy node so our slow pointer doesn’t end up at target that we need to remove
+
 # Binary Tree
 
 ## 226 - Invert Binary Tree
