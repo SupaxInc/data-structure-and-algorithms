@@ -801,11 +801,34 @@ Similar to an anagram.
 
 **Unique uses:**
 
-- Checks if the total number has a carry associated with it (long addition)
+- Checks if the total number has a carry associated with it (long addition), you can do this with floor division
     - Adds the carry to next node over
     - A carry may go through at the end of a list which is an edge case. So we have to add a new node of 1
-- Checks for remainder using mod to get the 2nd digit of a number greater than 9
+- Checks for remainder using mod to get the 2nd digit of a number greater than 9 (e.g. 11 % 10 = 1)
 - Uses dummy node to have a reference of the head of the node were traversing through
+
+## 287 - Find the Duplicate Number
+
+**Brute Force:**  Use a hashmap
+
+- Time Complexity:  O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a “linked list”
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Use the indices as a “pointer” to connect to other indices. Detect the cycle and find the intersection point. Then find the cycle entry point by starting from the beginning and from the cycle intersection point 1 by 1. The distance between intersection and entry point is the same ( p = c - x). 
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/296644c2-1bf3-4636-adbf-3ad0ee0c74f3/Untitled.png)
+
+**Unique uses:**
+
+- Pretends a list is a linked list by using the indices as pointers
+- The cycle entry point is the duplicate number value
+    - To find entry point, we move 1 by 1 from the beginning and the cycle intersection point
+    - Using mathematical proofs, the distance between entry and intersection is the same, thus finding the cycle entry point.
 
 # Binary Tree
 
