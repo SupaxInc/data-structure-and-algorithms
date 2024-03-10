@@ -21,7 +21,7 @@ class LRUCache:
         prev.next = node
         node.next = next
         next.prev = node
-        self.cache[node.key] = node
+        self.cache[node.key] = node # Map the new node to the node's key
 
     # Remove an existing node from anywhere in the list
     def _remove(self, node):
