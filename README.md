@@ -830,6 +830,21 @@ Similar to an anagram.
     - To find entry point, we move 1 by 1 from the beginning and the cycle intersection point
     - Using mathematical proofs, the distance between entry and intersection is the same, thus finding the cycle entry point.
 
+## 138 - Copy List with Random Pointer
+
+**Optimized Approach: Use a hashmap** 
+
+- Time Complexity: O(n) + O(n) = O(n)
+- Space Complexity: O(n)
+
+**Solution:** Use a hashmap to map old current nodes to new nodes. 1st iteration will map with just values, 2nd iteration will map next and random pointers. Two iterations is needed as random pointers could map to non-existent nodes.
+
+**Unique uses:**
+
+- Uses a dictionary as a key in a hash map
+- The hash map maps the new copied node as value so it allows us to map next nodes and random nodes
+    - Mapping in just 1 iteration is not possible as we could map to non-existed forward nodes in the singly linked list
+
 # Binary Tree
 
 ## 226 - Invert Binary Tree
