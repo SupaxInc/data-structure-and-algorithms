@@ -967,12 +967,27 @@ Similar to an anagram.
 
 ## 102 - Binary Tree Level Order Traversal
 
-**Optimized Approach: BFS level order traversal**
+**Optimized Approach:** BFS level order traversal
 
 - Time Complexity: O(n)
 - Space Complexity: O(n)
 
 **Solution:** Have a for loop that will traverse through all nodes in current level first before moving to next level with the queue
+
+**Unique uses:** 
+
+- Traverses through entire level first in BFS as opposed to looking through next level
+
+## 199 - Binary Tree Right Side View
+
+**Optimized Approach: BFS level order traversal**
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Use level order traversal BFS and grab the value of the last node in the level using the index and length of queue. Allows us to see only nodes from the right side POV.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69ab5337-7209-40a9-b106-27a2c9fae2e0/Untitled.png)
 
 **Unique uses:** 
 
