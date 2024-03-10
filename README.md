@@ -945,6 +945,26 @@ Similar to an anagram.
 
 - Uses recursion within a recursion
 
+## 235 - Lowest Common Ancestor of a Binary Search Tree
+
+**Optimized Approach:** Just traverse down the tree iteratively
+
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
+**Solution:** Traverse from the root and moving left or right depending on the nodes' values, stopping when it finds the first node that is between the two target nodes or equal to one of them, leveraging the BST property where left nodes are less than the parent and right nodes are greater.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7269b7e8-a930-4590-bc06-b8cc4c93755f/Untitled.png)
+
+**Unique uses:**
+
+- Does not use BFS or DFS to go down a tree, just go down from the root and find where to go depending on which node values are greater
+- A lowest common ancestor is based on two cases:
+    - If the node is between two target nodes so they are in different sub trees
+        - Different subtrees means that we can’t find deeper common ancestors
+    - If the node is equal to one of the target nodes
+        - A node can be a descendant of itsself
+
 # Heap/Priority Queues
 
 ## 703 - Kth Largest Number
