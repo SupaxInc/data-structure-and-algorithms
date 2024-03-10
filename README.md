@@ -965,6 +965,19 @@ Similar to an anagram.
     - If the node is equal to one of the target nodes
         - A node can be a descendant of itsself
 
+## 102 - Binary Tree Level Order Traversal
+
+**Optimized Approach: BFS level order traversal**
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Have a for loop that will traverse through all nodes in current level first before moving to next level with the queue
+
+**Unique uses:** 
+
+- Traverses through entire level first in BFS as opposed to looking through next level
+
 # Heap/Priority Queues
 
 ## 703 - Kth Largest Number
