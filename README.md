@@ -980,7 +980,7 @@ Similar to an anagram.
 
 ## 199 - Binary Tree Right Side View
 
-**Optimized Approach: BFS level order traversal**
+**Optimized Approach:** BFS level order traversal
 
 - Time Complexity: O(n)
 - Space Complexity: O(n)
@@ -992,6 +992,20 @@ Similar to an anagram.
 **Unique uses:** 
 
 - Traverses through entire level first in BFS as opposed to looking through next level
+
+## 1448 - Count Good Nodes in Binary Tree
+
+**Optimized Approach:** DFS traversal
+
+- Time Complexity: O(n)
+- Space Complexity: O(h)
+
+**Solution:** Use preorder DFS to be able to find the max for the current path as it resets each propagation to previous value that was passed to prevent the max for being counted along other paths. The propagated return value would be the count as we need the accumulated count for both sub trees.
+
+**Unique uses:** 
+
+- Traverses through using preorder DFS
+    - Allows us to accumulate the propagated count from both left and right subtrees
 
 # Heap/Priority Queues
 
