@@ -978,6 +978,29 @@ Similar to an anagram.
 
 - Traverses through entire level first in BFS as opposed to looking through next level
 
+## 98 - Validate Binary Search Tree
+
+**Optimized Approach:** DFS
+
+- Time Complexity: O(n)
+- Space Complexity: O(h)
+
+**Solution:** Validate the range of each current node value between low and high values. Going left means change high value (node in left subtree must have values less than current node) and going right means change low value (node in right subtree must have values greater than current node)
+
+**Unique uses:** 
+
+- We pass parameters to the recursive call so that it resets to previous value when the stack pops
+
+### Explain 98 to interviewer
+
+1. **Start with the BST Property**: Begin by stating the BST property clearly - for any node in a BST, all nodes in its left subtree must have values less than the node’s value, and all nodes in its right subtree must have values greater. Highlight that this property must hold not just between direct parent-child nodes but for all ancestor-descendant relationships.
+2. **Introduce the Recursive Strategy**: Explain that you'll use a recursive depth-first search strategy to traverse the tree. Mention that the key to this approach is carrying along the maximum and minimum values a node can have, which are determined based on its position relative to its ancestors. This ensures that the BST property is validated not just locally but throughout the entire path from the root to each leaf.
+3. **Describe the Helper Function**: Clarify that you've defined a helper function, **`validate`**, which checks if a node's value falls within a valid range (**`low < node.val < high`**). The function starts at the root with the range set to negative and positive infinity, meaning any value is initially valid.
+4. **Explain the Recursion and Range Updates**: Detail how, for each node visited, the function makes two recursive calls - one for the left child and one for the right child. For the left child, the function updates the **`high`** limit to the current node's value because everything in the left subtree must be less than the current node. Similarly, for the right child, it updates the **`low`** limit to the current node's value. This dynamically adjusts the valid value range as the recursion moves deeper into the tree.
+5. **Highlight the Base Case and Validation Logic**: Mention the base case of the recursion - when a node is **`None`**, indicating a leaf's child has been reached successfully, and thus, that path is considered valid. Then, emphasize that if a node falls outside its valid range, the tree violates the BST property, and the function returns **`False`**.
+6. **Combining Results with Logical AND**: Explain that both the left and right subtrees must validate for the tree to be considered a BST. This is achieved through a logical AND between the results of the recursive calls. If either side returns **`False`**, the entire subtree is invalid.
+7. **Final Result**: Conclude by stating that the recursion starts at the root and explores every path, ensuring every node meets the BST criteria based on its position. The initial call to the helper function thus determines whether the entire tree is a valid BST.
+
 ## 199 - Binary Tree Right Side View
 
 **Optimized Approach:** BFS level order traversal
@@ -994,6 +1017,8 @@ Similar to an anagram.
 - Traverses through entire level first in BFS as opposed to looking through next level
 
 ## 1448 - Count Good Nodes in Binary Tree
+
+**NOTE: GREAT IF YOU WANT TO UNDERSTAND HOW VALUES ARE PROPAGATED**
 
 **Optimized Approach:** DFS traversal
 
