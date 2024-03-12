@@ -1032,6 +1032,20 @@ Similar to an anagram.
 - Traverses through using preorder DFS
     - Allows us to accumulate the propagated count from both left and right subtrees
 
+## 230 - Kth Smallest Element in Tree
+
+**Optimized Approach:** Iterative DFS or Recursive DFS
+
+- Time Complexity: Same time complexity O(n)
+- Space Complexity: Iterative may have better space complexity due to non-recursive calls
+
+**Solution: Use Inorder traversal and have a counter to check if it equals Kth number.** 
+
+**Unique uses:**
+
+- Uses iterative DFS
+- Uses Inorder traversal
+
 # Heap/Priority Queues
 
 ## 703 - Kth Largest Number
