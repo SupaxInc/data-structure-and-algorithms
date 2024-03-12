@@ -29,7 +29,7 @@ class RecursiveSolution:
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class IterativeSolution:
+class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         if not root:
             return None
@@ -42,10 +42,12 @@ class IterativeSolution:
                 stack.append(curr)
                 curr = curr.left
             # Current should be none at this point
+                # So we pop the stack, in which is no longer None 
+                # Since we now have a new node from the stack
             curr = stack.pop()
             # Inorder case
             count += 1
-            if curr and count == k:
+            if count == k:
                 return curr.val
-            # Visit left sub tree now go right
+            # Visited left sub tree now go right
             curr = curr.right
