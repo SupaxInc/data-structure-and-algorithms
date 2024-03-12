@@ -1039,12 +1039,75 @@ Similar to an anagram.
 - Time Complexity: Same time complexity O(n)
 - Space Complexity: Iterative may have better space complexity due to non-recursive calls
 
-**Solution: Use Inorder traversal and have a counter to check if it equals Kth number.** 
+**Solution:** Use Inorder traversal and have a counter to check if it equals Kth number. 
 
 **Unique uses:**
 
 - Uses iterative DFS
 - Uses Inorder traversal
+
+## 105 - Construct Binary Tree from Inorder and Preorder Traversal
+
+**Not Optimized Approach:** Using .index() every recursive call
+
+- Time Complexity: O(n^2)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Mapping index instead of using .index()
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Solution:** Identify the root from the preorder list, finding its position in the inorder list to divide the tree into left and right subtrees, and then recursively doing the same for each subtree.
+
+**Unique uses:**
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/321be0a3-5d92-4bbb-af62-ff1875216ad5/Untitled.png)
+
+- First value in **Preorder** is the root node
+- The first value will be a middle value in **Inorder**
+    - Left side of middle is left sub tree, right side is right sub tree
+- How to partition:
+    - The size of the sub arrays in Inorder array tells us how to partition the Preorder array
+    - It’ll tell us how much length to cut from the preorder array
+    - We will recursively run on the left and right sub array of the Preorder array
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/80b1a0f0-833d-4ed4-b208-2a28d694c6da/Untitled.png)
+    
+- Uses list slicing
+    - Preorder List Slicing
+        1. **`preorder[1:mid+1]`**:
+            - This slice is intended to get the elements of the left subtree.
+            - The **`1`** indicates that we start from the element right after the root node in the preorder list since the first element (**`0`** index) is the root.
+            - **`mid+1`** indicates the end of the slice. Since slices are exclusive on the end, **`mid`** corresponds to the number of elements in the left subtree, which is the same as the position of the root in the inorder list. The slice goes up to, but does not include, **`mid+1`**, effectively capturing all elements that belong to the left subtree according to the preorder sequence.
+        2. **`preorder[mid+1:]`**:
+            - This slice selects the elements of the right subtree.
+            - Starting from **`mid+1`**, it includes all elements from that position to the end of the list. These elements are part of the right subtree, following the root-left-right order of preorder traversal.
+    - Inorder List Slicing
+        1. **`inorder[:mid]`**:
+            - This slice gets all elements before the root in the inorder traversal, which correspond to the left subtree.
+            - **`:mid`** means it starts from the beginning of the list up to, but not including, **`mid`**, the position where the root element is found. These are all the elements that belong to the left subtree.
+        2. **`inorder[mid+1:]`**:
+            - This slice is for the elements after the root in the inorder list, which belong to the right subtree.
+            - **`mid+1:`** starts the slice from the element right after the root and includes everything to the end of the list. This captures the entire right subtree.
+- How it all works:
+    
+    ### **Slicing for Left Subtree**
+    
+    - **Preorder for Left Subtree**: We take elements from the preorder list that belong to the left subtree: **`preorder[1:mid+1]`** → **`preorder[1:2]`** → **`[9]`**. This indicates that **`9`** is the root (and the only node) of the left subtree.
+    - **Inorder for Left Subtree**: Similarly, we take elements before the root **`3`** in the inorder list for the left subtree: **`inorder[:mid]`** → **`inorder[:1]`** → **`[9]`**. The left subtree consists of a single node **`9`**, confirmed by both lists.
+    
+    ### **Slicing for Right Subtree**
+    
+    - **Preorder for Right Subtree**: For the right subtree, we take the remaining elements in the preorder list after those belonging to the left subtree and the root: **`preorder[mid+1:]`** → **`preorder[2:]`** → **`[20, 15, 7]`**. This indicates that **`20`** is the root of the right subtree, with **`15`** and **`7`** as its children.
+    - **Inorder for Right Subtree**: For the right subtree in the inorder list, we take elements after the root **`3`**: **`inorder[mid+1:]`** → **`inorder[2:]`** → **`[15, 20, 7]`**. This confirms the structure of the right subtree, with **`20`** as the root and **`15`** and **`7`** as left and right children, respectively.
+    
+    ### **Recursive Construction**
+    
+    Using these sliced lists, the algorithm recursively constructs the left subtree with **`[9]`** and the right subtree with **`[20, 15, 7]`** using the same process:
+    
+    1. For the left subtree **`[9]`**, there's no further subdivision since it's a single-node subtree.
+    2. For the right subtree **`[20, 15, 7]`**, **`20`** is identified as the root in the next recursive call, and further slicing is used to construct its left and right children (**`15`** and **`7`**).
 
 # Heap/Priority Queues
 
