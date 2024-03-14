@@ -20,7 +20,7 @@ class Solution:
             # We can add the max depth of both sub trees to get the max diameter
             maxDiameter = max(maxDiameter, left + right) 
 
-            # Return the max depth of the current subtree
+            # Return the max depth of the current subtree including current root level
             # Adds a 1 to add for the height of the current node continously
             return 1 + max(left, right)  
         

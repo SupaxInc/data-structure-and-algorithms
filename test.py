@@ -1,2 +1,1 @@
-stack = [[10, 0]]
-print(stack.pop()[1])
+print(ord("c") - ord("a"))
