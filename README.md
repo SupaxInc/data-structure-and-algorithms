@@ -1080,6 +1080,7 @@ Similar to an anagram.
             - This slice is intended to get the elements of the left subtree.
             - The **`1`** indicates that we start from the element right after the root node in the preorder list since the first element (**`0`** index) is the root.
             - **`mid+1`** indicates the end of the slice. Since slices are exclusive on the end, **`mid`** corresponds to the number of elements in the left subtree, which is the same as the position of the root in the inorder list. The slice goes up to, but does not include, **`mid+1`**, effectively capturing all elements that belong to the left subtree according to the preorder sequence.
+                - For example the first left sub tree would pass in [9]
         2. **`preorder[mid+1:]`**:
             - This slice selects the elements of the right subtree.
             - Starting from **`mid+1`**, it includes all elements from that position to the end of the list. These elements are part of the right subtree, following the root-left-right order of preorder traversal.
@@ -1108,6 +1109,30 @@ Similar to an anagram.
     
     1. For the left subtree **`[9]`**, there's no further subdivision since it's a single-node subtree.
     2. For the right subtree **`[20, 15, 7]`**, **`20`** is identified as the root in the next recursive call, and further slicing is used to construct its left and right children (**`15`** and **`7`**).
+
+# Tries
+
+## 208 - Implement Trie (Prefix Tree)
+
+**Brute Force:  Use a hashmap as a children property of TrieNode**
+
+- Time Complexity: O(n)
+- Space Complexity: O(n)
+
+**Optimized Approach: Use an array of 26 size as children**
+
+- Time Complexity: O(n)
+- Space Complexity: O(26)
+
+**Solution:** optimizes for lowercase English letters by using a fixed-size array of 26 for children nodes, allowing for efficient insertions, searches, and prefix checks by calculating character positions based on ASCII values.
+
+**Unique uses:**
+
+- Each trie node consists of a children and an end property
+    - Contains children as there could be multiple words with different combinations
+    - Contains end property to let us know that it was inserted as a word, helps for searches
+- Uses an array with a prefix sized amount of 26 to imitate the alphabet letters
+    - Index is found by subtracting ASIIC value of “a” and the char we are on
 
 # Heap/Priority Queues
 
