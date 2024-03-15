@@ -32,6 +32,9 @@ class WordDictionary:
                     for child in curr.children.values():
                         # Do a dfs on the next character since were passing all child nodes
                         # This means we've essentially skipped the "." character
+                        # Example: "d..", on the last . we would be on the last node
+                            # So if the last nodes end property is true, it would return true
+                            # which lets us return True again breaking the DFS, returning True from the function
                         if dfs(i+1, child):
                             return True
                     # If the DFS fails, it means we couldn't find a match for the whole word
