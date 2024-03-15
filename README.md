@@ -1114,7 +1114,7 @@ Similar to an anagram.
 
 ## 208 - Implement Trie (Prefix Tree)
 
-**Brute Force:  Use a hashmap as a children property of TrieNode**
+**Brute Force:  Use a hashmap as a children property of Trie Node**
 
 - Time Complexity: O(n)
 - Space Complexity: O(n)
@@ -1124,7 +1124,9 @@ Similar to an anagram.
 - Time Complexity: O(n)
 - Space Complexity: O(26)
 
-**Solution:** optimizes for lowercase English letters by using a fixed-size array of 26 for children nodes, allowing for efficient insertions, searches, and prefix checks by calculating character positions based on ASCII values.
+**Solution: O**ptimizes for lowercase English letters by using a fixed-size array of 26 for children nodes, allowing for efficient insertions, searches, and prefix checks by calculating character positions based on ASCII values.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8ad94c95-2f6a-4c5e-a643-2d1e1bf282f5/Untitled.png)
 
 **Unique uses:**
 
@@ -1133,6 +1135,28 @@ Similar to an anagram.
     - Contains end property to let us know that it was inserted as a word, helps for searches
 - Uses an array with a prefix sized amount of 26 to imitate the alphabet letters
     - Index is found by subtracting ASIIC value of “a” and the char we are on
+
+## 211 - Design Add and Search Words Data Structure
+
+**Brute Force:**  Create a list of all inserted words then search them 1 by 1
+
+- Time Complexity: O(n * l * m) where N is # of words, L is length of words, M length of word being searched if it contains wildcards (.)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Create a trie
+
+- Time Complexity: O(n*26^L)
+    - Complexity explanation
+        
+        Means for of *N* items, the algorithm might perform operations on all possible combinations of characters up to length *L*, with each character having 26 different choices (like the letters in the English alphabet). This complexity grows quickly with *L*, as every additional character multiplies the number of possibilities by 26
+        
+- Space Complexity: O(n)
+
+**Solution:**
+
+**Unique uses:**
+
+- Uses backtracking or DFS to go back up a node to check other children nodes in a Trie if the search has failed for the child node we went down
 
 # Heap/Priority Queues
 
