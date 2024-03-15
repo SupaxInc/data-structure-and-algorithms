@@ -1221,6 +1221,41 @@ Similar to an anagram.
 - Uses a tuple in a min heap to store the key (in this case the coords) with the value
     - Heapify will only sort the first value in a tuple or array
 
+## 215 - Kth Largest Element in an Array
+
+**Brute Force:**  Sort the array or create a max heap
+
+- Time Complexity: O(nlogn)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Create a min heap
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/38ece84c-2f4c-4e48-a832-04351aa91927/Untitled.png)
+
+- Time Complexity: O(k) + O((n-k) log k)
+    - O(k), heapify an array of k size
+    - O((n-k) log k), heappushpop heap of size of n-k
+- Space Complexity: O(k), min heap storage
+
+**More Optimized Approach:** Quick Select (similar to quick sort)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7e3e82b2-8726-4a35-bb78-0ae589222448/Untitled.png)
+
+- Time Complexity: O(n), worst case O(n^2)
+- Space Complexity: O(n)
+
+**Solution:** Maintains a min heap of size **`k`** to efficiently find the kth largest element in an array by ensuring only the k largest elements remain in the heap, returning the smallest among them as the kth largest overall.
+
+**Unique uses:**
+
+- Uses heappushpop operation on n-k size of min heap: O(log n) operation
+    - Pushes the value to min heap, then pops smallest value of min heap
+    - Helps sort the heap to get the Kth largest elements
+- Using quick sort over heap sort
+    - Faster than heap sort
+    - Not a stable algorithm
+    - Used more than heap sort if you don’t care about worst case time complexity
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
