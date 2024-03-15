@@ -1251,10 +1251,25 @@ Similar to an anagram.
 - Uses heappushpop operation on n-k size of min heap: O(log n) operation
     - Pushes the value to min heap, then pops smallest value of min heap
     - Helps sort the heap to get the Kth largest elements
-- Using quick sort over heap sort
+- Using quick select over heap sort
     - Faster than heap sort
     - Not a stable algorithm
     - Used more than heap sort if you don’t care about worst case time complexity
+- Quick select vs Quick sort
+    
+    ### **Quick Sort:**
+    
+    - **Purpose**: Quick Sort is a sorting algorithm used to order all elements in an array from smallest to largest (or vice versa).
+    - **Process**: It picks an element as a pivot and partitions the given array around the picked pivot, ensuring that elements less than the pivot end up on the left side of the pivot and elements greater than the pivot end up on the right side. This partitioning is done for each sub-array around a new pivot until the entire array is sorted.
+    - **Complexity**: The average time complexity of Quick Sort is *O*(*n*log*n*), though its worst-case complexity can degrade to *O*(*n*2) if not carefully implemented (e.g., always choosing the first or last element as the pivot in a sorted array).
+    - **Entire Array**: Quick Sort is applied to the entire array, and its goal is to sort the whole dataset.
+    
+    ### **Quick Select:**
+    
+    - **Purpose**: Quick Select is used to find the kth smallest (or largest) element in an unsorted array. Unlike Quick Sort, it does not sort the entire array.
+    - **Process**: Like Quick Sort, Quick Select uses a pivot selection and partitioning strategy. However, after partitioning, Quick Select only recurses into one side of the pivot—the side that contains the kth smallest element—ignoring the other side. This selective recursion significantly reduces the number of elements it needs to process.
+    - **Complexity**: The average time complexity of Quick Select is *O*(*n*), making it faster for its specific task than sorting the entire array and then selecting the kth element. However, its worst-case complexity can also be *O*(*n*2), particularly with poor pivot choices.
+    - **Specific Element**: Quick Select focuses on finding a single specified element's position (kth smallest or largest) without sorting the entire array.
 
 # Dynamic Programming
 
