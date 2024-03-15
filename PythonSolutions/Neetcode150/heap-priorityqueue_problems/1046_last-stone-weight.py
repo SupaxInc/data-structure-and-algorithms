@@ -17,7 +17,8 @@ class Solution:
             firstStone = heapq.heappop(stonesMaxHeap) * -1
             secondStone = heapq.heappop(stonesMaxHeap) * -1
 
-            # If the first and second stone are equal it gets destroyed so we do nothing
+            # If the first and second stone are equal it gets destroyed so we do nothing as its been heap popped already
+
             # But if they dont equal it means that 1st stone > 2nd stone, since 1st stone always bigger
             if firstStone != secondStone:
                 # Subtract 1st stone with 2nd stone to get remainder stone and convert to negative
