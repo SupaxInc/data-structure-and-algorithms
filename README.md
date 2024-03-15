@@ -1200,6 +1200,27 @@ Similar to an anagram.
 
 - Creates a max heap work around by multiplying by -1
 
+## 972 - K Closest Points to Origin
+
+**Brute Force:**  Sort the results of the Euclidean distance to get smallest of K closest points
+
+- Time Complexity: O(nlogn)
+- Space Complexity: O(n)
+
+**Optimized Approach:** Use a min heap
+
+- Time Complexity: O(n), heapify
+- Space Complexity: O(n)
+
+**Solution:** Finds the k closest points to the origin by calculating their Euclidean distances, adding them to a min heap, and then extracting the k points with the smallest distances.
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f08a92a6-8e4d-4cbb-92f8-225b198b3e21/Untitled.png)
+
+**Unique uses:**
+
+- Uses a tuple in a min heap to store the key (in this case the coords) with the value
+    - Heapify will only sort the first value in a tuple or array
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs

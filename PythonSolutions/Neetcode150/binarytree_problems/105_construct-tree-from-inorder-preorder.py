@@ -20,6 +20,7 @@ class NotOptimizedSolution:
 
         # Create the left sub tree
         # Preorder: Grab the next root node for left sub tree, "mid+1" is needed as the end is exclusive in lists
+            # It'll use the mid index from inorder to slice 
         # Inorder: Get the nodes that will be all on the left of mid number
         root.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
         # Create the right sub tree
