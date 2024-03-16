@@ -4,17 +4,17 @@
 
 - Solutions
     
-    **Brute Force:**  
+    **Brute Force:** 
     
     - Time Complexity:
     - Space Complexity:
     
-    **Optimized Approach:**
+    **Optimized Approach:** 
     
     - Time Complexity:
     - Space Complexity:
     
-    **Solution:**
+    **Solution:** 
     
     **Unique uses:**
     
@@ -1290,8 +1290,37 @@ Similar to an anagram.
     
     **Unique uses:**
     
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/de2ecef2-077b-4b41-9956-30b99e2fe08d/Untitled.png)
+    
     - Uses a max heap to store the frequency of counts
     - Uses a queue so we can execute next tasks when idle time is finished
+
+## 355 - Design Twitter
+
+**Intuition:** Create a simplified model of Twitter where users can post tweets, follow/unfollow each other, and view the 10 most recent tweets in their newsfeed.
+
+- Solutions
+    
+    **Brute Force:**  Compare each recent tweet for every user in a normal loop
+    
+    **Optimized Approach:** Just add each recent tweet for every user in a max heap
+    
+    - Time Complexity: O(K log n), each pop operation is log n and we do it at most 10 times
+    - Space Complexity: O(n)
+    
+    **Solution:** Uses a heap to manage the most recent tweets from a user and their followees, allowing efficient retrieval of the top 10 latest tweets for any user's news feed, while also supporting follow and unfollow operations with a follower map.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/40c5b4ef-c9af-4025-a060-79f0bd6609be/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Similar to merge k sorted lists question
+        - Grab each recent tweet in a heap and add the last index and following id to grab next recent tweets
+        - Makes it much more optimized so if there are 10 users, we could grab all 10 recent tweets.
+        - Then pop each 10 recent tweets and check if the user’s next tweet is more recent
+    - Uses a list to get most recent tweet from a user
+    - Uses a set to get what users someone has followed
+    - Could use nlargest or heapq.merge in a different solution
 
 # Dynamic Programming
 
