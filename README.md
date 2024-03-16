@@ -1,20 +1,24 @@
 # Neetcode 150
 
-**Brute Force:**  
+**Intuition:** 
 
-- Time Complexity:
-- Space Complexity:
-
-**Optimized Approach:**
-
-- Time Complexity:
-- Space Complexity:
-
-**Solution:**
-
-**Unique uses:**
-
-- 
+- Solutions
+    
+    **Brute Force:**  
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:**
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:**
+    
+    **Unique uses:**
+    
+    - 
 
 # Arrays
 
@@ -1270,6 +1274,24 @@ Similar to an anagram.
     - **Process**: Like Quick Sort, Quick Select uses a pivot selection and partitioning strategy. However, after partitioning, Quick Select only recurses into one side of the pivot—the side that contains the kth smallest element—ignoring the other side. This selective recursion significantly reduces the number of elements it needs to process.
     - **Complexity**: The average time complexity of Quick Select is *O*(*n*), making it faster for its specific task than sorting the entire array and then selecting the kth element. However, its worst-case complexity can also be *O*(*n*2), particularly with poor pivot choices.
     - **Specific Element**: Quick Select focuses on finding a single specified element's position (kth smallest or largest) without sorting the entire array.
+
+## 621 - Task Scheduler
+
+**Intuition:** The core idea is to arrange tasks so that the same tasks are spaced out by at least **`n`** intervals, with the most frequent tasks shaping the schedule's minimum length. Place the most frequent tasks first, separated by **`n`** spaces, then fill those spaces with other tasks, ensuring no idle time if possible. The challenge lies in efficiently filling these cooldown periods to minimize the total schedule time.
+
+- Solutions
+    
+    **Optimized Approach:** Use a max heap and a queue
+    
+    - Time Complexity: O(26 + 26 log 26)
+    - Space Complexity: O(n)
+    
+    **Solution:** using a max heap for managing task frequencies and a cooldown queue, ensuring tasks are executed with a minimum interval **`n`**, and calculates the total execution time by dynamically adjusting tasks' availability based on cooldown requirements.
+    
+    **Unique uses:**
+    
+    - Uses a max heap to store the frequency of counts
+    - Uses a queue so we can execute next tasks when idle time is finished
 
 # Dynamic Programming
 
