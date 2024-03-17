@@ -1353,6 +1353,50 @@ Similar to an anagram.
     - Backtracking to try all possible combinations of choices
         - No base cases to prune as the only constraint is the length of the array
 
+## 39 - Combination Sum
+
+**Intuition:** Find all unique combinations in a list of numbers that sum up to a target number. You can use each number as many times as needed. 
+
+- Solutions
+    
+    **Brute Force:** Use backtracking
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Generates all unique combinations of numbers that sum up to a target, utilizing backtracking to explore every combination with duplicates allowed and pruning paths exceeding the target.
+    
+    ```python
+    Start with an empty path [] and target 7.
+    
+                             []
+    
+                 /           |            \           \
+               [2]          [3]           [6]         [7]
+           /    |   \        | \           |           |
+         [2,2] [2,3][2,6]  [3,3][3,6]    [6,6]        [7,7]
+        /   |
+     [2,2,2][2,2,3]
+      |
+    [2,2,2,2]
+    
+    - [2,2,2,2] exceeds the target, so we backtrack.
+    - [2,2,3] exactly meets the target, so we add it to our result.
+    - [2,3], [2,6], and [3,3] branches are pruned as they exceed the target.
+    - [3,6] exceeds the target, so it's not explored.
+    - [6,6] exceeds the target, so it's not explored.
+    - [7] meets the target, so it's added to our result.
+    
+    Constraints:
+    - Total cannot exceed target, prune search
+    - Index cannot exceed length of number array (for loop)
+    ```
+    
+    **Unique uses:**
+    
+    - Passes a parameter to a recursive function to keep track of it instead of re-initializing every time
+    - Stays on current index in back tracking so we can have duplicates until combination is greater than target then prune the search
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
