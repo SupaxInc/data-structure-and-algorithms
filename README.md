@@ -1322,6 +1322,37 @@ Similar to an anagram.
     - Uses a set to get what users someone has followed
     - Could use nlargest or heapq.merge in a different solution
 
+# Backtracking
+
+## 78 - Subsets
+
+**Intuition:** Systematically explore all combinations of numbers in a given list by including or excluding each number, using recursion to navigate through these choices and generating all possible subsets.
+
+- Solutions
+    
+    **Brute Force:** Use back tracking
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Generates all possible subsets of a given list by using backtracking to explore every combination of inclusion and exclusion of each element, starting with an empty subset and adding elements one by one.
+    
+    ```python
+                         []
+                       /    \
+                  [1]Y        N[]
+                 /   \       /   \
+           [1,2]Y    N[1]  [2]Y   N[]
+             /  \    /  \   /  \   /  \
+    [1,2,3]Y N[1,2]Y N[1]Y N[1,3] [3]Y  N[]
+    ```
+    
+    **Unique uses:**
+    
+    - Uses list[:] to deep copy a list
+    - Backtracking to try all possible combinations of choices
+        - No base cases to prune as the only constraint is the length of the array
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
