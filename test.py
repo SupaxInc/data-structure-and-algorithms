@@ -1,20 +1,17 @@
-def subsets(nums):
+def permute(nums):
     result = []
-    subset = []
 
     def backtrack(start):
-        # Since we want all subsets, add the current subset at the start of exploration
-        result.append(subset.copy())
+        if start == len(nums):
+            result.append(nums[:])
+            return
 
         for i in range(start, len(nums)):
-            # Include the number nums[i]
-            subset.append(nums[i])
-            # Recurse with the next number
-            backtrack(i + 1)
-            # Exclude the number nums[i], backtrack
-            subset.pop()
+            nums[start], nums[i] = nums[i], nums[start]
+            backtrack(start + 1)
+            nums[start], nums[i] = nums[i], nums[start]
 
     backtrack(0)
     return result
 
-subsets([1,2,3])
+permute([1,2,3])

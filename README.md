@@ -1397,6 +1397,34 @@ Similar to an anagram.
     - Passes a parameter to a recursive function to keep track of it instead of re-initializing every time
     - Stays on current index in back tracking so we can have duplicates until combination is greater than target then prune the search
 
+## 46 - Permutations
+
+**Intuition:** Explore all possible ways to arrange a set of numbers, ensuring every number is used exactly once in each arrangement.
+
+- Solutions
+    
+    **Brute Force:** Use backtracking
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Swap each number into the "current" position, recursively generating permutations of the remaining numbers, and backtracking to undo swaps for the next iteration.
+    
+    ```
+                                    [1, 2, 3]
+                            /           |           \
+                          /             |             \
+                    [1, 2, 3]        [2, 1, 3]       [3, 2, 1]
+                    /     \            /     \           /     \
+                  /       \          /       \         /       \
+            [1, 2, 3] [1, 3, 2] [2, 1, 3] [2, 3, 1] [3, 2, 1] [3, 1, 2]
+    Constraints: A number cannot appear more than once
+    Base case: Stop when the current index has same length as input set
+    First choice (inclusion): Swap current index
+    Second choice (exclusion): Undo swap
+    ```
+    
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
