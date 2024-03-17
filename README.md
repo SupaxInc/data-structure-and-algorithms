@@ -1425,6 +1425,44 @@ Similar to an anagram.
     ```
     
 
+## 90 - Subsets 2
+
+**Intuition:** Generate all possible unique subsets from a list that may contain duplicates.
+
+- Solutions
+    
+    **Brute Force:** Use backtracking
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Generates all unique subsets from a sorted list by using backtracking to include or exclude elements, while skipping duplicates to avoid identical subsets.
+    
+    ```
+                    []
+                  /    \
+                [1]    []
+              /    \     
+            [1,2]  [1]    
+           /    \     
+       [1,2,2]  [1,2] 
+    ```
+    
+    - Explanation:
+        - At the root, we decide to include or not include **`1`**.
+            - Including **`1`** moves us down the left branch to **`[1]`**.
+            - Not including **`1`** keeps the subset empty, moving us down the right branch to **`[]`**.
+        - At **`[1]`**, we decide to include the first **`2`** or not.
+            - Including the first **`2`** moves us to **`[1,2]`**.
+            - Not including the first **`2`** keeps us at **`[1]`**.
+        - At **`[1,2]`**, we face a decision with the second **`2`**, which is a duplicate.
+            - Including the second **`2`** moves us to **`[1,2,2]`**. This is allowed because we included the first **`2`**.
+            - Not including the second **`2`** keeps us at **`[1,2]`**.
+    
+    **Unique Uses:**
+    
+    - Sorting the number first helps us find duplicates adjacent to each other
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
