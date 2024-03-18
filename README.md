@@ -1463,6 +1463,49 @@ Similar to an anagram.
     
     - Sorting the number first helps us find duplicates adjacent to each other
 
+## 40 - Combination Sum 2
+
+**Intuition:** Find all unique combinations of candidates that sum to a target number, with each candidate used once per combination.
+
+- Solutions
+    
+    **Brute Force:** Use back tracking
+    
+    - Time Complexity: O(2^n) * n log n
+    - Space Complexity: O(n)
+    
+    **Solution:** Sort the input to handle duplicates and explore all possible combinations that sum to the target, excluding duplicates by skipping over same consecutive elements after each backtrack step.
+    
+    ```
+    Start with sorted array: [1,2,2,2,5]
+    Target = 5
+    
+    []
+    └── [1] (target now 4)
+        ├── [1,2] (target now 3)
+        │   ├── [1,2,2] (target now 1) X (exceeds target with next number)
+        │   └── [1,2,2] (skipped due to duplicate)
+        └── [1,2] (move to next distinct number, which is 5)
+            └── [1,5] X (exceeds target)
+    └── [2] (target now 3)
+        ├── [2,2] (target now 1)
+        │   └── [2,2,1] = 5 (Valid Combination, Add to result)
+        └── [2,2] (skipped due to duplicate)
+    └── [2] (skipped due to duplicate)
+    └── [2] (skipped due to duplicate)
+    └── [5] (target now 0)
+        └── [5] = 5 (Valid Combination, Add to result)
+    
+    Valid combinations found: [[2,2,1], [5]]
+    ```
+    
+    **Unique uses:**
+    
+    - Sort the input set so adjacent duplicates are beside each other.
+        - Helps prevent duplicate results when we backtrack and pop, we check the next index num.
+    - Prune search space after finding valid combination.
+        - Avoids identical subsets that lead to same sum
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
