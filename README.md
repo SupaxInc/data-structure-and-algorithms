@@ -1502,7 +1502,7 @@ Similar to an anagram.
     **Unique uses:**
     
     - Sort the input set so adjacent duplicates are beside each other.
-        - Helps prevent duplicate results when we backtrack and pop, we check the next index num.
+        - Helps prevent duplicate results when we backtrack and pop, we check the next index num. Similar to problem 3Sum.
     - Prune search space after finding valid combination.
         - Avoids identical subsets that lead to same sum
 
