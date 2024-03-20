@@ -11,7 +11,7 @@ class Solution:
             return True
 
         def backtrack(start):
-            # Prune the search space when we finish finding all of the palindromes for current substring
+            # Prune the search space when we end up farther than the length of the string
             if start > len(s)-1:
                 res.append(pals[:])
                 return
@@ -22,7 +22,7 @@ class Solution:
                     # Include the palindrome (inclusion choice)
                     pals.append(s[start:end+1])
 
-                    # Explore the palindrome further and partition it
+                    # Explore the palindrome partition further and look for more
                     backtrack(end+1)
 
                     # Exclude the palindrome (exclusion choice)

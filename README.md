@@ -1531,6 +1531,47 @@ Similar to an anagram.
         - Uses directions for up, left, right down
         - Marks a node as visited
 
+## 131 - Palindrome Partitioning
+
+**Intuition:** Explore all substring combinations of a given string, identifying and collecting those sequences where every substring is a palindrome.
+
+- Solutions
+    
+    **Brute Force:** Backtracking
+    
+    - Time Complexity: O(n * 2 ^ n)
+        - O(2^n), for each character there’s a choice to partition or not
+        - O(n), to check if the substring is a palindrome
+    - Space Complexity: O(n)
+    
+    **Solution:** Use backtracking to partition a string into all possible palindromic substrings by exploring inclusion and exclusion choices for substrings verified as palindromes.
+    
+    ```
+    []
+    |
+    ├─ [a]
+    |  |
+    |  ├─ [a, a]
+    |  |  |
+    |  |  └─ [a, a, b]  <- Valid palindrome partition
+    |  |
+    |  └─ [a, ab]       <- 'ab' is not a palindrome, stop exploring this branch
+    |
+    ├─ [aa]
+    |  |
+    |  └─ [aa, b]       <- Valid palindrome partition
+    |
+    └─ [aab]             <- Not a palindrome, stop exploring this branch
+    
+    The choices we have are the palindrome substrings
+    Constraint is if we end up 
+    ```
+    
+    **Unique uses:**
+    
+    - Two pointer approach to find palindromes
+    - The choices for back track are the palindromes using a for loop of start and end
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
