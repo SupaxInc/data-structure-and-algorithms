@@ -1506,6 +1506,31 @@ Similar to an anagram.
     - Prune search space after finding valid combination.
         - Avoids identical subsets that lead to same sum
 
+## 79 - Word Search
+
+**Intuition:** Visualize the grid as a maze where each cell's letter is a path you can follow, and your goal is to string together a path that spells out the target word. Each step can move to adjacent cells (up, down, left, right) but can't revisit cells used in the current spelling attempt.
+
+- Solutions
+    
+    **Brute Force:** Backtracking
+    
+    - Time Complexity: O(4^k) * O(m*n)
+        - O(4^k) → k is the length of target word, 4 is because we have up, left, right, down directions to explore to as deep as possible
+        - O(m*n) → Counting frequencies for the entire board
+    - Space Complexity: O(n)
+    
+    **Solution:** Uses DFS and backtracking to explore all possible paths on a board to find a given word, reversing the word for efficiency if its first letter is more common than its last, and marking visited cells temporarily to avoid revisiting them during the search.
+    
+    **Unique uses:**
+    
+    - count = defaultdict(int, sum(map(Counter, board), Counter()))
+        - map(Counter, board) → Creates a counter frequency dictionary for all board rows
+        - sum(map(Counter, board), Counter()) → Sums all counters into one counter
+        - defaultdict → Initializes a dictionary with the summed counter of all freqs for all rows
+    - Uses DFS on a 2d matrix
+        - Uses directions for up, left, right down
+        - Marks a node as visited
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
