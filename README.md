@@ -1572,6 +1572,33 @@ Similar to an anagram.
     - Two pointer approach to find palindromes
     - The choices for back track are the palindromes using a for loop of start and end
 
+## 17 - Letter Combinations of a Phone Number
+
+**Intuition:** Iterate through each digit, use the digit-to-letter map to generate all possible letter sequences.
+
+- Solutions
+    
+    **Brute Force:** Backtracking
+    
+    - Time Complexity: O(4^n) → worst case input: “9999” = 4 x 4 x 4 x 4
+    - Space Complexity: O(n)
+    
+    **Solution:** Map each digit to its corresponding letters, then recursively explore all letter combinations, advancing one digit at a time.
+    
+    ```
+            root
+            /  \
+           a    b    c  <- digits for '2'
+          /|\  /|\  /|\
+         d e f d e f d e f <- digits for '3'
+    Choices -> Letters for current digit
+    Constraints -> Path combination can't be larger than digits
+    ```
+    
+    **Unique uses:**
+    
+    - Exclusion choice for back track happens when call stack pops as path combinations is part of the parameter so no need to pop in loop
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
