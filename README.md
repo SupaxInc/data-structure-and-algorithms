@@ -1599,6 +1599,30 @@ Similar to an anagram.
     
     - Exclusion choice for back track happens when call stack pops as path combinations is part of the parameter so no need to pop in loop
 
+# Graphs
+
+## 200 - Number of Islands
+
+**Intuition:** Count the number of connected groups of '1's (islands) in a 2D grid by marking visited parts to avoid recounting.
+
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** DFS or BFS grid traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n) or O(h)
+    
+    **Solution:** Use DFS or BFS to “sink” islands so that it is easier to count islands that have not been sunk. 
+    
+    **Unique uses:**
+    
+    - Used DFS or BFS to find all adjacent 1’s then sinks them so that other 1’s that are alone can be found.
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
