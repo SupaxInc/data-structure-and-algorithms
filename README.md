@@ -1623,6 +1623,27 @@ Similar to an anagram.
     
     - Used DFS or BFS to find all adjacent 1’s then sinks them so that other 1’s that are alone can be found.
 
+## 133 - Clone Graph
+
+**Intuition:** Clone a graph by creating copies of each node and their connections, ensuring duplicates maintain the original structure.
+
+- Solutions
+    
+    **Optimized Approach:** DFS with hash map
+    
+    - Time Complexity: O(N + E), N is total number of nodes, E is edges
+        - O(N) → we visit each node in the graph
+        - O(E) → each node we visit all of its neighbors to clone the edges
+    - Space Complexity:
+    
+    **Solution:** Clone a graph using DFS by mapping nodes to their copies and recursively connecting neighbors.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/18888442-afab-40f3-8b7c-aacb3178606a/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Using a hash map to map old nodes to new nodes to create a deep copy of a graph
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
