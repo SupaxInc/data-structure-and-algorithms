@@ -1686,7 +1686,7 @@ Similar to an anagram.
 
 ## 130 - Surrounded Regions
 
-**Intuition:** Surround regions of 'O's not touching the border with 'X's by first marking border-connected 'O's, then flipping the unmarked 'O's.
+**Intuition:** Think of isolating regions of 'O's surrounded by 'X's on a board by first marking the 'O's connected to the edges and then flipping the unmarked, enclosed 'O's to 'X's.
 
 - Solutions
     
@@ -1703,6 +1703,33 @@ Similar to an anagram.
     
     - Adds a temporary value to the cell value then flips it back
         - This is called reverse engineering to help us find the solution instead of focusing on surrounded region we focus on un-surrounded
+
+## 994 - Rotting Oranges
+
+**Intuition:** Envision tracking the spread of rot from initially rotten oranges across a grid, where each time increment allows the rot to extend to adjacent fresh oranges.
+
+- Solutions
+    
+    **Brute Force:** Using a set to track fresh oranges
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a counter to track fresh oranges
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(1)
+    
+    **Solution:**  Spreads rot from rotten oranges to adjacent fresh ones in a grid using level-order BFS, tracking time until no fresh oranges remain or returning -1 if isolation prevents complete rotting.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/15beb298-379d-48de-9ef3-5cd1340ea38c/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses BFS level order traversal
+        - Does the validation checks right away when adding a new row and new col to the queue
+            - Helps prevent counting minutes to a queue that contains fresh oranges
+    - Adds multiple starting points to the queue of BFS if there are more than 1 rotten orange
 
 # Dynamic Programming
 
