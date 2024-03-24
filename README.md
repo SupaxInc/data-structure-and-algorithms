@@ -1684,6 +1684,26 @@ Similar to an anagram.
     
     - Using a set to check if a tuple of coordinates has been visited for the grid
 
+## 130 - Surrounded Regions
+
+**Intuition:** Surround regions of 'O's not touching the border with 'X's by first marking border-connected 'O's, then flipping the unmarked 'O's.
+
+- Solutions
+    
+    **Optimized Approach:** DFS starting from the borders
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Mark border-connected 'O's as temporary, flip all other 'O's to 'X's, then revert temporary marks back to 'O's to surround regions. Starting from un-surrounded regions also helps mark the ones directionally attached to the un-surrounded region that are not in the border.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/3dd92b30-22ae-4d59-a2a6-13c885d7413f/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Adds a temporary value to the cell value then flips it back
+        - This is called reverse engineering to help us find the solution instead of focusing on surrounded region we focus on un-surrounded
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
