@@ -1664,14 +1664,14 @@ Similar to an anagram.
 
 - Solutions
     
-    **Brute Force:** Traverse every single single cell to see if it can flow as deep as possible to Pacific and Atlantic
+    **Brute Force:** Traverse every single single cell to see if it can flow as deep as possible to Pacific and Atlantic. Restart the DFS each time without checking if its been visited
     
     - Time Complexity: O(M * N)^2
     - Space Complexity: O(n)
     
     **Optimized Approach:** Traverse from the boundaries of the Pacific and Atlantic ocean then find the intersections between both.
     
-    - Time Complexity: O(m * n)
+    - Time Complexity: O(m * n), instead of restarting the DFS per cell, we check if its already been visited
     - Space Complexity: O(n)
     
     **Solution:** Use DFS from ocean boundaries to find cells where water can flow both to the Pacific and Atlantic, marking reachable areas and identifying intersections.
