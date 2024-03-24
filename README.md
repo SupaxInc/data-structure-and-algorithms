@@ -1658,6 +1658,32 @@ Similar to an anagram.
     **Solution:** Use DFS to explore and mark visited islands in a grid, accumulating area for each and tracking the maximum area found.
     
 
+## 417 - Pacific Atlantic Water Flow
+
+**Intuition:** Find cells where water can flow to both the Pacific and Atlantic oceans by checking from the edges inward, using DFS or BFS for water flow directions.
+
+- Solutions
+    
+    **Brute Force:** Traverse every single single cell to see if it can flow as deep as possible to Pacific and Atlantic
+    
+    - Time Complexity: O(M * N)^2
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Traverse from the boundaries of the Pacific and Atlantic ocean then find the intersections between both.
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use DFS from ocean boundaries to find cells where water can flow both to the Pacific and Atlantic, marking reachable areas and identifying intersections.
+    
+    **NOTE:** Water can flow from all directions. So we need to check starting from the cell we are at to see if it flows from the four directions of up, down, left, and right.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/4edf6cf9-4258-462f-a742-f8610521424e/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Using a set to check if a tuple of coordinates has been visited for the grid
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
