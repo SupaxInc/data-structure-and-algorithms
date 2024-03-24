@@ -1614,7 +1614,7 @@ Similar to an anagram.
     
     **Optimized Approach:** DFS or BFS grid traversal
     
-    - Time Complexity: O(n)
+    - Time Complexity: O(m * n)
     - Space Complexity: O(n) or O(h)
     
     **Solution:** Use DFS or BFS to “sink” islands so that it is easier to count islands that have not been sunk. 
@@ -1629,12 +1629,12 @@ Similar to an anagram.
 
 - Solutions
     
-    **Optimized Approach:** DFS with hash map
+    **Optimized Approach:** DFS or BFS with hash map
     
     - Time Complexity: O(N + E), N is total number of nodes, E is edges
         - O(N) → we visit each node in the graph
         - O(E) → each node we visit all of its neighbors to clone the edges
-    - Space Complexity:
+    - Space Complexity: O(n)
     
     **Solution:** Clone a graph using DFS by mapping nodes to their copies and recursively connecting neighbors.
     
@@ -1643,6 +1643,20 @@ Similar to an anagram.
     **Unique uses:**
     
     - Using a hash map to map old nodes to new nodes to create a deep copy of a graph
+
+## 695 - Max Area of Island
+
+**Intuition:** Find the largest connected area of '1's in a grid using traversal techniques like DFS or BFS.
+
+- Solutions
+    
+    **Optimized Approach:** Use DFS or BFS
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Use DFS to explore and mark visited islands in a grid, accumulating area for each and tracking the maximum area found.
+    
 
 # Dynamic Programming
 
