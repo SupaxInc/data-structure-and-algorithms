@@ -1731,6 +1731,30 @@ Similar to an anagram.
             - Helps prevent counting minutes to a queue that contains fresh oranges
     - Adds multiple starting points to the queue of BFS if there are more than 1 rotten orange
 
+## 286 - Walls and Gates
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** Do a DFS or BFS traversal for every cell to find the nearest gate
+    
+    - Time Complexity: O(mn)^2
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Do a BFS level order traversal for all of the gates all at once
+    
+    - Time Complexity: O(m *n)
+    - Space Complexity: O(n)
+    
+    **Solution:** 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31fdf55a-bee3-4284-ba9a-fa41cef09306/Untitled.png)
+    
+    **Unique uses:**
+    
+    - BFS level order traversal
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
