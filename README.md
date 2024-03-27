@@ -1755,6 +1755,28 @@ Similar to an anagram.
     
     - BFS level order traversal
 
+## 207 - Course Schedule
+
+**Intuition:** Think of determining if you can complete all courses without prerequisites forming a loop, essentially checking if the course dependency graph is acyclic.
+
+- Solutions
+    
+    **Optimized Approach:** Do topographic sort
+    
+    - Time Complexity: O(V + E)
+    - Space Complexity: O(n)
+    
+    **Solution:** DFS to detect cycles in a course prerequisite graph, marking a course as completable by clearing its prerequisites after exploration, ensuring all courses can be completed if no cycles exist.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9e10da09-1255-49da-9646-f94a471144b9/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Representing a graph as an adjacency list
+    - Clearing the edges for a vertex if the course has been completed
+    - Using topographic ordering in a directed acyclic graph to help explore the vertices
+        - To detect a loop we check if its cyclic
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
