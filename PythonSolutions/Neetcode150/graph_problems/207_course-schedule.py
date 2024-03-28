@@ -8,7 +8,10 @@ class Solution:
         visited = set()
 
         # Build the prerequisite map.
-        for crs, pre in prerequisites:
+            # Prerequisite is first in the array
+            # Course is second
+        # Rule states: must take course bi first if you want to take course ai [a1, b1]
+        for pre, crs in prerequisites:
             preMap[crs].append(pre)
         
         # Helper function to perform DFS on the course graph.

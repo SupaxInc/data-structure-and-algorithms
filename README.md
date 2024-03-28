@@ -1777,6 +1777,26 @@ Similar to an anagram.
     - Using topographic ordering in a directed acyclic graph to help explore the vertices
         - To detect a loop we check if its cyclic
 
+## 210 - Course Schedule 2
+
+**Intuition:** Find a possible order of courses to complete based on prerequisites, akin to organizing tasks with dependencies using a directed graph to ensure all prerequisites are met before taking any course.
+
+- Solutions
+    
+    **Optimized Approach:** Topological ordering
+    
+    - Time Complexity: O(V+E)
+    - Space Complexity: O(n)
+    
+    **Solution:** Detect cycles and determine a topological order of courses by tracking visited (cycle) and completed nodes, reversing the resulting list to ensure prerequisites come before courses.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/eec66326-eb62-4912-a1eb-9347d26fdbbf/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses backtracking for topological ordering
+        - To check if a course has been completed we add it to a set when we start backtracking to a next prerequisite
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
