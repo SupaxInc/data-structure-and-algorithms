@@ -1786,7 +1786,8 @@ Similar to an anagram.
     **Optimized Approach:** Topological ordering
     
     - Time Complexity: O(V+E)
-    - Space Complexity: O(n)
+    - Space Complexity: O(V+E)
+        - Prerequisite map stores all edges (prerequisites) for a vertex (course)
     
     **Solution:** Detect cycles and determine a topological order of courses by tracking visited (cycle) and completed nodes, reversing the resulting list to ensure prerequisites come before courses.
     
