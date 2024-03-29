@@ -61,7 +61,7 @@ class UnionFind:
     
 
 
-class UnionFindSolution:
+class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         unionFind = UnionFind(n)
 

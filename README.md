@@ -1800,7 +1800,7 @@ Similar to an anagram.
 
 ## 323 - Number of Connected Components in an Undirected Graph
 
-**Intuition:** 
+**Intuition:** Involves counting the number of disconnected subgraphs (connected components) in an undirected graph by examining which nodes are directly or indirectly connected through edges.
 
 - Solutions
     
@@ -1824,6 +1824,31 @@ Similar to an anagram.
     **Unique uses:**
     
     - Uses UnionFind with path compression and rank to efficiently count the connected components
+
+## 684 - Redundant Connection
+
+**Intuition:** Find an edge that, when removed, eliminates a cycle in an undirected graph, essentially identifying the redundant connection that forms a loop within the graph's structure.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to traverse undirected graph, if the source equals to target then there’s a cycle 
+    
+    - Time Complexity: O(V+E), if its an adjacent matrix instead of list it could be O(n^2)
+    - Space Complexity: O(V+E)
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity: Very close to O(n)
+        - Worst complexity of Union Find is O(log N) but with path compression and using rank it is *O*(*α*(*N*)) → which is close to O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Union-Find data structure to detect and return the first edge that causes a cycle in an undirected graph, indicating a redundant connection.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/4856108b-b058-4e79-b19f-f4204d9d95d8/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Detects a cycle using Union Find data structure by checking if the nodes we want to union have the same parent nodes thus we are connecting the group creating a cycle
 
 # Dynamic Programming
 
