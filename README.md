@@ -1849,6 +1849,27 @@ Similar to an anagram.
     **Unique uses:**
     
     - Detects a cycle using Union Find data structure by checking if the nodes we want to union have the same parent nodes thus we are connecting the group creating a cycle
+    - Traversing an undirected graph using BFS or DFS, different to directed as we need a source and target to traverse to.
+
+## 261 - Graph Valid Tree
+
+**Intuition:** Verify if a given undirected graph is a tree by checking that it's fully connected without any cycles.
+
+- Solutions
+    
+    **Brute Force:** DFS traversal of undirected graph
+    
+    - Time Complexity: O(V+E)
+    - Space Complexity: O(V+E)
+    
+    **Optimized Approach:** Union Find
+    
+    - Time Complexity: Close to O(n)
+        - Worst complexity of Union Find is O(log N) but with path compression and using rank it is *O*(*α*(*N*)) → which is close to O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Valid tree is when there are no cycles in the graph and there is only 1 group of connections.
+    
 
 # Dynamic Programming
 
