@@ -1798,6 +1798,33 @@ Similar to an anagram.
     - Uses backtracking for topological ordering
         - To check if a course has been completed we add it to a set when we start backtracking to a next prerequisite
 
+## 323 - Number of Connected Components in an Undirected Graph
+
+**Intuition:** 
+
+- Solutions
+    
+    **Optimized Approach:** DFS Solution
+    
+    - Time Complexity: O(V + E)
+    - Space Complexity: O(V + E)
+    
+    **More Optimized Approach:** Union Find
+    
+    - Time Complexity: *O*((*N*+*E*)*α*(*N*))
+        - Worst complexity of Union Find is O(log N) but with path compression and using rank it is *O*(*α*(*N*))
+        - We need to perform union operations of all edges which takes *O*(*Eα*(*N*))
+        - Then at the end to get the result, we run the find function for all parent nodes which is another *O*(*Nα*(*N*))
+    - Space Complexity: O(N)
+    
+    **Solution:** Uses a Union Find data structure with path compression and rank to efficiently count the number of connected components in a graph by unioning edges and determining the unique root nodes.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a1381a68-d0bd-47f4-b51b-34e59972e99d/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses UnionFind with path compression and rank to efficiently count the connected components
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs

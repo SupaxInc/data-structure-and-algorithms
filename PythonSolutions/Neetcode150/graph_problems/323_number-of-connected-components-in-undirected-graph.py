@@ -28,3 +28,48 @@ class DFSSolution:
             count += dfs(v)
         
         return count
+
+class UnionFind:
+    def __init__(self, size):
+        self.parent = [i for i in range(size)]
+        self.rank = [1] * size
+    
+    def find(self, x):
+        """Finds the root of the set that x belongs to, with path compression."""
+        # Return value if the node equals itself
+        if self.parent[x] == x:
+            return x
+        # If node does not equal itself, recursively find the parent then compress the path
+            # It will point the child directly to parent node instead of creating a linked list
+        self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+
+        if rootX != rootY:
+            # Connect the root to the greatest rank between the two roots
+                # This also prevents a linked list from happening to the parent node
+            if self.rank[rootX] > self.rank[rootY]:
+                self.parent[rootY] = rootX
+            elif self.rank[rootX] < self.rank[rootY]:
+                self.parent[rootX] = rootY
+            else:
+                self.parent[rootY] = rootX
+                self.rank[rootX] += 1
+    
+
+
+class UnionFindSolution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        unionFind = UnionFind(n)
+
+        # Connect together the different roots based on edges
+        for x, y in edges:
+            unionFind.union(x, y)
+        
+        # Applying find to each node to ensure path compression
+            # Creates a set of parent nodes so we can find the length of all parent nodes
+            # This tells us the different groups of connections
+        return len(set(unionFind.find(i) for i in range(n)))
