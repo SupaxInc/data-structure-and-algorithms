@@ -1871,6 +1871,44 @@ Similar to an anagram.
     **Solution:** Valid tree is when there are no cycles in the graph and there is only 1 group of connections.
     
 
+## 1584 - Min Cost to Connect All Points (Advanced)
+
+**Intuition:** Construct a minimum spanning tree from given points in a 2D space, focusing on minimizing the total edge cost with the constraint that edges represent the Manhattan distance between points.
+
+- Solutions
+    
+    **Brute Force:** Kruskal’s algorithm with sorting
+    
+    - How it works:
+        1. Calculate the Manhattan distance between every pair of points and create a list of edges with their distances.
+        2. Sort all the edges based on their distances in ascending order.
+        3. Use a Disjoint Set Union (DSU) or Union-Find data structure to help in detecting cycles.
+        4. Iterate through the sorted list of edges, and for each edge, if the two points are not already in the same set (i.e., not connected), connect them and add the distance to the total cost.
+        5. Continue this process until all points are connected.
+    - Time Complexity: O(N^2 log N) + O(N^2) = O(N^2 log N
+        - O(N^2) for calculating distances between all pairs of points, up-front
+        - O(N^2 log N) for sorting the edges based on distance
+    - Space Complexity: O(n^2) since storing all Manhattan distances at the beginning
+    
+    **Optimized Approach:** Use Prim’s algorithm with a priority queue
+    
+    - How it works:
+        1. Start with an arbitrary point as the current vertex and add all other points with their distances to the current vertex into a min-heap.
+        2. Extract the point with the minimum distance from the heap, mark it as visited, and add the distance to the total cost.
+        3. Update the heap with distances to this newly visited point for all non-visited points, if the new distances are smaller.
+        4. Repeat steps 2 and 3 until all points have been visited.
+    - Time Complexity: O(n^2 log N) → similar to Kruskal
+    - Space Complexity: O(n) → since we are just storing min heap and visited
+        - Prim’s algorithm doesn’t necessarily store all edges at once in memory
+    
+    **Solution:** Prim's algorithm with a priority queue (min heap) to build a minimum spanning tree by iteratively adding the nearest unvisited point based on Manhattan distance, starting from point 0.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5cb007de-bf4d-4632-bd79-a94cb9a34a84/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses Prim’s and Kruskal’s algorithm to get the minimum cost of a weighted tree
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
