@@ -1890,7 +1890,7 @@ Similar to an anagram.
         - O(N^2 log N) for sorting the edges based on distance
     - Space Complexity: O(n^2) since storing all Manhattan distances at the beginning
     
-    **Optimized Approach:** Use Prim’s algorithm with a priority queue
+    **Optimized Approach:** Use Prim’s algorithm with a priority queue (BFS)
     
     - How it works:
         1. Start with an arbitrary point as the current vertex and add all other points with their distances to the current vertex into a min-heap.
@@ -1908,6 +1908,31 @@ Similar to an anagram.
     **Unique uses:**
     
     - Uses Prim’s and Kruskal’s algorithm to get the minimum cost of a weighted tree
+
+## 743 - Network Delay Time (Advanced)
+
+**Intuition:** Find the minimum time it takes for a signal to reach all nodes in a network, starting from a given node; think of spreading out from the starting node to cover the entire network, using the shortest path to each node based on the time delays along different paths.
+
+- Solutions
+    
+    **Brute Force:** Bellman Ford’s algorithm
+    
+    - Time Complexity: O(V*E) → O(n^2)
+    - This is due to Bellman Fords being less efficient for graphs without negative weights
+    
+    **Optimized Approach:** Use Dijkstra’s algorithm BFS
+    
+    - Time Complexity: *O*(*E*log*E*)+*O*(*E*)+*O*(*N*)
+        - Graph construction: O(E)
+        - Time mapping: O(n)
+        - Dijkstra’s algorithm: O(E log E), each edge can result in a heap operation
+    - Space Complexity: O(N + E)
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - Uses Dijkstra’s algorithm to find the shortest path to get all nodes receive the network.
 
 # Dynamic Programming
 
