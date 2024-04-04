@@ -1934,6 +1934,36 @@ Similar to an anagram.
     
     - Uses Dijkstra’s algorithm to find the shortest path to get all nodes receive the network.
 
+## 787 - Cheapest Flights within K Stops (Advanced)
+
+**Intuition:** Find the cheapest flight price from a starting city to a destination city, given a maximum number of stops, by exploring different flight routes and their costs.
+
+- Solutions
+    
+    **Brute Force:** Using a BFS with a priority queue
+    
+    - Time Complexity: O(E * K * log (V*K)) → TLE error
+    - Space Complexity: O(E)
+    
+    **Optimized Approach:** Bellman Ford’s algorithm within K stops
+    
+    - Time Complexity: O(|E| * K)
+        - Usually O(|V| * |E|) → O(n^2), but we can optimize to only do it within K stops
+    - Space Complexity: O(|E|)
+    
+    **Optimized Approach:** Dijkstra’s algorithm
+    
+    - Time Complexity:
+    - Space Complexity: O(|E|)
+    
+    **Solution:** Update flight prices to find the cheapest price from source to destination within k stops by relaxing all edges up to k+1 times, ensuring the minimum cost path is considered even if direct flights are not available.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/3ca1edd1-b177-4992-a976-17731511b9f1/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
