@@ -15,7 +15,6 @@ class TopDownSolution:
         cache = {}
 
         def dfs(n):
-            nonlocal cache
             if n in cache:
                 return cache[n]
             else:
