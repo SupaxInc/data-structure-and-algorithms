@@ -2058,6 +2058,27 @@ Similar to an anagram.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d9e5f18d-31ff-4cdc-a3ec-0dcddcec4ee9/Untitled.png)
     
 
+## 213 - House Robber 2
+
+**Intuition:** Maximize the sum of non-adjacent numbers from a circular list of integers, meaning you have to choose wisely since the first and last elements are considered neighbors.
+
+- Solutions
+    
+    **Brute Force:** Use tabulation DP but with an array
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use tabulation without an array
+    
+    - Time Complexity:O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Maximizes the robbery amount by separately handling two scenarios: excluding the first and excluding the last house, then taking the maximum of these two.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/30c1cdab-acc2-49ee-bf4f-83f36e205a56/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
