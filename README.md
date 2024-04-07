@@ -1,5 +1,3 @@
-# Neetcode 150
-
 **Intuition:** 
 
 - Solutions
@@ -1968,69 +1966,97 @@ Similar to an anagram.
 
 ## 70 - Climbing Stairs
 
-**Brute Force:**  Use DFS recursive approach similar to Fibonacci sequence 
-**(climb_stairs_dfs(n-1) + climb_stairs_dfs(n-2))**
+**Intuition:** Count the ways to climb to the top of a staircase with n steps, where you can either take 1 or 2 steps at a time; the essence lies in recognizing the problem as a Fibonacci sequence, where the number of ways to reach a step is the sum of the ways to reach the two previous steps.
 
-```markdown
-			                   5
-                       /   \
-                      4     3
-                    /  \   / \
-                   3    2 2   1
-                  / \  /|  |\
-                 2  1 1 0 1  0
-                /|
-               1 0
-Basecase: if n <= 1, return 1. So if n is 0 or 1, that is a way of climbing the stairs
-Answer: 7 ways
-```
-
-- Time Complexity: O(2^n) exponential, we end up repeating the same sub problem every time, e.g. above, starting from 4, how many ways to get from 1 to 0?
-
-Similar to picture below, sub problem 2 is repeated twice. What if we just store it in cache so the calculation doesn’t repeat again?
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5cd80a82-d66a-4c6f-ad9f-0e46932ac8be/Untitled.png)
-
-- Space Complexity: O(h) height of recursive stack
-
-**Optimized Approach:** Bottom-up iterative approach, start at base case and work your way up.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9480d24-eacb-432e-a725-d5c60826a20b/Untitled.png)
-
-- ****Time Complexity: O(n), only solving each sub problem once using DP
-- Space Complexity: O(n)
-
-**Solution:** Building up from the base cases using a list to store results and returning the last calculated value as the number of ways to climb **`n`** stairs. 
-
-**Unique uses:**
-
-- The following two approaches can be vice versa:
-    - Bottom up approach: iteratively
-    - Top down approach: recursively
-- GOTCHA moment: Base case would be 1,1 since there’s also one way of climbing 0 stairs which is doing nothing
+- Solutions
+    
+    **Brute Force:**  Use DFS recursive approach similar to Fibonacci sequence 
+    **(climb_stairs_dfs(n-1) + climb_stairs_dfs(n-2))**
+    
+    ```markdown
+    			                   5
+                           /   \
+                          4     3
+                        /  \   / \
+                       3    2 2   1
+                      / \  /|  |\
+                     2  1 1 0 1  0
+                    /|
+                   1 0
+    Basecase: if n <= 1, return 1. So if n is 0 or 1, that is a way of climbing the stairs
+    Answer: 7 ways
+    ```
+    
+    - Time Complexity: O(2^n) exponential, we end up repeating the same sub problem every time, e.g. above, starting from 4, how many ways to get from 1 to 0?
+    
+    Similar to picture below, sub problem 2 is repeated twice. What if we just store it in cache so the calculation doesn’t repeat again?
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5cd80a82-d66a-4c6f-ad9f-0e46932ac8be/Untitled.png)
+    
+    - Space Complexity: O(h) height of recursive stack
+    
+    **Optimized Approach:** Bottom-up iterative approach, start at base case and work your way up.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9480d24-eacb-432e-a725-d5c60826a20b/Untitled.png)
+    
+    - ****Time Complexity: O(n), only solving each sub problem once using DP
+    - Space Complexity: O(n)
+    
+    **Solution:** Building up from the base cases using a list to store results and returning the last calculated value as the number of ways to climb **`n`** stairs. 
+    
+    **Unique uses:**
+    
+    - The following two approaches can be vice versa:
+        - Bottom up approach: iteratively
+        - Top down approach: recursively
+    - GOTCHA moment: Base case would be 1,1 since there’s also one way of climbing 0 stairs which is doing nothing
 
 ## 746 - Min Cost Climbing Stairs
 
-**Brute Force:**  Use recursion to calculate all sub problems for taking one step and taking two steps.
+- Solutions
+    
+    **Brute Force:**  Use recursion to calculate all sub problems for taking one step and taking two steps.
+    
+    - Time Complexity: O(2^n), exponential since some sub problems repeat
+    - Space Complexity: O(h)
+    
+    **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
+    
+    See example of how it was solved here: ‣ 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Update an array with the cost for each step based on the cheaper cumulative cost of the two previous steps, concluding with the minimum of the last two calculated costs to account for the final step choice.
+    
+    **Unique uses:**
+    
+    - **DICTIONARIES DONT NEED TO BE NONLOCALIZED**
+        - This is due to the fact that dictionaries are mutable, we are modifying the content rather than reassigning the cache variable itself
+    
 
-- Time Complexity: O(2^n), exponential since some sub problems repeat
-- Space Complexity: O(h)
+## 198 - House Robber
 
-**Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
+**Intuition:** Choosing between robbing a house and not robbing its neighbor, or skipping it, to maximize your total loot without triggering alarms.
 
-See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Update an array with the cost for each step based on the cheaper cumulative cost of the two previous steps, concluding with the minimum of the last two calculated costs to account for the final step choice.
-
-**Unique uses:**
-
-- **DICTIONARIES DONT NEED TO BE NONLOCALIZED**
-    - This is due to the fact that dictionaries are mutable, we are modifying the content rather than reassigning the cache variable itself
+- Solutions
+    
+    **Brute Force:** Explore all possible combinations using recursion
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(h) → height of tree
+    
+    **Optimized Approach:** Use tabulation
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Calculates the maximum loot by tracking the best choices up to each house, deciding at each step between robbing it (and adding to the loot from the house before last) or moving on with the loot from the last house.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d9e5f18d-31ff-4cdc-a3ec-0dcddcec4ee9/Untitled.png)
+    
 
 # Intervals
 
