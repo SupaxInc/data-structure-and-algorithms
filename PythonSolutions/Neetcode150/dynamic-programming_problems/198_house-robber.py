@@ -1,4 +1,4 @@
-class Solution:
+class BottomUpSolution:
     def rob(self, nums: List[int]) -> int:
         # If the list is empty, there's nothing to rob.
         if not nums: 
@@ -41,7 +41,36 @@ class NonOptimizedSolution:
             if i >= len(nums):
                 return 0
             # Recur by choosing to rob current house and skip next, or skip current house
+                # robFrom(i + 1), "If I don't rob this house, what's the max I can get starting from the next house?"
+                # robFrom(i + 2), "If I rob this house, what's the max I can get from the rest of the houses starting two steps ahead, since I can't rob the next one?"
             return max(nums[i] + robFrom(i + 2), robFrom(i + 1))
     
         # Start the recursion from the first house
+        return robFrom(0)
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        memo = {}
+
+        def robFrom(i):
+            # If the current index is beyond the last house, return 0
+            # because there's no more money to be made.
+            if i >= len(nums):
+                return 0
+            
+            # If we have already solved this subproblem, return the stored result.
+            if i in memo:
+                return memo[i]
+            
+            # The core recursive formula:
+            # Choose the maximum between robbing the current house plus the money from houses
+            # starting from i+2 (since we skip the next house to avoid alert), or skipping the
+            # current house and considering the money from houses starting from i+1.
+            result = max(robFrom(i + 1), nums[i] + robFrom(i + 2))
+            
+            # Store the result in our memoization table before returning.
+            memo[i] = result
+            return result
+        
+        # Start the recursion from the first house (index 0).
         return robFrom(0)
