@@ -32,3 +32,16 @@ class Solution:
         # amount of money that can be robbed considering the adjacency
         # constraint.
         return prevAdj
+
+class NonOptimizedSolution:
+    def rob(nums):
+    # Recursive function to calculate the maximum amount
+        def robFrom(i):
+            # Base case: when there are no more houses left to consider
+            if i >= len(nums):
+                return 0
+            # Recur by choosing to rob current house and skip next, or skip current house
+            return max(nums[i] + robFrom(i + 2), robFrom(i + 1))
+    
+        # Start the recursion from the first house
+        return robFrom(0)
