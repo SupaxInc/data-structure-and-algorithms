@@ -2079,6 +2079,31 @@ Similar to an anagram.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/30c1cdab-acc2-49ee-bf4f-83f36e205a56/Untitled.png)
     
 
+## 5 - Longest Palindromic Substring
+
+**Intuition:** Find the longest segment within a given string that reads the same backward as forward, exploring every possible center of symmetry.
+
+- Solutions
+    
+    **Brute Force:** Check each substring for every character and check if its a palindrome
+    
+    - Time Complexity: O(n^3)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use palindrome expand
+    Palindromes are symmetric around their center. The optimal way to identify a palindrome involves moving outward from the center rather than inward from the edges. Starting from the edges works for problems like "valid palindrome" checks but not for finding the longest palindromic substring where the palindrome can start anywhere within the string.
+    
+    Odd length: “racecar”, Even length: “abba
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Solution:** Finds the longest palindromic substring by checking palindromes centered at each character (for odd lengths) and between each pair of characters (for even lengths), updating the longest palindrome found.
+    
+    **Unique uses:**
+    
+    - Palindrome expand to find all palindromes anywhere within a string as opposed to using a traditional two pointer approach using the edges.
+
 # Intervals
 
 ## 252 - Meeting Rooms
