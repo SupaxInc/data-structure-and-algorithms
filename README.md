@@ -2104,6 +2104,23 @@ Similar to an anagram.
     
     - Palindrome expand to find all palindromes anywhere within a string as opposed to using a traditional two pointer approach using the edges.
 
+## 647 - Palindromic Substrings
+
+- Solutions
+    
+    **Brute Force:** Check for palindromes per substring
+    
+    - Time Complexity: O(n^3)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Outward expand to find palindromes
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Solution:** Outward expand to find palindromes
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
