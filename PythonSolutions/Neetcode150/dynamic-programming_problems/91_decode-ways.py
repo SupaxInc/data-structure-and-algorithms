@@ -28,3 +28,30 @@ class NonOptimizedBottomUpSolution:
                 dp[i] += dp[i-2]
         
         return dp[length]
+
+class OptimizedBottomUpSolution:
+    def numDecodings(self, s: str) -> int:
+        if not s or s[0] == '0':
+            return 0
+        
+        # Base cases:
+            # prev2 is the previous digit
+            # prev1 is the current digit, also the latest cached state
+        prev2, prev1 = 1, 1
+
+        for i in range(2, len(s) + 1):
+            current = 0
+
+            # Add the ways of the combinations of previous digit to the current state
+            if s[i-1] != '0':
+                current += prev1
+            
+            # Add the ways of combinations for previous two digits to the current state
+                # i-2 since len(s) + 1 gives an extra length, prev2 is empty substring
+            if 10 <= int(s[i-2:i]) <= 26:
+                current += prev2
+            
+            prev2, prev1 = prev1, current
+        
+        # Return the latest cached state
+        return prev1
