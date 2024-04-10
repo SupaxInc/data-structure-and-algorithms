@@ -2121,6 +2121,90 @@ Similar to an anagram.
     **Solution:** Outward expand to find palindromes
     
 
+## 91 - Decode Ways
+
+**Intuition:** Determine how many distinct ways you can decode a given numeric string into letters, given that the numbers correspond to letters in a way where "1" is "A", "2" is "B", ..., "26" is "Z".
+
+- Solutions
+    
+    **Brute Force:** Top down solution
+    
+    - Time Complexity: O(2^n), with caching O(n)
+    - Space Complexity: O(h)
+    
+    **Optimized Approach:** Bottom up tabulation
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n), with prev1 and prev2 it is O(1)
+    
+    **Solution:** 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/816cd966-6643-479e-993b-fad4843d095f/Untitled.png)
+    
+    - How it works:
+        
+        # **How to Reach the Solution**
+        
+        ### Subproblems Identified
+        
+        1. Decoding a Single Digit: Any single digit from '1' to '9' can be decoded into its corresponding letter ('A' to 'I'). The subproblem here is determining if a single digit at position `i` can be decoded and how that affects the total count of decoding ways.
+        2. Decoding Two Digits as a Pair: Two consecutive digits that form a number between 10 and 26 inclusive can be decoded into a letter ('J' to 'Z'). The subproblem is to determine if digits at positions `i-1` and `i` can be decoded together as a valid pair, affecting the total decoding ways.
+        3. Handling Zeros: Zeros cannot be decoded on their own; they must be part of a valid pair ('10' to '20'). This introduces conditional logic into the subproblems, as the presence of a zero at position `i` necessitates checking the digit at `i-1` for a valid pairing.
+        
+        ### Recurrence Relation Based on Subproblems
+        
+        Given these subproblems, the recurrence relation for `dp[i]` (representing the number of ways to decode the substring ending at position `i`) can be defined as follows, considering a 1-indexed array for explanation (adjust for 0-indexing in actual implementation):
+        
+        - For a Single Digit (not '0'): If the digit at position `i` is not '0', it can form a letter on its own. This means all decoding ways leading up to `i-1` can be extended by this single digit, contributing to `dp[i-1]` ways.
+        - For Two Digits forming a valid pair (10-26): If the two digits ending at `i` form a valid number between 10 and 26, then all ways leading up to `i-2` can be extended by this pair, contributing to `dp[i-2]` ways.
+        - For Zeros: Special handling where the zero must pair with the preceding digit, affecting the conditions under which `dp[i-2]` is considered.
+        
+        ### Putting It All Together
+        
+        The recurrence relation thus integrates these subproblems:
+        
+        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d83ee54a-718b-45b6-9bc8-92edceb86c0d/Untitled.png)
+        
+        - Base Cases: `dp[0]` is 1 (an empty string has one way to decode, by doing nothing), and `dp[1]` is set based on whether the first character forms a valid decoding.
+        
+        # **Indexing**
+        
+        It sounds like you've pinpointed a crucial aspect of understanding how indexing works in the context of dynamic programming, especially for this type of problem. Let's clarify this to ensure there's no confusion moving forward.
+        
+        ### **Clarifying `dp[i-1]` and `dp[i-2]` in the Context of "11106"**
+        
+        When using dynamic programming (DP) to solve problems like "Decode Ways," it's essential to keep track of how indices in your **`dp`** array relate to characters in the string. Specifically, for a string "11106" and when referring to **`dp[i-1]`** and **`dp[i-2]`**, here's what they represent in the context of iterating through the string:
+        
+        - **At any index `i` in the iteration**:
+            - **`dp[i]`** represents the total number of ways to decode the substring that ends at the character corresponding to **`i-1`** in 0-based indexing for the string.
+            - **`dp[i-1]`**: Refers to the total decoding ways up to (and including) the character immediately before the current one in the iteration. It represents the cumulative decodings considering the string up to the previous character.
+            - **`dp[i-2]`**: Refers to the total decoding ways up to two characters before the current one in the iteration. This is crucial for considering pairs of digits that can be decoded together (like "10" to "26").
+        
+        ### **Example with "11106"**
+        
+        When iterating through "11106", at the point where you are considering the full string (i.e., at the end of your iteration):
+        
+        - **Index `i` = 5 (for the full string "11106") in `dp`**:
+            - **`dp[i-1]` (or `dp[4]`)** corresponds to decoding ways up to and including "1110". It does not mean the digit '0' alone but represents the cumulative ways the substring "1110" can be decoded.
+            - **`dp[i-2]` (or `dp[3]`)** then represents decoding ways up to "111". It's about the cumulative ways up to that point, not just the digit '1'.
+        
+        # **What is [i-2] and [i-1]?**
+        
+        ### **Single Digit Decoding (`dp[i-1]`)**
+        
+        - **Decoding a Single Digit**: Each digit from '1' to '9' can be independently decoded into a letter ('A' to 'I'). This means that if the current character at position **`i-1`** (since the string is 0-indexed and **`dp`** is 1-indexed) is not '0', it represents a valid single-digit encoding.
+        - **Why Add `dp[i-1]`**: The presence of a valid single digit at position **`i-1`** allows for all the decoding ways counted up to **`i-1`** to be extended by one more letter. Essentially, **`dp[i-1]`** captures all the ways the substring ending just before the current digit can be decoded. Adding this value to **`dp[i]`** signifies that each of those ways can include the current digit as a new, valid letter in the sequence.
+        
+        ### **Double Digit Decoding (`dp[i-2]`)**
+        
+        - **Decoding Two Digits Together**: If the two digits at positions **`i-2`** and **`i-1`** (reflecting the current segment being considered) form a number between 10 and 26, they can be decoded together into a single letter. This is based on the rule that numbers like '10' to '26' correspond to letters 'J' to 'Z'.
+        - **Why Add `dp[i-2]`**: When two digits form a valid double-digit encoding, it introduces an additional way to decode the string up to position **`i`**. The **`dp[i-2]`** count represents all the ways to decode the substring up to (and not including) these two digits. By adding **`dp[i-2]`** to **`dp[i]`**, you're acknowledging that each of these prior decoding ways can be extended by decoding the two current digits as one letter. This does not disrupt the previously counted **`dp[i-1]`** ways since it represents an alternative decoding path that incorporates the two digits as a pair rather than individually.
+        
+        ### **Summary**
+        
+        - **Adding `dp[i-1]`**: Reflects extending previous decodings with the current single digit, indicating continuity in the decoding process where each valid single digit augments the existing decoding paths.
+        - **Adding `dp[i-2]`**: Accounts for the additional decoding possibility introduced by a valid two-digit pair, offering an alternate path that can complement the single-digit decoding paths.
+
 # Intervals
 
 ## 252 - Meeting Rooms

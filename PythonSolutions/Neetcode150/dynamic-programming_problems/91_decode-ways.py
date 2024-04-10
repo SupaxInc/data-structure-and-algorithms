@@ -55,3 +55,34 @@ class OptimizedBottomUpSolution:
         
         # Return the latest cached state
         return prev1
+    
+class BruteForceTopDownSolution:
+    def numDecodings(self, s: str) -> int:
+        # Dictionary to store the results of subproblems
+        memo = {}
+
+        def decode(index):
+            # If we've reached the end of the string, return 1 for a valid decoding
+            if index == len(s):
+                return 1
+            
+            # If the substring starting at index is already solved, return its result
+            if index in memo:
+                return memo[index]
+            
+            # If the current index character is '0', there's no valid decoding
+            if s[index] == '0':
+                return 0
+            
+            # Single digit decoding
+            ans = decode(index + 1)
+            
+            # Double digit decoding
+            if index + 1 < len(s) and (s[index] == '1' or (s[index] == '2' and s[index + 1] in '0123456')):
+                ans += decode(index + 2)
+            
+            # Save the result in memo before returning
+            memo[index] = ans
+            return ans
+        
+        return decode(0)
