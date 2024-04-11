@@ -12,6 +12,7 @@ class BottomUpSolution:
             for coin in coins:
                 # If the current coin can contribute to the current amount i
                     # then we check if using current coin would reduce the number of coins needed.
+                # Essentially prunes the search for the coin if it becomes negative
                 if i - coin >= 0:
                     # Update to min of its current value
                         # Or the number of coins needed for (i - coin) plus one (for the current coin)
