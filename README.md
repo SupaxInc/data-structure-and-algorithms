@@ -2137,7 +2137,7 @@ Similar to an anagram.
     - Time Complexity: O(n)
     - Space Complexity: O(n), with prev1 and prev2 it is O(1)
     
-    **Solution:** 
+    **Solution:** Count the number of ways to decode a string, using two variables to cache the last two states and update them iteratively based on current and previous digit validity.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/816cd966-6643-479e-993b-fad4843d095f/Untitled.png)
     
@@ -2204,6 +2204,27 @@ Similar to an anagram.
         
         - **Adding `dp[i-1]`**: Reflects extending previous decodings with the current single digit, indicating continuity in the decoding process where each valid single digit augments the existing decoding paths.
         - **Adding `dp[i-2]`**: Accounts for the additional decoding possibility introduced by a valid two-digit pair, offering an alternate path that can complement the single-digit decoding paths.
+
+## 322 - Coin Change
+
+**Intuition:** Try to find the minimum number of coins needed to make up a specific amount of money, using coins of given denominations with an unlimited supply.
+
+- Solutions
+    
+    **Brute Force:** Bottom up memoized solution
+    
+    - Time Complexity: O(2^S*n), with cache O(S*n) → where S is amount and n is coins
+    - Space Complexity: O(S)
+    
+    **Optimized Approach:** Top down tabulation
+    
+    - Time Complexity: O(S)
+    - Space Complexity: O(S)
+    
+    **Solution:** Fill a table with the minimum number of coins needed for each amount up to the target, updating each entry based on the smallest number of coins needed to reach that amount with the given denominations.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6160f84e-cf7e-4cd3-9dae-8ee1176c1241/Untitled.png)
+    
 
 # Intervals
 
