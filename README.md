@@ -2221,9 +2221,34 @@ Similar to an anagram.
     - Time Complexity: O(S)
     - Space Complexity: O(S)
     
-    **Solution:** Fill a table with the minimum number of coins needed for each amount up to the target, updating each entry based on the smallest number of coins needed to reach that amount with the given denominations.
+    **Solution:** Fill a table with the minimum number of coins needed for each amount up to the target, updating each entry based on the smallest number of coins needed to reach that amount with the given denominations. **Greedy is not possible.**
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6160f84e-cf7e-4cd3-9dae-8ee1176c1241/Untitled.png)
+    
+
+## 152 - Maximum Product Subarray
+
+**Intuition:** Find the largest product possible from a contiguous subarray within an integer array, considering that multiplying negative numbers can turn a small product into a large one.
+
+Read code solution comments if you are confused.
+
+- Solutions
+    
+    Maybe mention that sliding window algorithm won’t work as its better for sums
+    
+    **Brute Force:** Use a nested for loop and check for every possible sub array
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use DP
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Track both maximum and minimum products up to each position in an array, swapping them when encountering a negative number, to maximize the product of a contiguous subarray.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d41da346-e862-4838-bc40-ac95e77dc4b2/Untitled.png)
     
 
 # Intervals
