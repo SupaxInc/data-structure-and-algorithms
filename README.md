@@ -2251,6 +2251,49 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d41da346-e862-4838-bc40-ac95e77dc4b2/Untitled.png)
     
 
+## 139 - Word Break
+
+**Intuition:** Determine if a given string can be segmented into one or more dictionary words, ensuring each segment is a valid word from the provided list.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to backtrack and find other segments
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use DP tabulation
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Solution:** Keep track of where a word has been successfully segmented so for each partitioned substring we know that the start point was previously segmented therefore we can mark the end point as another segment preventing to having to backtrack.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c7b79338-6c32-425f-9d30-70b5f146923d/Untitled.png)
+    
+
+## 300 - Longest Increasing Subsequence
+
+**Intuition:** Find the length of the longest subsequence of a given array where the elements of the subsequence are strictly increasing. This subsequence does not need to be contiguous, but it should maintain the order of appearance in the array.
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
+
 # Intervals
 
 ## 252 - Meeting Rooms
