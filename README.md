@@ -2302,6 +2302,46 @@ Read code solution comments if you are confused.
     
     - Problem 139 and 300 are similar in how it partitions the array and iterates through partition
 
+## 416 - Partition Equal Subset Sum
+
+**Intuition:** This problem essentially asks whether you can find a subset of numbers that sums to half of the total sum of the array.
+
+- Solutions
+    
+    **Brute Force:** DFS, 2 choices, include or exclude to subset
+    
+    - Time Complexity: O(2^n) → can be optimized with memoization
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Top down tabulation
+    
+    - Time Complexity: O(n * sum(nums))
+    - Space Complexity: O(n)
+    
+    **Solution:**  Updates a DP array from right to left for each element to ensure each number contributes only once to each possible subset sum.
+    
+    Top down solution:
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d8c47103-61e1-488f-8090-11fa2b21581d/Untitled.png)
+    
+    Bottom up solution:
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/00d6bc22-ea7d-4dde-a997-e5e418a692f7/Untitled.png)
+    
+    - States
+        
+        ### **Explanation of the States `True` and `False`**
+        
+        **1. `False` State:**
+        
+        - **Meaning**: When **`dp[j]`** is **`False`**, it means that, based on the elements considered so far, there is no subset of those elements that sums to **`j`**.
+        - **Usage**: This is the default state, implying that a sum has not been achieved. As the algorithm processes each element of the input array, it attempts to switch this state to **`True`** for various sums if they can be made with available numbers.
+        
+        **2. `True` State:**
+        
+        - **Meaning**: When **`dp[j]`** is **`True`**, it signifies that there is at least one subset of the numbers processed up to that point which sums to **`j`**.
+        - **Usage**: Once a **`dp[j]`** reaches a **`True`** state, it remains **`True`** for the remainder of the process because once a sum **`j`** can be achieved, adding more numbers to the pool (without subtracting) cannot make this sum impossible.
+
 # Intervals
 
 ## 252 - Meeting Rooms
