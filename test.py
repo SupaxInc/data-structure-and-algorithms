@@ -1,21 +1,29 @@
-def lengthOfLIS(nums):
-    if not nums:
-        return 0
+def canPartition(nums):
+    total_sum = sum(nums)
+    # If the total sum is odd, it's impossible to split the array into two equal subsets
+    if total_sum % 2 != 0:
+        return False
+    
+    target = total_sum // 2
+    # Initialize a DP array where dp[j] means whether a subset with sum j can be formed
+    dp = [False] * (target + 1)
+    dp[0] = True  # A sum of 0 is always possible because we can choose an empty subset
 
-    # Step 1: Initialize the DP array
-    dp = [1] * len(nums)
+    # Iterate over each number in the input array
+    for num in nums:
+        # Traverse the dp array from right to left to prevent reusing the same element
+        # in the same iteration. This approach ensures that each number is only used once per
+        # subset sum calculation.
+        for j in range(target, num - 1, -1):
+            # If a subset with sum j - num was previously possible,
+            # then a subset with sum j is also possible by including this number.
+            if dp[j - num]:
+                dp[j] = True
 
-    # Step 2: Fill the DP table
-    for i in range(len(nums)):
-        for j in range(i):
-            numJ = nums[j]
-            numsI = nums[i]
-            if nums[j] < nums[i]:
-                dp[i] = max(dp[i], dp[j] + 1)
-
-    # Step 3: The result is the maximum value in the DP table
-    return max(dp)
+    # The value at dp[target] will be True if a subset with sum equal to target can be formed,
+    # meaning the original array can be split into two subsets with equal sums.
+    return dp[target]
 
 # Example usage
-nums = [10, 9, 2, 5, 3, 7, 101, 18]
-print(lengthOfLIS(nums))  # Output should be 4
+nums = [1, 5, 11, 5]
+print(canPartition(nums))  # Output: True
