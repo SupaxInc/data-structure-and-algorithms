@@ -1,18 +1,21 @@
-def wordBreak(s, wordDict):
-    wordDict = set(wordDict)  # Use a set for O(1) average lookup time
-    dp = [False] * (len(s) + 1)
-    dp[0] = True  # Base case: empty substring is always true
+def lengthOfLIS(nums):
+    if not nums:
+        return 0
 
-    for i in range(1, len(s) + 1):
+    # Step 1: Initialize the DP array
+    dp = [1] * len(nums)
+
+    # Step 2: Fill the DP table
+    for i in range(len(nums)):
         for j in range(i):
-            word = s[j:i]
-            if dp[j] and word in wordDict:
-                dp[i] = True
-                break  # No need to continue if one valid segment is found
+            numJ = nums[j]
+            numsI = nums[i]
+            if nums[j] < nums[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
 
-    return dp[len(s)]
+    # Step 3: The result is the maximum value in the DP table
+    return max(dp)
 
 # Example usage
-s = "pineapple"
-wordDict = ["pine", "app", "apple"]
-print(wordBreak(s, wordDict))  # Output: True
+nums = [10, 9, 2, 5, 3, 7, 101, 18]
+print(lengthOfLIS(nums))  # Output should be 4
