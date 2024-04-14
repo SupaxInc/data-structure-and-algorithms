@@ -2275,24 +2275,32 @@ Read code solution comments if you are confused.
 ## 300 - Longest Increasing Subsequence
 
 **Intuition:** Find the length of the longest subsequence of a given array where the elements of the subsequence are strictly increasing. This subsequence does not need to be contiguous, but it should maintain the order of appearance in the array.
+**Read code if confused.**
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:** DFS approach, create a subsequence per index and decide whether to keep current index or not (2 choices)
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(2^n) → can lower with memoization
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
+    **Optimized Approach:** Use tabulation
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
     
-    **Solution:** 
+    **Solution: C**alculate the longest increasing subsequence of a list, where each element in a DP array **`dp`** is updated based on the maximum length of subsequences ending at each position, ensuring only values from previous smaller elements contribute to the current position’s length calculation.
     
-    **Unique uses:**
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f1e1eb32-31f3-4a66-9e0d-1fc23a316235/Untitled.png)
     
-    - 
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5ccae31e-45c4-4ab1-a19f-6ac02430a34e/Untitled.png)
+    
+    **Subproblem:** Which previous numbers are smaller than the current number we are on? 
+    **LIS[i] = max(LIS[..], LIS[..], …) + 1**
+    
+    **Unique ways:**
+    
+    - Problem 139 and 300 are similar in how it partitions the array and iterates through partition
 
 # Intervals
 
