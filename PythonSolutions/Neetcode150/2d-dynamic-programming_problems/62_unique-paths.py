@@ -1,3 +1,23 @@
+class BruteForceSolution:
+    def uniquePaths(m, n):
+        memo = {}  # Use a dictionary to memoize results
+
+        def explore(i, j):
+            if i == m or j == n:
+                return 0
+            if (i, j) == (m - 1, n - 1):
+                return 1
+            if (i, j) in memo:
+                return memo[(i, j)]
+            
+            # Recursive exploration to the right and down
+            right_paths = explore(i, j + 1)
+            down_paths = explore(i + 1, j)
+            memo[(i, j)] = right_paths + down_paths
+            return memo[(i, j)]
+
+        return explore(0, 0)
+
 class MemoizedSolution:
     def uniquePaths(self, m: int, n: int) -> int:
         cache = {}
