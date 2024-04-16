@@ -2342,6 +2342,34 @@ Read code solution comments if you are confused.
         - **Meaning**: When **`dp[j]`** is **`True`**, it signifies that there is at least one subset of the numbers processed up to that point which sums to **`j`**.
         - **Usage**: Once a **`dp[j]`** reaches a **`True`** state, it remains **`True`** for the remainder of the process because once a sum **`j`** can be achieved, adding more numbers to the pool (without subtracting) cannot make this sum impossible.
 
+# 2D Dynamic Programming
+
+## 62 - Unique Paths
+
+**Intuition:** This problem essentially asks you to calculate all possible paths through a grid given fixed movement constraints.
+
+- Solutions
+    
+    **Brute Force:** Use a DFS to explore all paths, ends up re-visiting paths
+    
+    - Time Complexity: O(2^n) → memoized would be O(m x n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use tabulation 
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Updated states in a single loop to sum paths from the left and above (bottom + right), simulating a bottom-up approach by effectively rotating and compressing a 2D grid into a 1D array that accumulates paths to the bottom-right corner.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/236a4398-2f1d-4727-bd8a-d6c44e060180/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a 1D array in tabulation and just iterate over it in a nested loop doing calculations like its a 2d array
+    - Think of the bottom up approach as just flipping the 2d table upside down and inverting it.
+        - Adding the current column we are on + the previous column will be similar to a right + down operation in recursive solution
+
 # Intervals
 
 ## 252 - Meeting Rooms
