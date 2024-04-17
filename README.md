@@ -2370,6 +2370,31 @@ Read code solution comments if you are confused.
     - Think of the bottom up approach as just flipping the 2d table upside down and inverting it.
         - Adding the current column we are on + the previous column will be similar to a right + down operation in recursive solution
 
+## 1143 - Longest Common Subsequence
+
+**Intuition:** Find the length of the longest subsequence common to two strings, which means identifying the longest sequence of characters that can appear in the same order within both strings without needing to be consecutive.
+
+- Solutions
+    
+    **Brute Force:** Use a DFS to explore all choices
+    
+    - Time Complexity: O(2^m+n) → memoized is O(m * n)
+    - Space Complexity: O(m*n)
+    
+    **Optimized Approach:** Use a bottom up tabulation approach
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(m*n)
+        
+        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8448e486-4cca-48fd-b2e5-cebc2f99e2e9/Untitled.png)
+        
+    
+    **Solution:** Find the longest common subsequence between two strings by building a 2D matrix bottom-up, where each cell represents the LCS length using the choice of extending the sequence on matches or skipping a character on mismatches.
+    **Bottom up chart:**
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/158ffd37-122b-49fa-8e67-8b7e287199d1/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
