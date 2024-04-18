@@ -2435,6 +2435,31 @@ Read code solution comments if you are confused.
     ```
     
 
+## 518 - Coin Change 2
+
+**Intuition:** Figure out all possible combinations of the coins that sum up to the target amount.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to explore all possibilities of skipping and using the coin
+    
+    - Time Complexity: O(2^n) → memoized is O(m*n)
+    - Space Complexity: O(m*n)
+    
+    **Optimized Approach:** Use tabulation
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(n) where n is amount + 1
+    
+    **Solution:** Calculate the number of ways to make a specific amount with a list of coins, where each cell **`dp[i][j]`** accumulates the ways to make amount **`j`** using the first **`i`** coins, summing the possibilities without the current coin and adding those from using the current coin multiple times.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9fa5c50a-f154-4942-8816-77bb671cc0f3/Untitled.png)
+    
+    **Bottom Up Matrix:**
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ab444488-9f19-4d53-9dc9-2f808d99baa8/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
