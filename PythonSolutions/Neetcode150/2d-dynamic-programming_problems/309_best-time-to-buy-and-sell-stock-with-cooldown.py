@@ -74,3 +74,34 @@ class BottomUpSolution:
 
         # The result is the maximum profit on the last day, with no stock left in hand.
         return dp[n-1][0]
+
+class MostOptimizedSolution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+
+        n = len(prices)
+        if n <= 1:
+            return 0
+        
+        # Variables to keep track of profits on days with different states
+        # prev_sold: max profit till day i-1 where the last action was selling the stock
+        # prev_hold: max profit till day i-1 where the last action was holding the stock
+        # prev_rest: max profit till day i-1 where the last action was resting
+        prev_sold = 0
+        prev_hold = -prices[0]
+        prev_rest = 0
+
+        for i in range(1, n):
+            # Update the profits based on today's actions
+            curr_sold = prev_hold + prices[i]  # Sell today
+            curr_hold = max(prev_hold, prev_rest - prices[i])  # Buy today or keep holding
+            curr_rest = max(prev_rest, prev_sold)  # Rest today (no transaction)
+
+            # Update previous day's profits for next iteration
+            prev_sold = curr_sold
+            prev_hold = curr_hold
+            prev_rest = curr_rest
+
+        # The final maximum profit, considering not holding any stock at the end
+        return max(prev_rest, prev_sold)
