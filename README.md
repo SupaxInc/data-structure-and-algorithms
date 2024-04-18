@@ -2395,6 +2395,46 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/158ffd37-122b-49fa-8e67-8b7e287199d1/Untitled.png)
     
 
+## 309 - Buy and Sell Stock with Cooldown
+
+**Intuition:** Maximize profit from stock trades with the constraint that after selling a stock, you cannot buy another on the next day (a cooldown period). The challenge is to decide on each day whether to buy, sell, or rest to achieve the maximum possible profit over the given list of prices.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to explore all scenarios of holding, buying and selling stock
+    
+    - Time Complexity: O(2^n) → memoization O(n)
+    - Space Complexity: O(1) → memoization O(n)
+    
+    **Optimized Approach:** Use tabulation
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(2 * n) → can be improved to O(1)
+    
+    **Solution:** Maintaining a 2D DP array, where **`dp[i][0]`** and **`dp[i][1]`** track the maximum profits without and with stock respectively, updating these states based on previous day's profits and current price actions.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/edb08cfa-6f6d-474b-a959-1efdda3960f2/Untitled.png)
+    
+    **Tabulation 2D Data:**
+    
+    ```python
+       Day    dp[i][0]    dp[i][1]
+        0        0          -1
+        1        1          -1
+        2        3          -1
+        3        3           1
+        4        3           1
+        
+    dp[i][0] represents the maximum profit achievable by the end of 
+    day i without holding any stock. This accounts for either selling stock 
+    or resting if it was better not to have sold the stock the previous day.
+    
+    dp[i][1] shows the maximum profit achievable by the end of day i while 
+    holding a stock, considering whether to buy on that day or continue holding 
+    from a previous purchase.
+    ```
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
