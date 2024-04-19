@@ -2481,6 +2481,27 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/34db8a44-84b1-4eae-9f1c-b5b9bf2de997/Untitled.png)
     
 
+## 97 - Interleaving String
+
+**Intuition:** Determine if you can interleave two strings **`s1`** and **`s2`** to form a third string **`s3`**, using all characters from **`s1`** and **`s2`** in a way that maintains their relative order within the original strings **`s1`** and **`s2`**.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to explore all combinations of slicing s1 and s2
+    
+    - Time Complexity: O(2^n) → memoization is O(s1 * s2)
+    - Space Complexity: O(s1 * s2)
+    
+    **Optimized Approach:** Use tabulation
+    
+    - Time Complexity: O(s1 * s2)
+    - Space Complexity: O(s1 * s2)
+    
+    **Solution:** Verify if **`s3`** can be formed by interleaving **`s1`** and **`s2`**, caching results to avoid redundant calculations while exploring choices to use characters from either **`s1`** or **`s2`** if they match the current character in **`s3`**.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c1394c29-baeb-4419-a14b-c217f3769d5a/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
