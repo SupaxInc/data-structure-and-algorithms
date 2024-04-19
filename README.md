@@ -2460,6 +2460,27 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ab444488-9f19-4d53-9dc9-2f808d99baa8/Untitled.png)
     
 
+## 494 - Target Sum
+
+**Intuition:** Find how many ways you can add or subtract the given numbers in an array to achieve a specific target sum.
+
+- Solutions
+    
+    **Brute Force:** Use DFS to explore all choices for subtract and add
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(h)
+    
+    **Optimized Approach:** Memoization
+    
+    - Time Complexity: O(n* total(nums)) → total(nums) since we may call the function total of the nums array times. E.g. [1, 1] → -2 to 2
+    - Space Complexity: O(* total(nums))
+    
+    **Solution:** Count the number of ways to sum subsets of **`nums`** to reach **`target`** by exploring and caching both adding and subtracting each number from the total.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/34db8a44-84b1-4eae-9f1c-b5b9bf2de997/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
