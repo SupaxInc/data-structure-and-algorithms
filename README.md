@@ -2502,6 +2502,29 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c1394c29-baeb-4419-a14b-c217f3769d5a/Untitled.png)
     
 
+## 72 - Edit Distance
+
+**Intuition:** Determine the minimum number of operations (insertions, deletions, or substitutions) required to convert one string (**`word1`**) into another (**`word2`**), exploring the concept of edit distance.
+
+- Solutions
+    
+    **Brute Force:** Explore all ways to insert, delete, replace
+    
+    - Time Complexity: O(2^n) → memoized is O(m*n)
+    - Space Complexity: O(m*n)
+    
+    **Optimized Approach:** Use tabulation ****
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(m*n)
+    
+    **Solution: C**ompute the minimum edit distance between two strings, **`word1`** and **`word2`**, by constructing a DP table that iteratively fills in the minimal costs for transforming substrings of **`word1`** into substrings of **`word2`** based on insertion, deletion, and substitution operations.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6b4b4763-3c61-4ba9-a415-98a32c3d966d/Untitled.png)
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/87af42ca-d1d0-4b84-8661-061bf926e18f/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
