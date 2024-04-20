@@ -2525,6 +2525,27 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/87af42ca-d1d0-4b84-8661-061bf926e18f/Untitled.png)
     
 
+# Greedy
+
+## 53 - Maximum Subarray
+
+**Intuition:** Find the contiguous subarray within an array of integers that has the highest sum, focusing on efficiently determining the range that maximizes this cumulative value.
+
+- Solutions
+    
+    **Brute Force:** Nested for loop to check for all subarrays and save the sum for each subarray
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Greedy approach
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Use a greedy approach, choose the local optimum choice of restarting the subarray if our current sum becomes negative.
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
