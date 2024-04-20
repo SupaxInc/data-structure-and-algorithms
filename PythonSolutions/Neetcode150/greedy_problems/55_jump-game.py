@@ -59,7 +59,7 @@ class BottomUpSolution:
         for i in range(n):
             if dp[i]: # If current index is reachable then try all jump lengths
                 for j in range(1, nums[i] + 1):
-                    # Cache the jump length if we were able to jump without reaching the boundary
+                    # Cache the jump length if we were able to jump without going over the boundary
                     if i + j < n:
                         dp[i + j] = True
                     # If we already ended up at the end, just early return
@@ -68,3 +68,27 @@ class BottomUpSolution:
         
         # The last index in the DP indicates if the last index was reachable
         return dp[n - 1]
+
+class GreedySolution:
+    def canJump(self, nums: List[int]) -> bool:
+        if not nums:
+            return False
+
+        n = len(nums)
+        maxReachable = 0
+
+        for i in range(n):
+            # If the current position we are on is greater than the max we can jump
+                # Which means we no longer have enough jump length to go further in the array
+                # Maybe array had 0's which prevents us from going further
+            if i > maxReachable:
+                return False
+            
+            # Greedy choice: Find the furthest point you could reach at each iteration
+            maxReachable = max(maxReachable, i + nums[i])
+
+            # If we can already reach the end and beyond, early return
+            if maxReachable >= n - 1:
+                return True
+        
+        return maxReachable >= n - 1
