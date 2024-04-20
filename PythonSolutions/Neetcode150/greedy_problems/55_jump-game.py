@@ -84,7 +84,7 @@ class GreedySolution:
             if i > maxReachable:
                 return False
             
-            # Greedy choice: Find the furthest point you could reach at each iteration
+            # Greedy local optimal choice: Find the furthest point you could reach at each iteration
             maxReachable = max(maxReachable, i + nums[i])
 
             # If we can already reach the end and beyond, early return

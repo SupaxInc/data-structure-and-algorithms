@@ -2546,6 +2546,33 @@ Read code solution comments if you are confused.
     **Solution:** Use a greedy approach, choose the local optimum choice of restarting the subarray if our current sum becomes negative.
     
 
+## 55 - Jump Game
+
+**Intuition:** Determine if it's possible to reach the last index of an array from the first index, where each array element indicates the maximum jump length from that position. You don’t always have to use the maximum jump length.
+
+- Solutions
+    
+    **Brute Force:** DFS to explore all jumps for each jump length
+    
+    - Time Complexity: O(n^n) → memoized is O(n) due to doing the furthest jump first, without that it is O(n^2)
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/bf2bea60-518d-433b-b779-fdbe3eb256d1/Untitled.png)
+    
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use tabulation
+    
+    - Time Complexity: O(n^2) → can be optimized to O(n)
+    - Space Complexity: O(n) → can be optimized to O(1)
+    
+    **Greedy Approach:** Use most local optimal choice
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Update the furthest point you can reach at each iteration (greedy), at any point if the max reachable is greater than or equal to length of the array, it means we can reach it.
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
