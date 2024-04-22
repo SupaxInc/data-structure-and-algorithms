@@ -2573,6 +2573,28 @@ Read code solution comments if you are confused.
     **Solution:** Update the furthest point you can reach at each iteration (greedy), at any point if the max reachable is greater than or equal to length of the array, it means we can reach it.
     
 
+## 45 - Jump Game 2
+
+**Intuition:** Find the minimum number of jumps required to reach the last index of an array from the first index, with each array element indicating the maximum jump length from that position. The challenge is to optimize the path to minimize the number of jumps needed.
+
+- Solutions
+    
+    **Brute Force:** DP solution
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Greedy approach
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Greedily choose the farthest jump length per iteration and update a pointer to the end. 
+    
+    **Unique uses:**
+    
+    - Similar to two pointer approach
+
 # Intervals
 
 ## 252 - Meeting Rooms
