@@ -2595,6 +2595,30 @@ Read code solution comments if you are confused.
     
     - Similar to two pointer approach
 
+## 134 - Gas Station
+
+**Intuition:** Determine the starting gas station index from which you can complete a circuit around a circular route, where each station provides a certain amount of fuel and requires a certain cost in fuel to reach the next station; the challenge is to ensure you never run out of gas at any point during the journey.
+
+- Solutions
+    
+    **Brute Force:** Nested for loop using modulo for circular route
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Greedy approach
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Greedy choice to reset starting point if our current tank from previous station we started from becomes negative. 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/392bd24a-19ae-4ac5-a4e1-08fbbf0b53bd/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Starting index + current position % length of array will give circular index in brute force approach.
+
 # Intervals
 
 ## 252 - Meeting Rooms
