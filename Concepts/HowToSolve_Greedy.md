@@ -58,4 +58,46 @@ However, the most optimal choice is actually: 3 + 4 + 20 = 27
 
 ### Example 2: Dijkstra’s Algorithm
 
-[Problem with greedy algorithms](https://www.notion.so/Problem-with-greedy-algorithms-c06c30cfe2504a1fb50cdc47f1820d25?pvs=21)
+[Problem with greedy algorithms](https://www.notion.so/Problem-with-greedy-algorithms-c06c30cfe2504a1fb50cdc47f1820d25?pvs=21) 
+
+# Common Template
+
+1. **Problem Understanding and Analysis**:
+    - Clearly understand the problem and the constraints.
+    - Identify if the problem can be broken down into components where local optimal choices lead to a global optimal solution.
+2. **Initialization**:
+    - Define necessary variables to keep track of the current state (like current result, maximum/minimum, counters).
+    - Optionally, sort the input if the problem involves comparing elements or requires a specific order for processing.
+3. **Iteration over Input**:
+    - Iterate over the sorted or original input based on problem requirements.
+    - Make a greedy choice during each iteration, updating the state based on local optima.
+4. **Greedy Choice**:
+    - Apply the greedy decision rule that aligns with moving toward the desired outcome.
+    - Update any auxiliary data structures or variables that monitor the progress or state of the solution.
+5. **Post-Processing** (if needed):
+    - Sometimes after iterating, you might need to adjust or finalize the result based on additional constraints or final checks.
+6. **Return the Result**:
+    - Output the final result which could be the accumulated value, a constructed array, or any other structure depending on the problem.
+
+```python
+def solve(input):
+    # Step 1: Sort the input if necessary
+    input.sort(key=lambda x: x[1])  # Example sort by second element
+
+    # Step 2: Initialize necessary variables
+    result = 0
+    current_state = None
+
+    # Step 3: Iterate through the sorted input
+    for element in input:
+        if should_take(element, current_state):
+            # Step 4: Make the greedy choice
+            result += element[0]  # Update result based on problem requirement
+            current_state = update_state(current_state, element)
+
+    # Step 5: Final adjustments (if necessary)
+    final_result = finalize_result(result, input)
+
+    # Step 6: Return the final result
+    return final_result
+```
