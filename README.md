@@ -2619,6 +2619,23 @@ Read code solution comments if you are confused.
     
     - Starting index + current position % length of array will give circular index in brute force approach.
 
+## 846 - Hand of Straights
+
+**Intuition:** Determine if an array of card values can be grouped into consecutive subsequences of a specific length, ensuring each subsequence is strictly sequential with no skipped numbers.
+
+- Solutions
+    
+    **Optimized Approach:** Greedy choice
+    
+    - Time Complexity: O(K log k + k * size)
+    - Space Complexity: O(k)
+    
+    **Solution:** Select the smallest card first then check how many groups that card needs to start in. The subsequent cards needs to also begin in the same amount of groups.
+    
+    **Unique uses:**
+    
+    - Sorting as the greedy local optimal choice to select the smallest cards first.
+
 # Intervals
 
 ## 252 - Meeting Rooms
