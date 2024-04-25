@@ -2636,6 +2636,22 @@ Read code solution comments if you are confused.
     
     - Sorting as the greedy local optimal choice to select the smallest cards first.
 
+## 1899 - Merge Triplets to Form Target Triplet
+
+**Intuition:** Determine if you can select some of these triplets and use them to form a target triplet. The selection process allows using the maximum values from any of the selected triplets' positions to match exactly the respective positions in the target triplet.
+
+- Solutions
+    
+    **Optimized Approach:** Greedy approach
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(3) → O(1)
+    
+    **Solution:** Locally optimal choice is to prevent choosing triplets that have greater values than target values then greedily choose the highest values across all triplets to match to target.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/0609a9ce-5638-48dd-a883-1aab172387e4/Untitled.png)
+    
+
 # Intervals
 
 ## 252 - Meeting Rooms
