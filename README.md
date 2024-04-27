@@ -2669,7 +2669,70 @@ Read code solution comments if you are confused.
     
     **Unique uses:**
     
-    - Use enumerate to get index and value of array
+    - Use enumerate to get index and value of array to populate hash map
+
+## 678 - Valid Parenthesis String
+
+**Intuition:** Determine if a given string composed of characters '(', ')', and '*' is valid. The '*' can be treated as a '(', a ')', or be ignored, and the goal is to check if it's possible to arrange the characters so that the parentheses are correctly balanced.
+
+- Solutions
+    
+    **Brute Force:** Use memoization
+    
+    - Time Complexity: O(3^n) → O(n^2)
+    - Space Complexity: O(h) → O(n^2)
+    
+    **Optimized Approach:** Use bottom up tabulation
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n^2)
+    - How tabulation works here:
+        
+        ### **Example String:**
+        
+        - String: **`"(*))"`**
+        - Length: 4
+        
+        ### **DP Table Visualization:**
+        
+        | Index/Unmatched j | 0 | 1 | 2 | 3 |
+        | --- | --- | --- | --- | --- |
+        | 0 (Start) | T | F | F | F |
+        | 1 ('(') | F | T | F | F |
+        | 2 ('*') | T | T | T | F |
+        | 3 (')') | F | T | T | F |
+        | 4 (')') | T | F | F | F |
+        
+        ### **Explanation of Each Row:**
+        
+        - **Row 0**: Before any characters are processed. Only **`dp[0][0]`** is true, indicating zero unmatched parentheses are possible with zero characters processed.
+        - **Row 1** (**`'('`**):
+            - **`dp[1][1]`** becomes true because processing **`(`** increases the unmatched count by 1 (from **`dp[0][0]`**).
+        - **Row 2** (**`'*'`**):
+            - **`dp[2][0]`**: True because **``** can act as an empty character, carrying over **`dp[1][0]`** (not applicable here).
+            - **`dp[2][1]`**: True because **``** can act as **`(`**, increasing the unmatched count from **`dp[1][0]`**.
+            - **`dp[2][2]`**: True because **``** can also act as **`(`**, increasing the unmatched count from **`dp[1][1]`**.
+        - **Row 3** (**`')'`**):
+            - **`dp[3][0]`**: Remains false because you cannot have zero unmatched parentheses after an odd number of symbols unless compensated by a **``**.
+            - **`dp[3][1]`**: True because **`)`** decreases the unmatched count by 1 from **`dp[2][2]`**.
+            - **`dp[3][2]`**: True as **`)`** decreases the unmatched count by 1 from **`dp[2][3]`** (if it were applicable).
+        - **Row 4** (**`')'`**):
+            - **`dp[4][0]`**: True because **`)`** can reduce the unmatched count from **`dp[3][1]`** to zero, balancing all open parentheses.
+        
+        ### **How to Read the Table:**
+        
+        - Each **column** represents a possible number of unmatched opening parentheses (**`j`**) after processing the first **`i`** characters.
+        - Each **row** corresponds to processing another character in the string, updating possible states based on the character's nature (**`(`** increases, **`)`** decreases, **``** has multiple effects).
+    
+    **Best Optimized Approach:** Use greedy solution
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Greedy approach to dynamically track the range of possible unmatched opening parentheses (**`low`** to **`high`**) while processing characters in string **`s`**, adjusting **`low`** and **`high`** for **`(`**, **`)`**, and **`*`**, resetting **`low`** to zero if it goes negative, and returning **`False`** if **`high`** becomes negative, 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fa5312fe-15b9-4f8a-b13f-783bf233ee0f/Untitled.png)
+    
 
 # Intervals
 
