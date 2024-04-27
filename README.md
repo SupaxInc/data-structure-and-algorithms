@@ -2652,6 +2652,25 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/0609a9ce-5638-48dd-a883-1aab172387e4/Untitled.png)
     
 
+## 763 - Partition Labels
+
+**Intuition:** Divide a string into as many parts as possible so that each letter appears in only one part, and then return a list of the lengths of these parts.
+
+- Solutions
+    
+    **Optimized Approach:** Greedy approach
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(26), 26 letters constraint in hash map
+    
+    **Solution:** Greedily choose the character that has the farthest last found index so that no characters appear in more than one partition. Global optimum is reached when we reach the end of the last found index.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6493a78c-96fb-4665-b310-c77b3f610b70/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Use enumerate to get index and value of array
+
 # Intervals
 
 ## 252 - Meeting Rooms
