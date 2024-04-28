@@ -2738,25 +2738,48 @@ Read code solution comments if you are confused.
 
 ## 252 - Meeting Rooms
 
-**Brute Force:**  Compare every interval with each other to see if there are overlaps
+**Intuition:** Determine if a person can attend all meetings based on given time intervals for each meeting, by checking if any meeting times overlap.
 
-- Time Complexity: O(n^2)
-- Space Complexity: O(1)
+- Solutions
+    
+    **Brute Force:**  Compare every interval with each other to see if there are overlaps
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Sort the intervals by start time in ASC order then iterate
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/922fd683-0956-44c4-b54c-ec5702953c85/Untitled.png)
+    
+    - ****Time Complexity: O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Solution:** Overlap = currStartTime< prevEndTime, since the 2nd class starts before the previous class ended.
+    
+    **Unique uses:**
+    
+    - Using lambda to sort
+    - Sort the intervals by start time allows us to not compare with every other interval because the next start times will be greater than the previous start times.
+        - This means if the previous start time did not overlap, then that means the next start times could never overlap as well.
 
-**Optimized Approach:** Sort the intervals by start time in ASC order then iterate
+## 57 - Insert Interval
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/922fd683-0956-44c4-b54c-ec5702953c85/Untitled.png)
+**Intuition:** Given a list of non-overlapping intervals sorted by their start times, and your task is to insert a new interval into this list so that the intervals remain sorted and without overlaps, possibly merging the new interval with existing ones if necessary.
 
-- ****Time Complexity: O(nlogn)
-- Space Complexity: O(n)
-
-**Solution:** Overlap = startTime2 < endTime1, since the 2nd class starts before the previous class ended.
-
-**Unique uses:**
-
-- Using lambda to sort
-- Sort the intervals by start time allows us to not compare with every other interval because the next start times will be greater than the previous start times.
-    - This means if the previous start time did not overlap, then that means the next start times could never overlap as well.
+- Solutions
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** First add intervals in the beginning with no overlap, then check for overlaps, finally add the rest of intervals.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d1421ea8-c742-4c52-87c0-b4f88e2676e6/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Multiple while loops to add intervals
 
 # Math & Geometry
 
