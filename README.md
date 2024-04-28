@@ -2759,6 +2759,7 @@ Read code solution comments if you are confused.
     **Unique uses:**
     
     - Using lambda to sort
+        - Using lambda is an anonymous function similar to arrow functions in Javascript
     - Sort the intervals by start time allows us to not compare with every other interval because the next start times will be greater than the previous start times.
         - This means if the previous start time did not overlap, then that means the next start times could never overlap as well.
 
@@ -2780,6 +2781,26 @@ Read code solution comments if you are confused.
     **Unique uses:**
     
     - Multiple while loops to add intervals
+    - Using min and max to find the new values for the overlapped interval
+
+## 56 - Merge Intervals
+
+**Intuition:** Merge the overlapping intervals into one interval.
+
+- Solutions
+    
+    **Optimized Approach:** Sort the start time to easily find overlaps since we only compare the current interval with last interval
+    
+    - Time Complexity: O(nlogn) + O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Sort the intervals, compare current and last, merge overlaps by end time. Start time is not needed to change since its already sorted by start time.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5c6485e5-602c-4103-887c-321f7f77bb05/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Using lambda is an anonymous function similar to arrow functions in Javascript
 
 # Math & Geometry
 
