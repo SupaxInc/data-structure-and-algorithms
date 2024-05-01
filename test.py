@@ -1,21 +1,31 @@
-from collections import Counter
+import heapq
 
-def isNStraightHand(hand, W):
-    if len(hand) % W != 0:
-        return False  # Quick check to ensure it's possible to divide the hand into groups of W
+def minMeetingRooms(intervals):
+    if not intervals:
+        return 0
 
-    card_count = Counter(hand)
-    sorted_cards = sorted(card_count)  # Sort the keys of the counter
+    # Initialize a heap.
+    # The heap keeps track of the earliest end time of all allocated rooms.
+    heap = []
 
-    for card in sorted_cards:
-        if card_count[card] > 0:  # If there are cards left to form a group
-            count = card_count[card]
-            for i in range(W):  # Attempt to form a group starting with 'card'
-                if card_count[card + i] < count:
-                    return False  # Not enough cards to form a group
-                card_count[card + i] -= count
+    # Sort the intervals by their start time.
+    intervals.sort(key=lambda x: x[0])
 
-    return True
+    # Add the first meeting's end time to the heap
+    heapq.heappush(heap, intervals[0][1])
 
-# Example usage
-print(isNStraightHand([1,2,3,6,2,3,4,7,8], 3))  # Output: True
+    # Iterate over the remaining intervals
+    for i in intervals[1:]:
+        # If the room due to free up the earliest is free, assign that room to this meeting.
+        if heap[0] <= i[0]:
+            heapq.heappop(heap)
+        
+        # If a new room is needed, or after freeing up, add the current meeting's end time to the heap.
+        heapq.heappush(heap, i[1])
+
+    # The size of the heap tells us the minimum rooms required for all the meetings.
+    return len(heap)
+
+# Example usage:
+intervals = [[0, 30], [5, 10], [15, 20]]
+print(minMeetingRooms(intervals))  # Output: 2
