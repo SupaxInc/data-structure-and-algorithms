@@ -2802,6 +2802,24 @@ Read code solution comments if you are confused.
     
     - Using lambda is an anonymous function similar to arrow functions in Javascript
 
+## 435 - Non-overlapping intervals
+
+**Intuition:** Find the min amount of intervals you need to remove to make the rest of intervals non-overlapping.
+
+- Solutions
+    
+    **Optimized Approach:** Greedy approach, sorting by end times to find which intervals end earliest
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(1)
+    
+    **Solution:** Greedily choose the intervals the end earliest but remove the ones that are overlapped and end longer. Allows us to maximize the amount of intervals we need to remove as it frees up future intervals. Essentially freeing up our “calendar”
+    
+    **Unique uses:**
+    
+    - Sorts by end times as opposed to start times to find which intervals end earlier
+    - Greedy algorithm always selecting the earliest time
+
 # Math & Geometry
 
 ## 202 - Happy Number
