@@ -2820,6 +2820,23 @@ Read code solution comments if you are confused.
     - Sorts by end times as opposed to start times to find which intervals end earlier
     - Greedy algorithm always selecting the earliest time
 
+## 253 - Meeting Room 2
+
+**Intuition:** Determine the minimum number of conference rooms needed to host all given meetings without overlaps. Each meeting has a start time and an end time, and the goal is to allocate meeting rooms such that no two meetings overlap in the same room.
+
+- Solutions
+    
+    **Optimized approach:**
+    
+    - Time Complexity: O(2n*logn) → O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Solution:** Uses a min-heap to efficiently track and manage the minimum number of meeting rooms needed by comparing start times with the earliest available room's end time.
+    
+    **Unique uses:**
+    
+    - Uses a heap to be able to figure out the unique amount of conference rooms using the end time
+
 # Math & Geometry
 
 ## 202 - Happy Number
