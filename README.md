@@ -2841,25 +2841,30 @@ Read code solution comments if you are confused.
 
 ## 202 - Happy Number
 
-**Brute Force:**  Calculate the next number until it cycles or hits a 1 using a hashmap or set
+**Intuition:** Repeatedly replace a number with the sum of the squares of its digits will eventually result in the number 1, indicating it's "happy," or if it falls into a cycle that does not include 1, proving it's not "happy.”
 
-- Time Complexity: O(n), calculate next digit using list comprehension. Uses math and array
-- Space Complexity: O(n), uses sets
-
-**Optimized Approach:** Use linked list cycle
-
-- ****Time Complexity: O(n) calculate next digit using remainders and quotients
-- Space Complexity: O(1), uses pointers
-
-**Solution:** Implements the Floyd's Cycle Detection algorithm ("tortoise and hare") to efficiently determine if a number is happy by using a slow and fast pointer to detect cycles in the sequence of squared digit sums, concluding the number is happy if the process reaches 1.
-
-**Unique uses:**
-
-- Uses **divmod** function in python:
-    - Divide by 10 → get quotient (last digit in a number)
-    - Mod by 10 → get remainder (numbers last digit)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c127af6e-5783-40bc-b948-294f031b0f9a/Untitled.png)
+- Solutions
+    
+    **Brute Force:**  Calculate the next number until it cycles or hits a 1 using a hashmap or set
+    
+    - Time Complexity: O(n), calculate next digit using list comprehension. Uses math and array
+    - Space Complexity: O(n), uses sets
+    
+    **Optimized Approach:** Use linked list cycle
+    
+    - ****Time Complexity: O(n) calculate next digit using remainders and quotients
+    - Space Complexity: O(1), uses pointers
+    
+    **Solution:** Implements the Floyd's Cycle Detection algorithm ("tortoise and hare") to efficiently determine if a number is happy by using a slow and fast pointer to detect cycles in the sequence of squared digit sums, concluding the number is happy if the process reaches 1.
+    
+    **Unique uses:**
+    
+    - Uses **divmod** function in python:
+        - Divide by 10 → get quotient (last digit in a number)
+        - Mod by 10 → get remainder (numbers last digit)
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c127af6e-5783-40bc-b948-294f031b0f9a/Untitled.png)
+    
 
 ## 66 - Plus One
 
