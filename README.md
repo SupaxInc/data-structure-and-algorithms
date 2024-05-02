@@ -2868,26 +2868,29 @@ Read code solution comments if you are confused.
 
 ## 66 - Plus One
 
-**Brute Force:**  Convert digits list to integer then add one then convert back to array (**not a very good way to solve problems and show off to interviewers**)
+**Intuition:** Add one to a number represented as an array of its digits, handling any carry that results from adding one to the most significant digit.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Reverse through an array to “carry a one” to digits with 9 value
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/e6181743-b45c-4ec5-adec-7751a48950cd/Untitled.png)
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Reverse the digits array to handle the carry operation, directly modifying the array when a digit is less than 9 or resetting digits to 0 when carrying over. Prepend a 1 to the array if all digits were 9.
-
-**Unique uses:**
-
-- Reversing an array from n to 0: **for i in range(len(digits)-1, -1, -1)**
-- List concatenation since python doesn’t have a built in unshift method:
-    - [1] + digits
+- Solutions
     
+    **Brute Force:**  Convert digits list to integer then add one then convert back to array (**not a very good way to solve problems and show off to interviewers**)
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Reverse through an array to “carry a one” to digits with 9 value
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/e6181743-b45c-4ec5-adec-7751a48950cd/Untitled.png)
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Reverse the digits array to handle the carry operation, directly modifying the array when a digit is less than 9 or resetting digits to 0 when carrying over. Prepend a 1 to the array if all digits were 9.
+    
+    **Unique uses:**
+    
+    - Reversing an array from n to 0: **for i in range(len(digits)-1, -1, -1)**
+    - List concatenation since python doesn’t have a built in unshift method:
+        - [1] + digits
 
 # Bit Manipulation
 
