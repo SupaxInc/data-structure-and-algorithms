@@ -2892,6 +2892,45 @@ Read code solution comments if you are confused.
     - List concatenation since python doesn’t have a built in unshift method:
         - [1] + digits
 
+## 48 - Rotate Image
+
+**Intuition:** Rotate a square matrix (2D array) by 90 degrees to the right, modifying the matrix in place without using an additional matrix for the transformation.
+
+- Solutions
+    
+    **More Intuitive Solution:** Transpose the matrix then reverse
+    
+    ```python
+    OG Matrix:
+    [1, 2, 3]
+    [4, 5, 6]
+    [7, 8, 9]
+    
+    Tranposed Matrix (swap rows and columns, turn rows into columns):
+    [1, 4, 7]
+    [2, 5, 8]
+    [3, 6, 9]
+    
+    Reverse each row:
+    [7, 4, 1] 
+    [8, 5, 2]
+    [9, 6, 3] 
+    ```
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Uses two pointer approach, layer by layer
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/2aebcaeb-08ce-4c36-b3a7-1a6e8b2ff40a/Untitled.png)
+    
+    - Time Complexity:O(n^2)
+    - Space Complexity: O(1)
+    
+    **Unique uses:**
+    
+    - Uses two pointers
+
 # Bit Manipulation
 
 **Guide: [How to Solve: Bit Manipulation](https://www.notion.so/How-to-Solve-Bit-Manipulation-8f8e50b940144e84b5eb6925ce4f4c7a?pvs=21)** 
