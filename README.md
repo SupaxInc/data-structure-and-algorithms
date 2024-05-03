@@ -2929,7 +2929,26 @@ Read code solution comments if you are confused.
     
     **Unique uses:**
     
-    - Uses two pointers
+    - Uses four pointers
+
+## 54 - Spiral Matrix
+
+**Intuition:** Need to traverse through the matrix in a spiral order
+
+- Solutions
+    
+    **Optimized Approach:** Continuously shrink boundaries
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f190f70e-9def-4823-a052-fbfca16436f5/Untitled.png)
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use four pointers to get a boundary from left, right, bottom and top. Shrink and expand the boundaries depending on where we are iterating. Stop when boundaries cross.
+    
+    **Unique uses:**
+    
+    - Uses four pointers approach in matrix again
 
 # Bit Manipulation
 
