@@ -2950,6 +2950,33 @@ Read code solution comments if you are confused.
     
     - Uses four pointers approach in matrix again
 
+## 73 - Set Matrix to Zeroes
+
+**Intuition:** Modify a matrix in place such that if an element is 0, all elements in its entire row and column are set to 0, using constant extra space to achieve this.
+
+- Solutions
+    
+    **Brute Force:** Copy the matrix and fill it with zeros
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7efba6ad-4a71-456b-9c31-10a7e3609947/Untitled.png)
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(m*n)
+    
+    **Optimized Approach:** Create a rows and cols array and fill it based on where we hit a zero
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/60ea40bc-5388-4c69-b2cc-a97b10310539/Untitled.png)
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(m + n)
+    
+    **More Optimized Approach:** Add the tracker as zeros in-place within the matrix based on where the zeros are.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6bf33017-2f54-44e7-a951-a6cc072b8736/Untitled.png)
+    
+    - Time Complexity: O(m*n)
+    - Space Complexity: O(1)
+
 # Bit Manipulation
 
 **Guide: [How to Solve: Bit Manipulation](https://www.notion.so/How-to-Solve-Bit-Manipulation-8f8e50b940144e84b5eb6925ce4f4c7a?pvs=21)** 
