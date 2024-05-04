@@ -2977,6 +2977,30 @@ Read code solution comments if you are confused.
     - Time Complexity: O(m*n)
     - Space Complexity: O(1)
 
+## 50 - Pow(x, n)
+
+**Intuition:** Compute *x* raised to the power of 𝑛 efficiently, handling both positive and negative exponents.
+
+- Solutions
+    
+    **Brute Force:** One for loop, 2*2*2*2 etc
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Divide and conquer
+    
+    - Time Complexity: O(log n)
+    - Space Complexity: O(1)
+    - How it works
+        - **Efficiency**: Each time you square the base and halve the exponent, you're doing much less work than multiplying **`x`** by itself **`n`** times. This drastically reduces the computational steps from **`n`** multiplications to about log2(*n*) multiplications.
+        - **Divide and Conquer**: This is a classic divide and conquer algorithm because it breaks down a large problem (computing *xn*) into smaller problems of the same type (computing (*x*2)*n*/2), solving them recursively, and combining their results.
+    
+    **Solution:** Using a recursive approach that squares the base and halves the exponent, with a correction for negative exponents by taking the reciprocal. Divides and conquer the calculation.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b9933ced-cc5f-44ff-864a-fbbd1bb09565/Untitled.png)
+    
+
 # Bit Manipulation
 
 **Guide: [How to Solve: Bit Manipulation](https://www.notion.so/How-to-Solve-Bit-Manipulation-8f8e50b940144e84b5eb6925ce4f4c7a?pvs=21)** 
