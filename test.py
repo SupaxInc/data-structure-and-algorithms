@@ -1,31 +1,14 @@
-import heapq
+def myPow(x: float, n: int) -> float:
+    def helper(x, n):
+        if x == 0:
+            return 0
+        if n == 0:
+            return 1
 
-def minMeetingRooms(intervals):
-    if not intervals:
-        return 0
+        res = helper(x * x, n // 2)
+        return x * res if n % 2 else res
 
-    # Initialize a heap.
-    # The heap keeps track of the earliest end time of all allocated rooms.
-    heap = []
+    res = helper(x, abs(n))
+    return res if n >= 0 else 1 / res
 
-    # Sort the intervals by their start time.
-    intervals.sort(key=lambda x: x[0])
-
-    # Add the first meeting's end time to the heap
-    heapq.heappush(heap, intervals[0][1])
-
-    # Iterate over the remaining intervals
-    for i in intervals[1:]:
-        # If the room due to free up the earliest is free, assign that room to this meeting.
-        if heap[0] <= i[0]:
-            heapq.heappop(heap)
-        
-        # If a new room is needed, or after freeing up, add the current meeting's end time to the heap.
-        heapq.heappush(heap, i[1])
-
-    # The size of the heap tells us the minimum rooms required for all the meetings.
-    return len(heap)
-
-# Example usage:
-intervals = [[0, 30], [5, 10], [15, 20]]
-print(minMeetingRooms(intervals))  # Output: 2
+myPow(2, 5)
