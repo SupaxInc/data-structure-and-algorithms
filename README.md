@@ -3001,6 +3001,37 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b9933ced-cc5f-44ff-864a-fbbd1bb09565/Untitled.png)
     
 
+## 43 - Multiply Strings
+
+**Intuition:** Multiply two non-negative integers represented as strings and return the result as a string, without using built-in big integer libraries, simulating the manual multiplication process used in elementary arithmetic.
+
+- Solutions
+    
+    **Optimized Approach:** Reverse iteration and carry. Add the results in an array and keep track of the position in the array. Use similar elementary arithmetic
+    
+    - Time Complexity: O(mn)
+    - Space Complexity: O(mn)
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
+
 # Bit Manipulation
 
 **Guide: [How to Solve: Bit Manipulation](https://www.notion.so/How-to-Solve-Bit-Manipulation-8f8e50b940144e84b5eb6925ce4f4c7a?pvs=21)** 
