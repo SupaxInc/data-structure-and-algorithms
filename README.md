@@ -2998,6 +2998,10 @@ Read code solution comments if you are confused.
     
     **Solution:** Using a recursive approach that squares the base and halves the exponent, with a correction for negative exponents by taking the reciprocal. Divides and conquer the calculation.
     
+    **Unique uses:**
+    
+    - Negative exponents → 1/2*2*2*2 etc. Its the inverse.
+    
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b9933ced-cc5f-44ff-864a-fbbd1bb09565/Untitled.png)
     
 
@@ -3012,25 +3016,33 @@ Read code solution comments if you are confused.
     - Time Complexity: O(mn)
     - Space Complexity: O(mn)
 
-**Intuition:** 
+## 2013 - Detect Squares
+
+**Intuition:** Design a data structure that can efficiently count and add points on a 2D plane, and determine how many squares can be formed that have one of their vertices as a point you have previously added.
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:** Create a loop per point and check if the four points are a square.
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n^3),
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
+    **Optimized Approach:** One loop
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
     
-    **Solution:** 
+    **Solution:** Detect a square by using diagonal points and a hashmap to look for duplicates
     
     **Unique uses:**
     
-    - 
+    - Detecting a square/rectangle from a grid:
+        - Find the diagonal point from the queried point
+        - Use the height and length difference from the diagonal point to figure out if the other points have the correct amount of difference.
+        - Allows us to figure out if its a square.
+        
+        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/252f383f-5712-4159-9416-ba579a926cc7/Untitled.png)
+        
 
 # Bit Manipulation
 
