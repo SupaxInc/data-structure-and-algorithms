@@ -3050,115 +3050,128 @@ Read code solution comments if you are confused.
 
 ## 136 - Single Number
 
-**Brute Force:**  Use a hash set and remove the value if it shows twice. Check hash set at the end to see if there are dupes
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use bit manipulation
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Finds the single non-duplicate number in a list by XOR-ing all numbers, utilizing the property that a number XORed with itself cancels out, leaving only the unique number as the result.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ff5b9543-20ce-4956-a3d4-084479c39fd5/Untitled.png)
-
-**Unique uses:**
-
-- Using XOR to manipulate all numbers in an array
-    - **The XOR operation is commutative and associative, which means that the order in which you XOR the numbers does not matter.**
-    - This allows you to XOR a set of numbers in any order and still get the same result.
-1. **Pair Disappearance**: If you have two of the same number and you XOR them, they cancel out and give you 0. It's like they vanish!
-2. **Lonely Number Stays**: Since pairs cancel each other out, if there's a number without a pair (a unique number), it won't disappear because there's nothing to cancel it out. So, after XORing everything together, this unique number is the only one left.
+- Solutions
     
+    **Brute Force:**  Use a hash set and remove the value if it shows twice. Check hash set at the end to see if there are dupes
     
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use bit manipulation
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Finds the single non-duplicate number in a list by XOR-ing all numbers, utilizing the property that a number XORed with itself cancels out, leaving only the unique number as the result.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ff5b9543-20ce-4956-a3d4-084479c39fd5/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Using XOR to manipulate all numbers in an array
+        - **The XOR operation is commutative and associative, which means that the order in which you XOR the numbers does not matter.**
+        - This allows you to XOR a set of numbers in any order and still get the same result.
+    1. **Pair Disappearance**: If you have two of the same number and you XOR them, they cancel out and give you 0. It's like they vanish!
+    2. **Lonely Number Stays**: Since pairs cancel each other out, if there's a number without a pair (a unique number), it won't disappear because there's nothing to cancel it out. So, after XORing everything together, this unique number is the only one left.
+        
+        
 
 ## 191 - Number of 1 Bits
 
-**Brute Force:**  Iterate through the array and just count the 1’s
+- Solutions
+    
+    **Brute Force:**  Iterate through the array and just count the 1’s
+    
+    - Time Complexity: O(32) → O(1)
+    - Space Complexity: O(32) → O(1)
+    
+    **Optimized Approach:** Use AND operator to check if right most bit is a 1
+    
+    - Time Complexity: O(32) → O(1)
+    - Space Complexity: O(32)
+    
+    **A more bit manipulation approach:** Use n = n & (n - 1)
+    
+    - Subtracting value by 1 removes the right-most bit
+        - Then AND operator filters it out from original value
+    - If subtracting by 1 does not remove right-most bit then it moves the 1’s over creating multiple 1’s since we subtracted the most significant bit
+        - Then AND operator filters out the other 1 from the original value because it compares with the complement of 0s and 1s
+    - Each iteration we count
+    
+    **Solution:** Use AND operator of the value with “1” → “0001”, checks if right most bit of a digit is a 1 then we shift >> the number by 1, to filter out the right-most digit. Cycle until 32 bit is complete.
+    
+    **Unique uses:**
+    
+    - Uses shift operator and AND operator
 
-- Time Complexity: O(32) → O(1)
-- Space Complexity: O(32) → O(1)
+## 338 - Counting Bits (Dynamic Programming too)
 
-**Optimized Approach:** Use AND operator to check if right most bit is a 1
-
-- Time Complexity: O(32) → O(1)
-- Space Complexity: O(32)
-
-**A more bit manipulation approach:** Use n = n & (n - 1)
-
-- Subtracting value by 1 removes the right-most bit
-    - Then AND operator filters it out from original value
-- If subtracting by 1 does not remove right-most bit then it moves the 1’s over creating multiple 1’s since we subtracted the most significant bit
-    - Then AND operator filters out the other 1 from the original value because it compares with the complement of 0s and 1s
-- Each iteration we count
-
-**Solution:** Use AND operator of the value with “1” → “0001”, checks if right most bit of a digit is a 1 then we shift >> the number by 1, to filter out the right-most digit. Cycle until 32 but is complete.
-
-**Unique uses:**
-
-- Uses shift operator and AND operator
-
-## 338 - Counting Bits
-
-**Brute Force:**  Create a list of n + 1 then convert to binary each iteration. Count the 1’s by doing 
-n = n & n -1 similar to Leetcode 191. This will check if right most bit is a 1, if it is increment count then shift the bits to check the next right most bit.
-
-- Time Complexity: O(nlogn), for every integer how many times can you divide it (or AND) it by 2?
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use DP to find a sub problem that repeats for increasing digits.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d999c4d2-9030-4ba1-88b9-c5ade336322f/Untitled.png)
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** DP solution to count the number of 1 bits for all numbers up to **`n`**, leveraging the pattern that each number's 1 bits count is 1 plus the count of a previous number, determined by subtracting the most recent power of 2 (MSB) from the current number.
-
-**Unique uses:**
-
-- Uses DP to solve a bit manipulation problem using **most significant bit** as an offset
+- Solutions
+    
+    **Brute Force:**  Create a list of n + 1 then convert to binary each iteration. Count the 1’s by doing 
+    n = n & n -1 similar to Leetcode 191. This will check if right most bit is a 1, if it is increment count then shift the bits to check the next right most bit.
+    
+    - Time Complexity: O(nlogn), for every integer how many times can you divide it (or AND) it by 2?
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use DP to find a sub problem that repeats for increasing digits.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d999c4d2-9030-4ba1-88b9-c5ade336322f/Untitled.png)
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** DP solution to count the number of 1 bits for all numbers up to **`n`**, leveraging the pattern that each number's 1 bits count is 1 plus the count of a previous number, determined by subtracting the most recent power of 2 (MSB) from the current number.
+    
+    **Unique uses:**
+    
+    - Uses DP to solve a bit manipulation problem using **most significant bit** as an offset
+    
 
 ## 190 - Reverse Bits
 
-**Brute Force:**  Manipulate it as a string and just reverse the string
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use shifts and bitwise operators to manipulate a new result array
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/90952219-5da7-4b62-9ad6-770760f1ab3e/Untitled.png)
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Reverses the bits of an integer by shifting the result leftward to accumulate each rightmost bit of the input number.
+- Solutions
+    
+    **Brute Force:**  Manipulate it as a string and just reverse the string
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use shifts and bitwise operators to manipulate a new result array
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/90952219-5da7-4b62-9ad6-770760f1ab3e/Untitled.png)
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Reverses the bits of an integer by shifting the result leftward to accumulate each rightmost bit of the input number.
+    
 
 ## 268 - Missing Number
 
-**Brute Force:  Loop over 0 to n, use (if i not in nums) check which is an O(n) operation**
-
-- Time Complexity: O(n^2) due to the check inside the for loop
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use bit manipulation
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d480ec6a-bab5-4434-977e-9ab7f46b3c4c/Untitled.png)
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** 
-
-- You can XOR all indices and values, including **`n`** (since the array is from **`0`** to **`n-1`**), and the result will be the missing number because the missing number will not be cancelled out.
-
-**Unique uses:**
-
-- Uses XOR
-    - A number XOR itself gives 0.
-    - A number XOR 0 gives the number itself.
-    - XOR is commutative and associative.
-- Use arithmetic series formula for summation optimized approach
+- Solutions
+    
+    **Brute Force:  Loop over 0 to n, use (if i not in nums) check which is an O(n) operation**
+    
+    - Time Complexity: O(n^2) due to the check inside the for loop
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use bit manipulation
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d480ec6a-bab5-4434-977e-9ab7f46b3c4c/Untitled.png)
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** 
+    
+    - You can XOR all indices and values, including **`n`** (since the array is from **`0`** to **`n-1`**), and the result will be the missing number because the missing number will not be cancelled out.
+    - We are pretty much XORing indices from 0 to n, with the numbers array. It will end up finding the missing number because there will be 1 number from the indices that is not the same as the number array.
+    
+    **Unique uses:**
+    
+    - Uses XOR
+        - A number XOR itself gives 0.
+        - A number XOR 0 gives the number itself.
+        - XOR is commutative and associative.
+    - Use arithmetic series formula for summation optimized approach
