@@ -22,57 +22,106 @@
 
 ## 217 - Contains Duplicate
 
-**Brute Force[O(n^2)**]**:** Nested For Loop, 
+**Intuition:** Check if array contains a duplicate
 
-**Optimized Approach:** Using Hashmaps O(n)
-
-**Solution:** Iterate through the list and check if it already exists inside the hashmap
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Hashmap or set
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Iterate through the list and check if it already exists inside the hashmap/set
+    
 
 ## 242 - Valid Anagrams
 
-**Bruce Force[O(n^2)]:** Nested For Loop
+**Intuition:** Check for valid anagram (word that uses all original letters from another word)
 
-**Somewhat Optimized[O(nlogn)]:** Sorting
-
-**Optimized Approach[O(n)]:** Hashmaps
-
-**Solution:** Count letters in both strings using a hashmap then compare the two hashmaps for both key and value pairs
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Somewhat Optimized:** Sort the letters then check if it equals
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use hashmaps
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Count letters in both strings using a hashmap then compare the two hashmaps for both key and value pairs
+    
+    **Unique uses:**
+    
+    - Comparing two hashmaps and check if it is equal is allowed in python
 
 ## 1 - Two Sum
 
-**Brute Force[O(n^2)]:** Nested for loop ****
+**Intuition:** Find two numbers that add up to the target.
 
-**Optimized Approach[O(n)]:** Hashmaps
-
-**Solution:** Uses a hashmap to store and look up the complement of each number (target - current number) to find the indices of the two numbers that add up to the target.
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Somewhat Optimized:** Sort then use two pointer approach
+    
+    - Time Complexity: O(nlogn) + O(n) → O(nlogn)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use a hashmap, stored the nums as key and its index as value
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Uses a hashmap to store and look up the complement of each number (target - current number) to find the indices of the two numbers that add up to the target.
+    
 
 ## 49 - Group Anagrams
 
-**Brute Force:**  Sort the strings then compare each character in a string with all the other characters of other strings
+**Intuition:** Group each anagram in a 2D array.
 
-- Time Complexity: O(n ^ 2 * nlogn)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Sort the string and add the sorted string into a hashmap
-
-- Time Complexity: O(n * m log m)
-- Space Complexity: O(n)
-
-**Most Optimized Approach:** Use a tuple of 26 length for alphabet characters as a key in the hashmap
-
-- Time Complexity: O(n * m)
-- Space Complexity: O(n)
-
-**Solution:** Create an array of 26 length to represent the alphabet and use the ascii code of letter a to get the index position of the character you are on. Convert the array to tuple as a key to a hashmap.
-
-**Unique uses:**
-
-- Uses defaultdict
-    - Helps optimize checking for existing keys
-    - It’ll automatically create a new key for you without check if it exists
-- Uses tuples as a key in a hashmap
-- Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
-    - Sorts characters in a string lexicographically
+- Solutions
+    
+    **Brute Force:** Nested for loop that sorts current string then compares against all other strings
+    
+    - Time Complexity: O(nlogn * n^2)
+    - Space Complexity: O(n)
+    
+    **More Optimized Approach:** Sort the current string, add the the sorted string as a key and the original string as the value. Check if the sorted string key exists per iteration.
+    
+    - Time Complexity: O(n * mlogm) → n is number of strings, m is letters in each string
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Each iteration create an array of 26 space, use the ascii code as the index of the array. Place the array as the key of the hashmap and add the original strings as the value. (USE A TUPLE AS THE KEY, DO NOT JOIN STRINGS AS ITS O(N))
+    
+    - Time Complexity: O(n * m) → n is each string, m is letters per string
+    - Space Complexity: O(n)
+    
+    **Solution:** Create an array of 26 length to represent the alphabet and use the ascii code of letter a to get the index position of the character you are on. Convert the array to tuple as a key to a hashmap.
+    
+    **Unique uses:**
+    
+    - Uses defaultdict
+        - Helps optimize checking for existing keys
+        - It’ll automatically create a new key for you without check if it exists
+    - Uses tuples as a key in a hashmap
+    - Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
+        - Sorts characters in a string lexicographically
+    - Uses ascii codes as an index in an array to represent alphabets
 
 ## 347 - Top K Frequent Elements
 
