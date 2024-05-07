@@ -3175,3 +3175,25 @@ Read code solution comments if you are confused.
         - A number XOR 0 gives the number itself.
         - XOR is commutative and associative.
     - Use arithmetic series formula for summation optimized approach
+    
+
+## 371 - Sum of Two Integers
+
+- Solutions
+    
+    **Optimized Approach:** Use bit manipulation
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:**  Use XOR to simulate bit addition, then calculate carry by complementing and shifting by 1.
+    
+    **Unique uses:**
+    
+    - XOR mimics bit addition for binary numbers
+    - For carries:
+        - `&`  finds where both bits are 1, indicating a carry is generated
+        - `<<` by 1 will move the carry to correct position for next addition iteration
+    - Masking
+        - `0xFFFFFFFF` , complementing with this ensures that numbers are treated as 32 bit integers
+        - `ox7FFFFFFF` , determines if number is outside positive range of 32 bit integer
