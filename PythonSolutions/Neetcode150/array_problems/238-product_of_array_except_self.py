@@ -3,24 +3,33 @@ class MySolution:
         if len(nums) < 2:
             return []
         
-        res = []
         numsLength = len(nums)
-        prefix = [nums[0]]
-        postfix = [0] * numsLength
-        postfix[-1] = nums[-1]
+        res = []
 
-        for i in range(1, numsLength):
-            prefix.append(prefix[i-1]*nums[i])
+        # Prefix is product starting from left
+        prefix = [nums[0]] 
         
-        for i in range(numsLength-2, -1, -1):
-            postfix[i] = postfix[i+1] * nums[i]
+        # Postfix is product starting from right
+        postfix = [0] * numsLength
+        postfix[-1] = nums[-1] # Need to place it at the end of array
 
-        for i in range(0, numsLength):
-            if i - 1 < 0:
+        # Compute the prefix product
+            # Start from 1 so we can compute the product of previous numbers
+        for i in range(1, numsLength):
+            prefix.append(prefix[i-1] * nums[i])
+        
+        # Compute the postfix product
+            # Start from the 2nd last to compute previous numbers
+        for i in range(numsLength - 2, -1, -1):
+            postfix[i] = postfix[i+1] * nums[i]
+        
+        # Multiple the postfix and prefix so each element is excluded
+        for i in range(len(nums)):
+            if i - 1 < 0: # Excludes 1st element
                 res.append(1 * postfix[i+1])
-            elif i + 1 >= numsLength:
+            elif i + 1 >= numsLength: # Excludes last element
                 res.append(1 * prefix[i-1])
-            else:
+            else: # Excludes elements in between
                 res.append(prefix[i-1] * postfix[i+1])
         
         return res
