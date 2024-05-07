@@ -27,6 +27,8 @@ class Solution:
                 return 0
             
             # Update res by appending the digit
+                # Multiply by 10 shifts the number to the left
+                # E.g 3 * 10 = 30, adding the digit now appends it to the right
             res = (res * 10) + digit
 
         return res

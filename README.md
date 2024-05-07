@@ -3197,3 +3197,21 @@ Read code solution comments if you are confused.
     - Masking
         - `0xFFFFFFFF` , complementing with this ensures that numbers are treated as 32 bit integers
         - `ox7FFFFFFF` , determines if number is outside positive range of 32 bit integer
+        
+
+## 7 - Reverse Integer
+
+- Solutions
+    
+    **Optimized Approach:** Handle overflows and underflows
+    
+    - Time Complexity: O(log n)
+    - Space Complexity: O(1)
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - Helps find int overflow and underflow
+    - Uses fmod to handle negative numbers, e.g. -1 % 10 = -1 instead of 9
+    - Multiplies by 10 to shift number to left and appends the next number by adding
