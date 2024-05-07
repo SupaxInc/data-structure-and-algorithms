@@ -50,8 +50,9 @@ class MoreOptimizedSolution:
 
         for string in strs: # O(n)
             alphabetCount = [0] * 26 # O(26)
-            asciiPos = ord("a")
+            asciiPos = ord("a") # Value is 97
             for char in string: # O(m)
+                # Subtracting current char ascii code with 97 will give the 0-index based in the char count array
                 alphabetCount[ord(char) - asciiPos] += 1
             
             # Turn into tuple since we can't directly join an integer array to a string
