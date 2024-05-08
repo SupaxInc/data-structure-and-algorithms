@@ -1,8 +1,8 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = defaultdict(set)
-        cols = defaultdict(set)
-        squares = defaultdict(set)
+        rows = defaultdict(set) # Rule 1
+        cols = defaultdict(set) # Rule 2
+        squares = defaultdict(set) # Rule 3
 
         # Iterate through each row [[], [], [], etc..]
         for r in range(0, len(board)):
@@ -13,11 +13,16 @@ class Solution:
                 # Checks if the value is anywhere within a certain 3x3 square out of the 9 squares
                 squareKey = (r//3, c//3) 
                 
+                # Check if any of the rules are broken where 1-9 is found as duplicate
                 if value in rows[r] or value in cols[c] or value in squares[squareKey]:
                     return False
                 if value != ".":
+                    # This will add all nums that belongs one of the rows
                     rows[r].add(value)
+                    # This will add all nums that belongs to one of the columns
                     cols[c].add(value)
-                    squares[squareKey].add(value) # This will add all values that pertains to one of the 3x3 squares
+                    # This will add all nums that belongs to one of the 3x3 squares
+                        # E.g. (2//3, 5//3) = (0, 1) = coords belongs to square 1, so we add all nums that are in square 1
+                    squares[squareKey].add(value)
         
         return True
