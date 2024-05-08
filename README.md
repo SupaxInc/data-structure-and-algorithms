@@ -125,179 +125,191 @@
 
 ## 347 - Top K Frequent Elements
 
-**Brute Force:**  Create a frequency map then sort the map
+**Intuition:** Get the top K elements that are shown the most
 
-- Time Complexity:  O(n log n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a max heap to sort a key value pair of tuples or array
-
-- Time Complexity: O(k * logn), mostly better than brute force IF k < n
-- Space Complexity: O(n)
-
-**Most Optimized Approach:** Use an array to bucket sort
-
-- Time Complexity: O(k + n) → O(n) since we are doing more n operations and only adding k amount
-- Space Complexity: O(n)
-
-**Solution:** Use an array to bucket sort (index→count, value→[elements]), the length of the array will be the length of elements we need to count since the element can only show up length amount of times.
-
-**Unique uses:**
-
-- 1st approach:
-    - Use a max heap to heapify the first value of tuple or array
-- 2nd approach
-    - A bucket sort is when you use the index of an array as the key and the value is the element of the index
-        - In this case, you can use the key (index) as the frequency count then place an array in the index filled with elements that has the count
-        
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/86e71971-75fe-4af2-b74a-4e46a3b5a639/Untitled.png)
-        
+- Solutions
+    
+    **Brute Force:** Sort a map’s frequency values
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Kinda Brute Force Not Really:** Heapify the values from a map and create a max heap pop
+    
+    - Time Complexity: O(k * logn), mostly better than brute force IF k < n
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use bucket sort
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Use an array to bucket sort (index→count, value→[elements]), the length of the array will be the length of elements we need to count since the element can only show up length amount of times.
+    
+    **Unique uses:**
+    
+    - 1st approach:
+        - Use a max heap to heapify the first value of tuple or array
+    - 2nd approach
+        - A bucket sort is when you use the index of an array as the key and the value is the element of the index
+            - In this case, you can use the key (index) as the frequency count then place an array in the index filled with elements that has the count
+            
+            ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/86e71971-75fe-4af2-b74a-4e46a3b5a639/Untitled.png)
+            
 
 ## 238 - Product of Array Except Self
 
-**Brute Force:**  Nested for loop
+**Intuition:** Calculating a new array where each element at index **`i`** is the product of all the numbers in the original array except the one at **`i`**. This should be done without using division.
 
-- Time Complexity: O(n^2)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Calculate the product of all elements then divide by the element we are on. 
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Another Optimized Approach (w/o division):** We make two lists: one has the product of all numbers before each element, and the other has the product of all numbers after each element. Multiply the prefix and postfix for any element we are on, we get the product of all other numbers except the one we are on.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69a6aabc-6ae9-4ad4-bdfb-cd45e159a16b/Untitled.png)
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**A more optimized approach with better extra space complexity:** No need for prefix and product arrays, just calculate it within output array itself.
-
-- Time Complexity: O(n)
-- Space Complexity: O(1) since output array doesn’t count as extra space
-
-**Solution:**  First calculate the prefix product into the result array then calculate the postfix product into the already calculated prefix result array.
-
-**Unique uses:**
-
-- Uses concept of prefix, postfix, and infix notation:
+- Solutions
     
-    ```python
-    infix:    a + b
-    prefix:   + a b
-    postfix:  a b +
-    ```
+    **Brute Force:** Nested for loop, multiply each number except for itself
     
-
-### Explaining 238 to interviewers
-
-### **Understand the Problem**
-
-Start by summarizing the problem to show you understand what's being asked:
-
-- "The problem requires finding the product of all elements in an array except the current element, for each element, without using division. This means we need a way to 'exclude' the current element from the product calculation efficiently."
-
-### **Identify the Constraints**
-
-Highlight the constraints and why they guide your solution:
-
-- "Since division is not allowed, we can't use the straightforward approach of calculating the total product and then dividing by the current element for each element in the array."
-- "The need for O(n) time complexity suggests we can't afford nested loops, implying a single pass or linear solution."
-
-### **Conceptualize the Core Idea**
-
-Explain the core idea that led to your solution:
-
-- "To 'exclude' the current element from the product, I thought about how we can accumulate products from both sides—left and right—of each element. **This way, for any given element, we can multiply the accumulated product from its left with the accumulated product from its right, effectively skipping the element itself."**
-- "This approach is inspired by how prefix sums are used to calculate cumulative sums up to a point in an array. Similarly, we can calculate 'prefix products' and 'postfix products'."
-    - **Prefix Sums**: This is a technique used in arrays to calculate the cumulative sum of elements up to a certain index. For example, given an array **`[a, b, c, d]`**, the prefix sum array would be **`[a, a+b, a+b+c, a+b+c+d]`**. This allows for efficient calculations of sums over a range of elements in an array.
-        - **It is a useful strategy for various algorithmic problems that require efficient aggregate value calculations.**
-
-### **Break Down the Solution**
-
-Detail the steps of your solution:
-
-1. **Prefix Products**: "First, we calculate the prefix product for each element, which is the product of all elements to its left. This can be done in a single pass from the beginning of the array."
-2. **Postfix Products**: "Similarly, we calculate the postfix product for each element, which is the product of all elements to its right. This requires another pass, but from the end of the array backward."
-3. **Combining Prefix and Postfix Products**: "Finally, for each element, we multiply its prefix product with its postfix product to get the desired result. This skips the product of the element itself, as neither the prefix nor postfix products include it."
-
-### **Justify the Efficiency**
-
-Explain why this solution is efficient and meets the constraints:
-
-- "This solution requires only two linear passes through the array (one for prefix products and one for postfix products), plus an additional pass to calculate the final results, making it O(n) in time complexity. It meets the problem's constraints by not using division and efficiently calculating the result for each element."
-- "While it uses extra space for the prefix and postfix product arrays, this trade-off is necessary to achieve the desired time complexity and avoid division."
-
-### **Final Thoughts**
-
-Conclude with any final insights or alternative considerations:
-
-- "This solution demonstrates a balance between space and time complexity, leveraging the idea of cumulative products. It's a common strategy in problems where direct computation isn't feasible due to constraints like the prohibition of division."
-- "Exploring variations of this problem could involve optimizing space usage further or considering edge cases, such as arrays with zeros, which this approach naturally handles well."
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Wrong Optimized Approach:** Calculate the product of all elements then divide by the element we are on. 
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Actual Optimized Approach:** We make two lists: one has the product of all numbers before each element, and the other has the product of all numbers after each element. Multiply the prefix and postfix for any element we are on.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69a6aabc-6ae9-4ad4-bdfb-cd45e159a16b/Untitled.png)
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Actual More Optimized Approach:** No need for prefix and product arrays, just calculate it within output array itself.
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Unique uses:**
+    
+    - Uses concept of prefix, postfix, and infix notation:
+        
+        ```python
+        infix:    a + b
+        prefix:   + a b
+        postfix:  a b +
+        ```
+        
+    
+    ### Explaining 238 to interviewers
+    
+    ### **Understand the Problem**
+    
+    Start by summarizing the problem to show you understand what's being asked:
+    
+    - "The problem requires finding the product of all elements in an array except the current element, for each element, without using division. This means we need a way to 'exclude' the current element from the product calculation efficiently."
+    
+    ### **Identify the Constraints**
+    
+    Highlight the constraints and why they guide your solution:
+    
+    - "Since division is not allowed, we can't use the straightforward approach of calculating the total product and then dividing by the current element for each element in the array."
+    - "The need for O(n) time complexity suggests we can't afford nested loops, implying a single pass or linear solution."
+    
+    ### **Conceptualize the Core Idea**
+    
+    Explain the core idea that led to your solution:
+    
+    - "To 'exclude' the current element from the product, I thought about how we can accumulate products from both sides—left and right—of each element. **This way, for any given element, we can multiply the accumulated product from its left with the accumulated product from its right, effectively skipping the element itself."**
+    - "This approach is inspired by how prefix sums are used to calculate cumulative sums up to a point in an array. Similarly, we can calculate 'prefix products' and 'postfix products'."
+        - **Prefix Sums**: This is a technique used in arrays to calculate the cumulative sum of elements up to a certain index. For example, given an array **`[a, b, c, d]`**, the prefix sum array would be **`[a, a+b, a+b+c, a+b+c+d]`**. This allows for efficient calculations of sums over a range of elements in an array.
+            - **It is a useful strategy for various algorithmic problems that require efficient aggregate value calculations.**
+    
+    ### **Break Down the Solution**
+    
+    Detail the steps of your solution:
+    
+    1. **Prefix Products**: "First, we calculate the prefix product for each element, which is the product of all elements to its left. This can be done in a single pass from the beginning of the array."
+    2. **Postfix Products**: "Similarly, we calculate the postfix product for each element, which is the product of all elements to its right. This requires another pass, but from the end of the array backward."
+    3. **Combining Prefix and Postfix Products**: "Finally, for each element, we multiply its prefix product with its postfix product to get the desired result. This skips the product of the element itself, as neither the prefix nor postfix products include it."
 
 ## 36 - Valid Sudoku
 
-**Optimized Approach: Use a set to check if a value already exists**
+**Intuition:** Determine if a given 9x9 Sudoku board is valid, focusing on checking if each row, each column, and each of the 3x3 sub-boxes contain no repeated numbers from 1 to 9, excluding empty spaces denoted as '.'.
 
-- Time Complexity: O(9^2)
-- Space Complexity: O(1)
-
-**Solution:** Check duplicates for each rule by: Add values to a row using index of row were on as key, add values to a column using index of column were on as key, use integer division for each row and column to identify the 3x3 square (key = (r//3, c//3) we are on.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/05ecacab-086e-4894-bab3-002331ac6c93/Untitled.png)
-
-**Unique uses:**
-
-- Uses integer division to round down to nearest whole number,  effectively grouping a range of numbers into discrete buckets. In this case, 3x3 squares.
-- Uses a tuple as coordinate keys
+- Solutions
+    
+    **Optimized Approach:** Use a set to check if a value already exists
+    
+    - Time Complexity: O(9^2)
+    - Space Complexity: O(1)
+    
+    **Solution:** Check duplicates for each rule by: Add values to a row using index of row were on as key, add values to a column using index of column were on as key, use integer division for each row and column to identify the 3x3 square (key = (r//3, c//3) we are on.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/05ecacab-086e-4894-bab3-002331ac6c93/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses integer division to round down to nearest whole number,  effectively grouping 1-9 numbers in one of the 3x3 squares.
+        - Observe that each group of three consecutive rows and each group of three consecutive columns form one of the nine smaller 3x3 squares.
+        - Recognize that rows 0-2 form the first band of 3x3 squares, rows 3-5 the second, and rows 6-8 the third. The same applies for columns.
+            - **Rows and Columns**: Dividing the row or column index by 3 categorizes the indices into three groups (0 for indices 0-2, 1 for 3-5, 2 for 6-8).
+            - **Identifying Subgrids**: Combining these results from rows and columns helps pinpoint which of the nine subgrids the cell falls into, simplifying navigation within the 9x9 grid by treating it as a grid of smaller 3x3 blocks.
 
 ## 271 - Encode and Decode Strings
 
-**Harder Approach:** Use a string delimiter such as “#” and if you see one in the original string just escape it.
+**Intuition:** Design methods to convert a list of strings into a single string that can later be decoded back into the original list, ensuring the encoding is robust enough to handle any characters within the strings.
 
-**Issue:** Escape character may appear in original string, so we also have to escape the escape character
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Easier Approach:** Use the length of a string plus a string delimiter
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/57c9ef07-e57b-4299-8fa8-af5ba9ad8553/Untitled.png)
-
-- Time Complexity: O(n)
-    - Integer conversion from a string is generally O(m) where m is the number of digits, and since the lengths of strings being encoded/decoded are likely small relative to the total length of the input, their impact is minimal on the overall time complexity.
-- Space Complexity: O(n)
-
-**Solution:** “len(str)#” delimiter allows us to know the length of the string to slice the string that needs to be decoded.
-
-**Unique uses:**
-
-- Better than escaping characters “\#” which is more complex as we have to figure out a solution to escape escape characters
-- Uses string.find(’#’, i) to get the index of a character in a string
-- Uses string splicing
+- Solutions
+    
+    **Harder Approach:** Use a string delimiter such as “#” and if you see one in the original string just escape it.
+    
+    **Issue:** Escape character may appear in original string, so we also have to escape the escape character
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Easier Approach:** Use the length of a string plus a string delimiter
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/57c9ef07-e57b-4299-8fa8-af5ba9ad8553/Untitled.png)
+    
+    - Time Complexity: O(n)
+        - Integer conversion from a string is generally O(m) where m is the number of digits, and since the lengths of strings being encoded/decoded are likely small relative to the total length of the input, their impact is minimal on the overall time complexity.
+    - Space Complexity: O(n)
+    
+    **Solution:** “len(str)#” delimiter allows us to know the length of the string to slice the string that needs to be decoded.
+    
+    **Unique uses:**
+    
+    - Better than escaping characters “\#” which is more complex as we have to figure out a solution to escape escape characters
+        - **You can see in the example above, we have to figure out how to escape the “#” encoding. Or else it will not decode the character.**
+    - Uses string.find(’#’, i) to get the index of a character in a string
+    - Uses string splicing
 
 ## 128 - Longest Consecutive Sequence
 
-**Brute Force:**  Sort the array then check if each value is greater
+**Intuition:** Find the longest sequence of an unsorted integer array.
 
-- Time Complexity: O(nlogn)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use a hash set to check sequences
-
-- Time Complexity: O(n)
-- Space Complexity: O(2n) → O(n)
-    - If a number is part of a sequence, it’ll be visited at most twice
-    - But if its a sequence itself, then visited once
-
-**Solution:** Using a hash set helps find left neighbors, if there aren’t it is the start of a sequence then we can loop to begin the consecutive sequence.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/577030d0-e93b-4132-b03e-b4f6eb467503/Untitled.png)
-
-**Unique uses:**
-
-- Uses a hash set
+- Solutions
+    
+    **Brute Force:** Sort the array then for each number increment 1 and see check if each value is greater.
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use a hash set to check sequences ****
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(2n) → O(n)
+        - If a number is part of a sequence, it’ll be visited at most twice
+        - But if its a sequence itself, then visited once
+    
+    **Solution:** Using a hash set helps find left neighbors, if there aren’t it is the start of a sequence then we can loop to begin the consecutive sequence.
+    
+    In the picture below, we first check if its the start of a sequence by checking for a left neighbor.
+    
+    Then we begin incrementing by 1 to see if there are further consecutive sequences which is found at iteration 4.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/577030d0-e93b-4132-b03e-b4f6eb467503/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a hash set
 
 # Pointers
 
