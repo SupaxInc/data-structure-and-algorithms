@@ -4,7 +4,7 @@ class Solution:
 
         # Move right pointer to left if total is greater
         # Move left pointer to right if total is smaller
-        while l <= r:
+        while l < r:
             total = numbers[l] + numbers[r]
             if total < target:
                 l += 1
@@ -12,5 +12,5 @@ class Solution:
                 r -= 1
             else:
                 return [l+1, r+1]
-            
-        return [l+1, r+1]
+        
+        return []
