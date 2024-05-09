@@ -315,81 +315,98 @@
 
 ## 125 - Valid Palindrome
 
-**Solution 1:**
+**Intuition:** A palindrome is a word or phrase that reads the same forwards and backwards. E.g. Racecar. For this question, we need to convert the phrase to or word from uppercase to lowercase and remove all non-alphanumeric characters.
 
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** For loop ****
-
-**Solution:** Create two pointers; one for start of string and another for end of string. Compare the two pointers but make sure you are comparing a string with non-alphanumeric characters lowercased.
-
-**Solution 2:**
-
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** For loop ****
-
-**Solution:**  Go through the string and create a new string by filtering out non-alphanumeric characters (is.digit(), is.alpha()). Compare the new string with the reverse of it.
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use a two pointer approach or use the reverse string in python
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - Converts the string to lowercase using `.tolower()` and checks if a string has non-alphanumerics using `.isdigt()` and `.isalpha()`
 
 ## 167 - Two Sum II, Input Array is Sorted
 
-**Brute Force:**  Nested for loop, compare each number
+**Intuition:** Find the 1-indexed index of two numbers that add up to the target.
 
-- Time Complexity: O(n^2)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use left and right pointer
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Use a left and right pointer and compare the sum of both pointers to the target, right goes down if total is greater, left goes up if total is smaller.
-
-**Unique uses:**
-
-- Left and right pointer
+- Solutions
+    
+    **Brute Force:**  Nested for loop, compare each number
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use left and right pointer
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Use a left and right pointer and compare the sum of both pointers to the target, right goes down if total is greater, left goes up if total is smaller.
+    
+    **Unique uses:**
+    
+    - Left and right pointer
 
 ## 11 - Container with Most Water
 
-**Brute Force:**  Nested for loop, compare each number
+**Intuition:** Determine the maximum amount of water that can be contained between two lines on a chart, where the width between the lines is fixed and the height is determined by the shorter of the two lines you choose.
 
-- Time Complexity: O(n^2)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use left and right pointer
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Use a left and right pointer and find the area using min height to prevent water overflow. Move pointers based on which has smaller height
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8adfa2cb-f5ca-43f5-a72d-83c09e5a3027/Untitled.png)
-
-**Unique uses:**
-
-- Left and right pointer
+- Solutions
+    
+    **Brute Force:** Use a nested for loop, check each combination of heights
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach: Use two pointer approach**
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Use a left and right pointer and find the area using min height to prevent water overflow. Move pointers based on which pointer has current smaller height
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8adfa2cb-f5ca-43f5-a72d-83c09e5a3027/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Left and right pointer
+    
 
 ## 15 - 3Sum
 
-**Brute Force:**  3 nested loops
+**Intuition:** Finding all unique triplets in an array that sum up to zero, emphasizing the need to handle duplicates and ensuring no triplet is repeated in the output.
 
-- Time Complexity: O(n^3)
-- Space Complexity: O(1)
-
-**Optimized Approach:** 2 nested loops, 1 loop to iterate 1st index, another loop to iterate 2nd and 3rd index using two pointers
-
-- Time Complexity: O(nlogn) + O(n^2) = O(n^2)
-- Space Complexity: O(1)
-
-**Solution:** Sort the numbers to easily find duplicates together, then use a loop for 1st index and a 2nd loop that has a two pointer approach to help reach target 0.
-
-**Unique uses:**
-
-- Two pointer approach to find if the target equals to 0
-    - Uses a while loop to move the other pointers
-- Sorting the array to easily find duplicates as neighbors.
-    - Only need to find duplicates based on 1st and 2nd index
-    - 3rd index is taken care of because at this point the left pointer has moved enough which means moving the right pointer to the same value will make the total too large. So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
+- Solutions
+    
+    **Brute Force:**  3 nested loops
+    
+    - Time Complexity: O(n^3)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** 2 nested loops, 1 loop to iterate 1st index, another loop to iterate 2nd and 3rd index using two pointers
+    
+    - Time Complexity: O(nlogn) + O(n^2) = O(n^2)
+    - Space Complexity: O(1)
+    
+    **Solution:** Sort the numbers to easily find duplicates together, then use a loop for 1st index and a 2nd loop that has a two pointer approach to help reach target 0.
+    
+    **Unique uses:**
+    
+    - Two pointer approach to find if the target equals to 0
+        - Uses a while loop to move the other pointers
+    - Sorting the array to easily find duplicates as neighbors.
+        - Only need to find duplicates based on 1st and 2nd index
+        - 3rd index is taken care of because at this point the left pointer has moved enough which means moving the right pointer to the same value will make the total too large. So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
 
 # Sliding Window
 
