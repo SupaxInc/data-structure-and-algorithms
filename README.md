@@ -408,6 +408,27 @@
         - Only need to find duplicates based on 1st and 2nd index
         - 3rd index is taken care of because at this point the left pointer has moved enough which means moving the right pointer to the same value will make the total too large. So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
 
+## 42 - Trapping Rain Water
+
+**Intuition:** Calculate how much water can be trapped after raining on a series of bars of different heights, where the amount of trapped water at each bar depends on the heights of the tallest bars to its left and right.
+
+- Solutions
+    
+    **Optimized Approach:** One loop to check all left max for current position, another loop for right max, and another loop to check units between all left max and right max.
+    
+    - Time Complexity: O(3n) → O(n)
+    - Space Complexity: O(n)
+    
+    **More Optimized Approach:** Two pointer approach ****
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Moving the pointer with the lower boundary (either left or right maximum height) towards the other, updating the maximum heights as it progresses, and accumulating the trapped water at each step when the current height is less than the maximum height seen from that side.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/4522f2b4-15a6-4c28-b61d-9b4c549dc498/Untitled.png)
+    
+
 # Sliding Window
 
 ## 121 - Best Time to Buy and Sell Stock
