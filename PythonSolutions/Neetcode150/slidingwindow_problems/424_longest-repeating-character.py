@@ -10,6 +10,7 @@ class MySolution:
             # Shrink the window if the total replacement is greater than k
             # Total replacement: size of window - max count within frequency map
             # This is because the max would be classified as the longest repeating character
+                # AND the length subtract the max repeating character would equal the amount we have to replace
             while ((i - start) + 1) - max(count.values()) > k:
                 count[s[start]] -= 1
                 start += 1

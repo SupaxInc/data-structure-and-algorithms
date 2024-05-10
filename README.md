@@ -433,93 +433,122 @@
 
 ## 121 - Best Time to Buy and Sell Stock
 
-**Solution 1:**
+**Intuition:** Find the maximum profit from a single transaction given daily prices of a stock, where you must buy before you can sell.
 
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** Two pointers, 1 for loop
-
-**Solution:** Sliding window two-pointer approach to find the maximum profit by buying low and selling high, dynamically updating the pointers based on the current and next day's prices.
-
-**Unique Uses:**
-
-- Uses a dynamic sliding window technique
-    - It continues to slide the right side of the window until it hits some sort of parameter then moves the left side of the window
-
-**Solution 2:**
-
-**Brute Force[O(n^2)]:** Nested for loop  ****
-
-**Optimized Approach[O(n)]:** For loop
-
-**Solution:** Iteratively updates the lowest price seen so far and calculates the maximum profit possible at each step by comparing the current price with the lowest price.
+- Solutions
+    
+    **Brute Force:** Nested for loop
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Sliding window
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Sliding window approach to find the maximum profit by buying low and selling high, dynamically updating the pointers based on the current and next day's prices.
+    
+    **Unique uses:**
+    
+    - Uses a dynamic sliding window technique
+        - It continues to slide the right side of the window until it hits some sort of parameter then moves the left side of the window
 
 ## 3 - Longest Substring Without Repeating Characters
 
-**Brute Force:**  Generate all possible substrings in a nested for loop using string[i:j+1] then generate a new set for each new spliced substring.
+**Intuition:** Find the length of the longest substring in a given string that contains no repeated characters.
 
-- Time Complexity: O(n^3), O(n^2) for generating all substrings, O(n) for generating a set for each new substring. Therefore, O(n^2) * O(n) = O(n^3)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use dynamic sized sliding window
-
-- Time Complexity: O(2n), first for loop O(n) goes through all chars in string, second while loop that removes characters from the set could worst case be another O(n) if the entire string is entirely unique until the last character. Therefore, O(2n) = O(n).
-- Space Complexity: O(n)
-
-**Solution:** Use a dynamic sized sliding window, shrink it if the next character is already in a set, make it larger if its not in a set.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a41dd81f-fd3f-459d-ad8c-feb58ab095a5/Untitled.png)
-
-**Unique uses:**
-
-- Uses a dynamic sliding window with auxiliary
-    - In this case it uses a hash set to check for duplicated characters
-    - Uses a while loop with left pointer to shrink the sliding window
+- Solutions
+    
+    **Brute Force:**  Generate all possible substrings in a nested for loop using string[i:j+1] then generate a new set for each new spliced substring.
+    
+    - Time Complexity: O(n^3), O(n^2) for generating all substrings, O(n) for generating a set for each new substring. Therefore, O(n^2) * O(n) = O(n^3)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use dynamic sized sliding window
+    
+    - Time Complexity: O(2n), first for loop O(n) goes through all chars in string, second while loop that removes characters from the set could worst case be another O(n) if the entire string is entirely unique until the last character. Therefore, O(2n) = O(n).
+    - Space Complexity: O(n)
+    
+    **Solution:** Use a dynamic sized sliding window, shrink it if the next character is already in a set, make it larger if its not in a set.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a41dd81f-fd3f-459d-ad8c-feb58ab095a5/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a dynamic sliding window with auxiliary
+        - In this case it uses a hash set to check for duplicated characters
+        - Uses a while loop with left pointer to shrink the sliding window
 
 ## 424 - Longest Repeating Character Replacement
 
-**Brute Force:**  Find all substrings and check the max length of a non repeating character for each susbtring
+**Intuition:** Find the longest substring length you can get by replacing no more than 'k' characters in the string with any other character, focusing on making the substring contain only one type of character.
 
-- Time Complexity: O(n^3)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use a frequency map and keep track of the max count in the map.
-
-- Time Complexity: O(n) for iterating over all chars in string + O(26) checking the max of counts every iteration for a total of 26 letters= O(26n) = O(n)
-- Space Complexity: O(1)
-
-**Most Optimized Approach:** Keep track of the max frequency character seen so far and no need to recalculate. If **`maxFreq`** were to be significantly overestimated, it would only temporarily allow a larger window, which is corrected by the while loop condition without needing to explicitly decrease **`maxFreq`**.
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** 
-
-- Solution 1:  Keep track of the most frequent characters in a map, shrink the window if length of the window minus max count of the map is greater than K (the amount of letters we can replace) since max count is classified as the longest repeating character.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f8b86622-dae8-4442-bbb5-820e8f6cb4df/Untitled.png)
-
-- Solution 2: Instead of calculating the max count every iteration, just keep track of the max frequency. All we really care about is which letter has the highest count in a given window since the max count that is first seen will always be the answer with the longest length of a valid window.
-
-**Unique uses:**
-
-- Uses dynamic size window with auxiliary
-
-### Explaining 424 to interviewers to reach most optimal solution
-
-### **Initial Approach Explanation**
-
-1. **Initial Strategy**: Start by explaining your initial approach, emphasizing that you aimed to ensure correctness by dynamically calculating the count of the most frequent character in the window to determine if the window could be valid with at most **`k`** replacements.
-2. **Identified Bottleneck**: Acknowledge that while the initial solution correctly solves the problem, you recognized a performance bottleneck. Specifically, recalculating **`max(count.values())`** for each iteration introduces unnecessary computational overhead, especially since this calculation is constant-time per iteration but multiplied across all **`n`** iterations, leading to O(26n) complexity.
-
-### **Transition to Optimized Solution**
-
-1. **Optimization Insight**: Explain that upon reviewing the problem, you realized that the key to optimizing was to reduce the repeated work done in calculating the maximum frequency character in each iteration. By maintaining the maximum frequency seen so far (**`maxFreq`**) as characters are added to the window, you could avoid recalculating the max frequency from scratch.
-2. **Maintaining `maxFreq`**: Describe how, instead of finding the max count each time, you opted to update a **`maxFreq`** variable whenever a character's frequency in the current window exceeded the previously recorded maximum. This change means that you only need to calculate the character frequency when it could potentially increase the **`maxFreq`**, significantly reducing the number of operations.
-3. **Adjusting the Window Based on `maxFreq`**: Clarify that with the **`maxFreq`** value, you could efficiently determine the window's validity by checking if the current window size minus **`maxFreq`** exceeded **`k`**. This check ensures that you're always working with a window that could potentially be made valid with up to **`k`** replacements.
-4. **Window Shrink Logic**: Mention that when shrinking the window (by incrementing the **`start`** pointer), you didn't need to decrement **`maxFreq`** because the window's validity is determined based on the difference between the window size and **`maxFreq`**. This avoids the need for recalculating **`maxFreq`** when shrinking the window, further optimizing the solution.
+- Solutions
+    
+    **Brute Force:**  Find all substrings and check the max length of a non repeating character for each susbtring
+    
+    - Time Complexity: O(n^3)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use a frequency map and keep track of the max count in the map.
+    
+    - Time Complexity: O(n) for iterating over all chars in string + O(26) checking the max of counts every iteration for a total of 26 letters= O(26n) = O(n)
+    - Space Complexity: O(1)
+    
+    **Most Optimized Approach:** Keep track of the max frequency character seen so far and no need to recalculate. If **`maxFreq`** were to be significantly overestimated, it would only temporarily allow a larger window, which is corrected by the while loop condition without needing to explicitly decrease **`maxFreq`**.
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** 
+    
+    - Solution 1:  Keep track of the most frequent characters in a map, shrink the window if length of the window minus max count of the map is greater than K (the amount of letters we can replace) since max count is classified as the longest repeating character. **Then subtracting the max repeating character by length would equal the amount that we have to replace. If its greater than K than we no longer have enough to replace those characters.**
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f8b86622-dae8-4442-bbb5-820e8f6cb4df/Untitled.png)
+    
+    - Solution 2: Instead of calculating the max count every iteration, just keep track of the max frequency. All we really care about is which letter has the highest count in a given window since the max count that is first seen will always be the answer with the longest length of a valid window.
+    
+    **Unique uses:**
+    
+    - Uses dynamic size window with auxiliary
+    
+    ### Explaining 424 to interviewers to reach most optimal solution
+    
+    ### **Initial Approach Explanation**
+    
+    1. **Initial Strategy**: Start by explaining your initial approach, emphasizing that you aimed to ensure correctness by dynamically calculating the count of the most frequent character in the window to determine if the window could be valid with at most **`k`** replacements.
+    2. **Identified Bottleneck**: Acknowledge that while the initial solution correctly solves the problem, you recognized a performance bottleneck. Specifically, recalculating **`max(count.values())`** for each iteration introduces unnecessary computational overhead, especially since this calculation is constant-time per iteration but multiplied across all **`n`** iterations, leading to O(26n) complexity.
+    
+    ### **Transition to Optimized Solution**
+    
+    1. **Optimization Insight**: Explain that upon reviewing the problem, you realized that the key to optimizing was to reduce the repeated work done in calculating the maximum frequency character in each iteration. By maintaining the maximum frequency seen so far (**`maxFreq`**) as characters are added to the window, you could avoid recalculating the max frequency from scratch.
+    2. **Maintaining `maxFreq`**: Describe how, instead of finding the max count each time, you opted to update a **`maxFreq`** variable whenever a character's frequency in the current window exceeded the previously recorded maximum. This change means that you only need to calculate the character frequency when it could potentially increase the **`maxFreq`**, significantly reducing the number of operations.
+    3. **Adjusting the Window Based on `maxFreq`**: Clarify that with the **`maxFreq`** value, you could efficiently determine the window's validity by checking if the current window size minus **`maxFreq`** exceeded **`k`**. This check ensures that you're always working with a window that could potentially be made valid with up to **`k`** replacements.
+    4. **Window Shrink Logic**: Mention that when shrinking the window (by incrementing the **`start`** pointer), you didn't need to decrement **`maxFreq`** because the window's validity is determined based on the difference between the window size and **`maxFreq`**. This avoids the need for recalculating **`maxFreq`** when shrinking the window, further optimizing the solution.
+    
 
 ## 567 - Permutation in String
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Brute Force:**  Use “from itertools import permutations” to generate permutations of the input string. Then check if all permutations are in s2 (O(n) operation).
 
