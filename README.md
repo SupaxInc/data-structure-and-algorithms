@@ -530,61 +530,46 @@
 
 ## 567 - Permutation in String
 
-**Intuition:** 
+**Intuition:** Determine if one string's permutation can become a substring of another string, effectively checking for any sequence in the second string that includes all characters of the first string, in any order.
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:**  Use “from itertools import permutations” to generate permutations of the input string. Then check if all permutations are in s2 (O(n) operation).
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n! * m) where m is length of s2 and n! is the possibilities of different permutations for a given string.
+    - Space Complexity: O(n!) since we may need to store n! strings.
     
-    **Optimized Approach:** 
+    **Optimized Approach:** Use two hashmaps to count frequencies between both strings then compare them.
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(26) + O(n) + O(m) = O(m) where m is length of s2. O(26) is comparing 26 keys between both hashmaps every iteration.
+    - Space Complexity: O(n)
+    
+    **Most Optimized Approach:** Use 1 hashmap to count s1 letters then use a matches variable. 
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
     
     **Solution:** 
     
+    - Solution 1: Use two hashmaps to count the frequency in a fixed window length based on string 1 length. Decrease count for s2 count when we move the window. Compare the two hash maps for a valid permutation if both character frequencies are the same.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/96b15fbb-ae73-4a20-95a4-203862571fd8/Untitled.png)
+    
+    - Solution 2: Use one hashmap to count string 1 and have a new matches variable, decrease the counts in string 1 if its found in string 2. If the counts in string 1 becomes 0 then it matches, so increment the matches counter. If matches == length of string 1 then its a permutation.
+    
     **Unique uses:**
     
-    - 
-
-**Brute Force:**  Use “from itertools import permutations” to generate permutations of the input string. Then check if all permutations are in s2 (O(n) operation).
-
-- Time Complexity: O(n! * m) where m is length of s2 and n! is the possibilities of different permutations for a given string.
-- Space Complexity: O(n!) since we may need to store n! strings.
-
-**Optimized Approach:** Use two hashmaps to count frequencies between both strings then compare them.
-
-- Time Complexity: O(26) + O(n) + O(m) = O(m) where m is length of s2. O(26) is comparing 26 keys between both hashmaps every iteration.
-- Space Complexity: O(n)
-
-**Most Optimized Approach:** Use 1 hashmap to count s1 letters then use a matches variable. 
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** 
-
-- Solution 1: Use two hashmaps to count the frequency in a fixed window length based on string 1 length. Decrease count for s2 count when we move the window. Compare the two hash maps for a valid permutation if both character frequencies are the same.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/96b15fbb-ae73-4a20-95a4-203862571fd8/Untitled.png)
-
-- Solution 2: Use one hashmap to count string 1 and have a new matches variable, decrease the counts in string 1 if its found in string 2. If the counts in string 1 becomes 0 then it matches, so increment the matches counter. If matches == length of string 1 then its a permutation.
-
-**Unique uses:**
-
-- Uses a matches variable to increment if a frequency count is 0 based on if its found on the valid window length
-- Uses fixed sliding window
-
-### What is a permutation?
-
-A string permutation refers to any of the possible arrangements of its characters. For example, if you have the string "abc," its permutations include "abc," "acb," "bac," "bca," "cab," and "cba." In a broader algorithmic or combinatorial context, the term "permutation" can refer to the act of rearranging the elements of a set in all possible ways.
-
-Similar to an anagram.
-
-**Permutation Comparison**: Depending on the context, comparing string permutations might loosely imply checking if both strings contain the same set of characters without regard to order. It might not strictly require that the character frequencies match unless explicitly stated.
+    - Uses a matches variable to increment if a frequency count is 0 based on if its found on the valid window length
+    - Uses fixed sliding window
+    
+    ### What is a permutation?
+    
+    A string permutation refers to any of the possible arrangements of its characters. For example, if you have the string "abc," its permutations include "abc," "acb," "bac," "bca," "cab," and "cba." In a broader algorithmic or combinatorial context, the term "permutation" can refer to the act of rearranging the elements of a set in all possible ways.
+    
+    Similar to an anagram.
+    
+    **Permutation Comparison**: Depending on the context, comparing string permutations might loosely imply checking if both strings contain the same set of characters without regard to order. It might not strictly require that the character frequencies match unless explicitly stated.
+    
 
 # Stacks
 
