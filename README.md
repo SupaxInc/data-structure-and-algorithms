@@ -571,6 +571,54 @@
     **Permutation Comparison**: Depending on the context, comparing string permutations might loosely imply checking if both strings contain the same set of characters without regard to order. It might not strictly require that the character frequencies match unless explicitly stated.
     
 
+## 76 - Minimum Window Substring
+
+**Intuition:** Find the smallest substring in a given string **`s`** that contains all the characters of another string **`t`**, ensuring every character in **`t`** is included in the substring at least as many times as it appears in **`t`**
+
+- Solutions
+    
+    **Brute Force:** Use a nested for loop that checks for each substring then check if each substring contains valid amount of characters
+    
+    - Time Complexity: O(n^2) * O(26)
+    - Space Complexity: O(n) + O(m)
+    
+    **Optimized Approach:** Dynamic sized window, loop through dictionary counts per iteration to check if required count is valid
+    
+    - Time Complexity: O(n * m)
+    - Space Complexity: O(n) + O(m)
+    
+    **Most Optimized Approach:** Dynamic sized window, check for required letters for the two strings
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n) + O(m)
+    
+    **Solution:** Count letter occurrences in t and compare it with sliding window occurrences. Use a variable to check if letter occurrences are complete (have, need)
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ddc5d4c7-0922-4495-ae0a-7f4404f99ec3/Untitled.png)
+    
+
+## 239 - Sliding Window Maximum
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
+
 # Stacks
 
 ## 20 - Valid Parentheses
