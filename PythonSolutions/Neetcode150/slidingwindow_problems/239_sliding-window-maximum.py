@@ -29,6 +29,7 @@ class OptimizedSolution:
                 # Compares last element added to queue with current element
             while q and nums[q[-1]] < nums[end]:
                 q.pop() # Remove last element added to queue
+            # E.g. [7, 6] -> current element is 9 -> so [9] will just be left after comparison
             
             q.append(end) # Add the current index to queue after maintaining descending order
 
@@ -36,6 +37,6 @@ class OptimizedSolution:
             if (end - start + 1) == k:
                 # Add the first element in queue (the max since its descending order)
                 res.append(nums[q[0]])
-                start += 1
+                start += 1 # Move start forward
         
         return res
