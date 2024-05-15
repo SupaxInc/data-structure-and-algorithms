@@ -54,13 +54,14 @@ def max_sliding_window(nums, k):
     for i in range(len(nums)):
         # Remove elements not within the sliding window
 	        # q[0] is accessing the index not the value
+	        # q[0] is the first one added in window
         if q and q[0] < i - k + 1:
-            q.popleft()
+            q.popleft() # Removes the first one added
         
         # Maintain the decreasing order in the queue
 	        # q[-1] is the last index in the queue (the last to be added)
         while q and nums[q[-1]] < nums[i]:
-            q.pop()
+            q.pop() # Removes the last one added
         
         q.append(i)
         
