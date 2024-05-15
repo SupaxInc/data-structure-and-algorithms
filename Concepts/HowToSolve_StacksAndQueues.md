@@ -53,10 +53,12 @@ def max_sliding_window(nums, k):
     
     for i in range(len(nums)):
         # Remove elements not within the sliding window
+	        # q[0] is accessing the index not the value
         if q and q[0] < i - k + 1:
             q.popleft()
         
         # Maintain the decreasing order in the queue
+	        # q[-1] is the last index in the queue (the last to be added)
         while q and nums[q[-1]] < nums[i]:
             q.pop()
         
