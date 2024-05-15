@@ -11,6 +11,7 @@ https://itnext.io/monotonic-stack-identify-pattern-3da2d491a61e
     - Maintains order where each new element pushed onto the stack ensures the stack remains in decreasing order.
 - **Use Case**: Frequently used in problems involving next smaller or previous smaller elements, as it allows efficient querying of the next or previous smaller element.
     - Useful in problems involving the next greater element, interval problems, histogram problems, and others where the relative size of elements and their order matter.
+- **Appends the index to the stack**
 
 **Example to find the next smaller elements in an array:**
 
@@ -41,33 +42,38 @@ def nextSmallerElements(nums):
     - Elements are inserted at the back and removed from the front.
     - Maintains order where each new element added to the back ensures the queue remains in decreasing order.
 - **Use Case**: Often used in sliding window problems to maintain the maximum element in the current window.
+- **Appends index to the queue**
 
 **Example: Sliding Window Maximum**
 
 ```python
 from collections import deque
 
-def max_sliding_window(nums, k):
-    q = deque()
-    result = []
-    
-    for i in range(len(nums)):
-        # Remove elements not within the sliding window
-	        # q[0] is accessing the index not the value
-	        # q[0] is the first one added in window
-        if q and q[0] < i - k + 1:
-            q.popleft() # Removes the first one added
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res = []
+
+        q = deque()
+        start = 0
+        for end in range(len(nums)):
+            # Remove elements that are not within the current fixed window
+                # q[0] is accessing the index NOT the value of the queue
+                # It is the index of the first element added to queue
+            if q and q[0] < start:
+                q.popleft() # Remove first element added to queue
+            
+            # Maintain descending order in current fixed window
+                # Compares last element added to queue with current element
+            while q and nums[q[-1]] < nums[end]:
+                q.pop() # Remove last element added to queue
+            
+            q.append(end) # Add the current index to queue after maintaining descending order
+
+            # If the window is of valid size then add to result
+            if (end - start + 1) == k:
+                # Add the first elemetn in queue (the max since its descending order)
+                res.append(nums[q[0]])
+                start += 1
         
-        # Maintain the decreasing order in the queue
-	        # q[-1] is the last index in the queue (the last to be added)
-        while q and nums[q[-1]] < nums[i]:
-            q.pop() # Removes the last one added
-        
-        q.append(i)
-        
-        # Start adding the maximum of each window to the result
-        if i >= k - 1:
-            result.append(nums[q[0]])
-    
-    return result
+        return res
 ```
