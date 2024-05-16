@@ -19,4 +19,6 @@ class Solution:
                     # We convert it to an int so that it truncates to 0 (e.g -3.5 to -3)
                     # Using // would not work here as it truncates to -Infinity (e.g -3.5 to -4)
                     stack.append(int(left / right))
-        return stack[0]
+                    
+        # Final result is the last operation added to stack
+        return stack[-1]
