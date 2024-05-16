@@ -7,8 +7,9 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        self.minNum = min(self.minNum, val) # Compare what the min num is per append
-        # We want to append a min num per push so that we don't lose track of what the min number is per position
+        self.minNum = min(self.minNum, val) 
+        # Append a min num per push so that we don't lose track of what the min number is per index
+            # Therefore, every push will have the current min num associated with the index of normal stack
         self.minStack.append(self.minNum)
 
     def pop(self) -> None:
@@ -28,6 +29,7 @@ class MinStack:
         return self.stack[-1]
 
     def getMin(self) -> int:
+        # Return top of the min stack as that is the current min for current index of normal stack
         return self.minStack[-1]
 
 
