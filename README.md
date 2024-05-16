@@ -668,89 +668,83 @@
 
 ## 150 - Evaluate Reverse Polish Notation
 
-**Intuition:** 
+**Intuition:** Evaluate the value of an arithmetic expression in Reverse Polish Notation (RPN) by using a stack to handle operators and operands in the correct order.
 
 - Solutions
     
-    **Brute Force:** 
+    **Approach:** Use a stack
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
+    **Solution:** Push numbers to the stack, pop the stack when an operator shows and perform the operation on the last 2 numbers (the 2nd popped number should be first in the operation). Push the result to the stack.
     
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a2960a10-46a4-46f9-ab2c-fcb481deac55/Untitled.png)
     
     **Unique uses:**
     
-    - 
-
-**Approach:** Use a stack
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Push numbers to the stack, pop the stack when an operator shows and perform the operation on the last 2 numbers (the 2nd popped number should be first in the operation). Push the result to the stack.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a2960a10-46a4-46f9-ab2c-fcb481deac55/Untitled.png)
-
-**Unique uses:**
-
-- Converts a floating point number to an int to truncate to 0
-    - Floor division with //, is wrong here as it truncates to -Infinity
-- isdigit() cannot be used to check if a string is a number as it only checks for 0-9
+    - Converts a floating point number to an int to truncate to 0
+        - Floor division with //, is wrong here as it truncates to -Infinity
+    - isdigit() cannot be used to check if a string is a number as it only checks for 0-9
+        - So we just create a string to check if the current token is an operation `"+-*/"`
+    - The advantage of reverse Polish notation is that it removes the need for order of operations and parentheses that are required by [infix notation](https://en.wikipedia.org/wiki/Infix_notation) and can be evaluated linearly, left-to-right. For example, the infix expression (3 + 4) × (5 + 6) becomes 3 4 + 5 6 + × in reverse Polish notation.
 
 ## 739 - Daily Temperatures
 
-**Brute Force:** Nested for loop that checks current temperature across all temperatures except for current
+**Intuition:** Finding the number of days until a warmer temperature for each day in a list of daily temperatures, which can be efficiently tracked using a stack to compare current and future temperatures.
 
-- Time Complexity: O(n^2)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use monotonic decreasing stack
-
-- Time Complexity: O(n)
-    - While loop simply pops out stack elements one by one and there can’t be more than n elements pushed inside the stack as every element is pushed once. Therefore nested while loop will also not execute more than n times. The inner loop will not be counted as a nested loop until its covers n elements.
-- Space Complexity: O(n)
-
-**Solution:** Use a monotonic decreasing 2d array stack to help find the next greatest temp number. Check the top of the stack and pop when you find the next greatest number.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9a49265-ddef-4476-b90d-9c15927237cb/Untitled.png)
-
-**Unique uses:**
-
-- 2D array helps keep track of what index the previous temp number was
-- Monotonic decreasing stack is uses to maintain elements in a decreasing order from the bottom to top
-    - In this specific problem, we use it to find the next greatest element of a previous temperature
+- Solutions
+    
+    **Brute Force:** Nested for loop that checks current temperature across all temperatures except for current
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use monotonic decreasing stack
+    
+    - Time Complexity: O(n)
+        - While loop simply pops out stack elements one by one and there can’t be more than n elements pushed inside the stack as every element is pushed once. Therefore nested while loop will also not execute more than n times. The inner loop will not be counted as a nested loop until its covers n elements.
+    - Space Complexity: O(n)
+    
+    **Solution:** Use a monotonic decreasing 2d array stack to help find the next greatest temp number. Check the top of the stack and pop when you find the next greatest number.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9a49265-ddef-4476-b90d-9c15927237cb/Untitled.png)
+    
+    **Unique uses:**
+    
+    - 2D array helps keep track of what index the previous temp number was
+    - Monotonic decreasing stack is uses to maintain elements in a decreasing order from the top to bottom
+        - In this specific problem, we use it to find the next greatest element of a previous temperature
 
 ## 853 - Car Fleets
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fd8b7178-aeae-4c6e-b228-e6aa32b86a81/Untitled.png)
+**Intuition:** Calculate how many car fleets will arrive at a destination, considering each car's speed and position, where a car fleet forms if a slower car is caught by a faster car before reaching the target.
 
-**Brute Force:**  Calculate the time using a sorted list of position and speed, then iterate through the times and count the new fleets.
-
-- Time Complexity:  O(n), could become more expensive dealing with fleet mergers
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a monotonic decreasing stack 
-
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Zip the position and speed. Sort it to get cars beside each other to easily find which cars join a fleet. Calculate the time it takes for a car to reach target and push it to a stack if it is a fleet. 
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/709ef3ff-b3eb-43dd-972b-58461f88b809/Untitled.png)
-
-**Unique uses:**
-
-- Uses sorted and zip
-    - Sorted sorts an iterable list like tuples, list, dictionaries, etc.
-    - Zip combines two arrays by joining the elements in the same index as a tuple
-- Uses reverse=True to reverse an array
-- Uses a monotonic decrease stack algorithm to find the next greater element
+- Solutions
+    
+    **Brute Force:**  Calculate the time using a sorted list of position and speed, then iterate through the times and count the new fleets.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fd8b7178-aeae-4c6e-b228-e6aa32b86a81/Untitled.png)
+    
+    - Time Complexity:  O(n log n), could become more expensive dealing with fleet mergers
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a monotonic decreasing stack 
+    
+    - Time Complexity: O(n log n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Zip the position and speed. Sort it to get cars beside each other to easily find which cars join a fleet. Calculate the time it takes for a car to reach target and push it to a stack if it is a fleet. 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/709ef3ff-b3eb-43dd-972b-58461f88b809/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses sorted and zip
+        - Sorted sorts an iterable list like tuples, list, dictionaries, etc.
+        - Zip combines two arrays by joining the elements in the same index as a tuple
+    - Uses reverse=True to reverse an array
+    - Uses a monotonic decrease stack algorithm to find the next greater element
 
 # Binary Search
 
