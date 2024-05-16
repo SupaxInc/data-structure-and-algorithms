@@ -599,25 +599,26 @@
 
 ## 239 - Sliding Window Maximum
 
-**Intuition:** 
+**Intuition:** The sliding window has a fixed size of K, find the maximum numbers per window.
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:** Use a max heap per window
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n) * O(k log k) → O(nk)
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
+    **Optimized Approach:** Monotonically decreasing queue
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n), we will only trigger the while loop at most once each iteration to remove a smaller element from the back of the queue.
+    - Space Complexity: O(n)
     
-    **Solution:** 
+    **Solution:** Uses a monotonically decreasing queue to keep keep the highest element in the window per iteration.
     
     **Unique uses:**
     
-    - 
+    - Monotonically decreasing queue
+        - A queue where each element is less than or equal to the previous element when traversing from front to back.
 
 # Stacks
 
