@@ -624,34 +624,69 @@
 
 ## 20 - Valid Parentheses
 
-**Brute Force[O(n^2)]:** Nested for loop and counting open vs closing parentheses
+**Intuition:** Check if a string containing only parentheses, brackets, and braces is valid by ensuring every opening bracket has a corresponding and correctly ordered closing bracket. The goal is to match and correctly nest these pairs.
 
-**Optimized Approach[O(n)]:** Use a hashmap and stack
-
-**Solution:** Uses a stack to ensure that each closing bracket correctly matches and properly follows its corresponding opening bracket, returning false if the stack is empty or the top of the stack doesn't match the expected opening bracket for a given closing bracket.
+- Solutions
+    
+    **Brute Force:** Nested for loop and counting open vs closing parentheses
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** Use a hashmap and stack
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Uses a stack to ensure that each closing bracket correctly matches and properly follows its corresponding opening bracket, returning false if the stack is empty or the top of the stack doesn't match the expected opening bracket for a given closing bracket.
+    
 
 ## 155 - Min Stack
 
-**Brute Force:**  Use a min function for the entire stack array every time getMin is called
+**Intuition:** Design a stack that supports push, pop, top, and retrieving the minimum element in constant time, requiring efficient tracking of the minimum value throughout stack operations.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a second stack to place all the min numbers
-
-- Time Complexity: O(1)
-- Space Complexity: O(n)
-
-**Solution:** Use two stacks, 1 for the actual stack, the other for the min numbers for the current position of the actual stack.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/dfa2452c-b65e-44bc-ac48-fcd614cf78dd/Untitled.png)
-
-**Unique uses:**
-
-- Uses a second stack to see what min number is within an array
-- Compares with a positive infinite number to find the min number
+- Solutions
+    
+    **Brute Force:**  Use a min function for the entire stack array every time getMin is called
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a second stack to place all the min numbers
+    
+    - Time Complexity: O(1)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use two stacks, 1 for the actual stack, the other for the min numbers for the current position of the actual stack.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/dfa2452c-b65e-44bc-ac48-fcd614cf78dd/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a second stack to see what min number is within an array
+    - Compares with a positive infinite number to find the min number
 
 ## 150 - Evaluate Reverse Polish Notation
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Approach:** Use a stack
 
