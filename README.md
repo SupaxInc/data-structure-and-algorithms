@@ -1586,6 +1586,22 @@
     - Passes a parameter to a recursive function to keep track of it instead of re-initializing every time
     - Stays on current index in back tracking so we can have duplicates until combination is greater than target then prune the search
 
+## 22 - Generate Parentheses
+
+**Intuition:** Generating all valid combinations of **`n`** pairs of parentheses, ensuring each combination is properly balanced.
+
+- Solutions
+    
+    **Brute Force:** Backtracking
+    
+    - Time Complexity: O(2^n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Append a path string to include an open bracket if its less than the amount of `n` , exclude an open bracket and add a close bracket instead if there are greater amounts of open brackets.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/0bc255c7-7b70-458d-9be5-5ae0a61c38e1/Untitled.png)
+    
+
 ## 46 - Permutations
 
 **Intuition:** Explore all possible ways to arrange a set of numbers, ensuring every number is used exactly once in each arrangement.
