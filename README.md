@@ -746,6 +746,26 @@
     - Uses reverse=True to reverse an array
     - Uses a monotonic decrease stack algorithm to find the next greater element
 
+## 84 - Largest Rectangle in a Histogram
+
+**Intuition:** Find the largest rectangle that can be formed in a histogram, represented by an array of bar heights. Use stack data structure to efficiently track the boundaries of potential rectangles.
+
+- Solutions
+    
+    **Optimized Approach:** Use monotonic increasing stack
+    
+    - Time Complexity: O(2n) → O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use a stack to maintain increasing heights and calculate the maximum rectangle area by popping from the stack when a shorter height is encountered, extending the width of rectangles to the current index.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9463fc77-71e2-4aab-8a7d-57c2d9946ec0/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses monotonic increasing stack where the values in the stack are in increasing order
+        - Helps find the next greater or previous greater elements
+
 # Binary Search
 
 ## 704 - Binary Search
