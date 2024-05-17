@@ -10,7 +10,7 @@ https://itnext.io/monotonic-stack-identify-pattern-3da2d491a61e
     - Elements are inserted and removed from the top.
     - Maintains order where each new element pushed onto the stack ensures the stack remains in decreasing order.
 - **Use Case**: Frequently used in problems involving next smaller or previous smaller elements, as it allows efficient querying of the next or previous smaller element.
-    - Useful in problems involving the next greater element, interval problems, histogram problems, and others where the relative size of elements and their order matter.
+    - Also useful in problems involving the next greater element, interval problems, histogram problems, and others where the relative size of elements and their order matter.
 - **Appends the index to the stack**
 
 **Example to find the next smaller elements in an array:**
@@ -22,6 +22,8 @@ def nextSmallerElements(nums):
 
     for i, num in enumerate(nums):
         while stack and nums[stack[-1]] > num:
+		        # E.g. [73, 72] -> next element 71 -> Pop all elements -> [71] is left
+		        # Maintains descending order
             topIndex = stack.pop()
             result[topIndex] = num
         stack.append(i)
@@ -32,6 +34,38 @@ def nextSmallerElements(nums):
 1. **Iterate Through Array**: Go through each element in the array.
 2. **Maintain Decreasing Order**: For the current element, pop elements from the stack as long as the current element is smaller than the stack's top element. This means the current element is the next smaller element for those being popped.
 3. **Push Current Element**: Push the current element onto the stack. Due to the pops, the stack remains in decreasing order.
+
+## **Monotonic increasing stack**
+
+- **Definition**: A stack where each element is greater than or equal to the previous element when traversing from top to bottom.
+- **Properties**:
+    - Elements are inserted and removed from the top.
+    - Maintains order where each new element pushed onto the stack ensures the stack remains in increasing order.
+- **Use Case**:
+    - Frequently used in problems involving next greater or previous greater elements.
+    - Useful in histogram problems (like LeetCode #84), interval problems, and others where the relative size of elements and their order matter.
+
+**Example template code:**
+
+```python
+def monotonic_increasing_stack(nums):
+    stack = []
+    result = []
+    
+    for i, num in enumerate(nums):
+        # Maintain the monotonic increasing property
+        while stack and nums[stack[-1]] > num:
+            stack.pop()
+        
+        # The stack will be in increasing order from bottom to top
+        stack.append(i)
+        
+        # Optional: Do something with the current stack state or elements
+        # For example, we can store the index or value of elements in the result
+        result.append(stack[:])  # Store a copy of the stack
+    
+    return result
+```
 
 # Types of Queue Problems
 
@@ -66,12 +100,13 @@ class Solution:
                 # Compares last element added to queue with current element
             while q and nums[q[-1]] < nums[end]:
                 q.pop() # Remove last element added to queue
+            # E.g. [7, 6] -> current element is 9 -> so [9] will just be left after comparison
             
             q.append(end) # Add the current index to queue after maintaining descending order
 
             # If the window is of valid size then add to result
             if (end - start + 1) == k:
-                # Add the first elemetn in queue (the max since its descending order)
+                # Add the first element in queue (the max since its descending order)
                 res.append(nums[q[0]])
                 start += 1
         
