@@ -770,67 +770,101 @@
 
 ## 704 - Binary Search
 
-**Brute Force[O(n)]:** For loop
+**Intuition:** Find the target in a sorted list
 
-**Optimized Approach[O(log n)]:** Divide and conquer with binary search
-
-**Solution:** Binary search to find the target in a sorted array by repeatedly dividing the search array in half with two low and high pointers. If the target is less than the mid number go right, else vice-versa.
-
-**Unique uses:**
-
-- Mid number uses lo + ((hi+lo)//2) to prevent arithmetic overflow
-    - Normal lo + hi // 2, could go over 32 bit integer limits
+- Solutions
+    
+    **Brute Force:** For loop
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Divide and conquer with binary search
+    
+    - Time Complexity: O(logn)
+    - Space Complexity: O(1)
+    
+    **Solution:** Binary search to find the target in a sorted array by repeatedly dividing the search array in half with two low and high pointers. If the target is less than the mid number go right, else vice-versa.
+    
+    **Unique uses:**
+    
+    - Mid number uses lo + ((hi+lo)//2) to prevent arithmetic overflow
+        - Normal lo + hi // 2, could go over 32 bit integer limits
 
 ## 74 - Search a 2D Matrix
 
-**Brute Force:**  Check if the highest value in each row is greater than the target, so we skip the current row and go to the next and binary search until we find a row that is not.
+**Intuition:** Find a target value in a sorted 2D matrix
 
-- Time Complexity: O(m * logn)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Binary search the 2d array as a 1d flattened array since its essentially a sorted list without the 2d array
-
-- Time Complexity: O(log m * n)
-    - Treating the matrix as 1d array means the total length of the array is m * n
-- Space Complexity: O(1)
-
-**Solution:** Binary search a 2d flattened array, the mid index is a coordinate, and we can calculate the (y, x) coordinates to find the value in matrix[y][x].
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/46e8980f-aebe-4e8a-abc7-46539d97f651/Untitled.png)
-
-**Unique uses:**
-
-- Finds coordinates of an index in a 2d matrix
-    - **y coordinate: index // n**
-        - **`n`**, the number of columns, represents the width of each row.
-        - Therefore, dividing a linear index (**`idx`**) by **`n`** gives you the row index because it tells you how many full rows you've "passed" to reach the position represented by **`idx`**.
-            - For example, index = 6, number of columns = 4
-                - 6 // 4 = 1, tells us that we’ve passed 1 full row of 4 columns.
-    - **x coordinate: index % n**
-        - We need to determine the position within the row.
-        - The modulus operation (**`idx % n`**) gives the column index because it represents the remainder after dividing **`idx`** by the row width (**`n`**), indicating the offset from the start of the row.
-            - For example, index = 6, number of columns = 4
-                - 6 % 4 = 2, tells us the start of the row we’re in
-- Flattening a 2d array as a 1d array
-
-### Explaining 74 to an interviewer
-
-### **Start with the Brute Force Approach**
-
-1. **Initial Understanding**: Begin by explaining your initial approach to solve the problem directly based on the problem statement. For the "Search a 2D Matrix" problem, this might involve iterating over each row and then each column within that row to find the target. Acknowledge the straightforwardness of this method but also its inefficiency.
-2. **Identify Limitations**: Discuss the limitations of the brute force approach, emphasizing its time complexity. For example, explain that searching every element in a matrix of size **`m x n`** results in a time complexity of O(m*n), which is not efficient for large matrices.
-
-### **Transition to Optimization**
-
-1. **Observation**: Share the key observation that led you to consider an optimized solution. For this problem, you might note that both the rows and columns of the matrix are sorted, which is a property that binary search can exploit to significantly reduce the search space.
-2. **Conceptual Leap**: Explain the conceptual leap to treating the 2D matrix as a 1D sorted array. Emphasize how this perspective change allows you to apply binary search across the entire matrix, not just within a single row or column, thereby leveraging the sorted property of the matrix more fully.
-
-### **Explain the Optimized Solution**
-
-1. **Flattening the Matrix**: Describe how you "flatten" the matrix in a logical sense (without actually creating a new array) by mapping a 1D index to 2D row and column indices. Clarify the use of the formulas for row and column (**`row = idx // n`** and **`col = idx % n`**) and why dividing by the number of columns (**`n`**) correctly maps indices.
-2. **Binary Search Application**: Detail how you apply binary search using the 1D index over the virtual flattened array. Highlight the reduction in time complexity to O(log(m*n)) because you're now performing a single binary search over the entire matrix, treating it as a sorted list.
+- Solutions
+    
+    **Brute Force:**  Check if the highest value in each row is greater than the target, so we skip the current row and go to the next and binary search until we find a row that is not.
+    
+    - Time Complexity: O(m * logn)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Binary search the 2d array as a 1d flattened array since its essentially a sorted list without the 2d array
+    
+    - Time Complexity: O(log m * n)
+        - Treating the matrix as 1d array means the total length of the array is m * n
+    - Space Complexity: O(1)
+    
+    **Solution:** Binary search a 2d flattened array, the mid index is a coordinate, and we can calculate the (y, x) coordinates to find the value in matrix[y][x].
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/46e8980f-aebe-4e8a-abc7-46539d97f651/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Finds coordinates of an index in a 2d matrix
+        - **y coordinate: index // n**
+            - **`n`**, the number of columns, represents the width of each row.
+            - Therefore, dividing an index (**`idx`**) by **`n`** gives you the row index because it tells you how many full rows you've "passed" to reach the position represented by **`idx`**.
+                - For example, index = 6, number of columns = 4
+                    - 6 // 4 = 1, tells us that we’ve passed 1 full row of 4 columns.
+        - **x coordinate: index % n**
+            - We need to determine the position within the row.
+            - The modulus operation (**`idx % n`**) gives the column index because it represents the remainder after dividing **`idx`** by the row width (**`n`**), indicating the offset from the start of the row.
+                - For example, index = 6, number of columns = 4
+                    - 6 % 4 = 2, tells us the start of the row we’re in
+    - Flattening a 2d array as a 1d array
+    
+    ### Explaining 74 to an interviewer
+    
+    ### **Start with the Brute Force Approach**
+    
+    1. **Initial Understanding**: Begin by explaining your initial approach to solve the problem directly based on the problem statement. For the "Search a 2D Matrix" problem, this might involve iterating over each row and then each column within that row to find the target. Acknowledge the straightforwardness of this method but also its inefficiency.
+    2. **Identify Limitations**: Discuss the limitations of the brute force approach, emphasizing its time complexity. For example, explain that searching every element in a matrix of size **`m x n`** results in a time complexity of O(m*n), which is not efficient for large matrices.
+    
+    ### **Transition to Optimization**
+    
+    1. **Observation**: Share the key observation that led you to consider an optimized solution. For this problem, you might note that both the rows and columns of the matrix are sorted, which is a property that binary search can exploit to significantly reduce the search space.
+    2. **Conceptual Leap**: Explain the conceptual leap to treating the 2D matrix as a 1D sorted array. Emphasize how this perspective change allows you to apply binary search across the entire matrix, not just within a single row or column, thereby leveraging the sorted property of the matrix more fully.
+    
+    ### **Explain the Optimized Solution**
+    
+    1. **Flattening the Matrix**: Describe how you "flatten" the matrix in a logical sense (without actually creating a new array) by mapping a 1D index to 2D row and column indices. Clarify the use of the formulas for row and column (**`row = idx // n`** and **`col = idx % n`**) and why dividing by the number of columns (**`n`**) correctly maps indices.
+    2. **Binary Search Application**: Detail how you apply binary search using the 1D index over the virtual flattened array. Highlight the reduction in time complexity to O(log(m*n)) because you're now performing a single binary search over the entire matrix, treating it as a sorted list.
 
 ## 875 - Koko Eating Bananas
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the piles then loop through each K per banana piles
 
