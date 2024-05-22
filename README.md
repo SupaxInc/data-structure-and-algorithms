@@ -846,88 +846,80 @@
 
 ## 875 - Koko Eating Bananas
 
-**Intuition:** 
+**Intuition:** Determine the minimum eating speed at which Koko can finish all the bananas within a given number of hours.
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the piles then loop through each K per banana piles
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(p * max(P))
+    - Space Complexity: O(max(P))
     
-    **Optimized Approach:** 
+    **Optimized Approach:** Use binary search within a K array
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(p * log(max(P)))
+        - Max of the piles since we know for sure the if bananas per hour eat speed is equal to the max piles. Koko would be able to hit the hour limit.
+    - Space Complexity: O(1)
     
-    **Solution:** 
+    **Solution:** Have a low and high pointer where it is the range of amount of bananas Koko can eat per hour. Binary search this range to find the min K to check if the hours to take to eat the piles is within the hour limit.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/cb83cbe7-f454-42b8-8b5e-ed5ad3ed286e/Untitled.png)
     
     **Unique uses:**
     
-    - 
-
-**Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the piles then loop through each K per banana piles
-
-- Time Complexity: O(p * max(P))
-- Space Complexity: O(max(P))
-
-**Optimized Approach:** Use binary search within a K array
-
-- Time Complexity: O(p * log(max(P)))
-    - Max of the piles since we know for sure the if bananas per hour eat speed is equal to the max piles. Koko would be able to hit the hour limit.
-- Space Complexity: O(1)
-
-**Solution:** Have a low and high pointer where it is the range of amount of bananas Koko can eat per hour. Binary search this range to find the min K to check if the hours to take to eat the piles is within the hour limit.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/cb83cbe7-f454-42b8-8b5e-ed5ad3ed286e/Untitled.png)
-
-**Unique uses:**
-
-- Loops through an array within a binary search
-- Math.ceil to round up
+    - Loops through an array within a binary search
+    - Math.ceil to round up
 
 ## 153 - Find Minimum in Rotated Sorted Array
 
-**Brute Force:**  Loop through entire array and calculate min each element
+**Intuition:** Find the minimum element in a rotated sorted array
 
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use binary search
-
-- Time Complexity: O(log n)
-- Space Complexity: O(1)
-
-**Solution:** Binary search to check if the middle number is greater than the end, if it is search left, else search right.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ca01a870-b529-459e-9616-42cfcc7a1dda/Untitled.png)
-
-**Unique uses:**
-
-- Binary searching on a rotated sorted array
-    - If the mid number is greater than end then it means its rotated in a way that the smaller numbers are on the left.
-    - If the mid number is smaller than the end then it means its rotated where the smaller numbers are on the right.
+- Solutions
+    
+    **Brute Force:**  Loop through entire array and calculate min each element
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use binary search
+    
+    - Time Complexity: O(log n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Binary search to check if the middle number is greater than the end, if it is search left, else search right.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ca01a870-b529-459e-9616-42cfcc7a1dda/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Binary searching on a rotated sorted array
+        - If the mid number is greater than end then it means its rotated in a way that the smaller numbers are on the left.
+        - If the mid number is smaller than the end then it means its rotated where the smaller numbers are on the right.
 
 ## 33 - Search in Rotated Sorted Array
 
-**Brute Force:**  Just iterate through array and find index of target
+**Intuition:** Search for a specific target in a rotated sorted array
 
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use binary search
-
-- Time Complexity: O(log n)
-- Space Complexity: O(1)
-
-**Solution:** Find out if you are in right or left sorted portion of the array. Binary search based on which side you are on and if target is on the rotated portion or if it is greater or less than our current mid index.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/08c16a56-47cc-4265-830e-632dbd508557/Untitled.png)
-
-**Unique uses:**
-
-- Binary searching a rotated sorted array
-    - Checks which portion of the sorted array you are on
+- Solutions
+    
+    **Brute Force:**  Just iterate through array and find index of target
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use binary search
+    
+    - Time Complexity: O(log n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Find out if you are in right or left sorted portion of the array. Binary search based on which side you are on and if target is on the rotated portion or if it is greater or less than our current mid index.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/08c16a56-47cc-4265-830e-632dbd508557/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Binary searching a rotated sorted array
+        - Checks which portion of the sorted array you are on
 
 ## 981 - Time Based Key Value Store
 
