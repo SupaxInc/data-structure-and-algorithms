@@ -9,6 +9,7 @@ class Solution:
         
         while low <= high:
             # Find the partition point for nums1
+                # **We will be binary searching on partitionX**
             partitionX = (low + high) // 2
             # To get the partition for nums2, we need the total + 1
                 # +1 allows us to divide by odd or even numbers
@@ -29,6 +30,8 @@ class Solution:
             minY = float('inf') if partitionY == y else nums2[partitionY]
 
             # Check if we have found the correct partition
+                # Ensure that all elements on the left are less than or equal to those on the right across both arrays
+                # If its not valid an example would be: [... 4] [3...], our right partition cannot be greater than left
             if maxX <= minY and maxY <= minX:
                 # If the total number of elements is even, return the average of the two middle elements
                 if (x + y) % 2 == 0:
