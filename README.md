@@ -923,25 +923,51 @@
 
 ## 981 - Time Based Key Value Store
 
-**Brute Force:** Just normally loop through the list of time map values
+**Intuition:** Time-based key-value store that allows setting values with timestamps and retrieving the most recent value for a given key and timestamp
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
+- Solutions
+    
+    **Brute Force:** Just normally loop through the list of time map values
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Binary search the list of time map values
+    
+    - Time Complexity: O(log n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Timestamps are added strictly ascending, since its sorted we can binary search it. If the mid time stamp value is less or equal to target timestamp search on the right to find the highest previous time stamp.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/83d1294a-1368-430f-a8ce-3faa3b2820b2/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a hash table that maps values to a 2d array of value, timestamp pairing.
+        - Timestamps are added ascending so we can binary search to find the highest previous time stamp or equal to target time stamp.
+    - Uses default dict
 
-**Optimized Approach:** Binary search the list of time map values
+## 4 - Median of Two Sorted Arrays
 
-- Time Complexity: O(log n)
-- Space Complexity: O(n)
+**Intuition:** Find the median of two sorted arrays, requiring a method to efficiently combine and balance the arrays to determine the median value.
 
-**Solution:** Timestamps are added strictly ascending, since its sorted we can binary search it. If the mid time stamp value is less or equal to target timestamp search on the right to find the highest previous time stamp.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/83d1294a-1368-430f-a8ce-3faa3b2820b2/Untitled.png)
-
-**Unique uses:**
-
-- Uses a hash table that maps values to a 2d array of value, timestamp pairing.
-    - Timestamps are added ascending so we can binary search to find the highest previous time stamp or equal to target time stamp.
-- Uses default dict
+- Solutions
+    
+    **Brute Force:** Just merge the two arrays and find the mid value to calculate median
+    
+    - Time Complexity: O(n + m)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach: Partition the two arrays** 
+    
+    - Time Complexity: O(log(m+n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Perform binary search on the shorter array to find a partition that balances the number of elements on either side, ensuring the maximum left-side element is less than or equal to the minimum right-side element, and calculating the median based on the parity of the total number of elements.
+    
+    **Unique uses:**
+    
+    - Uses integer division to floor to 0 so we can divide by odd or even numbers when finding the partition of second array
 
 # Linked List
 
