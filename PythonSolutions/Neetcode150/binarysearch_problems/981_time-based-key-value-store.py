@@ -3,6 +3,7 @@ class TimeMap:
     def __init__(self):
         self.timeMap = defaultdict(list)
 
+    # Timestamps that are set will be strictly ascending
     def set(self, key: str, value: str, timestamp: int) -> None:
         self.timeMap[key].append([value, timestamp])
 
@@ -20,7 +21,7 @@ class TimeMap:
             mid_timestamp = self.timeMap[key][mid][1]
             
             # To find the largest timestamp, continuously search on the right side
-            # until we find the largest time stamp until it equals the target timestamp
+            # until we find the largest time stamp or it equals the target timestamp
             if mid_timestamp <= timestamp:
                 curr_value = mid_value
                 lo = mid + 1
