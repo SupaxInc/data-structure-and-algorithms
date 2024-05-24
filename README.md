@@ -958,7 +958,7 @@
     - Time Complexity: O(n + m)
     - Space Complexity: O(1)
     
-    **Optimized Approach: Partition the two arrays** 
+    **Optimized Approach:** Partition the two arrays ****
     
     - Time Complexity: O(log(m+n)
     - Space Complexity: O(1)
@@ -973,26 +973,45 @@
 
 ## 206 - Reversed Linked List
 
-**Optimized Approach[O(n)]:** Normal traversal through a linked list
+**Intuition:** Reverse a single linked list
 
-**Solution:** Point a temp pointer to ****the next current node then using the next node of the current node to point to the previous node effectively creating a reversal. The current node then becomes the temp pointer to restart the process again. 
-
-## 21 - Merged Two Sorted Lists
-
-**Optimized Approach[O(n)]:** Normal traversal through a linked list
-
-**Solution:** Point the merged list to a reference to a dummy node, the dummy node will be used to traverse and create the sorted list by connecting it to the list with the smallest value each iteration.
-
-**Gotchas:**
-
-- Merged list needs to point to a dummy node to reference the head of the new sorted list as it will traverse to the tail end
-- Since while loop may exist early with a list still having remaining elements, we need to connect the dummy node to the remaining elements
-- Use Chat GPT as a visualization of how the iterative process works:
-    - Initialization: mergedList -> [dummy node]
-    - Moving dummy node to the next node: mergedList -> [dummy node] -> [1]
-    - Moving dummy node to the next node: mergedList -> [dummy node] -> [1] -> [2]
-    - Returning the next node of mergedList:  [1] -> [2]
+- Solutions
     
+    **Brute Force:** Transform it to an array, reverse array, then add it again as a linked list
+    
+    - Time Complexity: O(3n) → O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use temp pointers
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Point a temp pointer to ****the next current node then using the next node of the current node to point to the previous node effectively creating a reversal. The current node then becomes the temp pointer to restart the process again. 
+    
+
+## 21 - Merge Two Sorted Lists
+
+**Intuition:** Merging two sorted lists making sure the two lists are still when merged.
+
+- Solutions
+    
+    **Optimized Approach:** Singly linked list traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Point the merged list to a reference to a dummy node, the dummy node will be used to traverse and create the sorted list by connecting it to the list with the smallest value each iteration.
+    
+    **Unique uses:**
+    
+    - Merged list needs to point to a dummy node to reference the head of the new sorted list as it will traverse to the tail end
+    - Since while loop may exit early with a list still having remaining elements, we need to connect the dummy node to the remaining elements
+    - Use Chat GPT as a visualization of how the iterative process works:
+        - Initialization: mergedList -> [dummy node]
+        - Moving dummy node to the next node: mergedList -> [dummy node] -> [1]
+        - Moving dummy node to the next node: mergedList -> [dummy node] -> [1] -> [2]
+        - Returning the next node of mergedList:  [1] -> [2]
 
 ## 141 - Linked List Cycle
 

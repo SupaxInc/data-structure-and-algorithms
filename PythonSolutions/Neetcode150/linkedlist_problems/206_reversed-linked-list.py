@@ -20,4 +20,6 @@ class Solution:
             # The current node is able to grab the reference to the next node which wasn't reversed
             currNode = temp
 
+        # Return the previous node as that is now the new head as it references the curr node last
+            # The curr node points to temp which is the null end of the linked list
         return prevNode
