@@ -26,5 +26,7 @@ class Solution:
         slow.next = slow.next.next
 
         # Return the next of the dummy to get the list from original head
+            # This is because from the start we referenced slow to the dummy node
+            # So when we removed the target node from slow, dummy still references slow list
         return dummy.next
         

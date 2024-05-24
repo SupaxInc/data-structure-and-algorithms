@@ -1015,62 +1015,75 @@
 
 ## 141 - Linked List Cycle
 
-**Brute Force: Visit each node using a set**
+**Intuition:** Check if the linked list has a cycle
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach: Visit each node using pointers**
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** The solution uses Floyd's Tortoise and Hare algorithm, where two pointers move at different speeds through the list, and a cycle is detected if the slow pointer meets the fast pointer.
+- Solutions
+    
+    **Brute Force:** Visit each node using a set and check if the nodes value already exists
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Visit each node using pointers
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** The solution uses Floyd's Tortoise and Hare algorithm, where two pointers move at different speeds through the list, and a cycle is detected if the slow pointer meets the fast pointer.
+    
 
 ## 143 - Reorder List
 
-**Brute Force:**  Convert linked list to array, reorder the array, rebuild the linked list
+**Intuition:** Reorder the list where every 2nd node are the last nodes.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Re-build linked list in-memory
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Find mid point using slow and fast pointers, get second list from slow pointer, reverse second list, then merge the lists.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fa7d1b48-e72c-4815-8787-405be58f4090/Untitled.png)
-
-**Unique uses:**
-
-- Slow and fast pointers to find mid point of a linked list
-- Rebuilding a linked list in memory by referencing the head to new variables and variable point to new places in memory
-- Reversing a linked list
-- Merging two linked lists together using 2 temp pointers
+- Solutions
+    
+    **Brute Force:**  Convert linked list to array, reorder the array, rebuild the linked list
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Re-build linked list in-memory
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Find mid point using slow and fast pointers allows us to split the linked list in half, get second list from referencing slow pointer, reverse second list so that we are able to connect to the last nodes, then merge the lists. Now the list will be reordered where every 2nd node are the last nodes of the original list.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fa7d1b48-e72c-4815-8787-405be58f4090/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Slow and fast pointers to find mid point of a linked list
+    - Rebuilding a linked list in memory by referencing the head to new variables and variable point to new places in memory
+    - Reversing a linked list
+    - Merging two linked lists together using 2 temp pointers
 
 ## 19 - Remove Nth Node from End of List
 
-**Brute Force:**  Reverse the list
+**Intuition:** Remove the target node index starting from the end of the list.
 
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Optimized Approach:** Use two pointers, similar to slow and fast pointers
-
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Slow and fast pointer approach but the fast pointer does not go faster, it just gets a head start of nth times. Slow pointer will end up at target node, so we need a dummy node that points to the head.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8cbd93cc-16f9-44e0-908d-29a9abf1ee08/Untitled.png)
-
-**Unique uses:**
-
-- Slow and fast pointer approach to get nth node from end.
-    - Slow ends up at target node since fast pointer has a head start of nth amount
-- Uses a dummy node so our slow pointer doesn’t end up at target that we need to remove
+- Solutions
+    
+    **Brute Force:**  Reverse the list then traverse from the reversed list to find the nth node
+    
+    - Time Complexity: O(2n) → O(n)
+    - Space Complexity: O(1)
+    
+    **Optimized Approach:** Use two pointers, similar to slow and fast pointers
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Slow and fast pointer approach but the fast pointer does not go faster, it just gets a head start of nth times. Slow pointer will end up at target node, so we need a dummy node that points to the head.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8cbd93cc-16f9-44e0-908d-29a9abf1ee08/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Slow and fast pointer approach to get nth node from end.
+        - Slow ends up at target node since fast pointer has a head start of nth amount
+    - Uses a dummy node so our slow pointer doesn’t end up at target that we need to remove
 
 ## 2 - Add Two Numbers
 
