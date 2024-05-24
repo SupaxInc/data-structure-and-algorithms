@@ -48,12 +48,15 @@ class BetterReadableSolution:
         # Merge two lists
         # 1 -> 2 -> 3 , 5 -> 4
         # 1 -> 5 -> 2 -> 4 -> 3
-        first, second = head, prevNode
+        first, second = head, prevNode # Grab the lists
         while second:
-            temp1, temp2 = first.next, second.next
+            temp1, temp2 = first.next, second.next # Get temp nodes for next nodes
             first.next = second # First list points to the second list
             second.next = temp1 # Second list points to the next value of first list, creates a 1 -> 5 -> 2
-            first, second = temp1, temp2
+            # The lists will now be the temp nodes ready for next iteration
+                # This is because we were able to connect the next nodes
+                # Therefore, we traverse to the next nodes and are able to grab the next nodes again in next iteration
+            first, second = temp1, temp2 
 
 
 # Definition for singly-linked list.
