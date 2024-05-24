@@ -266,12 +266,47 @@ A skip list is a probabilistic data structure based on multiple layers of linked
 - **Dynamic Size:** The size of the list can change dynamically, which is advantageous for applications where the number of data elements is not known in advance.
 - **Ease of Insertion/Deletion:** Inserting or deleting a node does not require the elements to be contiguous in memory, making these operations potentially more efficient than those in an array.
 
+## Algorithms
+
+### Floyd’s Cycle Algorithm
+
+**Concept:**
+The algorithm uses two pointers, commonly called **`slow`** and **`fast`**. Both pointers start at the head of the linked list.
+
+**Operation:**
+
+1. **Move the `slow` pointer:** It advances one node at a time.
+2. **Move the `fast` pointer:** It advances two nodes at a time.
+
+**Detection:**
+
+- If there is no cycle, the **`fast`** pointer will reach the end of the list (null).
+- If there is a cycle, the **`fast`** pointer will eventually overlap with the **`slow`** pointer somewhere within the cycle. This happens because the **`fast`** pointer moves twice as quickly, and it will catch up to the **`slow`** pointer from behind if the list loops back on itself.
+- **Template Code**
+    
+    ```python
+    def detect_cycle(head):
+        if not head:
+            return None  # No cycle if the list is empty
+        
+        slow = fast = head  # Both pointers start at the head
+        
+        while fast and fast.next:
+            slow = slow.next         # Slow pointer moves one step
+            fast = fast.next.next    # Fast pointer moves two steps
+            
+            if slow == fast:  # A cycle is detected when slow and fast meet
+                return True
+        
+        return False  # If fast reaches the end, there is no cycl
+    ```
+    
+
 # **Common Template Codes**
 
 **Template for Traversing a Linked List:**
 
 ```python
-pythonCopy code
 def traverse(head):
     current = head
     while current:
@@ -283,7 +318,6 @@ def traverse(head):
 **Template for Reversing a Linked List:**
 
 ```python
-pythonCopy code
 def reverse(head):
     previous = None
     current = head
@@ -299,7 +333,6 @@ def reverse(head):
 **Template for Detecting a Cycle (Floyd’s Cycle-Finding Algorithm):**
 
 ```python
-pythonCopy code
 def hasCycle(head):
     slow = fast = head
     while fast and fast.next:
@@ -314,7 +347,6 @@ def hasCycle(head):
 **Template for Merging Two Sorted Lists:**
 
 ```python
-pythonCopy code
 def mergeTwoLists(l1, l2):
     dummy = tail = ListNode()
     while l1 and l2:
