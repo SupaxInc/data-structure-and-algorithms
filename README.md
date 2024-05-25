@@ -1177,6 +1177,35 @@
     - Uses a dummy node for head and tail to prevent null pointers
     - Uses LRU eviction, when at capacity it evicts the LRU
 
+## 23 - Merge K Sorted Lists
+
+**Intuition:** Merge multiple sorted linked lists into a single sorted linked list, combining all the nodes from the given lists into a new list that maintains the sorted order.
+
+- Solutions
+    
+    **Brute Force:** Iterate through every list and adding the value to a merged list, continuously sorting it each iteration.
+    
+    - Time Complexity: O(k * n), where k is the lengths of lists and n is traversing through the entire merged list
+    - Space Complexity: O(N)
+    
+    **Optimized Approach:** Use a min heap
+    
+    - Time Complexity: O(n log k)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use pair wise merging
+    
+    - Time Complexity: O(n log k), where k is the lists and n is total nodes across all lists
+    - Space Complexity: O(n)
+    
+    **Solution:** Heapify the first values of K linked lists into a tuple, pop the heap and add it to a merged list until the heap is empty.
+    
+    **Unique uses:**
+    
+    - Pushes a tuple to a min heap, the tuple needs a second element to iterate to in the case that the first element (node value) contains duplicate elements in the heap already.
+        - Heaps usually sort by first element unless there’s a duplicate
+        - So we need to use an index so that the heap can use a unique ID to sort with next in the case of a duplicate
+
 # Binary Tree
 
 ## 226 - Invert Binary Tree
