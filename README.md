@@ -1087,22 +1087,26 @@
 
 ## 2 - Add Two Numbers
 
-**Optimized Approach:** Normal traversal
+**Intuition:** Add two linked lists that are in reversed order already. 
 
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Adds two numbers (long addition) represented by two linked lists, digit by digit, taking care of carries and remainders, and returns the sum as a new linked list. 
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8249d086-8e8e-46ab-b188-8c51e8aff9dc/Untitled.png)
-
-**Unique uses:**
-
-- Checks if the total number has a carry associated with it (long addition), you can do this with floor division
-    - Adds the carry to next node over
-    - A carry may go through at the end of a list which is an edge case. So we have to add a new node of 1
-- Checks for remainder using mod to get the 2nd digit of a number greater than 9 (e.g. 11 % 10 = 1)
-- Uses dummy node to have a reference of the head of the node were traversing through
+- Solutions
+    
+    **Optimized Approach:** Normal traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Adds two numbers (long addition) represented by two linked lists, digit by digit, taking care of carries and remainders, and returns the sum as a new linked list. 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8249d086-8e8e-46ab-b188-8c51e8aff9dc/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Checks if the total number has a carry associated with it (long addition), you can do this with floor division
+        - Adds the carry to next node over
+        - A carry may go through at the end of a list which is an edge case. So we have to add a new node of 1
+    - Checks for remainder using mod to get the 2nd digit of a number greater than 9 (e.g. 11 % 10 = 1)
+    - Uses dummy node to have a reference of the head of the node were traversing through
 
 ## 287 - Find the Duplicate Number
 
