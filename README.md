@@ -1157,21 +1157,25 @@
 
 ## 146 - LRU Cache
 
-**Optimized Approach:** Use a hashmap and doubly linked list
+**Intuition:** A least recently used cache is where it removes data that has not been accessed for a certain period of time.
 
-- Time Complexity: O(1)
-- Space Complexity: O(n)
-
-**Solution:** Use a doubly linked list to access LRU (head) and MRU (tail). Use a hashmap to map a key to a node, helps to also access a node in O(1) time in the list, faster removal and access.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c8ffa08e-e57e-4293-885e-2f20a7e14f54/Untitled.png)
-
-**Unique uses:**
-
-- Uses a dictionary to map keys to a node for faster access to a node in a doubly linked list
-- Uses a doubly linked list to keep track of LRU (head) and MRU (tail)
-- Uses a dummy node for head and tail to prevent null pointers
-- Uses LRU eviction, when at capacity it evicts the LRU
+- Solutions
+    
+    **Optimized Approach:** Use a hashmap and doubly linked list
+    
+    - Time Complexity: O(1)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use a doubly linked list to access LRU (head) and MRU (tail). Use a hashmap to map a key to a node, helps to also access a node in O(1) time in the list, faster removal and access.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c8ffa08e-e57e-4293-885e-2f20a7e14f54/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a dictionary to map keys to a node for faster access to a node in a doubly linked list
+    - Uses a doubly linked list to keep track of LRU (head) and MRU (tail)
+    - Uses a dummy node for head and tail to prevent null pointers
+    - Uses LRU eviction, when at capacity it evicts the LRU
 
 # Binary Tree
 
