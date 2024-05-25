@@ -23,6 +23,7 @@ class Solution:
         # This allows us to actually map random pointers as previously it could point to non-existing nodes
         current = head
         while current:
+            # Begin mapping the new nodes for both the next and random pointer
             if current.next:
                 # Map the next node of new node to the mapped new next node
                 oldToNew[current].next = oldToNew[current.next]

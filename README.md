@@ -1129,18 +1129,22 @@
 
 ## 138 - Copy List with Random Pointer
 
-**Optimized Approach:** Use a hashmap 
+**Intuition:** Create a deep copy of a linked list where it contains a random pointer
 
-- Time Complexity: O(n) + O(n) = O(n)
-- Space Complexity: O(n)
-
-**Solution:** Use a hashmap to map old current nodes to new nodes. 1st iteration will map with just values, 2nd iteration will map next and random pointers. Two iterations is needed as random pointers could map to non-existent nodes.
-
-**Unique uses:**
-
-- Uses a dictionary as a key in a hash map
-- The hash map maps the new copied node as value so it allows us to map next nodes and random nodes
-    - Mapping in just 1 iteration is not possible as we could map to non-existed forward nodes in the singly linked list
+- Solutions
+    
+    **Optimized Approach:** Use a hashmap 
+    
+    - Time Complexity: O(n) + O(n) = O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use a hashmap to map old current nodes to new nodes. 1st iteration will map with just values without the next or random pointer. 2nd iteration will map next and random pointers to the new mapped nodes due to 1st iteration. A map that is created from 1st iteration is needed as random pointers could possibly point to non-existent nodes when we begin connecting them.
+    
+    **Unique uses:**
+    
+    - Uses a dictionary as a key in a hash map
+    - The hash map maps the new copied node as value so it allows us to map next nodes and random nodes
+        - Mapping in just 1 iteration is not possible as we could map to non-existed forward nodes in the singly linked list
 
 ## 146 - LRU Cache
 
