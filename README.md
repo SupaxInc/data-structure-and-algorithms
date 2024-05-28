@@ -1206,6 +1206,22 @@
         - Heaps usually sort by first element unless there’s a duplicate
         - So we need to use an index so that the heap can use a unique ID to sort with next in the case of a duplicate
 
+## 25 - Reverse Nodes in K-group
+
+**Intuition:** Reverse nodes in a singly linked list in groups of k, meaning you should reverse the first k nodes, then the next k nodes, and so on, with any remaining nodes at the end that don't make up a full group left as they are.
+
+- Solutions
+    
+    **Optimized Approach:** Iterative solution
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Check for ‘k’ group length, reversing the group, and then reconnecting the reversed group with the rest of the list, using a dummy node for simplified edge handling.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/88c75354-a71f-4611-a851-565b1c77bbc2/Untitled.png)
+    
+
 # Binary Tree
 
 ## 226 - Invert Binary Tree
