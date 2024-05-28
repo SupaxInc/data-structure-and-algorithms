@@ -247,7 +247,7 @@ A skip list is a probabilistic data structure based on multiple layers of linked
 
 - **Understanding the Structure:** Be clear about the type of linked list (singly, doubly, or circular).
 - **Two-Pointer Techniques:** Often used for cycle detection, finding the middle of the list, or solving problems related to list reversal.
-- **Dummy Nodes:** Useful for dealing with edge cases in operations like insertion and deletion, especially at the head of the list.
+- **Dummy Nodes:** Useful for dealing with edge cases in operations like insertion and deletion, especially at the head of the list. Also helps to keep reference of the head of the list when we need to traverse down the list where we may lose track of the head.
 - **Recursion:** Effective for problems that involve reversing a linked list or copying a complex list with random pointers.
 - **Hashing:** Useful for detecting cycles or copying linked lists with complex structures.
 
@@ -282,25 +282,6 @@ The algorithm uses two pointers, commonly called **`slow`** and **`fast`**. Both
 
 - If there is no cycle, the **`fast`** pointer will reach the end of the list (null).
 - If there is a cycle, the **`fast`** pointer will eventually overlap with the **`slow`** pointer somewhere within the cycle. This happens because the **`fast`** pointer moves twice as quickly, and it will catch up to the **`slow`** pointer from behind if the list loops back on itself.
-- **Template Code**
-    
-    ```python
-    def detect_cycle(head):
-        if not head:
-            return None  # No cycle if the list is empty
-        
-        slow = fast = head  # Both pointers start at the head
-        
-        while fast and fast.next:
-            slow = slow.next         # Slow pointer moves one step
-            fast = fast.next.next    # Fast pointer moves two steps
-            
-            if slow == fast:  # A cycle is detected when slow and fast meet
-                return True
-        
-        return False  # If fast reaches the end, there is no cycl
-    ```
-    
 
 # **Common Template Codes**
 
@@ -312,7 +293,6 @@ def traverse(head):
     while current:
         print(current.val)
         current = current.next
-
 ```
 
 **Template for Reversing a Linked List:**
@@ -327,7 +307,6 @@ def reverse(head):
         previous = current
         current = next_node
     return previous
-
 ```
 
 **Template for Detecting a Cycle (Floyd’s Cycle-Finding Algorithm):**
