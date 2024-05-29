@@ -8,12 +8,11 @@ from collections import deque
 #         self.right = right
 class BFSSolution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        queue = deque()
+        if not root:
+            return 0
+    
+        queue = deque([root])
         level = 0
-
-        # We might accidentally add a None node
-        if root:
-            queue.append(root)
 
         # Adding a while here will help iterate through the nodes in the next level
         # Allows to re-calculate the len(queue) code in the for loop
@@ -36,4 +35,7 @@ class DFSSolution:
         if not root:
             return 0
 
+        # Traverse as deep as possible to left and right
+            # Then get the max of depth between left and right
+            # Finally, add 1 to include the current root node
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
