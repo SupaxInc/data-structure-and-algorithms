@@ -1226,59 +1226,77 @@
 
 ## 226 - Invert Binary Tree
 
-**Brute Force:** Maybe an iterative approach since we have to use arrays
+**Intuition:** All leaf nodes in a binary tree is swapped so that it is fully inverted.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a recursive approach
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**Solution:** Do a post-order or pre-order traversal, swap the nodes when you visit the node.
+- Solutions
+    
+    **Brute Force:** Maybe an iterative approach since we have to use arrays
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a recursive approach
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **Solution:** Do a post-order or pre-order traversal, swap the nodes when you visit the root node.
+    
 
 ## 104 - Maximum Depth of Binary Tree
 
-**BFS Approach:** Maybe an iterative approach since we have to use arrays
+**Intuition:** Go deep as possible in the binary tree and return the length of its depth.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**DFS Approach:** Use a recursive approach
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**BFS Solution:** Do a level order traversal by using a queue and adding the left and right nodes to the queue. Use a for loop with range length of queue inside a while loop to only traverse through nodes in each level.
-
-**DFS Solution:** Add a 1 for the current level then add with the max between the left and right sub tree.
+- Solutions
+    
+    **BFS Approach:** Maybe an iterative approach since we have to use arrays
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **DFS Approach:** Use a recursive approach
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **BFS Solution:** Do a level order traversal by using a queue and adding the left and right nodes to the queue. Use a for loop with range length of queue inside a while loop to only traverse through nodes in each level.
+    
+    **DFS Solution:** Add a 1 for the current level then add with the max between the left and right sub tree.
+    
 
 ## 543 - Diameter of Binary Tree
 
-**DFS Approach:** Use a recursive approach
+**Intuition:** Get the longest path between two nodes in a binary tree not including the node you started in.
 
-- ****Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree and add the left and right sub tree every time the stack pops to get max diameter. 
-
-**Unique uses:**
-
-- Nonlocal keyword to use variables outside of the scope function.
+- Solutions
+    
+    **DFS Approach:** Use a recursive approach
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree and add the left and right sub tree every time the stack pops to get max diameter. 
+    
+    **Unique uses:**
+    
+    - Nonlocal keyword to use variables outside of the scope function.
 
 ## 110 - Balanced Binary Tree
 
-**DFS Approach:** Use a recursive approach
+**Intuition:** Check if the binary tree does not have two sub trees where the height differs by more than one.
 
-- ****Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree then check for an imbalance between the left and right sub tree by a value of greater than 1. (e.g. 3-1 = 2, unbalanced)
-
-**Unique uses:**
-
-- Continuously return a value up the call stack if no further work is necessary
+- Solutions
+    
+    **DFS Approach:** Use a recursive approach
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **DFS Solution:** Find the maximum depth ( 1+ max(..)) of each sub tree then check for an imbalance between the left and right sub tree by a value of greater than 1. (e.g. 3-1 = 2, unbalanced)
+    
+    **Unique uses:**
+    
+    - Continuously return a value up the call stack if no further work is necessary
 
 ## 100 - Same Tree
 
