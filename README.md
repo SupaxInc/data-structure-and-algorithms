@@ -1300,60 +1300,78 @@
 
 ## 100 - Same Tree
 
-**DFS Approach:** Use a recursive approach
+**Intuition:** Check if two binary trees are the same.
 
-- ****Time Complexity: O(p+q) 2 trees to traverse to
-- Space Complexity: O(h)
-
-**DFS Solution:** Traverse through both trees left and right nodes. You know their the same tree if you are able to reach the depths with a None value.
+- Solutions
+    
+    **DFS Approach:** Use a recursive approach
+    
+    - ****Time Complexity: O(p+q) 2 trees to traverse to
+    - Space Complexity: O(h)
+    
+    **DFS Solution:** Traverse through both trees left and right nodes. You know their the same tree if you are able to reach the depths with a None value.
+    
 
 ## 572 - Subtree of Another Tree
 
-**DFS Approach:** Use two recursive DFS approaches
+**Intuition:** Check if a binary tree contains the given subtree
 
-- ****Time Complexity: O(m * n)
-    - Where m is the nodes of the Root tree and n is the nodes of the sub root
-- Space Complexity: O(max(m, n))
-    - Depends on the height of the recursion stack for either root or sub root
-
-**DFS Solution:** DFS through the root tree and run another DFS on a node of a root tree if you haven’t hit the end of the root tree. The second DFS runs a check if the root tree or sub root tree are the same trees.
-
-**Unique uses:**
-
-- Uses recursion within a recursion
+- Solutions
+    
+    **DFS Approach:** Use two recursive DFS approaches
+    
+    - ****Time Complexity: O(m * n)
+        - Where m is the nodes of the Root tree and n is the nodes of the sub root
+    - Space Complexity: O(max(m, n))
+        - Depends on the height of the recursion stack for either root or sub root
+    
+    **DFS Solution:** DFS through the root tree and run another DFS on a node of a root tree if you haven’t hit the end of the root tree. The second DFS runs a check if the root tree or sub root tree are the same trees.
+    
+    **Unique uses:**
+    
+    - Uses recursion within a recursion
 
 ## 235 - Lowest Common Ancestor of a Binary Search Tree
 
-**Optimized Approach:** Just traverse down the tree iteratively
+**Intuition:** When looking at a BST from its root downwards, the lowest common ancestor between two nodes is the lowest node in the tree that has both nodes as descendants in its subtree.
 
-- Time Complexity: O(n)
-- Space Complexity: O(1)
-
-**Solution:** Traverse from the root and moving left or right depending on the nodes' values, stopping when it finds the first node that is between the two target nodes or equal to one of them, leveraging the BST property where left nodes are less than the parent and right nodes are greater.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7269b7e8-a930-4590-bc06-b8cc4c93755f/Untitled.png)
-
-**Unique uses:**
-
-- Does not use BFS or DFS to go down a tree, just go down from the root and find where to go depending on which node values are greater
-- A lowest common ancestor is based on two cases:
-    - If the node is between two target nodes so they are in different sub trees
-        - Different subtrees means that we can’t find deeper common ancestors
-    - If the node is equal to one of the target nodes
-        - A node can be a descendant of itsself
+- Solutions
+    
+    **Optimized Approach:** Just traverse down the tree iteratively
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1)
+    
+    **Solution:** Traverse from the root and moving left or right depending on the nodes' values, stopping when it finds the first node that is between the two target nodes or equal to one of them, leveraging the BST property where left nodes are less than the parent and right nodes are greater.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7269b7e8-a930-4590-bc06-b8cc4c93755f/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Does not use BFS or DFS to go down a tree, just go down from the root and find where to go depending on which node values are greater
+    - In a BST, the LCA can be identified more straightforwardly due to the ordered properties of BSTs, where each node's left subtree contains only nodes with values less than the node's value, and the right subtree only nodes with values greater.
+    - A lowest common ancestor is based on two cases:
+        - If the node is between two target nodes so they are in different sub trees
+            - Different subtrees means that we can’t find deeper common ancestors
+        - If the node is equal to one of the target nodes
+            - A node can be a descendant of itsself
 
 ## 102 - Binary Tree Level Order Traversal
 
-**Optimized Approach:** BFS level order traversal
+**Intuition:** Find the values of a binary tree per level from left to right.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Have a for loop that will traverse through all nodes in current level first before moving to next level with the queue
-
-**Unique uses:** 
-
-- Traverses through entire level first in BFS as opposed to looking through next level
+- Solutions
+    
+    **Optimized Approach:** BFS level order traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Have a for loop that will traverse through all nodes in current level first before moving to next level with the queue
+    
+    **Unique uses:** 
+    
+    - Traverses through entire level first in BFS as opposed to looking through next level
 
 ## 98 - Validate Binary Search Tree
 
