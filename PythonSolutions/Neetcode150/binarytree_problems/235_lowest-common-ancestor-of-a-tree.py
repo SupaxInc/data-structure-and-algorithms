@@ -17,6 +17,7 @@ class Solution:
             elif p.val < curr.val and q.val < curr.val:
                 curr = curr.left
             else:
+                # Return the node we are on when:
                 # 1) The nodes could be in split in different subtrees, so can't find deeper common ancestors
                 # 2) The curr node can equal the same as one of the nodes
                     # A node can be its own descendant, so it would be the LCA
