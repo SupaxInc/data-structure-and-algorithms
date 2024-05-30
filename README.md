@@ -1375,73 +1375,111 @@
 
 ## 98 - Validate Binary Search Tree
 
-**Optimized Approach:** DFS
+**Intuition:** Focus on whether each node's value strictly adheres to the BST properties—that is, all left descendants must have values less than the node’s value, and all right descendants must have values greater.
 
-- Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**Solution:** Validate the range of each current node value between low and high values. Going left means change high value (node in left subtree must have values less than current node) and going right means change low value (node in right subtree must have values greater than current node)
-
-**Unique uses:** 
-
-- We pass parameters to the recursive call so that it resets to previous value when the stack pops
-
-### Explain 98 to interviewer
-
-1. **Start with the BST Property**: Begin by stating the BST property clearly - for any node in a BST, all nodes in its left subtree must have values less than the node’s value, and all nodes in its right subtree must have values greater. Highlight that this property must hold not just between direct parent-child nodes but for all ancestor-descendant relationships.
-2. **Introduce the Recursive Strategy**: Explain that you'll use a recursive depth-first search strategy to traverse the tree. Mention that the key to this approach is carrying along the maximum and minimum values a node can have, which are determined based on its position relative to its ancestors. This ensures that the BST property is validated not just locally but throughout the entire path from the root to each leaf.
-3. **Describe the Helper Function**: Clarify that you've defined a helper function, **`validate`**, which checks if a node's value falls within a valid range (**`low < node.val < high`**). The function starts at the root with the range set to negative and positive infinity, meaning any value is initially valid.
-4. **Explain the Recursion and Range Updates**: Detail how, for each node visited, the function makes two recursive calls - one for the left child and one for the right child. For the left child, the function updates the **`high`** limit to the current node's value because everything in the left subtree must be less than the current node. Similarly, for the right child, it updates the **`low`** limit to the current node's value. This dynamically adjusts the valid value range as the recursion moves deeper into the tree.
-5. **Highlight the Base Case and Validation Logic**: Mention the base case of the recursion - when a node is **`None`**, indicating a leaf's child has been reached successfully, and thus, that path is considered valid. Then, emphasize that if a node falls outside its valid range, the tree violates the BST property, and the function returns **`False`**.
-6. **Combining Results with Logical AND**: Explain that both the left and right subtrees must validate for the tree to be considered a BST. This is achieved through a logical AND between the results of the recursive calls. If either side returns **`False`**, the entire subtree is invalid.
-7. **Final Result**: Conclude by stating that the recursion starts at the root and explores every path, ensuring every node meets the BST criteria based on its position. The initial call to the helper function thus determines whether the entire tree is a valid BST.
+- Solutions
+    
+    **Optimized Approach:** DFS
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **Solution:** Validate the range of each current node value between low and high values. Going left means change high value (next node in left subtree must have values less than current node) and going right means change low value (next node in right subtree must have values greater than current node)
+    
+    **Unique uses:** 
+    
+    - We pass parameters to the recursive call so that it resets to previous value when the stack pops
+    
+    ### Explain 98 to interviewer
+    
+    1. **Start with the BST Property**: Begin by stating the BST property clearly - for any node in a BST, all nodes in its left subtree must have values less than the node’s value, and all nodes in its right subtree must have values greater. Highlight that this property must hold not just between direct parent-child nodes but for all ancestor-descendant relationships.
+    2. **Introduce the Recursive Strategy**: Explain that you'll use a recursive depth-first search strategy to traverse the tree. Mention that the key to this approach is carrying along the maximum and minimum values a node can have, which are determined based on its position relative to its ancestors. This ensures that the BST property is validated not just locally but throughout the entire path from the root to each leaf.
+    3. **Describe the Helper Function**: Clarify that you've defined a helper function, **`validate`**, which checks if a node's value falls within a valid range (**`low < node.val < high`**). The function starts at the root with the range set to negative and positive infinity, meaning any value is initially valid.
+    4. **Explain the Recursion and Range Updates**: Detail how, for each node visited, the function makes two recursive calls - one for the left child and one for the right child. For the left child, the function updates the **`high`** limit to the current node's value because everything in the left subtree must be less than the current node. Similarly, for the right child, it updates the **`low`** limit to the current node's value. This dynamically adjusts the valid value range as the recursion moves deeper into the tree.
+    5. **Highlight the Base Case and Validation Logic**: Mention the base case of the recursion - when a node is **`None`**, indicating a leaf's child has been reached successfully, and thus, that path is considered valid. Then, emphasize that if a node falls outside its valid range, the tree violates the BST property, and the function returns **`False`**.
+    6. **Combining Results with Logical AND**: Explain that both the left and right subtrees must validate for the tree to be considered a BST. This is achieved through a logical AND between the results of the recursive calls. If either side returns **`False`**, the entire subtree is invalid.
+    7. **Final Result**: Conclude by stating that the recursion starts at the root and explores every path, ensuring every node meets the BST criteria based on its position. The initial call to the helper function thus determines whether the entire tree is a valid BST.
 
 ## 199 - Binary Tree Right Side View
 
-**Optimized Approach:** BFS level order traversal
+**Intuition:** What are the values that we see looking at the right side of a tree, meaning we cant see values on the left since its being blocked.
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Use level order traversal BFS and grab the value of the last node in the level using the index and length of queue. Allows us to see only nodes from the right side POV.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69ab5337-7209-40a9-b106-27a2c9fae2e0/Untitled.png)
-
-**Unique uses:** 
-
-- Traverses through entire level first in BFS as opposed to looking through next level
+- Solutions
+    
+    **Optimized Approach:** BFS level order traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use level order traversal BFS and grab the value of the last node in the level using the index and length of queue. Allows us to see only nodes from the right side POV.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/69ab5337-7209-40a9-b106-27a2c9fae2e0/Untitled.png)
+    
+    **Unique uses:** 
+    
+    - Traverses through entire level first in BFS as opposed to looking through next level
+        - This means we have a for loop to iterate through entire level
+        - The queue length only gets recalculate with the new nodes we’ve appended after the for loop is done.
 
 ## 1448 - Count Good Nodes in Binary Tree
 
-**NOTE: GREAT IF YOU WANT TO UNDERSTAND HOW VALUES ARE PROPAGATED**
+**Intuition:** A node is considered "good" if its value is greater than or equal to all the values in the nodes along the path from the root to that node.
 
-**Optimized Approach:** DFS traversal
-
-- Time Complexity: O(n)
-- Space Complexity: O(h)
-
-**Solution:** Use preorder DFS to be able to find the max for the current path as it resets each propagation to previous value that was passed to prevent the max for being counted along other paths. The propagated return value would be the count as we need the accumulated count for both sub trees.
-
-**Unique uses:** 
-
-- Traverses through using preorder DFS
-    - Allows us to accumulate the propagated count from both left and right subtrees
+- Solutions
+    
+    **NOTE: GREAT IF YOU WANT TO UNDERSTAND HOW VALUES ARE PROPAGATED**
+    
+    **Optimized Approach:** DFS traversal
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(h)
+    
+    **Solution:** Use preorder DFS to be able to find the max for the current path as it resets each propagation to previous value that was passed to prevent the max for being counted along other paths. The propagated return value would be the count as we need the accumulated count for both sub trees.
+    
+    **Unique uses:** 
+    
+    - Traverses through using preorder DFS
+        - Allows us to accumulate the propagated count from both left and right subtrees
 
 ## 230 - Kth Smallest Element in Tree
 
-**Optimized Approach:** Iterative DFS or Recursive DFS
+**Intuition:** Return the value of the kth smallest element in a Binary Search Tree
 
-- Time Complexity: Same time complexity O(n)
-- Space Complexity: Iterative may have better space complexity due to non-recursive calls
-
-**Solution:** Use Inorder traversal and have a counter to check if it equals Kth number. 
-
-**Unique uses:**
-
-- Uses iterative DFS
-- Uses Inorder traversal
+- Solutions
+    
+    **Optimized Approach:** Iterative DFS or Recursive DFS
+    
+    - Time Complexity: Same time complexity O(n)
+    - Space Complexity: Iterative may have better space complexity due to non-recursive calls
+    
+    **Solution:** Use Inorder traversal and have a counter to check if it equals Kth number. 
+    
+    **Unique uses:**
+    
+    - Uses iterative DFS
+    - Uses Inorder traversal
 
 ## 105 - Construct Binary Tree from Inorder and Preorder Traversal
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Not Optimized Approach:** Using .index() every recursive call
 
