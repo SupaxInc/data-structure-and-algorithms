@@ -10,16 +10,17 @@ class Solution:
         if not root:
             return res
 
-        queue = deque()
-        queue.append(root)
+        queue = deque([root])
 
         while queue:
             queueLength = len(queue)
+            # The for loop will only check the the nodes for the current level
+                # This is because queue length stays the same and does not change within the for loop
+                # It gets recalculate when for loop is done
             for i in range(queueLength):
                 curr = queue.popleft()
                 # If its at the last node in the level, add to result
-                # This is so that the last node cof each level can only be seen
-                if i == queueLength -1:
+                if i == queueLength - 1:
                     res.append(curr.val)
     
                 if curr.left:

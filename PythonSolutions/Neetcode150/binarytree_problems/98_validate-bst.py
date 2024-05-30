@@ -15,11 +15,10 @@ class Solution:
             if not (low < node.val < high):
                 return False
             
-            # Going left -> change high
-            # Going right -> change low
-            # Checks if left and right subtrees are valid
-            return validate(node.left, low, node.val) and validate(
-                node.right, node.val, high
-            )
+            # The highest and lowest values changes as we move left or right so we need a way to keep track of it
+            # Going left -> change high value as the current node value
+                # Allows us to compare the next nodes range with the newest highest value
+            # Going right -> change low value as the current node value
+            return validate(node.left, low, node.val) and validate(node.right, node.val, high)
         
         return validate(root)
