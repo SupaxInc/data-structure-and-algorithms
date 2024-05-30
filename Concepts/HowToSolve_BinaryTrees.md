@@ -106,7 +106,7 @@ def postorderTraversal(root):
 
 ## Recursively
 
-## Preorder
+### Preorder
 
 Visit → Left → Right
 
@@ -123,7 +123,7 @@ def preorderTraversal(root):
     return result
 ```
 
-## Inorder
+### Inorder
 
 Left → Visit → Right
 
@@ -140,7 +140,7 @@ def inorderTraversal(root):
     return result
 ```
 
-## Postorder
+### Postorder
 
 Left → Right → Visit
 
