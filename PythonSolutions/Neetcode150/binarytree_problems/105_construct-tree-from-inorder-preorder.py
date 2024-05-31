@@ -6,12 +6,13 @@
 #         self.right = right
 class NotOptimizedSolution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        # If one of the arrays are empty then we have hit the end of the tree
         if not preorder or not inorder:
             return None
         
         # Grab the root node, 1st value in preorder array
         rootVal = preorder[0]
-        root = TreeNode(rootVal) # Create a the new root node
+        root = TreeNode(rootVal)
 
         # Find the mid index of inorder
         # Left side of inorder gives us left sub tree
@@ -39,24 +40,32 @@ class NotOptimizedSolution:
 class OptimizedSolution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         # Build a hashmap to store value -> its index mappings for quick look-up
-        index_map = {val: idx for idx, val in enumerate(inorder)}
+        inorder_index_map = {val: idx for idx, val in enumerate(inorder)}
+        preorder_index = 0
         
+        # Left and right is the range of the inorder array index
+            # We are essentially slicing the inorder array
+            # Inorder is what we really need to to know which nodes are on the left or right
         def arrayToTree(left, right):
             nonlocal preorder_index
+            # When we end up going pass the range, then we reached end of tree
             if left > right: return None
             
             # Select the preorder_index element as the root and increment it
             root_val = preorder[preorder_index]
             root = TreeNode(root_val)
             
+            # Increment preorder index since we just need the next index as root for next recurse
             preorder_index += 1
             
-            # Build left and right subtree excluding root_val from inorder list
-            root.left = arrayToTree(left, index_map[root_val] - 1)
-            root.right = arrayToTree(index_map[root_val] + 1, right)
+            # Slice the inorder array from current left to new right
+                # Grabbing just the left side of the inorder array
+            root.left = arrayToTree(left, inorder_index_map[root_val] - 1)
+            # Slice the inorder array from new left to current right
+                # Grabs just the right side of the inorder array
+            root.right = arrayToTree(inorder_index_map[root_val] + 1, right)
             
             return root
         
-        preorder_index = 0
         return arrayToTree(0, len(inorder) - 1)
         
