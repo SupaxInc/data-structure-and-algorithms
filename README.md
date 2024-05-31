@@ -1527,25 +1527,20 @@
 
 ## 124 - Binary Tree Maximum Path Sum
 
-**Intuition:** 
+**Intuition:** Path must consist of nodes connected by their edges and may start and end at any node in the tree, essentially identifying the highest possible sum of values following any tree path.
 
 - Solutions
     
-    **Brute Force:** 
+    **Optimized Approach:** Use DFS
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n)
+    - Space Complexity: O(h)
     
-    **Optimized Approach:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
+    **Solution:** Go as deep as possible for the left and right subtrees and calculate a new path that intersects both paths. Propagate the current node value + only one of the paths since it has to be a straight path.
     
     **Unique uses:**
     
-    - 
+    - Comparing with 0 to prune negative valued paths
 
 ## 297 - Serialize and De-serialize Binary Tree
 
