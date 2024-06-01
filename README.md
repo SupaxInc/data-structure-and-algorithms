@@ -1536,7 +1536,7 @@
     - Time Complexity: O(n)
     - Space Complexity: O(h)
     
-    **Solution:** Go as deep as possible for the left and right subtrees and calculate a new path that intersects both paths. Propagate the current node value + only one of the paths since it has to be a straight path.
+    **Solution:** Go as deep as possible for the left and right subtrees and calculate a new path that intersects both paths and compare it with current max path sum. Propagate the current node value + only one of the paths that has a higher value since it has to be a straight path.
     
     **Unique uses:**
     
@@ -1544,25 +1544,22 @@
 
 ## 297 - Serialize and De-serialize Binary Tree
 
-**Intuition:** 
+**Intuition:** Convert the tree into a string format that captures its structure and node values so it can be reconstructed into the original binary tree from this string representation.
 
 - Solutions
     
-    **Brute Force:** 
+    **Optimized Approach:** Use preorder traversal
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n)
+    - Space Complexity: O(h)
     
-    **Optimized Approach:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
+    **Solution:** Use preorder traversal to serialize (encode as a string) and deserialize (decode the string) the tree. You can encode with a delimiter and then split the delimiter in the decoder.
     
     **Unique uses:**
     
-    - 
+    - Uses `iter` and `next`
+        - `iter`  creates an iterable object from an array (mimics a stream of data)
+        - `next`  will iterate to the next item in the iterable object
 
 # Tries
 
