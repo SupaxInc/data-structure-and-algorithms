@@ -7,16 +7,18 @@ class KthLargest:
 
         # We want the heap to only have kth size
         # This allows us to return the kth largest element at the top of the min heap
+            # Since its a min heap, the values that are left after popping are the largest
+            # Therefore, the next pop will be the kth largest
         while len(self.minHeap) > self.k:
             print(heapq.heappop(self.minHeap))
         
         print(self.minHeap)
 
     def add(self, val: int) -> int:
+        # Add the value to the heap
         heapq.heappush(self.minHeap, val)
 
-        # Edge case, only pop the heap if it is greater than the kth size
-        # If we pop it without, then the kth largest will be wrong
+        # Edge case, need to pop heap again once since its now greater than kth size after pushing new value
         if len(self.minHeap) > self.k:
             heapq.heappop(self.minHeap)
         

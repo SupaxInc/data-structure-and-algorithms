@@ -30,3 +30,19 @@ class Solution:
         
         # Return 0 if there were no remainder stones
         return 0
+
+class CleanerSolution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        maxHeap = []
+
+        for stone in stones:
+            heapq.heappush(maxHeap, stone * -1)
+
+        while len(maxHeap) > 1:
+            firstStone = heapq.heappop(maxHeap) * -1
+            secondStone = heapq.heappop(maxHeap) * -1
+
+            if firstStone != secondStone:
+                heapq.heappush(maxHeap, abs(firstStone-secondStone) * -1)
+
+        return maxHeap[0] * -1 if len(maxHeap) > 0 else 0
