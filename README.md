@@ -1613,66 +1613,97 @@
 
 ## 703 - Kth Largest Number
 
-**Brute Force:**  Sort the array each time and return the kth index
+**Intuition:** Return the Kth largest number in an array
 
-- Time Complexity: O(nlogn)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a min heap
-
-- ****Time Complexity: O(n) → heapify, O(log n) → adding to heap
-- Space Complexity: O(k), array will be as large as kth elements
-
-**Solution:** Using a min-heap, maintaining a heap of size k to ensure the kth largest element is always at the top, with adjustments made upon each new addition.
-
-**Unique uses:**
-
-- Uses a heap:
-    - Heapify → O(n)
-    - Heappop/Heappush → O(logn)
+- Solutions
+    
+    **Brute Force:**  Sort the array each time and return the kth index
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a min heap
+    
+    - ****Time Complexity: O(n) → heapify, O(log n) → adding to heap = O(n)
+    - Space Complexity: O(k), array will be as large as kth elements
+    
+    **Solution:** Using a min-heap, maintaining a heap of size k to ensure the kth largest element is always at the top, with adjustments made upon each new addition.
+    
+    **Unique uses:**
+    
+    - Uses a heap:
+        - Heapify → O(n)
+        - Heappop/Heappush → O(logn)
 
 ## 1046 - Last Stone Weight
 
-**Brute Force:**  Sort the array in descending and pop values for the stones
+**Intuition:** Repeatedly reduce the largest two stones' weights by smashing them together until only one stone or none remains, with the new stone's weight being the difference between the two largest stones' weights if they're not equal, or discarding both if they are equal.
 
-- Time Complexity: O(n) → first while loop, O(nlogn) → inside while loop = O(n^2 log n)
-- Space Complexity: O(1) → memory is in-place
-
-**Optimized Approach:** Create a max heap 
-
-- ****Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Solution:** Create a max heap to get the 2 largest stones then just follow the instructions.
-
-**NOTE:** Result array does not have to be in-order because we are just popping values
-
-**Unique uses:**
-
-- Creates a max heap work around by multiplying by -1
+- Solutions
+    
+    **Brute Force:**  Sort the array in descending and pop values for the stones
+    
+    - Time Complexity: O(n) → first while loop, O(nlogn) → inside while loop = O(n^2 log n)
+    - Space Complexity: O(1) → memory is in-place
+    
+    **Optimized Approach:** Create a max heap 
+    
+    - ****Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Solution:** Create a max heap to get the 2 largest stones then just follow the instructions.
+    
+    **Unique uses:**
+    
+    - Creates a max heap work around by multiplying by -1
 
 ## 972 - K Closest Points to Origin
 
-**Brute Force:**  Sort the results of the Euclidean distance to get smallest of K closest points
+**Intuition:** Return the top K closest points to the origin on a graph
 
-- Time Complexity: O(nlogn)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Use a min heap
-
-- Time Complexity: O(n), heapify
-- Space Complexity: O(n)
-
-**Solution:** Finds the k closest points to the origin by calculating their Euclidean distances, adding them to a min heap, and then extracting the k points with the smallest distances.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f08a92a6-8e4d-4cbb-92f8-225b198b3e21/Untitled.png)
-
-**Unique uses:**
-
-- Uses a tuple in a min heap to store the key (in this case the coords) with the value
-    - Heapify will only sort the first value in a tuple or array
+- Solutions
+    
+    **Brute Force:**  Sort the results of the Euclidean distance to get smallest of K closest points
+    
+    - Time Complexity: O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a min heap
+    
+    - Time Complexity: O(n), heapify
+    - Space Complexity: O(n)
+    
+    **Solution:** Finds the k closest points to the origin by calculating their Euclidean distances, adding them to a min heap, and then extracting the k points with the smallest distances.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f08a92a6-8e4d-4cbb-92f8-225b198b3e21/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a tuple in a min heap to store the key (in this case the coords) with the value
+        - Heapify will only sort the first value in a tuple or array
+        - However, if there are duplicate values then it’ll use the next value in the tuple to sort
 
 ## 215 - Kth Largest Element in an Array
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Brute Force:**  Sort the array or create a max heap
 
@@ -1723,6 +1754,26 @@
     - **Specific Element**: Quick Select focuses on finding a single specified element's position (kth smallest or largest) without sorting the entire array.
 
 ## 621 - Task Scheduler
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 **Intuition:** The core idea is to arrange tasks so that the same tasks are spaced out by at least **`n`** intervals, with the most frequent tasks shaping the schedule's minimum length. Place the most frequent tasks first, separated by **`n`** spaces, then fill those spaces with other tasks, ensuring no idle time if possible. The challenge lies in efficiently filling these cooldown periods to minimize the total schedule time.
 
