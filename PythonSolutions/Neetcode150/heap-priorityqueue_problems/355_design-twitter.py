@@ -5,6 +5,7 @@ class Twitter:
         self.followerMap = defaultdict(set) 
         self.tweetMap = defaultdict(list) # Pair of [count, tweetId]
 
+    # Pretend that the user will always exist
     def postTweet(self, userId: int, tweetId: int) -> None:
         self.tweetMap[userId].append([self.count, tweetId])
         self.count -= 1 # Decrement since its a max heap
@@ -16,6 +17,8 @@ class Twitter:
         # Make user follow themselves so we can see their own recent tweets
         self.followerMap[userId].add(userId)
 
+        # Do a first run at grabbing recent tweets for each follower
+        # Gives us the reference to the tweetmap for each user since we have the following id and the last index
         for followingId in self.followerMap[userId]:
             if followingId in self.tweetMap:
                 lastIndex = len(self.tweetMap[followingId]) - 1
@@ -25,9 +28,9 @@ class Twitter:
                 heapq.heappush(maxHeap, [count, tweetId, followingId, lastIndex - 1])
         
         # Keep looking for the most recent tweets until result is 10
-        # If min heap is empty that means there was only less than 10 tweets
+        # If max heap is empty that means there was only less than 10 tweets
         while maxHeap and len(res) < 10:
-            # Pop most recent tweet
+            # Max heap will give us the most recent tweet first using the count (timestamp)
             count, tweetId, followingId, lastIndex = heapq.heappop(maxHeap)
             # Add recent tweet to result
             res.append(tweetId)
