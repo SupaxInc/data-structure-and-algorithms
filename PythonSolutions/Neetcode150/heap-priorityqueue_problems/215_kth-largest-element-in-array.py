@@ -23,12 +23,63 @@ class BetterOptimizedSolution:
         # Start comparing against all nums starting from index k
         for num in nums[k:]:
             if num > minHeap[0]:
-                # Heap push pop, will push to heap then pop
+                # Heap push pop, will push the larger number to heap then pop the smaller number
                 # Helps sort the heap to get the kth largest
                 heapq.heappushpop(minHeap, num)
         
         # Root of min heap will be kth largest element since its of size k
         return minHeap[0]
+    
+class MyQuickSelectSolution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        def partition(left, right, pivot_idx):
+            pivot_value = nums[pivot_idx]
+
+            # Temporarily move the pivot index to the end
+            nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
+
+            # Store the beginning index of array
+            store_idx = left
+            # Begin sorting elements smaller than pivot value to the left
+            for i in range(left, right):
+                if nums[i] < pivot_value:
+                    nums[store_idx], nums[i] = nums[i], nums[store_idx]
+                    # Increment temp index when we find a smaller value
+                        # Helps us store where we can swap the number and where the pivot ends
+                    store_idx += 1
+            
+            # Swap the end of the array to the new pivot idx (where the pivot was stored temporarily)
+            nums[right], nums[store_idx] = nums[store_idx], nums[right]
+
+            return store_idx
+
+        def quick_select(left, right, kth_idx):
+            # If there is one element left, just return it
+            if left == right:
+                return nums[left]
+            
+            # Prevent worst case scenario of sorting the largest mumber on the right
+            pivot_idx = random.randint(left, right)
+            nums[pivot_idx], nums[right] = nums[right], nums[pivot_idx]
+
+            # Get the index where all numbers left of pivot is less and all numbers right is greater than
+            pivot_idx = partition(left, right, pivot_idx)
+
+            # If the pivot equals the kth index then we found the kth largest
+            if pivot_idx == kth_idx:
+                return nums[pivot_idx]
+            elif pivot_idx < kth_idx:
+                # Search for new pivot on the right of array
+                return quick_select(pivot_idx + 1, right, kth_idx)
+            else:
+                # Search for new pivot on the left
+                return quick_select(left, pivot_idx - 1, kth_idx)
+
+        n = len(nums)
+        # n-k is the kth index so we can find the kth largest, this helps getting the last elements in the array
+            # Remember that it gets sorted where nums on the left of pivot are smaller and nums on right are greater
+        # Kth smallest is just using the actual k number
+        return quick_select(0, n - 1, n - k)
 
 
 # O(n), O(n^2 worst case)
