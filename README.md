@@ -1685,97 +1685,62 @@
 
 ## 215 - Kth Largest Element in an Array
 
-**Intuition:** 
+**Intuition:** Find the kth largest in an array
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:**  Sort the array or create a max heap
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(nlogn) **or** O(n + klogn)
+        - O(nlogn) is worse case if k is the same as the length of array
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
+    **Optimized Approach:** Create a min heap of size k so that when we look for root of heap, its always the Kth largest element
     
-    - Time Complexity:
-    - Space Complexity:
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/38ece84c-2f4c-4e48-a832-04351aa91927/Untitled.png)
     
-    **Solution:** 
+    - Time Complexity: O(k) + O((n-k) log k) → O(n log k)
+        - O(k), heapify an array of k size
+        - O((n-k) log k), heappushpop heap of size of n-k
+    - Space Complexity: O(k), min heap storage
+    
+    **More Optimized Approach:** Quick Select (similar to quick sort) **(THIS NO LONGER WORKS, TLE) USE DUTCH THREE WAY PARTITIONING INSTEAD**
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7e3e82b2-8726-4a35-bb78-0ae589222448/Untitled.png)
+    
+    - Time Complexity: O(n), worst case O(n^2)
+    - Space Complexity: O(n)
+    
+    **Solution:** Maintains a min heap of size **`k`** to efficiently find the kth largest element in an array by ensuring only the k largest elements remain in the heap, returning the smallest among them as the kth largest overall.
     
     **Unique uses:**
     
-    - 
-
-**Brute Force:**  Sort the array or create a max heap
-
-- Time Complexity: O(nlogn)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Create a min heap
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/38ece84c-2f4c-4e48-a832-04351aa91927/Untitled.png)
-
-- Time Complexity: O(k) + O((n-k) log k)
-    - O(k), heapify an array of k size
-    - O((n-k) log k), heappushpop heap of size of n-k
-- Space Complexity: O(k), min heap storage
-
-**More Optimized Approach:** Quick Select (similar to quick sort)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/7e3e82b2-8726-4a35-bb78-0ae589222448/Untitled.png)
-
-- Time Complexity: O(n), worst case O(n^2)
-- Space Complexity: O(n)
-
-**Solution:** Maintains a min heap of size **`k`** to efficiently find the kth largest element in an array by ensuring only the k largest elements remain in the heap, returning the smallest among them as the kth largest overall.
-
-**Unique uses:**
-
-- Uses heappushpop operation on n-k size of min heap: O(log n) operation
-    - Pushes the value to min heap, then pops smallest value of min heap
-    - Helps sort the heap to get the Kth largest elements
-- Using quick select over heap sort
-    - Faster than heap sort
-    - Not a stable algorithm
-    - Used more than heap sort if you don’t care about worst case time complexity
-- Quick select vs Quick sort
-    
-    ### **Quick Sort:**
-    
-    - **Purpose**: Quick Sort is a sorting algorithm used to order all elements in an array from smallest to largest (or vice versa).
-    - **Process**: It picks an element as a pivot and partitions the given array around the picked pivot, ensuring that elements less than the pivot end up on the left side of the pivot and elements greater than the pivot end up on the right side. This partitioning is done for each sub-array around a new pivot until the entire array is sorted.
-    - **Complexity**: The average time complexity of Quick Sort is *O*(*n*log*n*), though its worst-case complexity can degrade to *O*(*n*2) if not carefully implemented (e.g., always choosing the first or last element as the pivot in a sorted array).
-    - **Entire Array**: Quick Sort is applied to the entire array, and its goal is to sort the whole dataset.
-    
-    ### **Quick Select:**
-    
-    - **Purpose**: Quick Select is used to find the kth smallest (or largest) element in an unsorted array. Unlike Quick Sort, it does not sort the entire array.
-    - **Process**: Like Quick Sort, Quick Select uses a pivot selection and partitioning strategy. However, after partitioning, Quick Select only recurses into one side of the pivot—the side that contains the kth smallest element—ignoring the other side. This selective recursion significantly reduces the number of elements it needs to process.
-    - **Complexity**: The average time complexity of Quick Select is *O*(*n*), making it faster for its specific task than sorting the entire array and then selecting the kth element. However, its worst-case complexity can also be *O*(*n*2), particularly with poor pivot choices.
-    - **Specific Element**: Quick Select focuses on finding a single specified element's position (kth smallest or largest) without sorting the entire array.
+    - Uses heappushpop operation on n-k size of min heap: O(log n) operation
+        - Pushes the value to min heap, then pops smallest value of min heap
+        - Helps sort the heap to get the Kth largest elements
+    - Using quick select over heap sort
+        - Faster than heap sort
+        - Not a stable algorithm
+        - Used more than heap sort if you don’t care about worst case time complexity
+    - Quick select vs Quick sort
+        
+        ### **Quick Sort:**
+        
+        - **Purpose**: Quick Sort is a sorting algorithm used to order all elements in an array from smallest to largest (or vice versa).
+        - **Process**: It picks an element as a pivot and partitions the given array around the picked pivot, ensuring that elements less than the pivot end up on the left side of the pivot and elements greater than the pivot end up on the right side. This partitioning is done for each sub-array around a new pivot until the entire array is sorted.
+        - **Complexity**: The average time complexity of Quick Sort is *O*(*n*log*n*), though its worst-case complexity can degrade to *O*(*n*2) if not carefully implemented (e.g., always choosing the first or last element as the pivot in a sorted array).
+        - **Entire Array**: Quick Sort is applied to the entire array, and its goal is to sort the whole dataset.
+        
+        ### **Quick Select:**
+        
+        - **Purpose**: Quick Select is used to find the kth smallest (or largest) element in an unsorted array. Unlike Quick Sort, it does not sort the entire array.
+        - **Process**: Like Quick Sort, Quick Select uses a pivot selection and partitioning strategy. However, after partitioning, Quick Select only recurses into one side of the pivot—the side that contains the kth smallest element—ignoring the other side. This selective recursion significantly reduces the number of elements it needs to process.
+        - **Complexity**: The average time complexity of Quick Select is *O*(*n*), making it faster for its specific task than sorting the entire array and then selecting the kth element. However, its worst-case complexity can also be *O*(*n^2*), particularly with poor pivot choices.
+        - **Specific Element**: Quick Select focuses on finding a single specified element's position (kth smallest or largest) without sorting the entire array.
 
 ## 621 - Task Scheduler
 
-**Intuition:** 
-
-- Solutions
-    
-    **Brute Force:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Optimized Approach:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
-    
-    **Unique uses:**
-    
-    - 
-
-**Intuition:** The core idea is to arrange tasks so that the same tasks are spaced out by at least **`n`** intervals, with the most frequent tasks shaping the schedule's minimum length. Place the most frequent tasks first, separated by **`n`** spaces, then fill those spaces with other tasks, ensuring no idle time if possible. The challenge lies in efficiently filling these cooldown periods to minimize the total schedule time.
+**Intuition:** The core idea is to arrange tasks so that the same tasks are spaced out by at least **`n`** intervals. Place the most frequent tasks first, separated by **`n`** idle time, then fill those spaces with other tasks, ensuring no idle time if possible. The challenge lies in efficiently filling these cooldown periods to minimize the total schedule time.
 
 - Solutions
     
@@ -1784,7 +1749,9 @@
     - Time Complexity: O(26 + 26 log 26)
     - Space Complexity: O(n)
     
-    **Solution:** using a max heap for managing task frequencies and a cooldown queue, ensuring tasks are executed with a minimum interval **`n`**, and calculates the total execution time by dynamically adjusting tasks' availability based on cooldown requirements.
+    **Solution:** Using a max heap for managing task frequencies and a cooldown queue, ensuring tasks are executed with a minimum interval **`n`**, and calculates the total execution time by dynamically adjusting tasks' availability based on cooldown requirements.
+    
+    Use the most frequent task to be processed first and fill in between other tasks to prevent high amount of idle times.
     
     **Unique uses:**
     
@@ -2538,7 +2505,7 @@
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: ‣ 
+    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
