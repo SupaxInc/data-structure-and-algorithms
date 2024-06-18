@@ -10,7 +10,7 @@ Used when you are asked to find all possibilities of something. If the answer is
 
 In essence, while backtracking shares the brute force principle of exploring all possibilities, it distinguishes itself by systematically eliminating paths that cannot lead to a solution, thereby streamlining the search process. This ability to prune the search space, coupled with potential for further optimizations, makes backtracking a more nuanced and efficient approach than pure brute force in many scenarios.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a926c8a8-5e6a-4205-8fd7-d534a38ffce3/Untitled.png)
+![Untitled](../images/backtracking_1.png)
 
 **Example:** Girls can’t sit in middle seat so we prune the search space.
 
@@ -34,6 +34,8 @@ def solve(problem):
     options = initialize_options(problem)  # Initialize your options based on the problem
     
     def backtrack(result, path, options):
+	    if constraint(): # Prune search space
+			    return
 	    if is_solution(path):
 	        result.append(format_solution(path))
 	        return
@@ -135,7 +137,7 @@ Imagine exploring a tree where each node represents a decision: **to include or 
     - Add **`2`** to the subset: **`[1, 2]`**
         - Then, add **`3`**: **`[1, 2, 3]`**. No more numbers to add. We backtrack.
         - Remove **`3`**, backtrack further, subset is **`[1, 2]`**.
-    - Remove **`2`**, the subset is back to **`[1]`**.
+    - Remove **`2`**, since no more numbers to add, the subset is back to **`[1]`**.
     - Add **`3`** to the subset: **`[1, 3]`**. No more numbers to add. We backtrack to **`[1]`**.
 4. **Backtrack to root**, subset is **`[]`** again.
     - Now, we explore without **`1`** from the start. Add **`2`** to the subset: **`[2]`**.
@@ -156,7 +158,7 @@ Imagine exploring a tree where each node represents a decision: **to include or 
              /   \       /   \
        [1,2]Y    N[1]  [2]Y   N[]
          /  \    /  \   /  \   /  \
-[1,2,3]Y N[1,2]Y N[1]Y N[1,3] [3]Y  N[]
+[1,2,3]Y   N [1,2]Y N[1]Y N[1,3] [3]Y  N[]
 ```
 
 **Example with Clarity on Exclusion (Moving Right of Tree)**
