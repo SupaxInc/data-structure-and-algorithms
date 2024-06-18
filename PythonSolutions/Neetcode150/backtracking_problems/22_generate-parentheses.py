@@ -5,6 +5,7 @@ class Solution:
             # Append path if the amount of open and closed parentheses are equal
             if closed_n == open_n == n:
                 res.append(path)
+                # Prune search space when we find a path that is valid
                 return
             
             # Inclusion choice: Add an open bracket 
