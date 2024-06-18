@@ -1845,7 +1845,7 @@
     
     **Unique uses:**
     
-    - Uses list[:] to deep copy a list
+    - Uses list[:] to deep copy a list or you can also do list.copy()
     - Backtracking to try all possible combinations of choices
         - No base cases to prune as the only constraint is the length of the array
 
