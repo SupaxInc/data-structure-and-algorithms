@@ -1787,6 +1787,37 @@
     - Uses a set to get what users someone has followed
     - Could use nlargest or heapq.merge in a different solution
 
+## 295 - Find Median from Data Stream
+
+**Intuition:** Design a data structure that can efficiently find the median of a continuously growing list of numbers, ensuring quick access to the median as new numbers are added.
+
+- Solutions
+    
+    **Brute Force:** Insert the numbers in order so that it is in ascending order
+    
+    - Time Complexity: O(n), insert it within the array where it is larger or smaller than the current number
+        - Could also sort it which is worst case scenario of O(nlogn)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Use a heap approach
+    
+    - Time Complexity: O(logn)
+    - Space Complexity: O(n)
+    
+    **Solution:** Have two heaps, small heap is a max heap and large heap is a min heap. If at the end of inserts the heaps are equal to each other that means median is popping from both heaps. If they are not equal but instead approximately equal, then we grab the number from the the heap with a larger length which would be the median.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/89ee82e5-8c23-4833-ac28-71f91717c413/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Calculates the median
+        - Sort the numbers in ascending order.
+        - If the number of elements is odd, the median is the middle number.
+        - If the number of elements is even, the median is the average of the two middle numbers.
+    - Uses two heaps
+        - A max-heap to keep track of the lower half of the numbers.
+        - A min-heap to keep track of the upper half of the numbers.
+
 # Backtracking
 
 ## 78 - Subsets
@@ -2505,7 +2536,7 @@
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
+    See example of how it was solved here: ‣ 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
