@@ -19,6 +19,8 @@ class Solution:
             for i in range(start, len(candidates)):
                 # Constraint #3: Look for adjacent duplicats when we backtrack then go to next choice
                     # Prevents duplicates since if we backtrack, the prev index choice may be a duplicate
+                    # Example: [1, 2, 2], target = 3
+                    # [1, 2] and [1, 2] are the same solution sets
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 
