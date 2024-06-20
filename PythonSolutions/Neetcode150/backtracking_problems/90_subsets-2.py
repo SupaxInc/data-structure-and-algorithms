@@ -10,6 +10,8 @@ class Solution:
             # Iterate through the choices
             for i in range(start, len(nums)):
                 # Prune the search if we find a duplicate adjacent to each other
+                    # Example of a duplicate: [1, 2, 2]
+                    # [1, 2] and [1, 2] could happen
                 if i > start and nums[i] == nums[i-1]:
                     continue
 
