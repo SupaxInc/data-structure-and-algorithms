@@ -20,6 +20,8 @@ class Solution:
                 # Inclusion choice: Add current choice letter to path
                 backtrack(digitIndex + 1, pathCombination + letter)
                 # Exclusion choice: Happens when call stack pops, it removes previous letter
+                    # This is since the letter is being added in the params
+                    # When call stack pops the params are changed
 
         backtrack(0, "")
         return res

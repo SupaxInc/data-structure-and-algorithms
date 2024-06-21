@@ -2114,7 +2114,7 @@
     
     **Brute Force:** Backtracking
     
-    - Time Complexity: O(4^n) → worst case input: “9999” = 4 x 4 x 4 x 4
+    - Time Complexity: O(4^n) → worst case input: “9999” = 4 x 4 x 4 x 4, worst case of 4 letters
     - Space Complexity: O(n)
     
     **Solution:** Map each digit to its corresponding letters, then recursively explore all letter combinations, advancing one digit at a time.
