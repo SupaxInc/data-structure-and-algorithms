@@ -2036,9 +2036,31 @@
     **Unique uses:**
     
     - count = defaultdict(int, sum(map(Counter, board), Counter()))
-        - map(Counter, board) → Creates a counter frequency dictionary for all board rows
+        - map(Counter, board) → Creates a counter frequency dictionary for all each letter per board row
         - sum(map(Counter, board), Counter()) → Sums all counters into one counter
         - defaultdict → Initializes a dictionary with the summed counter of all freqs for all rows
+        - Example of what it looks like:
+            
+            ```python
+            board = [["a", "b"], ["a", "c"]]
+            
+            # Applying Counter to each sublist
+            mapped_counters = list(map(Counter, board))
+            print("Counters of each sublist:", mapped_counters)  
+            # [Counter({'a': 1, 'b': 1}), Counter({'a': 1, 'c': 1})]
+            
+            # Summing all Counters
+            total_counter = sum(mapped_counters, Counter())
+            print("Total Counter:", total_counter)  
+            # Counter({'a': 2, 'b': 1, 'c': 1})
+            
+            # Creating a defaultdict from the total Counter
+            count = defaultdict(int, total_counter)
+            print("Final defaultdict:", count)  
+            # defaultdict(<class 'int'>, {'a': 2, 'b': 1, 'c': 1})
+            
+            ```
+            
     - Uses DFS on a 2d matrix
         - Uses directions for up, left, right down
         - Marks a node as visited
