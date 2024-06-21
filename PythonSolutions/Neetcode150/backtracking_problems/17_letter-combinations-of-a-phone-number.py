@@ -17,7 +17,7 @@ class Solution:
             letters = phoneNumber[digits[digitIndex]]
             # Iterate through all choices
             for letter in letters:
-                # Inclusion choice: Add current choice letter to path
+                # Inclusion choice: Add current choice letter to path, and check next digit index
                 backtrack(digitIndex + 1, pathCombination + letter)
                 # Exclusion choice: Happens when call stack pops, it removes previous letter
                     # This is since the letter is being added in the params
