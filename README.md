@@ -2134,6 +2134,28 @@
     
     - Exclusion choice for back track happens when call stack pops as path combinations is part of the parameter so no need to pop in loop
 
+## 51 - N Queens
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
+
 # Graphs
 
 ## 200 - Number of Islands
