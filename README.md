@@ -2136,25 +2136,20 @@
 
 ## 51 - N Queens
 
-**Intuition:** 
+**Intuition:** Find out how many Queen pieces you can fit in a n x n chess board without the pieces eliminating each other.
 
 - Solutions
     
-    **Brute Force:** 
+    **Brute Force:** Use sets
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n ^n)
+    - Space Complexity: O(n)
     
-    **Optimized Approach:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
+    **Solution:** Track which positions a placed Queen can eliminate by adding the positions of the board using a set, a cols set to track horizontal, posDiags and negDiags set to track diagonals. Rows do not need to be tracked as we will only surely just place 1 Queen per row since its a choice.
     
     **Unique uses:**
     
-    - 
+    - Uses a positive and negative diagonal set to track where a Queen can eliminate diagonal positions
 
 # Graphs
 
