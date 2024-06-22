@@ -2147,9 +2147,14 @@
     
     **Solution:** Track which positions a placed Queen can eliminate by adding the positions of the board using a set, a cols set to track horizontal, posDiags and negDiags set to track diagonals. Rows do not need to be tracked as we will only surely just place 1 Queen per row since its a choice.
     
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d915bf42-5f96-4f74-b162-2e35c27ad7a8/Untitled.png)
+    
     **Unique uses:**
     
     - Uses a positive and negative diagonal set to track where a Queen can eliminate diagonal positions
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/bf12c74f-50a0-4059-be0d-1d690942e74d/Untitled.png)
+    
 
 # Graphs
 
