@@ -24,6 +24,9 @@ class WordDictionary:
         def dfs(j, root):
             curr = root
 
+            # Similar to backtracking, we will explore the children nodes as deep as possible starting from j
+                # j is the index of the word we are currently on, and it will be used to be able to skip the letter
+                # If we end up passing the length of word when we skip the letter, it checks if the current node is the end of a word
             for i in range(j, len(word)):
                 char = word[i]
 
@@ -37,9 +40,11 @@ class WordDictionary:
                             # which lets us return True again breaking the DFS, returning True from the function
                         if dfs(i+1, child):
                             return True
+                        
                     # If the DFS fails, it means we couldn't find a match for the whole word
                     return False
                 else: 
+                    # If the char does not exist, return False so that we can check other children nodes if it contains the letter
                     if char not in curr.children:
                         return False
 
