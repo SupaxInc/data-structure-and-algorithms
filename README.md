@@ -1593,25 +1593,29 @@
 
 ## 211 - Design Add and Search Words Data Structure
 
-**Brute Force:**  Create a list of all inserted words then search them 1 by 1
+**Intuition:** We need to search for a word where it contains skips
 
-- Time Complexity: O(n * l * m) where N is # of words, L is length of words, M length of word being searched if it contains wildcards (.)
-- Space Complexity: O(n)
-
-**Optimized Approach:** Create a trie
-
-- Time Complexity: O(n*26^L)
-    - Complexity explanation
-        
-        Means for of *N* items, the algorithm might perform operations on all possible combinations of characters up to length *L*, with each character having 26 different choices (like the letters in the English alphabet). This complexity grows quickly with *L*, as every additional character multiplies the number of possibilities by 26
-        
-- Space Complexity: O(n)
-
-**Solution:**
-
-**Unique uses:**
-
-- Uses backtracking or DFS to go back up a node to check other children nodes in a Trie if the search has failed for the child node we went down
+- Solutions
+    
+    **Brute Force:**  Create a list of all inserted words then search them 1 by 1
+    
+    - Time Complexity: O(n * l * m) where N is # of words, L is length of words, M length of word being searched if it contains wildcards (.)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** Create a trie
+    
+    - Time Complexity: O(n*26^L)
+        - Complexity explanation
+            
+            Means for of *N* items, the algorithm might perform operations on all possible combinations of characters up to length *L*, with each character having 26 different choices (like the letters in the English alphabet). This complexity grows quickly with *L*, as every additional character multiplies the number of possibilities by 26
+            
+    - Space Complexity: O(n)
+    
+    **Solution:** To search for words, we need to skip the `.` character by incrementing our index (similar to backtracking) and explore each child of the current Trie node so that we can check if at some point we end up at the end of a word when we skip a letter.
+    
+    **Unique uses:**
+    
+    - Uses backtracking or DFS to go back up a node to check other children nodes in a Trie if the search has failed for the child node we went down
 
 # Heap/Priority Queues
 
