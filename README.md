@@ -1565,27 +1565,31 @@
 
 ## 208 - Implement Trie (Prefix Tree)
 
-**Brute Force:  Use a hashmap as a children property of Trie Node**
+**Intuition:** Create a prefix tree data structure
 
-- Time Complexity: O(n)
-- Space Complexity: O(n)
-
-**Optimized Approach: Use an array of 26 size as children**
-
-- Time Complexity: O(n)
-- Space Complexity: O(26)
-
-**Solution: O**ptimizes for lowercase English letters by using a fixed-size array of 26 for children nodes, allowing for efficient insertions, searches, and prefix checks by calculating character positions based on ASCII values.
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8ad94c95-2f6a-4c5e-a643-2d1e1bf282f5/Untitled.png)
-
-**Unique uses:**
-
-- Each trie node consists of a children and an end property
-    - Contains children as there could be multiple words with different combinations
-    - Contains end property to let us know that it was inserted as a word, helps for searches
-- Uses an array with a prefix sized amount of 26 to imitate the alphabet letters
-    - Index is found by subtracting ASIIC value of “a” and the char we are on
+- Solutions
+    
+    **Brute Force:  Use a hashmap as a children property of Trie Node**
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach: Use an array of 26 size as children**
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(26)
+    
+    **Solution: O**ptimizes for lowercase English letters by using a fixed-size array of 26 for children nodes, allowing for efficient insertions, searches, and prefix checks by calculating character positions based on ASCII values.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8ad94c95-2f6a-4c5e-a643-2d1e1bf282f5/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Each trie node consists of a children and an end property
+        - Contains children as there could be multiple words with different combinations
+        - Contains end property to let us know that it was inserted as a word, helps for searches
+    - Uses an array with a prefix sized amount of 26 to imitate the alphabet letters
+        - Index is found by subtracting ASIIC value of “a” and the char we are on
 
 ## 211 - Design Add and Search Words Data Structure
 
