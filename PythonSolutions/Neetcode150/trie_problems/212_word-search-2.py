@@ -93,7 +93,7 @@ class Trie:
             else:
                 return  # Word not in trie, nothing to delete
         
-        # Set end of word to False and backtrack to remove unnecessary nodes
+        # Set end of word to False and pop the stack of traversed nodes to remove previous nodes
         curr.end = False
         for char in reversed(word):
             parent = stack.pop()
