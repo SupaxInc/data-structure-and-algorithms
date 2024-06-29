@@ -1617,6 +1617,40 @@
     
     - Uses backtracking or DFS to go back up a node to check other children nodes in a Trie if the search has failed for the child node we went down
 
+## 212 - Word Search 2
+
+**Intuition:** Search for multiple words in a grid
+
+- Solutions
+    
+    **Brute Force:** DFS over each word
+    
+    - Time Complexity: w * mn * 4 ^k
+        - w is the word, mn is size of grid, k is length of longest word
+    - Space Complexity: O(h)
+    
+    **Optimized Approach:** Create a trie and use it to search for multiple words
+    
+    - Time Complexity: mn * 4 ^ k
+    - Space Complexity: O(h)
+    
+    **Most Optimized Approach:** Similarly use a trie but remove a word from trie when its been found
+    
+    - Time Complexity: mn * 4 ^ k
+    - Space Complexity: O(h)
+    
+    **Solution:** Create a trie and use that to search through each word when we DFS the board.
+    
+    **Unique uses:**
+    
+    - Using array for the path and using `.join`instead of the concatenating word
+        - Reduces time complexity since string concatenation could end up O(n^2)
+    - `deleteWord`  function in Trie to remove a word from the Trie once its found
+        - Reduces size of Trie
+        - Speeds up subsequent searches
+    - Add reference to the parent in each Trie node
+        - Easier backtracking and prune nodes from the trie dynamically since no other words can start from that prefix
+
 # Heap/Priority Queues
 
 ## 703 - Kth Largest Number
