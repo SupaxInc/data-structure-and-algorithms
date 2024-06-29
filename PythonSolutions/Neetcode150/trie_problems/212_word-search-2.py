@@ -18,7 +18,7 @@ class Trie:
         
         curr.end = True
 
-class EasyNonOptimizedSolution:
+class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         self.res = set()
         self.board = board
@@ -38,7 +38,7 @@ class EasyNonOptimizedSolution:
 
     def dfs(self, row, col, node, path):
         # Base case: Boundary check
-        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
+        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0 or self.board[row][col] == "":
             return
         
         char = self.board[row][col]
