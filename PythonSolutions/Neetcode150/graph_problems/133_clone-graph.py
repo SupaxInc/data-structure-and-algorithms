@@ -44,8 +44,16 @@ class Node:
         self.neighbors = neighbors if neighbors is not None else []
 """
 
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
 from typing import Optional
-class BFSSolution:
+class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
             return None
@@ -57,14 +65,16 @@ class BFSSolution:
         while queue:
             curr = queue.popleft()
 
-            # Map all neighbors of current vertex
+            # Map all neighbors of current old vertex to copied nodes
             for neighbor in curr.neighbors:
                 # If neighbor is already mapped, then it means its neighbor's neighbors have been mapped already
+                # If it hasn't been mapped then create a new copy of it
                 if neighbor not in oldToNew:
                     oldToNew[neighbor] = Node(neighbor.val)
-                    queue.append(neighbor)
+                    queue.append(neighbor) # Append the old node so its own neighbors can be processed later
                 
-                # Map the current vertex's newly mapped neighbors
+                # Map the current vertex's copy to newly copied mapped neighbor
                 oldToNew[curr].neighbors.append(oldToNew[neighbor])
         
+        # Return the first node since it connects to all other nodes
         return oldToNew[node]
