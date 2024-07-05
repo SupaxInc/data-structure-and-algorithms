@@ -70,7 +70,7 @@ def markAsVisited(grid, x, y):
 
 How to use DFS to traverse example above:
 
-1. Begin at node 1, go as deep as possible
+1. Begin at node 1
     1. Go to node 2
     2. Explore to node 3, no other adjacent vertices, so go back to node 2
 2. Now at node 2, go as deep as possible to non-visited nodes
@@ -281,6 +281,9 @@ graph = {
     'F': ['C', 'E']
 }
 
+for u, v in edges:
+    graph[u].append(v)  # Add edge from u to v (direction matters)
+
 # Perform BFS starting from node 'A'
 bfs(graph, 'A')
 ```
@@ -288,29 +291,39 @@ bfs(graph, 'A')
 ### Template Code - Undirected Graphs
 
 ```python
-graph = {
-    'A': {'B', 'C'},
-    'B': {'A', 'D', 'E'},
-    'C': {'A', 'F'},
-    'D': {'B'},
-    'E': {'B', 'F'},
-    'F': {'C', 'E'}
-}
+def bfs(graph, start):
+    # Visited set to keep track of visited nodes to prevent revisiting
+    visited = set()
+    # Queue to manage the BFS frontier using a deque for efficient pop from the front
+    queue = deque([start])
+    visited.add(start)
 
-def dfs(graph, current_node, target, visited=set()):
-    if current_node == target:
-        return True
-    if current_node in visited:
-        return False
-    visited.add(current_node)
-    for neighbor in graph[current_node]:
-        if dfs(graph, neighbor, target, visited):
-            return True
-    return False
+    while queue:
+        # Get the current node
+        current = queue.popleft()
+        print(f"Visiting: {current}")  # Optional: Output the node being visited
+
+        # Process the current node
+        # For example, you might check if it meets a condition or calculate something
+
+        # Iterate through each adjacent node
+        for neighbor in graph[current]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+                # Optional: Perform actions with the neighbor, such as setting distances, predecessors, etc.
 
 # Example usage
-print(dfs(graph, 'A', 'F'))  # Output: True
+# Constructing the graph
+graph = defaultdict(list)
+# Assuming input as edge list for an undirected graph
+edges = [(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]
+for u, v in edges:
+    graph[u].append(v)
+    graph[v].append(u)  # Since it's undirected, add both connections
 
+# Start BFS from node 1
+bfs(graph, 1)
 ```
 
 # Famous Algorithms
