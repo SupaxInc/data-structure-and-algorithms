@@ -1,30 +1,34 @@
 class Solution:
     def islandsAndTreasure(self, grid: List[List[int]]) -> None:
-        self.ROWS, self.COLS = len(grid), len(grid[0])
+        ROWS, COLS = len(grid), len(grid[0])
         INF = 2**31 - 1
-        queue = deque()
-        
-        # Initialize the grid: set INF for traversable land cells, identify treasure chests
-        for row in range(self.ROWS):
-            for col in range(self.COLS):
-                if grid[row][col] == 0:
-                    queue.append((row, col, 0))  # Append treasure chests with initial distance 0
-                elif grid[row][col] != -1:
-                    grid[row][col] = INF  # Mark traversable land cells as INF
+        queue = deque([])
 
-        # Directions: up, down, left, right
-        DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        # Traverse the grid and create the necesary INF land values along with adding treasure chests to queue
+        for row in range(ROWS):
+            for col in range(COLS):
+                if grid[row][col] == 0:
+                    queue.append((row, col))
+                elif grid[row][col] != -1:
+                    grid[row][col] = INF
         
-        # Perform BFS from all treasure chests
+        DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        dist = 0
+
+        # Level order traversal, begin at the treasure chests at the same time
         while queue:
-            row, col, dist = queue.popleft()
+            levelSize = len(queue)
+            dist += 1
             
-            for rowDir, colDir in DIRS:
-                newRow, newCol = row + rowDir, col + colDir
-                
-                if 0 <= newRow < self.ROWS and 0 <= newCol < self.COLS:
-                    if grid[newRow][newCol] == INF:  # Update INF cells only
-                        grid[newRow][newCol] = dist + 1
-                        queue.append((newRow, newCol, dist + 1))
-        
-        # Note: There's no need to return grid as we're modifying it in place
+            for _ in range(levelSize):
+                row, col = queue.popleft()
+
+                for dx, dy in DIRS:
+                    newRow, newCol = row + dx, col + dy
+
+                    # Check if the new traversed grid is valid
+                    if 0 <= newRow < ROWS and 0 <= newCol < COLS:
+                        # If its a land value add the distance then append the grid so it can be traversed next level
+                        if grid[newRow][newCol] == INF:
+                            grid[newRow][newCol] = dist
+                            queue.append((newRow, newCol))
