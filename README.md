@@ -1634,7 +1634,7 @@
     - Time Complexity: mn * 4 ^ k
     - Space Complexity: O(h)
     
-    **Most Optimized Approach:** Similarly use a trie but remove a word from trie when its been found
+    **Most Optimized Approach:** Similarly use a trie but remove a word from trie when its been found, prevents from finding it again
     
     - Time Complexity: mn * 4 ^ k
     - Space Complexity: O(h)
@@ -2332,7 +2332,7 @@
 
 ## 286 - Walls and Gates
 
-**Intuition:** 
+**Intuition:** Fill each empty room with the distance to its nearest gate
 
 - Solutions
     
@@ -2346,7 +2346,7 @@
     - Time Complexity: O(m *n)
     - Space Complexity: O(n)
     
-    **Solution:** 
+    **Solution:** Do a level order traversal at every gate at the same time so that you can’t intersect different distances in the same room.  
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31fdf55a-bee3-4284-ba9a-fa41cef09306/Untitled.png)
     
