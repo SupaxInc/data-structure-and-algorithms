@@ -2268,7 +2268,7 @@
     - Time Complexity: O(M * N)^2
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Traverse from the boundaries of the Pacific and Atlantic ocean then find the intersections between both.
+    **Optimized Approach:** Traverse from the boundaries of the Pacific and Atlantic ocean then find the intersections between both. **If we don’t traverse from the boundaries, it would be hard to know if it flowed to the Pacific or Atlantic. The boundaries lets us know it can already flow from there.**
     
     - Time Complexity: O(m * n), instead of restarting the DFS per cell, we check if its already been visited
     - Space Complexity: O(n)
