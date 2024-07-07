@@ -2294,7 +2294,7 @@
     - Time Complexity: O(m * n)
     - Space Complexity: O(n)
     
-    **Solution:** Mark border-connected 'O's as temporary, flip all other 'O's to 'X's, then revert temporary marks back to 'O's to surround regions. Starting from un-surrounded regions also helps mark the ones directionally attached to the un-surrounded region that are not in the border.
+    **Solution:** Mark border-connected 'O's as temporary, flip all other 'O's to 'X's, then revert temporary marks back to 'O's to surround regions. Starting from un-surrounded regions also helps mark the ones adjacently attached to the un-surrounded region that are not in the edges. Because if its connect to an edge, it can no longer be surrounded as well.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/3dd92b30-22ae-4d59-a2a6-13c885d7413f/Untitled.png)
     
