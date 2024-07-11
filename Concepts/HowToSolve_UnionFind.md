@@ -13,6 +13,18 @@ Disjoint sets and operations
 
 # Union Find
 
+## What is it?
+
+- **Union**: Combine two sets into one.
+- **Find**: Determine which set a particular element belongs to.
+
+## Common Applications
+
+- **Detecting cycles** in undirected graphs.
+- **Kruskal’s algorithm** for finding the Minimum Spanning Tree (MST).
+- **Connected components** in graphs.
+- **Dynamic connectivity** problems.
+
 ## Complexities
 
 Time Complexity: O(log n)
@@ -23,6 +35,59 @@ Space Complexity: O(n)
 
 - Without optimizations, Union Find **`find`** operations could be *O*(log*n*) in the worst case.
 - With path compression and union by rank (or size), the time complexity is improved to *O*(*α*(*n*)), which is nearly constant and much better than *O*(log*n*) for all practical numbers of elements *n*.
+
+## Path Compression
+
+- **Purpose**: To find the root of the set we compress the path to the root to make future operations faster.
+- **Path Compression**: During the find operation, we make each node on the path from current node to the root point directly to the root. This flattens the structure, reducing the time complexity of future find operations.
+
+Example:
+
+```python
+Path Compression Visualization:
+
+Before Find(3):
+   0
+  /|\
+ 1 2 4
+   |
+   3
+
+After Find(3):
+   0
+  /|\ \
+ 1 2 3 4
+```
+
+## Ranks
+
+Rank is used to approximate the tree height of the current root.
+
+To union by rank:
+
+- **Purpose**: To merge two sets into one.
+- **Union by Rank**: To keep the tree flat, we always attach the smaller tree (lower rank) under the root of the larger tree (larger rank). The rank is used to approximate the tree height.
+- If the ranks are equal, we arbitrarily choose one root and increase its rank by 1. This ensures that the resulting tree remains balanced.
+
+Example:
+
+```python
+Initial:
+0  1  2  3  4
+
+Union(0, 1):
+0-1  2  3  4
+
+Union(2, 3):
+0-1  2-3  4
+
+Union(1, 2):
+   0
+  /|\
+ 1 2 4
+   |
+   3
+```
 
 ## How it Works
 
@@ -80,26 +145,41 @@ The root nodes will be the designed representatives. We now have a parent and ch
 # IF size is given
 class UnionFind:
     def __init__(self, size):
+		    # Initializes each element's parent to itself and rank to 1
+		    
+		    # Parent of each element is itself initially
+			    # E.g. [0, 1, 2, 3, 4], index 0 (root 0) is parent of itsself, etc
         self.root = [i for i in range(size)]
+        
+        # Rank (approx. height) of each tree is 1 initially
+	        # E.g. [1, 1, 1, 1, 1]
         self.rank = [1] * size
 
-    def find(self, x):
-        """Finds the root of the set that x belongs to, with path compression."""
-        if x == self.root[x]:
-            return x
-        self.root[x] = self.find(self.root[x])  # Path compression
-        return self.root[x]
+    def find(self, p):
+        # Path compression
+	        # Make the tree flat by making every node point directly to the root
+        if self.root[p] != p:
+		        # Recursively find the root and compress path
+            self.root[p] = self.find(self.root[p])  
+        return self.root[p]  # Return the root of the set containing p
 
     def union(self, x, y):
         """Unites the sets that x and y belong to, by rank."""
         rootX = self.find(x)
         rootY = self.find(y)
+        
+        # If roots are different, we need to union them (join them together)
+        # Union by using ranks
         if rootX != rootY:
+		        # Attach the smaller tree to the root of the larger tree to keep the tree flat
             if self.rank[rootX] > self.rank[rootY]:
+		            # Attach smaller rank tree under root of higher rank tree
                 self.root[rootY] = rootX
             elif self.rank[rootX] < self.rank[rootY]:
+		            # Attach smaller rank tree under root of higher rank tree
                 self.root[rootX] = rootY
             else:
+		            # If ranks are equal, arbitrarily choose one as the root and increase its rank
                 self.root[rootY] = rootX
                 self.rank[rootX] += 1
 
