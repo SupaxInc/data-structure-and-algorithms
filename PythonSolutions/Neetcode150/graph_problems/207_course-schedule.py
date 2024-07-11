@@ -10,13 +10,13 @@ class Solution:
         # Build the prerequisite map.
             # Prerequisite is first in the array
             # Course is second
-        # Rule states: must take course bi first if you want to take course ai [a1, b1]
+        # Rule states: must take course b1 first if you want to take course ai [a1, b1]
         for pre, crs in prerequisites:
             preMap[crs].append(pre)
         
         # Helper function to perform DFS on the course graph.
         def dfs(crs):
-            # If a course has no prerequisites, it can be completed.
+            # If a course has no more prerequisites, it can be completed.
             if preMap[crs] == []:
                 return True
             # If we're visiting a course we've already visited, we've found a cycle.
@@ -33,7 +33,7 @@ class Solution:
             # After visiting all prerequisites for this course, remove it from visited
             # to allow for other paths to explore it anew.
             visited.remove(crs)
-            # Clear the prerequisites to mark this course as "completable".
+            # Clear the prerequisites to mark this course as "completable" since there are no more prerequisites left
             preMap[crs] = []
 
             return True
