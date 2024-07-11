@@ -1,4 +1,42 @@
-from collections import defaultdict
+class BetterSolution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        preMap = defaultdict(list)
+
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
+
+        # Cycle is used to save nodes for the current path we are exploring
+        # Completed is used to save nodes that are fully explored
+            # Allows us to explore the last node during backtracking
+            # For example, we can still go through the visit and unvisit of the DFS
+        cycle, completed = set(), set()
+        def dfs(crs):
+            # Course has been completed, no cycles
+            if crs in completed:
+                return True
+            # Cycle detected
+            if crs in cycle:
+                return False
+            
+            # Visit
+            cycle.add(crs)
+            # Explore
+            for pre in preMap[crs]:
+                if not dfs(pre):
+                    return False
+            # Unvisit (backtrack)
+            cycle.remove(crs)
+            completed.add(crs)
+
+            return True
+        
+        # Explore paths for all courses
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return False
+        
+        return True
+
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
@@ -31,7 +69,7 @@ class Solution:
                     # If any prerequisite can't be completed, this course can't be completed.
                     return False
             # After visiting all prerequisites for this course, remove it from visited
-            # to allow for other paths to explore it anew.
+                # Allows us to backtrack to other paths (topological sorting)
             visited.remove(crs)
             # Clear the prerequisites to mark this course as "completable" since there are no more prerequisites left
             preMap[crs] = []

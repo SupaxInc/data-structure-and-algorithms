@@ -1,7 +1,11 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         preMap = { c: [] for c in range(0, numCourses) }
+
+        # Using a completed will allow us to know which paths have been fully explored
+            # Allows us to also add the last node when we backtrack
         cycle, completed = set(), set()
+
         order = []
 
         for pre, crs in prerequisites:
