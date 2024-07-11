@@ -2452,16 +2452,18 @@
 
 ## 261 - Graph Valid Tree
 
-**Intuition:** Verify if a given undirected graph is a tree by checking that it's fully connected without any cycles.
+**Intuition:** Verify if a given undirected graph is a tree by checking that it's fully connected without any cycles and only one connected graph.
 
 - Solutions
     
     **Brute Force:** DFS traversal of undirected graph
     
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/e2dd14c4-a100-4370-a117-9e3ea290f9cd/Untitled.png)
+    
     - Time Complexity: O(V+E)
     - Space Complexity: O(V+E)
     
-    **Optimized Approach:** Union Find
+    **Optimized Approach:** Union Find (read code to understand)
     
     - Time Complexity: Close to O(n)
         - Worst complexity of Union Find is O(log N) but with path compression and using rank it is *O*(*α*(*N*)) → which is close to O(n)

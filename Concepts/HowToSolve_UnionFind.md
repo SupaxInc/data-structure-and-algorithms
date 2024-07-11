@@ -21,6 +21,9 @@ Disjoint sets and operations
 ## Common Applications
 
 - **Detecting cycles** in undirected graphs.
+    - **Initialization**: Initialize the Union-Find data structure.
+    - **Union Operation**: For each edge in the graph, perform a union operation.
+    - **Cycle Detection**: If the union operation connects two vertices that are already in the same component, a cycle is detected.
 - **Kruskal’s algorithm** for finding the Minimum Spanning Tree (MST).
 - **Connected components** in graphs.
 - **Dynamic connectivity** problems.
@@ -57,6 +60,17 @@ After Find(3):
    0
   /|\ \
  1 2 3 4
+
+def find(self, x):
+  # Check if the index equals its value (it is its own root node, 
+						  # does not point to another root)
+  if self.root[x] != x:
+      # Go as deep as possible to find the root node
+          # (the node where its index equals its value)
+          # E.g. [0, 0, 1] , index 2 (root 2) points to index 1, index 1 points to index 0
+              # 0 is the parent node of all nodes
+      self.root[x] = self.find(self.root[x])
+  return self.root[x]
 ```
 
 ## Ranks
@@ -80,6 +94,9 @@ Union(0, 1):
 
 Union(2, 3):
 0-1  2-3  4
+
+Union(0, 4)
+0-1-4 2-3
 
 Union(1, 2):
    0
@@ -158,8 +175,13 @@ class UnionFind:
     def find(self, p):
         # Path compression
 	        # Make the tree flat by making every node point directly to the root
+	        # Check if the index equals its value (it is its own root node, does not point to another root)
         if self.root[p] != p:
-		        # Recursively find the root and compress path
+		       # Recursively find the root and compress path
+		       # Go as deep as possible to find the root node
+              # (the node where its index equals its value)
+              # E.g. [0, 0, 1] , index 2 (root 2) points to index 1, index 1 points to index 0
+                  # 0 is the parent node of all nodes
             self.root[p] = self.find(self.root[p])  
         return self.root[p]  # Return the root of the set containing p
 
@@ -180,6 +202,7 @@ class UnionFind:
                 self.root[rootX] = rootY
             else:
 		            # If ranks are equal, arbitrarily choose one as the root and increase its rank
+		            # Because the longest path in each tree is now part of the longest path in the new tree, resulting in a taller tree.
                 self.root[rootY] = rootX
                 self.rank[rootX] += 1
 
@@ -228,6 +251,46 @@ class UnionFind:
         return False
 
 ```
+
+## Example of Code in Action
+
+Let's go through the Union-Find data structure step by step, starting from initialization to the point where nodes are connected through union operations. We'll visualize the `parent` and `rank` arrays at each step.
+
+### Initialization
+
+Assume we have 5 elements (0 to 4).
+
+```python
+uf = UnionFind(5)
+```
+
+At initialization:
+
+- `parent`: [0, 1, 2, 3, 4]
+    - Each element is its own parent.
+- `rank`: [1, 1, 1, 1, 1]
+    - Each element is a tree of height 1.
+
+### After Union Operations
+
+### Union(0, 1)
+
+```python
+uf.union(0, 1)
+```
+
+- Find roots of 0 and 1:
+    - Root of 0 is 0.
+    - Root of 1 is 1.
+- Union by rank:
+    - Both have the same rank. Arbitrarily choose 0 as the root and increase its rank.
+
+Updated `parent` and `rank`:
+
+- `parent`: [0, 0, 2, 3, 4]
+    - 1's parent is now 0.
+- `rank`: [2, 1, 1, 1, 1]
+    - Rank of 0 increases to 2.
 
 ## Example - Counting Connected Components (Leetcode 323)
 
