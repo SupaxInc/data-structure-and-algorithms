@@ -33,16 +33,13 @@ class UnionFind:
     def __init__(self, size):
         self.parent = [i for i in range(size)]
         self.rank = [1] * size
-    
+
     def find(self, x):
-        """Finds the root of the set that x belongs to, with path compression."""
-        # Return value if the node equals itself
-        if self.parent[x] == x:
-            return x
-        # If node does not equal itself, recursively find the parent then compress the path
+        if self.root[x] != x:
+            # If node does not equal itself, recursively find the parent then compress the path
             # It will point the child directly to parent node instead of creating a linked list
-        self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
+            self.root[x] = self.find(self.root[x])
+        return self.root[x]
     
     def union(self, x, y):
         rootX = self.find(x)
