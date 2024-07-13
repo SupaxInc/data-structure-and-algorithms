@@ -11,6 +11,7 @@ class DFSSolution:
 
         def dfs(v):
             # If a vertex is already visited return a 0
+                # essentially could be the first node we visit in the DFS
             if v in visited:
                 return 0
             
@@ -21,6 +22,7 @@ class DFSSolution:
                 dfs(e)
             
             # If a vertex has not been visited return a 1
+                # (the last node backtracked will return a 1)
             return 1
 
         

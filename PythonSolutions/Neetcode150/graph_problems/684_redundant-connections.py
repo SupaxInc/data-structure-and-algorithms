@@ -1,5 +1,6 @@
 class UnionFind:
     def __init__(self):
+        # Since theres no size, we use a hashmap
         self.parent = {}
         self.rank = {}
     
@@ -12,6 +13,9 @@ class UnionFind:
         return self.parent[x]
     
     def union(self, x, y):
+        # This will continuously create a union between two nodes
+        # At some point we end up with a node already in a group
+        # Where cycle gets detected below
         parentX = self.find(x)
         parentY = self.find(y)
 
@@ -35,7 +39,7 @@ class UnionFind:
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        uf = UnionFind()
+        uf = UnionFind() # No size of graph given
 
         for x, y in edges:
             if not uf.union(x,y):
