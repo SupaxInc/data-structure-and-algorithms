@@ -2472,6 +2472,34 @@
     **Solution:** Valid tree is when there are no cycles in the graph and there is only 1 group of connections.
     
 
+## 127 - Word Ladder
+
+**Intuition:** Connect the words in a list and visualize it like a graph. Check the shortest path to go from the begin word to the end word based on the difference of a single letter.
+
+- Solutions
+    
+    **Optimized Approach:** Create an adjacency list and do a BFS
+    
+    - Time Complexity:
+        - Creating the adjacency list O(n*m^2)
+            - n is the list of words
+            - m is the length of the word
+        - Doing a BFS O(n*m^2)
+            - n is the list of words
+            - m is the length of words,
+    - Space Complexity:
+    
+    **Solution:** Create an adjacency list undirected graph of the patterns of the length of word where it differs by 1 letter. Traverse through the graph using level order BFS to find shortest path to end word.
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/df0fa26a-0172-478c-bf57-930f9c377a54/Untitled.png)
+    
+    **Unique uses:**
+    
+    - BFS level order traversal
+        - Visit the starting node right away and begin count at 1 since we are visiting the node right away
+    - Adjacency list using list of words
+        - defaultdict of list since a pattern (`*ot` , `h*t` , `ho*` ) can be found in other words
+
 ## 1584 - Min Cost to Connect All Points (Advanced)
 
 **Intuition:** Construct a minimum spanning tree from given points in a 2D space, focusing on minimizing the total edge cost with the constraint that edges represent the Manhattan distance between points.
