@@ -140,31 +140,42 @@ graph = {
 dfs_iterative(graph, 'A')
 ```
 
-### Template Code - Undirected Graph
+### Template Code - Undirected Graph Traversal
 
 ```python
-graph = {
-    'A': {'B', 'C'},
-    'B': {'A', 'D', 'E'},
-    'C': {'A', 'F'},
-    'D': {'B'},
-    'E': {'B', 'F'},
-    'F': {'C', 'E'}
-}
+def validTree(self, n: int, edges: List[List[int]]) -> bool:
+  if not n:
+      return True
+  
+  visited = set()
+  graph = {v: [] for v in range(n)}
 
-def dfs(graph, current_node, target, visited=set()):
-    if current_node == target:
-        return True
-    if current_node in visited:
-        return False
-    visited.add(current_node)
-    for neighbor in graph[current_node]:
-        if dfs(graph, neighbor, target, visited):
-            return True
-    return False
+  # Create an bi-directional graph (undirected)
+  for x, y in edges:
+      graph[x].append(y)
+      graph[y].append(x) # Connect it bi-directionally since its undirected
 
-# Example usage
-print(dfs(graph, 'A', 'F'))  # Output: True
+  def dfs(source, prev):
+      # Check if a cycle is detected
+      if source in visited:
+          return False
+      
+      visited.add(source)
+      for adj in graph[source]:
+          # Don't do a DFS on the neighbor we just traversed from since we have visited it already
+              # Prevents detecting a cycle this way!!!!!!!
+          if adj == prev:
+              continue
+          
+          # Explore the next neighbors and add the current node we are on as the previous
+          if not dfs(adj, source):
+              return False
+      
+      return True
+  
+  # DFS checks if there is a cycle
+  # Length of visited checks if all of the vertices are connected
+  return dfs(0, -1) and len(visited) == n
 ```
 
 # BFS
@@ -183,7 +194,7 @@ Similar to DFS, we traverse in multiple different directions. Up, right, left, d
 
 Think of it as a burst traversal compared to DFS that goes as deep as possible
 
-### Template Code
+### Template Code Normal Traversal
 
 ```python
 def bfs(grid, start_row, start_col):
@@ -209,6 +220,49 @@ def bfs(grid, start_row, start_col):
         for dr, dc in directions:
             new_row, new_col = row + dr, col + dc
             queue.append((new_row, new_col))
+
+def isValid(grid, row, col):
+    # Check if (row, col) is within the grid and is a cell we want to explore
+    return 0 <= row < len(grid) and 0 <= col < len(grid[0]) and grid[row][col] == 1
+
+def markAsVisited(grid, row, col):
+    # Update the cell to indicate it has been visited
+    # This example sets visited cells to 0, adapt as needed based on the problem
+    grid[row][col] = 0
+```
+
+### Template Code Level Order Traversal
+
+```python
+from collections import deque
+
+def bfs(grid, start_row, start_col):
+    if not isValid(grid, start_row, start_col):
+        return  # Starting point is not valid
+
+    # Directions for moving up, down, left, and right
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    # Optionally, include diagonals: directions += [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+    
+    queue = deque([(start_row, start_col)]) 
+    
+    # MAKE SURE TO MARK THE BEGINNING NODE AS VISITED
+    markAsVisited(grid, start_row, start_col)  # Mark the start position as visited initially
+
+    while queue:
+        level_size = len(queue)  # Get the current level size
+        for _ in range(level_size):
+            row, col = queue.popleft()
+            
+            # Process the cell at (row, col)...
+            # Perform any required action with the current cell, e.g., check, modify
+            
+            # Explore all possible directions
+            for dr, dc in directions:
+                new_row, new_col = row + dr, col + dc
+                if isValid(grid, new_row, new_col):
+                    markAsVisited(grid, new_row, new_col)  # Mark as visited before enqueueing
+                    queue.append((new_row, new_col))
 
 def isValid(grid, row, col):
     # Check if (row, col) is within the grid and is a cell we want to explore
@@ -254,76 +308,116 @@ How BFS traversal works based on example above:
 ### Template Code
 
 ```python
-from collections import deque
+from collections import deque, defaultdict
 
-def bfs(graph, start_node):
+def bfs_directed(graph, start_node):
     visited = set()  # Set to keep track of visited nodes to prevent revisiting
     queue = deque([start_node])  # Initialize a queue with the start node
+    
+    visited.add(start_node)  # Mark the start node as visited
 
     while queue:
         current_node = queue.popleft()  # Dequeue a node from the queue
-        if current_node not in visited:
-            print(current_node)  # Process the node as needed
-            visited.add(current_node)  # Mark the node as visited
+        print(current_node)  # Process the node as needed
 
-            # Enqueue all unvisited neighbors
-            for neighbor in graph[current_node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)
+        # Enqueue all unvisited neighbors
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                visited.add(neighbor)  # Mark the neighbor as visited
+                queue.append(neighbor)  # Enqueue the neighbor
 
-# Example graph representation
-graph = {
-    'A': ['B', 'C'],
-    'B': ['A', 'D', 'E'],
-    'C': ['A', 'F'],
-    'D': ['B'],
-    'E': ['B', 'F'],
-    'F': ['C', 'E']
-}
+# Example usage
+graph_directed = defaultdict(list)
+edges_directed = [(0, 1), (0, 2), (1, 2), (2, 3), (3, 4)]
+for u, v in edges_directed:
+    graph_directed[u].append(v)  # Only add the edge in one direction for directed graph
 
-for u, v in edges:
-    graph[u].append(v)  # Add edge from u to v (direction matters)
+print("BFS (Directed Graph):")
+bfs_directed(graph_directed, 0)
 
-# Perform BFS starting from node 'A'
-bfs(graph, 'A')
 ```
 
 ### Template Code - Undirected Graphs
 
+**Undirected graph traversal is the same as BFS directed graph traversal.**
+
 ```python
-def bfs(graph, start):
-    # Visited set to keep track of visited nodes to prevent revisiting
-    visited = set()
-    # Queue to manage the BFS frontier using a deque for efficient pop from the front
-    queue = deque([start])
-    visited.add(start)
+from collections import deque, defaultdict
+
+def bfs_undirected(graph, start_node):
+    visited = set()  # Set to keep track of visited nodes to prevent revisiting
+    queue = deque([start_node])  # Initialize a queue with the start node
+	  
+	  # Visit the start node right away
+    visited.add(start_node)  # Mark the start node as visited
 
     while queue:
-        # Get the current node
-        current = queue.popleft()
-        print(f"Visiting: {current}")  # Optional: Output the node being visited
+        current_node = queue.popleft()  # Dequeue a node from the queue
+        print(current_node)  # Process the node as needed
 
-        # Process the current node
-        # For example, you might check if it meets a condition or calculate something
-
-        # Iterate through each adjacent node
-        for neighbor in graph[current]:
+        # Enqueue all unvisited neighbors
+        for neighbor in graph[current_node]:
             if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
-                # Optional: Perform actions with the neighbor, such as setting distances, predecessors, etc.
+                visited.add(neighbor)  # Mark the neighbor as visited
+                queue.append(neighbor)  # Enqueue the neighbor
 
 # Example usage
-# Constructing the graph
-graph = defaultdict(list)
-# Assuming input as edge list for an undirected graph
-edges = [(1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]
-for u, v in edges:
-    graph[u].append(v)
-    graph[v].append(u)  # Since it's undirected, add both connections
+graph_undirected = defaultdict(list)
+edges_undirected = [(0, 1), (0, 2), (1, 2), (2, 3), (3, 4)]
+for u, v in edges_undirected:
+    graph_undirected[u].append(v)
+    graph_undirected[v].append(u)  # Add both directions for undirected graph
 
-# Start BFS from node 1
-bfs(graph, 1)
+print("BFS (Undirected Graph):")
+bfs_undirected(graph_undirected, 0)
+
+```
+
+### Template Code - BFS Level Order Traversal
+
+```python
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if endWord not in wordList:
+            return 0
+        
+        wordList.append(beginWord)
+
+        graph = defaultdict(list)
+        for word in wordList:
+            for i in range(len(word)):
+                # word[:i], get everything until the index
+                # word[i+1:], get everything after index
+                # E.g. *ot, h*t, ho*
+                pattern = word[:i] + "*" + word[i+1:]
+                graph[pattern].append(word) # Undirected graph
+        
+        queue = deque([beginWord])
+        visit = set([beginWord])
+        count = 1 # Begin with 1 since we are visiting beginWord right away
+        
+        # BFS level order traversal
+        while queue:
+            levelSize = len(queue)
+            for _ in range(levelSize):
+                curr = queue.popleft()
+
+                # When we reach the end word, no need to continue
+                if curr == endWord:
+                    return count
+                
+                # Create the patterns for the length of current word
+                for i in range(len(curr)):
+                    pattern = curr[:i] + "*" + curr[i+1:]
+                    for nei in graph[pattern]:
+                        # Visit the neighbours of the current word patterns
+                        if nei not in visit:
+                            visit.add(nei)
+                            queue.append(nei)
+            count += 1
+        
+        return 0
+
 ```
 
 # Famous Algorithms

@@ -32,7 +32,8 @@ class Solution:
             order.append(crs)
             return True
 
-
+        ''' Topological Sorting, need to begin traversal through all nodes in adjacency list. Not just one node
+         This is due to the need of checking if the beginning course can be completed and all prereqs can finish '''
         for num in range(0, numCourses):
             if not dfs(num):
                 return []

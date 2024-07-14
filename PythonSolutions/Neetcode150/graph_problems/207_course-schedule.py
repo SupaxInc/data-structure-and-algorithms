@@ -30,6 +30,8 @@ class BetterSolution:
 
             return True
         
+        ''' Topological Sorting, need to begin traversal through all nodes in adjacency list. Not just one node
+         This is due to the need of checking if the beginning course can be completed and all prereqs can finish '''
         # Explore paths for all courses
         for crs in range(numCourses):
             if not dfs(crs):
@@ -76,6 +78,8 @@ class Solution:
 
             return True
 
+        ''' Topological Sorting, need to begin traversal through all nodes in adjacency list. Not just one node
+         This is due to the need of checking if the beginning course can be completed and all prereqs can finish '''
         # Try to complete all courses. If any course can't be completed, return False.
         for i in range(numCourses):
             if not dfs(i):
