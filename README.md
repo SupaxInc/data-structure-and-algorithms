@@ -2511,10 +2511,10 @@
     - How it works:
         1. Calculate the Manhattan distance between every pair of points and create a list of edges with their distances.
         2. Sort all the edges based on their distances in ascending order.
-        3. Use a Disjoint Set Union (DSU) or Union-Find data structure to help in detecting cycles.
+        3. Use Union-Find data structure to help in detecting cycles.
         4. Iterate through the sorted list of edges, and for each edge, if the two points are not already in the same set (i.e., not connected), connect them and add the distance to the total cost.
         5. Continue this process until all points are connected.
-    - Time Complexity: O(N^2 log N) + O(N^2) = O(N^2 log N
+    - Time Complexity: O(N^2 log N) + O(N^2) = O(N^2 log N)
         - O(N^2) for calculating distances between all pairs of points, up-front
         - O(N^2 log N) for sorting the edges based on distance
     - Space Complexity: O(n^2) since storing all Manhattan distances at the beginning
@@ -2537,6 +2537,11 @@
     **Unique uses:**
     
     - Uses Prim’s and Kruskal’s algorithm to get the minimum cost of a weighted tree
+        - Starting at 0,0 is a common strategy for Prims algorithm
+    - Manhattan Distance: ***The distance between two points measured along axes at right angles***.
+        - Also useful in scenarios where movement is restricted to only horizontally and vertically directions, such as navigating a city with a grid-like street layout.
+            - Not allowed diagonally.
+        - In this case, its used to determine the smallest edge to add to MST in Prims algorithm.
 
 ## 743 - Network Delay Time (Advanced)
 
