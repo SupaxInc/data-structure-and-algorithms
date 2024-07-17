@@ -6,8 +6,9 @@ class Solution:
         for source, target, weight in times:
             graph[source].append((target, weight))
         
-        # Set the current distance of all vertices from 1 to n
+        # Set the current distance of all vertices from 1 to n, and set distance as infinity since none has been found yet
         vertexTimes = { vertex: float("inf") for vertex in range(1, n+1) }
+
         # Set the source node K, to 0 since time to a source would just be 0
         vertexTimes[k] = 0
 
