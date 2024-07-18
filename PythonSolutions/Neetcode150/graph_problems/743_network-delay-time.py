@@ -7,6 +7,7 @@ class Solution:
             graph[source].append((target, weight))
         
         # Set the current distance of all vertices from 1 to n, and set distance as infinity since none has been found yet
+            # This will be used to map the shortest path distance to the source
         vertexTimes = { vertex: float("inf") for vertex in range(1, n+1) }
 
         # Set the source node K, to 0 since time to a source would just be 0
@@ -33,5 +34,6 @@ class Solution:
             # To find that all nodes received the signal
         maxTime = max(vertexTimes.values())
 
+        # If a nodes max time is infinity that means we weren't able to reach all nodes in time
         return maxTime if maxTime < float("inf") else -1
 

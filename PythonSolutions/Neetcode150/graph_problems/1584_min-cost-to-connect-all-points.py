@@ -71,7 +71,9 @@ class UnionFindSolution:
 
         # Generate all possible edges with their weights (Manhattan distances)
         for i in range(totalVertices):
+            # i+1 since we need to compare i (x1, y1) with every other j (x2, y2), generating all possible edges for each point
             for j in range(i + 1, totalVertices):
+                # Manhattan distance: (x1 - x2) + (y1 - y2)
                 weight = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
                 edges.append((weight, i, j))
 
