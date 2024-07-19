@@ -2502,7 +2502,7 @@
 
 ## 1584 - Min Cost to Connect All Points (Advanced)
 
-**Intuition:** Construct a minimum spanning tree from given points in a 2D space, focusing on minimizing the total edge cost with the constraint that edges represent the Manhattan distance between points.
+**Intuition:** Construct a minimum spanning tree from given points in a 2D space, focusing on minimizing the total edge cost with the constraint that edges represent the Manhattan distance between points. (The weights (cost) here is the Manhattan distance from two points)
 
 - Solutions
     
@@ -2562,11 +2562,11 @@
         - Dijkstra’s algorithm: O(E log E), each edge can result in a heap operation
     - Space Complexity: O(N + E)
     
-    **Solution:** 
+    **Solution:** Uses Dijkstra’s algorithm to find the shortest path to make all nodes receive the network.
     
     **Unique uses:**
     
-    - Uses Dijkstra’s algorithm to find the shortest path to get all nodes receive the network.
+    - Uses Dijkstra’s algorithm to find the shortest path to make all nodes receive the network.
 
 ## 787 - Cheapest Flights within K Stops (Advanced)
 
@@ -2576,7 +2576,7 @@
     
     **Brute Force:** Using a BFS with a priority queue
     
-    - Time Complexity: O(E * K * log (V*K)) → TLE error
+    - Time Complexity: O(E * K) → TLE error
     - Space Complexity: O(E)
     
     **Optimized Approach:** Bellman Ford’s algorithm within K stops
@@ -2587,7 +2587,7 @@
     
     **Optimized Approach:** Dijkstra’s algorithm
     
-    - Time Complexity:
+    - Time Complexity: O((V + E) log V)
     - Space Complexity: O(|E|)
     
     **Solution:** Update flight prices to find the cheapest price from source to destination within k stops by relaxing all edges up to k+1 times, ensuring the minimum cost path is considered even if direct flights are not available.
@@ -2597,6 +2597,7 @@
     **Unique uses:**
     
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
+        - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration. Helps adhere to ‘at most k stops’ constraint too.
 
 # Dynamic Programming
 
