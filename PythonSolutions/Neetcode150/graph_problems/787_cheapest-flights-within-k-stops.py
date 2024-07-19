@@ -5,21 +5,22 @@ class BellmanFordSolution:
         prices = [float("inf")] * n
         prices[src] = 0
 
-        for _ in range(k+1):
-            # Copy current prices to next_prices to prepare for the next iteration
-            next_prices = prices.copy()
+        for _ in range(k + 1):
+            # Need to copy the previous price
+                # Ensures that within each iteration, we are not mixing updates from the same iteration
+                # Also helps adhere to the 'at most k stops' constraints
+            new_prices = prices.copy()
 
             for s, t, p in flights: # (source, target, price)
                 # If a cheaper price is found from current prices source compared to target 
                     # Replace the next iterations target vertex price to the current source price
-                if prices[s] + p < next_prices[t]:
-                    next_prices[t] = prices[s] + p
+                if prices[s] != float('inf') and prices[s] + p < new_prices[t]:
+                    new_prices[t] = prices[s] + p
             
-            # Update the current prices to the next prices for next iteration
-            prices = next_prices
+            prices = new_prices
         
-        # If the price of distance is still infinity then that means we didn't have enough stops to reach distance
-        return prices[dst] if prices[dst] != float("inf") else -1
+        return prices[dst] if prices[dst] != float('inf') else -1
+
 
 class DijkstraSolution:
     def findCheapestPrice(n, flights, src, dst, K):
