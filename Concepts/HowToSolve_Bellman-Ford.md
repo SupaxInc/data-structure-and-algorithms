@@ -123,48 +123,83 @@ print(shortest_paths)  # Output: [0, -1, 2, -2, 1]
 
 # Examples
 
-## Cheapest Flights Within K Stops
+## Cheapest Flights Within K Stops (Copying List Example)
 
 Debug code below to see how each iteration works for relaxing the edges. You can see if we don’t know the distance yet, it will not calculate the distance due to the previous stop we didn’t know how to get the target yet.
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5867b342-fa79-4f79-9a4d-5bf0deeeb3a1/Untitled.png)
 
 ```python
-def findCheapestPrice(n, flights, src, dst, K):
-    """
-    Finds the cheapest price from src to dst with up to K stops.
-    
-    :param n: Number of nodes (cities).
-    :param flights: List of flights represented as (source, destination, price).
-    :param src: Source node.
-    :param dst: Destination node.
-    :param K: Maximum number of stops.
-    :return: The cheapest price to get from src to dst with up to K stops. Returns -1 if not possible.
-    """
-    # Initialize distances with infinity
-    distances = [[float('inf')] * n for _ in range(K + 2)]
-    distances[0][src] = 0  # Distance to source from source is 0
-    
-    # Relax the edges K + 1 times to account for up to K stops
-    for i in range(1, K + 2):
-        distances[i][src] = 0  # Keep source at 0
-        for u, v, w in flights:
-            # If a cheaper price is found, update the distance
-            distances[i][v] = min(distances[i][v], distances[i-1][u] + w)
-    
-    # The cheapest price after considering up to K stops
-    cheapest_price = distances[K + 1][dst]
-    return cheapest_price if cheapest_price != float('inf') else -1
-
-# Example usage
-if __name__ == "__main__":
-    n = 4
-    flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]
-    src = 0
-    dst = 3
-    K = 1
-    
-    result = findCheapestPrice(n, flights, src, dst, K)
-    print(f"The cheapest price from {src} to {dst} with up to {K} stop(s) is: {result}")
-
+def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+	# Map nth prices (vertices) to infinity then initialize the source vertex as 0
+	# Source is 0 since price to source is 0
+	prices = [float("inf")] * n
+	prices[src] = 0
+	
+	for _ in range(k + 1):
+	# Need to copy the previous price
+	  # Ensures that within each iteration, we are not mixing updates from the same iteration
+	  # Also helps adhere to the 'at most k stops' constraints
+	new_prices = prices.copy()
+	
+	for s, t, p in flights: # (source, target, price)
+	  # If a cheaper price is found from current prices source compared to target 
+	      # Replace the next iterations target vertex price to the current source price
+	  if prices[s] != float('inf') and prices[s] + p < new_prices[t]:
+	      new_prices[t] = prices[s] + p
+	
+	prices = new_prices
+	
+	return prices[dst] if prices[dst] != float('inf') else -1
 ```
+
+### Why do we copy the prices above?
+
+Consider a graph with the following
+
+```python
+Consider a graph with a cycle and the edges:
+
+flights = [
+# (from, to, price)
+    (0, 1, 100),
+    (1, 0, 50),  # This creates a cycle!!!!!!
+    (0, 2, 500)
+]
+n = 3  # Number of nodes
+src = 0
+dst = 2
+k = 1  # Maximum 1 stop
+```
+
+Iteration Details without Copying
+
+1. **Initialization**:
+    - `distances = [0, inf, inf]`
+2. **First Iteration** (`0`): (relaxing the edges inner loop)
+    - Processing (0, 1, 100): `distances[1] = 100` -> `distances = [0, 100, inf]`
+    - Processing (1, 0, 50): `distances[0] = 150` (incorrect update) -> `distances = [150, 100, inf]`
+    - Processing (0, 2, 500): No update because `distances[0] = 150`
+
+You can see the cycle messes the calculations because the inner loop is comparing the current distance in place in the same iteration:
+ `if distances[s] != float('inf') and distances[s] + p < distances[t]:`
+
+Iteration Details with Copying
+
+1. **Initialization**:
+    - `distances = [0, inf, inf]`
+2. **First Iteration** (`0`): (relaxing the edges inner loop)
+    - `new_distances = [0, inf, inf]`
+    - Processing (0, 1, 100): `new_distances[1] = 100` -> `new_distances = [0, 100, inf]`
+    - Processing (1, 0, 50): No update because `distances[1] = inf`
+    - Processing (0, 2, 500): `new_distances[2] = 500` -> `new_distances = [0, 100, 500]`
+    - Update `distances = [0, 100, 500]`
+3. **Second Iteration** (`1`): 
+    - `new_distances = [0, 100, 500]`
+    - Processing (0, 1, 100): No update because `distances[1] = 100`
+    - Processing (1, 2, 100): `new_distances[2] = 200` -> `new_distances = [0, 100, 200]`
+    - Processing (0, 2, 500): No update because `distances[2] = 500`
+    - Update `distances = [0, 100, 200]`
+
+You can see here that we are comparing the new iteration distance with the PREVIOUS distances:
+`if distances[s] != float('inf') and distances[s] + p < new_distances[t]:`
