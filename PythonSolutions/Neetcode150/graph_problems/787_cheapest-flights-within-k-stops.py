@@ -14,6 +14,11 @@ class BellmanFordSolution:
             for s, t, p in flights: # (source, target, price)
                 # If a cheaper price is found from current prices source compared to target 
                     # Replace the next iterations target vertex price to the current source price
+
+                # You can see the importance of copying the previous price iteration here
+                    # We are comparing PREVIOUS iteration price of source flight 
+                    # Againsts NEW iteration price of target flight
+                    # Helps prevent calculating cycles too
                 if prices[s] != float('inf') and prices[s] + p < new_prices[t]:
                     new_prices[t] = prices[s] + p
             
