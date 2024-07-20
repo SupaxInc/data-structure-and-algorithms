@@ -2580,6 +2580,7 @@
     - Space Complexity: O(E)
     
     **Optimized Approach:** Bellman Ford’s algorithm within K stops
+    Bellman Ford and BFS with a priority queue does have similar time complexity
     
     - Time Complexity: O(|E| * K)
         - Usually O(|V| * |E|) → O(n^2), but we can optimize to only do it within K stops

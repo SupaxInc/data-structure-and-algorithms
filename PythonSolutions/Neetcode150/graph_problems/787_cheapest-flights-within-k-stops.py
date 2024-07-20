@@ -27,32 +27,46 @@ class BellmanFordSolution:
         return prices[dst] if prices[dst] != float('inf') else -1
 
 
-class DijkstraSolution:
-    def findCheapestPrice(n, flights, src, dst, K):
-        # Build the graph
-        graph = {}
-        for start, end, cost in flights:
-            if start not in graph:
-                graph[start] = []
-            graph[start].append((end, cost))
+class DjikstraSolution:
+    def findCheapestPrice(self, n, flights, src, dst, k):
+        # Create the graph as an adjacency list
+        graph = defaultdict(list)
+        for u, v, price in flights:
+            graph[u].append((v, price))
         
-        # Min heap priority queue: (cost, current city, stops made)
+        # Priority queue to store (cost, current_node, stops)
+        # Initialize with the starting node, with cost 0 and 0 stops
         pq = [(0, src, 0)]
         
+        # Dictionary to store the minimum cost to reach each node with at most k stops
+        # The key is a tuple (node, stops), and the value is the minimum cost to reach that node
+        costs = {(src, 0): 0}
+
         while pq:
-            cost, city, stops = heapq.heappop(pq)
+            # Pop the node with the smallest cost
+            cost, node, stops = heapq.heappop(pq)
             
-            # Check if the current city is the destination
-            if city == dst:
+            # If we reached the destination within k stops, return the cost
+            if node == dst:
                 return cost
             
-            # If stops are within the allowed K stops, explore further
-            if stops <= K:
-                for next_city, next_cost in graph.get(city, []):
-                    heapq.heappush(pq, (cost + next_cost, next_city, stops + 1))
-                    
-        # If destination cannot be reached within K stops
+            # If the number of stops exceeds k, continue to the next iteration
+            if stops > k:
+                continue
+            
+            # Explore the neighbors of the current node
+            for neighbor, price in graph[node]:
+                new_cost = cost + price
+                # If the cost to reach the neighbor with stops + 1 is less than any previously known cost
+                # for the same number of stops, update the cost and push it to the priority queue
+                    # (neighbor, stops + 1) prevents redundant checking of already visited nodes at k stop
+                if (neighbor, stops + 1) not in costs or new_cost < costs[(neighbor, stops + 1)]:
+                    costs[(neighbor, stops + 1)] = new_cost
+                    heapq.heappush(pq, (new_cost, neighbor, stops + 1))
+        
+        # If we exhaust the priority queue without finding a valid path, return -1
         return -1
+        
 
     
 class NonOptimizedBFSSolution:
