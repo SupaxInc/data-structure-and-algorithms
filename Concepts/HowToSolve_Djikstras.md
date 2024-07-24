@@ -13,11 +13,11 @@ The object of this **greedy** algorithm is to find the shortest path between two
 
 - In the weighted graph below, we are able to place in a chart the shortest distance based on weight from the starting point A.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/87129b44-4671-4068-a539-2a92b84fdd90/Untitled.png)
+![alt text](../images/djikstra_1.png)
 
 - It also gives us the shortest sequence of vertices from A to every other vertex. In other words, the shortest path.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c51a65f6-120a-4823-b7f4-b8c05380c1e2/Untitled.png)
+![alt text](../images/djikstra_2.png)
 
 - An example of how it works: A to C
     - The previous vertex of C is E
@@ -27,7 +27,7 @@ The object of this **greedy** algorithm is to find the shortest path between two
     - The previous vertex of D is A
         - Path = A → D → E → C
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/044ff23b-b647-47d6-b3c3-d4ac74ef519d/Untitled.png)
+![alt text](../images/djikstra_3.png)
 
 # How does it work?
 
@@ -41,34 +41,34 @@ https://www.youtube.com/watch?v=pVfj6mxhdMw
     - Distances to all other vertices from A = Infinity
         - It is unknown, therefore, infinity
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8a6e9f5f-2c7d-4ad2-be50-aa265bc3a694/Untitled.png)
+![alt text](../images/djikstra_4.png)
 
 - **Step 3) For current vertex (A), consider all of its unvisited neighbors:**
     1. Calculate the distance of each neighbor from the current vertex
     2. If the distance of a vertex is less than the known distance, update with the shortest distance.
         1. The current distance is infinity so we can update both distances.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/da2bc21c-a4b0-42c2-8a31-65b50cffd1cc/Untitled.png)
+![alt text](../images/djikstra_5.png)
 
 - **Step 4) Once we have considered all unvisited neighbors, mark the current vertex (A) as visited. Mark the previous vertex of the unvisited neighbors as the current vertex (A).**
     - A will not be visited again.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a75ae166-f010-4fa7-a8a0-d6c3a4c3856a/Untitled.png)
+![alt text](../images/djikstra_6.png)
 
 - **Step 5) Visit the unvisited vertex with the smallest known distance. Vertex D < B.**
     - Repeat the algorithm again from step 3.
     - Remember, if there is a shorter known distance from the start node, assign it with the shorter distance
         - See below, there is a shorter distance from A → B if we go to D first
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c64226d5-ce30-4fcd-95aa-85b3424f4cad/Untitled.png)
+![alt text](../images/djikstra_7.png)
 
 - The algorithm finishes when there are no more unvisited vertices:
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6caeb2e1-d025-4402-8a64-850da8e4b197/Untitled.png)
+![alt text](../images/djikstra_8.png)
 
 ### **Summarized steps of algorithm:**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/0f765a66-e98d-4a4d-b1dc-6439049775b8/Untitled.png)
+![alt text](../images/djikstra_9.png)
 
 ## Template Code
 
@@ -133,6 +133,6 @@ The truth is we can select any vertex based on any criteria we’d like but the 
 
 We are essentially **selecting the most locally optimal choice in each stage in the hope of finding the global optimum.**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a942b6c3-d42f-4caf-b02a-36b35dcb0064/Untitled.png)
+![alt text](../images/djikstra_10.png)
 
 Some problems with this choice, is an example of the above graph. If we choose the shortest distance from A to E, then it would end up with unnecessary processing.
