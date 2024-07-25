@@ -1,14 +1,27 @@
-## What is it?
+# What is it?
 
 Bellman Ford’s is similar to Dijkstra’s algorithm, however, it is much more reliable to be used for graphs with negative weights. It is a **dynamic programming** problem where we try out all the solution and pick out the best one.
 
 In Bellman Ford’s we need to **relax** all the edges. Imagine trying to find the cheapest way to travel across cities connected by roads with tolls. Relaxing an edge is like discovering a cheaper route to a city you want to visit by going through another city instead. If the route is cheaper, we update our travel plan.
 
+- **Handles Negative Weights**: Bellman-Ford can handle graphs with negative edge weights and can detect negative weight cycles.
+- **Single Source Shortest Path**: It finds the shortest path from a single source node to all other nodes in the graph.
+- **Flexibility**: More flexible in handling different types of graphs compared to Dijkstra's algorithm.
+
 ## Time Complexity
 
-O(|V| * |E| = O(n^2) if it is a non-complete graph.
+- **For sparse graphs:** O(|V| * |E|) = O(V^2)
+    - In a sparse graph, there is a chance that number of edges is proportional to vertices which makes it V^2.
+    - However, it could also be less generally.
+- **For dense graphs:** O(|V| * |E|) = O(V * V^2) = O(V^3)
+    - In a dense graph, every pair of distinct vertices is connected by a unique edge.
+    - Therefore, there are double the edges since it connects to all vertices making the edges equal to double the amount of vertices making it V^2.
 
-For a complete graph where there is an edge for all vertices: O(n^3)
+## When to use it?
+
+- **Negative Edge Weights**: Use Bellman-Ford when the graph contains negative edge weights. Dijkstra's algorithm cannot handle negative weights correctly.
+- **Negative Weight Cycle Detection**: Use Bellman-Ford if you need to detect the presence of negative weight cycles in the graph.
+- **Flexibility**: If the graph properties are unknown or varied (e.g., some edges might have negative weights), Bellman-Ford provides a more robust solution.
 
 # How does it work?
 

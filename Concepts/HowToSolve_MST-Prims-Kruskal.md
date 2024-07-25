@@ -58,7 +58,13 @@ How it works:
 
 ### Time Complexity
 
-O(E+VlogV) with a priority queue
+- **Without Knowing All Edges (Starting from a Vertex)**:
+    - Worst-case time complexity: O(V^2logV)
+    - This accounts for the possibility of considering every pair of vertices as an edge.
+        - Each vertex can generate up to V edges (considering each vertex can connect to every other vertex).
+- **Knowing All Edges Upfront**:
+    - Time complexity: O((E+V)logV)
+    - This is more efficient for sparse graphs where E≪V^2.
 
 ### Template Code
 

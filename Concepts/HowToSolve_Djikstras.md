@@ -2,14 +2,22 @@
 
 The object of this **greedy** algorithm is to find the shortest path between two vertices on the graph. In fact, Dijkstra’s algorithm will find the shortest path based on the source vertex and any other vertex in the graph.
 
-- It uses a BFS with a min heap
+- **Non-negative Weights**: Dijkstra's algorithm only works correctly with graphs that have non-negative edge weights.
+- **Single Source Shortest Path**: It finds the shortest path from a single source node to all other nodes in the graph.
+- **Efficiency**: It is more efficient for graphs with non-negative weights due to its use of a priority queue (min-heap).
+- **It uses a BFS with a min heap**
 
-## Problems
+## Time Complexity
 
-1. Doesn’t work with negative weights
-2. In directed graphs, some nodes may not be reachable from the starting vertex
+**Using a min-heap (priority queue)**: O((E+V) log ⁡V) where V is the number of vertices and E is the number of edges.
 
-## Example
+## When to use it?
+
+- **Non-negative Edge Weights**: Use Dijkstra's algorithm when all edge weights are non-negative.
+- **Better Performance**: It is generally faster and more efficient for graphs with non-negative weights, especially if you are using a priority queue to manage the frontier of nodes to explore.
+- **Shortest Path Tree**: If you need the shortest path from a single source to all other nodes in a graph with non-negative weights, Dijkstra's is the preferred choice.
+
+# Example
 
 - In the weighted graph below, we are able to place in a chart the shortest distance based on weight from the starting point A.
 
