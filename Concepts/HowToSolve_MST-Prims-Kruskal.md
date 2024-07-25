@@ -58,7 +58,7 @@ How it works:
 
 ### Time Complexity
 
-O(n^2 logn) with a priority queue
+O(E+VlogV) with a priority queue
 
 ### Template Code
 
@@ -99,6 +99,8 @@ def prim(graph, start):
 
 ```
 
+See [1584 - Min Cost to Connect All Points (Advanced)](https://www.notion.so/1584-Min-Cost-to-Connect-All-Points-Advanced-04e3b05b411144b292980e5f87e8dcfc?pvs=21) for another example.
+
 ---
 
 ## Kruskal’s Algorithm
@@ -126,7 +128,7 @@ How it works:
 - It is O(n^2) since we are always looking for the most minimum weight in the entire tree
 - This can be improved sorting weighted edges first and union find
     - We can keep all of the edges in this sort and keep grabbing the most minimum weight.
-    - This improves it to **O(n*logn)**
+    - This improves it to **O(E*logE)**
 
 ### Template Code
 
@@ -169,26 +171,80 @@ def kruskal(edges, V):
 
 ```
 
-## What algorithm is more effective?
+### Example Problem - Leetcode 1584
+
+```python
+class UnionFind:
+    def __init__(self, size):
+        self.parent = list(range(size))
+        self.rank = [1] * size
+    
+    def find(self, p):
+        if self.parent[p] != p:
+            self.parent[p] = self.find(self.parent[p])  # Path compression
+        return self.parent[p]
+    
+    def union(self, p, q):
+        rootP = self.find(p)
+        rootQ = self.find(q)
+        if rootP != rootQ:
+            # Union by rank
+            if self.rank[rootP] > self.rank[rootQ]:
+                self.parent[rootQ] = rootP
+            elif self.rank[rootP] < self.rank[rootQ]:
+                self.parent[rootP] = rootQ
+            else:
+                self.parent[rootQ] = rootP
+                self.rank[rootP] += 1
+            return True
+        return False
+
+class UnionFindSolution:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        totalVertices = len(points)
+        edges = []
+
+        # Generate all possible edges with their weights (Manhattan distances)
+        for i in range(totalVertices):
+            for j in range(i + 1, totalVertices):
+                weight = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
+                edges.append((weight, i, j))
+
+        # Sort edges by weight
+          # Allows us to select and connect the most minimum weights first for each point
+        edges.sort()
+
+        # Kruskal's algorithm to form MST
+        uf = UnionFind(totalVertices)
+        mst_cost = 0  # Total cost of the MST
+        edges_used = 0  # Number of edges added to the MST
+
+        for weight, u, v in edges:
+            # Add edges 1 by 1, connecting points (u, v) together to form a graph
+                # Check if it doesn't form a cycle
+            if uf.union(u, v):  
+                mst_cost += weight  # Add the edge's weight to the total cost
+                edges_used += 1  # Increment the count of edges used in the MST
+
+                # If we've used enough edges to form a MST (Edges = Vertices - 1)
+                if edges_used == totalVertices - 1:  
+                    break  # Exit the loop early
+
+        return mst_cost
+```
+
+# When to use it?
+
+- Use MST algorithms when you need to connect all points (nodes) in a graph with the minimum total edge weight without forming cycles.
+    - Choose Prim's algorithm for dense graphs and when you have a good starting point
+    - Choose Kruskal's algorithm for sparse graphs and when dealing primarily with edge lists.
+
+# What algorithm is more effective?
 
 **Efficiency of Prim's Algorithm**
 
-- **Graph Density**: Prim's algorithm can be more efficient for dense graphs. In a dense graph, the number of edges is close to the maximum possible, which is *O*(n^2) for a graph with *N* vertices. Since Prim's algorithm updates the distances to the nearest unvisited vertex dynamically, it can handle dense graphs efficiently, especially when implemented with a min heap or priority queue. The priority queue ensures that the edge with the minimum weight is always selected next, without needing to sort all edges upfront.
-
-```python
-A --- B
-|   
-|   
-C    D --- E
-```
-
-- **Edge Weights**: Prim's algorithm is efficient in handling situations where edge weights are updated or when the graph is not fully known upfront. It dynamically selects the next best edge to add to the MST, making it suitable for scenarios where the graph might change or when the full graph is not available from the beginning.
-
----
-
-**Scenarios Where Kruskal's Might Be More Effective**
-
-- **Sparse Graphs**: Kruskal's algorithm can be more effective for sparse graphs, where the number of edges is much less than the maximum possible. Since Kruskal's algorithm sorts all edges upfront and then iteratively adds the shortest edge that does not form a cycle, it can be efficient when the total number of edges is relatively low, leading to lower sorting costs.
+- **Graph Density**: Prim's algorithm can be more efficient for dense graphs. In a dense graph, the number of edges is close to the maximum possible, which is *O*(n^2) for a graph with *N* vertices. Since Prim's algorithm updates the distances to the nearest unvisited vertex dynamically, it can handle dense graphs efficiently, especially when implemented with a min heap/priority queue. 
+The priority queue ensures that the edge with the minimum weight is always selected next, without needing to sort all edges upfront.
 
 ```python
 A --- B --- D
@@ -200,6 +256,21 @@ A dense graph is one where the number of edges is
 close to the maximum number of possible edges. 
 
 In other words, almost every vertex is connected to almost every other vertex.
+```
+
+- **Edge Weights**: Prim's algorithm is efficient in handling situations where edge weights are updated or when the graph is not fully known upfront. It dynamically selects the next best edge to add to the MST, making it suitable for scenarios where the graph might change or when the full graph is not available from the beginning.
+
+---
+
+**Scenarios Where Kruskal's Might Be More Effective**
+
+- **Sparse Graphs**: Kruskal's algorithm can be more effective for sparse graphs, where the number of edges is much less than the maximum possible. Since Kruskal's algorithm sorts all edges upfront and then iteratively adds the shortest edge that does not form a cycle, it can be efficient when the total number of edges is relatively low, leading to lower sorting costs.
+
+```python
+A --- B
+|   
+|   
+C    D --- E
 ```
 
 - **Simpler Union-Find Operations**: Kruskal's algorithm makes use of the Union-Find data structure to detect cycles. This approach can be more straightforward and require less overhead in scenarios where maintaining a priority queue (as in Prim's) is not as cost-effective. Especially in very sparse graphs, the simplicity of Union-Find operations can make Kruskal's algorithm faster.

@@ -78,7 +78,7 @@ class UnionFindSolution:
                 edges.append((weight, i, j))
 
         # Sort edges by weight
-            # Allows us to select and connect the most minimum weights first for each point
+            # Allows us to select and connect the most minimum weights first for each point (weight, x, y)
         edges.sort()
 
         # Kruskal's algorithm to form MST
@@ -88,7 +88,7 @@ class UnionFindSolution:
 
         for weight, u, v in edges:
             # Add edges 1 by 1, connecting points (u, v) together to form a graph
-                # Check if it doesn't for a cycle
+                # Check if it doesn't form a cycle
             if uf.union(u, v):  
                 mst_cost += weight  # Add the edge's weight to the total cost
                 edges_used += 1  # Increment the count of edges used in the MST
