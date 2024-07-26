@@ -2599,7 +2599,7 @@
     
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration. Helps adhere to ‘at most k stops’ constraint too.
-        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
+        - See example here why we copy: ‣
         - Or here’s a summary why:
             1. **Initialization**:
                 - `distances = [0, inf, inf]`
@@ -2621,6 +2621,66 @@
             You can see here that we are comparing the new iteration prices with the PREVIOUS prices:
             `if prices[s] != float('inf') and prices[s] + p < new_COPIED_prices[t]:`
             
+
+## 332 - Reconstruct Itinerary (Advanced)
+
+**Intuition:** Create a valid itinerary that includes all tickets once (use 1 edge once). It is a valid itinerary when the result of the visited edges are in lexical order (alphabetical order).
+
+- Solutions
+    
+    **Brute Force: Sort each vertex’s edges in lexical order and use pop(0)**
+    
+    - Time Complexity: O(E^2)
+        - **Graph Construction:** O(E), create graph then we sort later
+        - **Sorting Adjacency Lists:** O(V Log V) → sorting each vertex edges
+        - **DFS traversal with pop(0):** O(E^2)
+            - First O(E) is traversal with DFS
+            - Second O(E) is pop(0) will need to iterate through entire array to pop first index in array
+            - Creates O(E^2)
+    - Space Complexity: O(E)
+    
+    **Optimized Approach: Use a min heap and queue**
+    
+    - Time Complexity: O(E Log E)
+        - **Graph Construction**: O(Elog⁡E),
+            - Heap push each edge
+        - **DFS Traversal**: O(Elog⁡E)
+            - Heap pop each node to get smallest lexical destination
+        - **Overall**: O(Elog⁡E)
+    - Space Complexity: O(E)
+    
+    **Solution:** Create the graph and sort the adjacency list so that the edges of each destination (vertex) is in lexical order. After that, DFS and backtrack to get results (Visit, Explore, Un Visit)
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b35e3516-36af-4271-852b-59c815ef1dac/Untitled.png)
+    
+    **Unique uses:**
+    
+    - Uses a while loop in DFS traversal of graph to traverse through all nodes instead of for loop
+        - Allows us to heap pop the nodes rather than a for loop to that just iterates through the list in order
+    - Backtracks by exploring as deep possible first then when we explore it, we add it to the queue result that adds it in reverse order
+        - Similar to post order traversal
+
+## 778 - Swim in Rising Water (Advanced)
+
+**Intuition:** 
+
+- Solutions
+    
+    **Brute Force:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Optimized Approach:** 
+    
+    - Time Complexity:
+    - Space Complexity:
+    
+    **Solution:** 
+    
+    **Unique uses:**
+    
+    - 
 
 # Dynamic Programming
 
