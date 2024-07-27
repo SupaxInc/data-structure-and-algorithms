@@ -2662,25 +2662,23 @@
 
 ## 778 - Swim in Rising Water (Advanced)
 
-**Intuition:** 
+**Intuition:** Find the minimum time to reach the bottom-right corner from the top-left corner of a grid. Time is measured by water elevation rising because it is raining. Let’s say adjacent cells are 2 and 3, we have to wait till water rise to that level so if we go to 2, we waited time of 2, if we go to 3, we waiting time of 3. The time is determined by the highest water level you encounter on your path. So if the next cells after the 3 is 1, then time is still 3 because we don’t have to wait for the water to rise to get to cell 1.
 
 - Solutions
     
-    **Brute Force:** 
+    **Optimized Approach:** Use Djikstra’s algorithm to get the shortest path to bottom right corner
     
-    - Time Complexity:
-    - Space Complexity:
+    - Time Complexity: O(n^2 log n)
+        - n^2 since grid is size of n x n
+        - log n since we do a heap push every n
+    - Space Complexity: O(n^2)
     
-    **Optimized Approach:** 
-    
-    - Time Complexity:
-    - Space Complexity:
-    
-    **Solution:** 
+    **Solution:** Check for the shortest path where the elevation in your path is less or equal to the time. Do this by modifying Djikstra’s algorithm by doing a BFS with a min heap but instead you don’t need to measure the distances for all vertices, just keep track of the highest time in the path.
     
     **Unique uses:**
     
-    - 
+    - Modified Djikstra’s algorithm
+        - Does not keep track of all distances from source to vertex but keeps track of highest distance (max time/height) instead.
 
 # Dynamic Programming
 
