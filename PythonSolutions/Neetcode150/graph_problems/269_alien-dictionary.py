@@ -47,6 +47,8 @@ class Solution:
         
         for word in words:
             for char in word:
+                # Need to begin traversal on every character to check if prereqs have been completed
+                    # for each character so there is a correct order
                 if not dfs(char):
                     return "" # Return no result if there is no valid order
         

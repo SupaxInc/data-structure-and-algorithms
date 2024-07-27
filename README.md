@@ -2680,6 +2680,33 @@
     - Modified Djikstra’s algorithm
         - Does not keep track of all distances from source to vertex but keeps track of highest distance (max time/height) instead.
 
+## 269 - Alien Dictionary (Advanced)
+
+**Intuition:** Figure out how the Alien Dictionary works by checking which letters are lexicographically smaller in a list of words that are already sorted lexically. 
+
+String `a` letter is lexicographically smaller than string `b` letter when comparing two words:
+
+1. The first difference in letters (e.g. `hrn` and `hrf` , n is lexically smaller than f)
+2. **OR** if the lengths of the words are different
+    1. If string a is smaller than string b and they are prefixes except for the last word
+
+**INVALID:** If string b is smaller than string a (e.g. `abc`  and `ab` , `ab` are prefixes but first string is longer, so return `""` )
+
+- Solutions
+    
+    **Optimized Approach:** Topological sort
+    
+    - Time Complexity: O(V + E) → O(C)
+        - O(V + E), we visit each vertex and edge which means we visit all characters
+            - This includes graph construction when finding first different letter
+    - Space Complexity: O(V + E) → O(C)
+        - We create a graph of all characters
+    
+    **Solution:** 
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9f7ca770-e3df-4016-b2ea-31cce3799fc4/Untitled.png)
+    
+
 # Dynamic Programming
 
 ## 70 - Climbing Stairs
