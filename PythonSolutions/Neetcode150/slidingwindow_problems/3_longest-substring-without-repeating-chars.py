@@ -4,16 +4,16 @@ class Solution:
         start = 0
         mySet = set()
 
-        for i in range(0, len(s)):
+        for end in range(0, len(s)):
             # Shrink the window if the current index char is in the set
-            while s[i] in mySet and start <= i:
+            while s[end] in mySet and start <= end:
                 # To shrink it we remove the start pointer char then continuously move it up
                 mySet.remove(s[start])
                 start += 1
             
             # Add the current index char if its no longer in the set
-            mySet.add(s[i])
-            maxLength = max(maxLength, (i-start) + 1)
+            mySet.add(s[end])
+            maxLength = max(maxLength, (end-start) + 1)
 
         return maxLength
     
