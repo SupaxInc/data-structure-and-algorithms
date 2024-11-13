@@ -9,7 +9,7 @@ class Solution:
             # starting at 0,0 is a common strategy for Prims algorithm
         minHeap = [(0, 0)] # (current cost, current point on grid)
 
-        # Manhttan distance is used to calculate the cost of two points
+        # Manhattan distance is used to calculate the cost of two points
             # Helps determine the smallest edge to add the to MST in Prims algorithm
         def manhattan(i, j):
             # Manhattan distance: (x1 - x2) + (y1 - y2)

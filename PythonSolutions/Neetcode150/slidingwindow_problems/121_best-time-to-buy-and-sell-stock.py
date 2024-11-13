@@ -1,15 +1,22 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        l, r = 0, 1
+        start, end = 0, 1
 
         maxProfit = 0
 
-        while r < len(prices):
-            if prices[l] < prices[r]:
-                maxProfit = max(maxProfit, prices[r] - prices[l])
+        while end < len(prices):
+            # Check if previous day price is less than the future date price
+            # This means we were able to buy low and sell high
+            if prices[start] < prices[end]:
+                # Calculate profit
+                maxProfit = max(maxProfit, prices[end] - prices[start])
             else:
-                l = r
+                # If the previous day price is greater than the future date price
+                # Then this means we are not able to buy low and sell high
+                # So we update the start to the end
+                start = end
             
-            r += 1
+            # Move to the next day
+            end += 1
         
         return maxProfit
