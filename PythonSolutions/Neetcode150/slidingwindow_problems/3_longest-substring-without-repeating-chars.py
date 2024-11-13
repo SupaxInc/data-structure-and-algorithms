@@ -16,3 +16,22 @@ class Solution:
             maxLength = max(maxLength, (i-start) + 1)
 
         return maxLength
+    
+# *O(n^3) time complexity*
+class BruteForceSolution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        maxLength = 0
+        
+        # Generate all possible substrings
+        for i in range(len(s)): # O(n^2)
+            for j in range(i, len(s)):
+                # Get current substring
+                current = s[i:j+1]
+
+                # Convert to set to check for duplicates
+                # If length of set equals length of substring, no duplicates exist
+                # O(n) to convert to set
+                if len(set(current)) == len(current):
+                    maxLength = max(maxLength, len(current))
+        
+        return maxLength
