@@ -42,18 +42,26 @@ class MostOptimalSolution:
             s1Count[char] += 1
 
         matches = 0
-        for i in range(len(s2)):
+        start = 0
+        for end in range(len(s2)):
             # Add the new character to the window
-            if s2[i] in s1Count:
-                s1Count[s2[i]] -= 1
-                if s1Count[s2[i]] == 0:
+            if s2[end] in s1Count:
+                s1Count[s2[end]] -= 1
+                # If the frequency of the character is 0, then we increment the matches as its a match for the permutation
+                if s1Count[s2[end]] == 0:
                     matches += 1
-            # Remove the character leaving the window
-            if i >= len(s1):
-                if s2[i - len(s1)] in s1Count:
-                    if s1Count[s2[i - len(s1)]] == 0:
+            
+            # Remove the character leaving the window if we are at fixed window size
+            if (end-start) + 1 > len(s1):
+                if s2[start] in s1Count:
+                    # If the frequency of the start character is 0, then we decrement the matches as its no longer a match
+                    if s1Count[s2[start]] == 0:
                         matches -= 1
-                    s1Count[s2[i - len(s1)]] += 1
+                    s1Count[s2[start]] += 1
+                
+                # Increment the start pointer so it stays within fixed window length
+                start += 1
+                
             # If all characters match, return True
             if matches == len(s1Count):
                 return True
