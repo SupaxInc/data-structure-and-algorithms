@@ -513,6 +513,13 @@
     
     - Uses dynamic size window with auxiliary
     
+    The key insight is that maxFreq in this implementation **never decreases**, even when we remove characters from the window. This is actually a clever optimization because:
+    
+    - If we find a longer valid window later, we'll need at least as many occurrences of some character as we found before
+    - Even if the actual maximum frequency in the current window becomes smaller, keeping the old maxFreq doesn't affect the correctness because:
+    - If the window is valid with a smaller actual frequency, it would also be valid with our stored larger maxFreq
+    - If the window is invalid, we'll shrink it anyway due to the while condition
+    
     ### Explaining 424 to interviewers to reach most optimal solution
     
     ### **Initial Approach Explanation**
@@ -3440,13 +3447,13 @@ Read code solution comments if you are confused.
         
         ### **DP Table Visualization:**
         
-        | Index/Unmatched j | 0 | 1 | 2 | 3 |
+        | **Index/Unmatched `j`** | **0** | **1** | **2** | **3** |
         | --- | --- | --- | --- | --- |
-        | 0 (Start) | T | F | F | F |
-        | 1 ('(') | F | T | F | F |
-        | 2 ('*') | T | T | T | F |
-        | 3 (')') | F | T | T | F |
-        | 4 (')') | T | F | F | F |
+        | **0 (Start)** | T | F | F | F |
+        | **1 ('(')** | F | T | F | F |
+        | **2 ('*')** | T | T | T | F |
+        | **3 (')')** | F | T | T | F |
+        | **4 (')')** | T | F | F | F |
         
         ### **Explanation of Each Row:**
         
