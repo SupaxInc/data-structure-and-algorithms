@@ -5,9 +5,11 @@ class Solution:
         mySet = set()
 
         for end in range(0, len(s)):
-            # Shrink the window if the current index char is in the set
+            # Shrink the window if the current index char is in the set (which means there is a duplicate)
             while s[end] in mySet and start <= end:
                 # To shrink it we remove the start pointer char then continuously move it up
+                
+                # Continuously remove the start pointer char until the duplicate is removed
                 mySet.remove(s[start])
                 start += 1
             
