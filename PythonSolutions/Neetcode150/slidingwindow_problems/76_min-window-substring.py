@@ -15,19 +15,18 @@ class Solution:
             if s[end] in tCount and sCount[s[end]] == tCount[s[end]]:
                 have += 1 # Increase the amount of letters required that we now have
             
-            # When we have the required amount of letters, we need to shrink the window to find more minimum
+            # The frequency of t is satisfied by current substring window
             while have == need:
-                # Update the results if we found a more minimum length
+                # Save the current result if the window is smaller then previous result length
                 if (end - start + 1) < resLen:
                     res = [start, end]
                     resLen = end - start + 1
                 
-                # Remove the letter from the beginning of the window
+                # Try and make the window smaller to get a more minimum window
                 sCount[s[start]] -= 1
-                # Check if current start char is part of string t and if the string s has less of that char than t
-                # This helps satisfy the character requirements for the window for string t
+                # Check if the current start char satisfies the frequency of string t
                 if s[start] in tCount and sCount[s[start]] < tCount[s[start]]:
-                    have -= 1 # Decrease amount of letters that have been satisfied
+                    have -= 1 # Decrease the amount of letters that have been satisfied
                 
                 start += 1 # Shrink the window
         
