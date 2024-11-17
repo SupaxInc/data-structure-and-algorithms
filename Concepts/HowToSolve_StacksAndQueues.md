@@ -132,7 +132,7 @@ print(next_greater_elements(nums))  # Output: [5, 25, 25, -1]
     - Elements are could be removed from the back or the front of the queue depending on the scenario.
     - Maintains order where each new element added to the back ensures the queue remains in decreasing order.
 - **Use Case**:
-    - **Sliding window maximum/minimum** problems.
+    - **Sliding window maximum** problems.
     - **Dynamic programming** where you need to maintain a window of potential candidates.
     - **Optimization problems** where the current state depends on previous states in a monotonic fashion.
 - **Appends index to the queue**
@@ -170,3 +170,74 @@ def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
     
     return res
 ```
+
+## Monotonic increasing queue
+
+- **Definition**:
+    - Elements maintained in ascending order (smallest → largest)
+    - When new elements are added, elements that are **greater than** the new element are **removed from the back** to maintain the increasing order.
+- **Properties**:
+    - Elements are could be removed from the back or the front of the queue depending on the scenario.
+    - Maintains order where each new element added to the back ensures the queue remains in decreasing order.
+- **Use Case**:
+    - **Sliding window minimum** problems.
+    - **Dynamic programming** where you need to maintain a window of candidates for minimum values.
+    - **Optimization problems** where the current state depends on previous states in a monotonic fashion.
+- **Appends index to the queue**
+
+**Example Code: Sliding Window Minimum**
+
+```python
+def sliding_window_minimum(nums, k):
+    """
+    Finds the minimum in each sliding window of size k.
+    """
+    n = len(nums)
+    if k > n or k == 0:
+        return []
+
+    result = []
+    dq = deque()  # Will store indices of potential minima
+
+    for i in range(n):
+        # Remove indices that are out of the current window
+        if dq and dq[0] == i - k:
+            dq.popleft()
+
+        # Remove elements from the back that are greater than the current element
+        while dq and nums[dq[-1]] >= nums[i]:
+            dq.pop()
+
+        # Add current element's index to the deque
+        dq.append(i)
+
+        # Append the minimum to the result once the first window is complete
+        if i >= k - 1:
+            result.append(nums[dq[0]])
+
+    return result
+```
+
+**Explanation**
+
+- **Use a deque** to store indices of potential minima.
+- **Maintain the deque** so that indices of elements outside the current window are removed from the front.
+- **Ensure elements in the deque** are in increasing order by removing elements from the back that are **greater than** the current element.
+- **Append the front element** of the deque to the result once the window size `k` is reached.
+
+**Example Usage**
+
+```python
+nums = [1, 3, -1, -3, 5, 3, 6, 7]
+k = 3
+print(sliding_window_minimum(nums, k))  # Output: [ -1, -3, -3, -3, 3, 3]
+```
+
+**Explanation of Output:**
+
+- Window `[1,3,-1]` minimum is `1`.
+- Window `[3,-1,-3]` minimum is `3`.
+- Window `[-1,-3,5]` minimum is `3`.
+- Window `[-3,5,3]` minimum is `3`.
+- Window `[5,3,6]` minimum is `3`.
+- Window `[3,6,7]` minimum is `3`.
