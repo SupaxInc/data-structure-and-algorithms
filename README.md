@@ -517,8 +517,8 @@
     
     - If we find a longer valid window later, we'll need at least as many occurrences of some character as we found before
     - Even if the actual maximum frequency in the current window becomes smaller, keeping the old maxFreq doesn't affect the correctness because:
-    - If the window is valid with a smaller actual frequency, it would also be valid with our stored larger maxFreq
-    - If the window is invalid, we'll shrink it anyway due to the while condition
+        - If the window is valid with a smaller actual frequency, it would also be valid with our stored larger maxFreq
+        - If the window is invalid, we'll shrink it anyway due to the while condition
     
     ### Explaining 424 to interviewers to reach most optimal solution
     
@@ -584,7 +584,7 @@
 
 - Solutions
     
-    **Brute Force:** Use a nested for loop that checks for each substring then check if each substring contains valid amount of characters
+    **Brute Force:** Use a nested for loop that checks for each substring then check if each substring contains valid amount of characters by creating a new set per substring
     
     - Time Complexity: O(n^2) * O(26)
     - Space Complexity: O(n) + O(m)
@@ -612,20 +612,80 @@
     
     **Brute Force:** Use a max heap per window
     
-    - Time Complexity: O(n) * O(k log k) → O(nk)
+    - Time Complexity: O(n) * O(k log k) → O(nk log k)
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Monotonically decreasing queue
+    **Optimized Approach:** Monotonically decreasing queue using the INDEX of the array
     
-    - Time Complexity: O(n), we will only trigger the while loop at most once each iteration to remove a smaller element from the back of the queue.
+    - Time Complexity: A*mortized* O(n), we will only trigger the while loop at most once each iteration to remove a smaller element from the back of the queue.
     - Space Complexity: O(n)
     
-    **Solution:** Uses a monotonically decreasing queue to keep keep the highest element in the window per iteration.
+    **Solution:** Uses a monotonically decreasing queue to keep keep the highest element in the window per iteration. The index is added to the queue instead of the value so that we can keep track of which index in the array has the highest value per window.
+    
+    - **Example:**
+        
+        ```python
+        nums = [1, 3, -1, -3, 5, 3, 6, 7]
+        k = 3
+        
+        1. end = 0 (nums[0] = 1)
+           window: [1]
+           q: [0]           # index of 1
+           res: []          # window not full yet
+        
+        2. end = 1 (nums[1] = 3)
+           window: [1, 3]
+           q: [1]           # 3 removes 1 since 3 > 1
+           res: []          # window not full yet
+        
+        3. end = 2 (nums[2] = -1)
+           window: [1, 3, -1]
+           q: [1, 2]        # keep 3's index, add -1's index
+           res: [3]         # first window complete
+        
+        4. end = 3 (nums[3] = -3)
+           window: [3, -1, -3]
+           q: [1, 2, 3]     # keep all since in descending order
+           res: [3]         # add max (nums[q[0]] = 3)
+        
+        5. end = 4 (nums[4] = 5)
+           window: [-1, -3, 5]
+           q: [4]           # 5 removes everything before it
+           res: [3, 5]      # add max (nums[q[0]] = 5)
+        
+        6. end = 5 (nums[5] = 3)
+           window: [-3, 5, 3]
+           q: [4, 5]        # keep 5's index, add 3's index
+           res: [3, 5, 5]   # add max (nums[q[0]] = 5)
+        
+        7. end = 6 (nums[6] = 6)
+           window: [5, 3, 6]
+           q: [6]           # 6 removes everything before it
+           res: [3, 5, 5, 6]
+        
+        8. end = 7 (nums[7] = 7)
+           window: [3, 6, 7]
+           q: [7]           # 7 removes everything before it
+           res: [3, 5, 5, 6, 7]
+        
+        Final result: [3, 3, 5, 5, 6, 7]
+        ```
+        
+    
+    **Key observations:**
+    
+    1. We're repeatedly finding the maximum in each window
+    2. When we slide the window:
+        - We only remove one element from left
+        - We only add one element from right
+    3. We need to use a queue so we can remove the one element from left
     
     **Unique uses:**
     
     - Monotonically decreasing queue
         - A queue where each element is less than or equal to the previous element when traversing from front to back.
+    - Amortized O(n)
+        - Means that we do expensive operations within a loop but it does not happen every time, just occasionally
 
 # Stacks
 
