@@ -60,6 +60,11 @@
     - Time Complexity: O(n)
     - Space Complexity: O(n)
     
+    **More Approaches:**
+    
+    - Have 1 hashmap that counts string s then decrement it in string t, check if the count is all 0 at the end
+    - Initialize an array with 26 index then use `ord` for each char and subtract it by `‘a’` to get the 0-indexed value and increment it. Decrement the array for string t. Check at the end with `all()` to check if all values in the array are 0.
+    
     **Solution:** Count letters in both strings using a hashmap then compare the two hashmaps for both key and value pairs
     
     **Unique uses:**
@@ -119,6 +124,8 @@
         - Helps optimize checking for existing keys
         - It’ll automatically create a new key for you without check if it exists
     - Uses tuples as a key in a hashmap
+        - Tuples are hashable because they are immutable
+        - Lists are not hashable because they mutable
     - Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
         - Sorts characters in a string lexicographically
     - Uses ascii codes as an index in an array to represent alphabets
@@ -134,7 +141,7 @@
     - Time Complexity: O(nlogn)
     - Space Complexity: O(n)
     
-    **Kinda Brute Force Not Really:** Heapify the values from a map and create a max heap pop
+    **Kinda Brute Force Not Really:** Heapify the values from a map and create a max heap pop and use a tuple as the values for the heap
     
     - Time Complexity: O(k * logn), mostly better than brute force IF k < n
     - Space Complexity: O(n)
@@ -184,6 +191,8 @@
     
     - Time Complexity: O(n)
     - Space Complexity: O(1)
+    
+    **Solution:** The main idea is that calculating the prefix and postfix allows us to get the product of all elements except for the current index we are on (e.g. we are on index 2, prefix will give all products before index 2 and postfix will give all products after index 2, multiplying prefix index 1 and postfix index 3, gives us the products except for the current element)
     
     **Unique uses:**
     
@@ -264,7 +273,7 @@
     - Time Complexity: O(n)
     - Space Complexity: O(n)
     
-    **Easier Approach:** Use the length of a string plus a string delimiter
+    **Easier Approach:** Use the length of a string plus a string delimiter, in the case that within the string there is another length of string plus delimiter, it does NOT matter since **when we encode, the encoding scheme is always FIRST**
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/57c9ef07-e57b-4299-8fa8-af5ba9ad8553/Untitled.png)
     
@@ -672,13 +681,15 @@
         ```
         
     
-    **Key observations:**
+    **Core Idea:**
     
-    1. We're repeatedly finding the maximum in each window
-    2. When we slide the window:
-        - We only remove one element from left
-        - We only add one element from right
-    3. We need to use a queue so we can remove the one element from left
+    1. Keep track of potential maximum values in a queue
+    2. Only keep numbers in decreasing order (biggest → smallest)
+    3. When adding a new number:
+        - Remove any smaller numbers from the back (they can never be maximum)
+        - The front of queue will always be our current window's maximum
+    
+    ***“We only care about big numbers that could be maximum in current or future windows. Small numbers that come after big numbers don't matter because they'll never be the maximum while the big numbers are in our window.”***
     
     **Unique uses:**
     
