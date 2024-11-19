@@ -46,6 +46,7 @@ class LessOptimalSolution:
 
             # "".join() is more efficient than string concatenation 
                 # It creates a new string leading to O(n^2) unlike join()
+            # **This is less optimal as it string concatenates for each part which could become O(n^2)**
             encodedString += "".join(parts)
         
         return encodedString
