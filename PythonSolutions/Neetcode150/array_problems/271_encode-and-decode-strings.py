@@ -1,4 +1,33 @@
-class Solution:
+class OptimizedSolution:
+
+    def encode(self, strs: List[str]) -> str:
+        # Instead of creating parts list and joining for each string,
+        # we can directly build the string
+        return ''.join(f"{len(s)}#{s}" for s in strs)
+
+    def decode(self, s: str) -> List[str]:
+        decoded = []
+        i = 0
+
+        while i < len(s):
+            # Get the index of # so we can slice to get the length
+            j = s.find('#', i)
+            # Find() could return -1 if we can't find a string with "#"
+            if j != -1:
+                # The length could be up to 200 so we need to slice
+                    # Find the length by slicing up to the #
+                length = int(s[i:j])
+                # j+1: The decoded string would begin after the "#" 
+                # j+1+length: String ends with the length + the delimiters we have
+                decodedString = s[j+1:j+1+length]
+                decoded.append(decodedString)
+
+                # Move the index to decode next character
+                i = j + 1 + length
+        
+        return decoded
+
+class LessOptimalSolution:
 
     def encode(self, strs: List[str]) -> str:
         encodedString = ""
@@ -34,7 +63,7 @@ class Solution:
                     # Find the length by slicing up to the #
                 length = int(s[i:j])
                 # j+1: The decoded string would begin after the "#" 
-                # j+1+lenght: String ends with the length + the delimiters we have
+                # j+1+length: String ends with the length + the delimiters we have
                 decodedString = s[j+1:j+1+length]
                 decoded.append(decodedString)
 
