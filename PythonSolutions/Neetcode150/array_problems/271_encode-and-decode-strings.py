@@ -1,8 +1,8 @@
 class OptimizedSolution:
 
     def encode(self, strs: List[str]) -> str:
-        # Instead of creating parts list and joining for each string,
-        # we can directly build the string
+        # The encoding scheme is "len(s)#s" and it works b/c it prevents from having to escape a character
+        # If another same scheme used in the original string, its fine since we are encoding and the scheme will always be first
         return ''.join(f"{len(s)}#{s}" for s in strs)
 
     def decode(self, s: str) -> List[str]:
