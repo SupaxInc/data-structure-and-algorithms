@@ -1,8 +1,8 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = defaultdict(set) # Rule 1
-        cols = defaultdict(set) # Rule 2
-        squares = defaultdict(set) # Rule 3
+        rows = defaultdict(set) # Rule 1: Each row must contain the digits 1-9 without repetition.
+        cols = defaultdict(set) # Rule 2: Each column must contain the digits 1-9 without repetition.
+        squares = defaultdict(set) # Rule 3: Each of the 9 3x3 sub-boxes of the grid must contain the digits 1-9 without repetition.
 
         # Iterate through each row [[], [], [], etc..]
         for r in range(0, len(board)):
