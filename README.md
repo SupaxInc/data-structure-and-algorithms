@@ -346,7 +346,9 @@
     
     **Unique uses:**
     
-    - Converts the string to lowercase using `.tolower()` and checks if a string has non-alphanumerics using `.isdigt()` and `.isalpha()`
+    - Converts the string to lowercase using `.tolower()` .
+    - Uses `isalnum()` to check if a character is an alphanumeric character.
+    - Also uses regex to remove alphanumeric characters.
 
 ## 167 - Two Sum II, Input Array is Sorted
 
