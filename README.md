@@ -401,6 +401,10 @@
 
 **Intuition:** Finding all unique triplets in an array that sum up to zero, emphasizing the need to handle duplicates and ensuring no triplet is repeated in the output.
 
+1. You need to find triplets that sum to 0
+2. You must use different indices (positions) for each number
+3. You can use the same value if it appears at different indices
+    1. But the three values have to be unique (e.g. [-2, 1, 1] is wrong because 1 is shown twice)
 - Solutions
     
     **Brute Force:**  3 nested loops
@@ -414,6 +418,12 @@
     - Space Complexity: O(1)
     
     **Solution:** Sort the numbers to easily find duplicates together, then use a loop for 1st index and a 2nd loop that has a two pointer approach to help reach target 0.
+    
+    1. Sort the array first (to group duplicates together)
+    2. Skip duplicates for the first number (i)
+        1. If we don’t skip the first number you’ll end up with the same result sets twice. 
+        2. E.g. For array: [-1, -1, -1, 2] → [-1, -1, 2], [-1, -1, 2]
+    3. Skip duplicates for the second number (l) after finding a valid triplet
     
     **Unique uses:**
     
@@ -2683,7 +2693,7 @@
     
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration. Helps adhere to ‘at most k stops’ constraint too.
-        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
+        - See example here why we copy: ‣
         - Or here’s a summary why:
             1. **Initialization**:
                 - `distances = [0, inf, inf]`
@@ -2851,7 +2861,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
+    See example of how it was solved here: ‣ 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
