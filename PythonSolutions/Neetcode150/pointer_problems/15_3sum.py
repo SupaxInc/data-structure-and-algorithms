@@ -30,13 +30,17 @@ class MySolution:
 class OptimalSolution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
-        nums.sort() # Sort the numbers to find duplicate values as neighbours
+        nums.sort() # Sort the numbers to find duplicate values as neighbors
 
         # First loop to look for 1st number
         for i in range(0, len(nums)):
-            # Check the left neighbour of the 1st index for duplicates
+            # Check the left neighbor of the 1st index for duplicates
             if i > 0 and nums[i] == nums[i-1]:
                 continue
+
+            # If first number is greater than 0, then its impossible to get a sum of 0
+            if nums[i] > 0:
+                break
             
             l, r = i+1, len(nums) - 1
             # Second loop to look for 2nd and 3rd number
@@ -52,11 +56,11 @@ class OptimalSolution:
                     # If the target is currently at 0, we can move the left or right pointers. Doesn't matter which.
                     l += 1
 
-                    # Check for left neighbour duplicates for the 2nd index.
+                    # Check for left neighbor duplicates for the 2nd index.
                     # Loop until it's no longer a duplicate
                     while nums[l-1] == nums[l] and l < r:
                         l += 1
-                    # Do not need to check for neighbour duplicates for 3rd index
+                    # Do not need to check for neighbor duplicates for 3rd index
                     # Since we move the right pointer based on if the total is too big
                     # If we move the right pointer and get the same value then it'll just move it again because total is still big
                     # This is the benefits of two pointer, the 2nd pointer will have the larger value preventing a 0
