@@ -437,14 +437,26 @@
 
 **Intuition:** Calculate how much water can be trapped after raining on a series of bars of different heights, where the amount of trapped water at each bar depends on the heights of the tallest bars to its left and right.
 
+Think of the image below as an elevated land, so it would be hard to trap rain water on the ends such as index 0 that has a height of 0 since it just spills over to the left edge.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/22a247d7-c219-42f7-ba7a-d8febf1a0b3c/image.png)
+
 - Solutions
     
     **Optimized Approach:** One loop to check all left max for current position, another loop for right max, and another loop to check units between all left max and right max.
+    
+    **The important thing here is that we grab the tallest bars to the left or right of the CURRENT index we are on.**
+    
+    This allows us to check if the current index we are on could be filled with rain water trapped between the heights to left and right.
     
     - Time Complexity: O(3n) → O(n)
     - Space Complexity: O(n)
     
     **More Optimized Approach:** Two pointer approach ****
+    
+    **Similar to previous approach, move the pointer that has the smaller max height between left or right. Allows us to use the left pointer as the current height and calculate it against the smaller max height.** 
+    
+    Don’t forget to check for max of current height and the smaller max height to use with calculation of current height to get the units of water to prevent NEGATIVE units. 
     
     - Time Complexity: O(n)
     - Space Complexity: O(1)
