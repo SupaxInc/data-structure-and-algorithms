@@ -1,27 +1,30 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         n = len(height)
-        maxLefts = [0] # Add a 0 for beginning of array
-        maxRights = [0] * (n + 1) # Add a 0 for end of array
+        maxLefts = []
+        maxRights = [0] * n
         total = 0
 
         # Get all the left max heights for the CURRENT index
-        maxLeft = maxLefts[0]
+        # Begin at 0, we are comparing the tallest height to left of current index (currently the left of index 0 has no height)
+        # **Allows us to check if the current index we are on could be filled with rain water trapped between the heights to left and right.**
+        maxLeft = 0 
         for i in range(n):
-            maxLeft = max(maxLeft, height[i])
             maxLefts.append(maxLeft)
+            maxLeft = max(maxLeft, height[i])
         
         # Get all the right max heights for the CURRENT index
+        # Begin at 0 at the end of array, the right of the last index has no height
         maxRight = maxRights[-1]
         for i in range(n-1, -1, -1):
-            maxRight = max(maxRight, height[i])
             maxRights[i] = maxRight
+            maxRight = max(maxRight, height[i])
         
         # Get the units per height
         for i in range(n):
-            # Similar to container with most water, we need to get the min of the max heights
-                # This is so that the water does not spill over
-            units = min(maxLefts[i], maxRights[i]) - height[i] # Formula to get units
+            # Similar to container with most water, we need to get the min of the max heights, so water does not spill over
+            # Subtract it by current height to see how much water can be trapped between the two max heights to left and right
+            units = min(maxLefts[i], maxRights[i]) - height[i]
             if units > 0:
                 total += units
         
