@@ -1,23 +1,24 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        # Create a dictionary of closed brackets that matches with open brackets
-        bracketMap = { ')': '(', '}': '{', ']': '[' }
+        # We need a way to figure out which brackets are closing brackets and what open brackets it matches to
+        mapDict = { '}' : '{', ']' : '[', ')' : '(' }
+        stack = []
 
-        stack = [] # Stack to add open brackets
-
-        for currBracket in s:
-            # If its not a closed bracket then append to stack
-                # Continue the current iteration so we don't pop the stack (remove an open bracket)
-            if currBracket not in bracketMap:
-                stack.append(currBracket)
-                continue
-            # It is not a valid parenthesis if:
-                # The stack is empty (this means no open bracket was added to stack to match a closing bracket)
-                # The end of the stack (what will be popped) does not equal its complementary bracket partner
-            elif not stack or stack[-1] != bracketMap[currBracket]:
+        for char in s:
+            # Check if current character is a closing bracket
+            if char not in mapDict:
+                # Stack is important here to know what the last opening bracket was to match with the first closing bracket
+                stack.append(char)
+                continue # Skip iteration so we don't pop the stack of closing brackets
+            
+            # False if:
+                # Stack is empty, therefore, the closing bracket cannot be matched to an open bracket
+                # LAST opening bracket does not match the FIRST closing bracket
+            elif not stack or stack[-1] != mapDict[char]:
                 return False
             
-            # Pop the stack, this means we were able to match it with its complementary bracket
+            # Pop the stack when a closing bracket has been found (the elif was skipped)
             stack.pop()
         
+        # Handle edge case where all opening brackets were added or not all opening brackets were matched
         return not stack
