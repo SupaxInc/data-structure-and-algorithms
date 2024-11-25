@@ -797,7 +797,14 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 150 - Evaluate Reverse Polish Notation
 
-**Intuition:** Evaluate the value of an arithmetic expression in Reverse Polish Notation (RPN) by using a stack to handle operators and operands in the correct order.
+**Intuition:** Evaluate the value of an arithmetic expression in Reverse Polish Notation (RPN) by using a stack to handle operators and operands in the correct order. (**post fix notation)**
+
+```python
+# Regular Math      vs      RPN (postfix)
+# 3 + 4            →       3 4 +
+# 3 + 4 * 2        →       3 4 2 * +
+# (3 + 4) * 2      →       3 4 + 2 *
+```
 
 - Solutions
     
@@ -809,6 +816,20 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Push numbers to the stack, pop the stack when an operator shows and perform the operation on the last 2 numbers (the 2nd popped number should be first in the operation). Push the result to the stack.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a2960a10-46a4-46f9-ab2c-fcb481deac55/Untitled.png)
+    
+    **More Example:**
+    
+    ```python
+    # Number LAST added to stack is at THE RIGHT SIDE OF EQUATION
+    ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+    1st operation) 9 + 3 = 12 (push 12 to stack)
+    2nd) (-11 * (12 from 1st operation)) = -132 (push -132 to stack)
+    3rd) (6 / (-132 from 2nd operation)) = -0.045 -> 0 (turns to 0, integer division)
+    4th) 10 * 0 = 0 (push 0 to stack)
+    5th) 0 + 17 = 17 (push 17 to stack)
+    6th) 17 + 5 = 22 
+    Output = 22
+    ```
     
     **Unique uses:**
     
