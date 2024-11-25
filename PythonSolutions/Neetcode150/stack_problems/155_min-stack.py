@@ -1,3 +1,27 @@
+class SimplerMinStack:
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, val: int):
+        # If stack is empty, then current min is the val we are pushing
+        # If it is not empty, then get the previous min from top of the stack and compare with current value
+        minVal = val if not self.stack else min(val, self.stack[-1][1])
+
+        # Push an array with structure of: [value, minimum value]
+        self.stack.append([val, minVal])
+    
+    def pop(self):
+        self.stack.pop()
+    
+    def top(self):
+        # Peeks at the last array in the stack just for its value
+        return self.stack[-1][0]
+    
+    def getMin(self):
+        # Peeks at the last array in the stack just for its min value
+        return self.stack[-1][1]
+
 class MinStack:
 
     def __init__(self):
