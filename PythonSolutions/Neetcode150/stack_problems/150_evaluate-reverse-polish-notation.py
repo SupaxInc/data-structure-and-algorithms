@@ -2,11 +2,14 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
         for token in tokens:
+            # If you see a number, push it to the stack
             # Can't use isdigit() as it only checks from 0-9
             if token not in "+-*/":
-                stack.append(int(token))
+                stack.append(int(token)) # Convert token string to int
             else:
+                # In postfix notation, the LAST number added to stack is the right operand
                 right = stack.pop()
+                # The second last number added to stack is the left operand
                 left = stack.pop()
                 if token == '+':
                     stack.append(left + right)
