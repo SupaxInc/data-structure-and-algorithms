@@ -730,7 +730,24 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 20 - Valid Parentheses
 
-**Intuition:** Check if a string containing only parentheses, brackets, and braces is valid by ensuring every opening bracket has a corresponding and correctly ordered closing bracket. The goal is to match and correctly nest these pairs.
+**Intuition:** Ensure that the first CLOSING parentheses found is matched with the last OPENING parentheses.
+
+```python
+# Valid Examples:
+"()"        # Simple pair
+"()[]{}"    # Multiple pairs side by side
+"([{}])"    # Nested pairs
+"([]{})"    # Multiple types nested
+"{[]}"      # Different order of nesting
+
+# Invalid Examples:
+"("         # Unclosed bracket
+")"         # No opening bracket
+"(]"        # Mismatched brackets
+"([)]"      # Incorrectly nested
+"]{"        # Wrong order (closing before opening)
+"((("       # Multiple unclosed brackets
+```
 
 - Solutions
     
@@ -763,14 +780,20 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Time Complexity: O(1)
     - Space Complexity: O(n)
     
-    **Solution:** Use two stacks, 1 for the actual stack, the other for the min numbers for the current position of the actual stack.
+    **More Readable Approach:** Use 1 stack but push arrays into it with a structure of [value, minimum value] to keep track of the min value of the current index.
+    
+    - Time Complexity: O(1)
+    - Space Complexity: O(n)
+    
+    **Solution:** Use two stacks, 1 for the actual stack, the other for the min numbers for the current position of the actual stack. **Using 1 stack is much more readable.**
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/dfa2452c-b65e-44bc-ac48-fcd614cf78dd/Untitled.png)
     
     **Unique uses:**
     
     - Uses a second stack to see what min number is within an array
-    - Compares with a positive infinite number to find the min number
+        - Compares with a positive infinite number to find the min number
+    - Uses 1 stack but pushes an array to keep track of [value, minimum value]
 
 ## 150 - Evaluate Reverse Polish Notation
 
