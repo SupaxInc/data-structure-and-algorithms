@@ -856,7 +856,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - While loop simply pops out stack elements one by one and there can’t be more than n elements pushed inside the stack as every element is pushed once. Therefore nested while loop will also not execute more than n times. The inner loop will not be counted as a nested loop until its covers n elements.
     - Space Complexity: O(n)
     
-    **Solution:** Use a monotonic decreasing 2d array stack to help find the next greatest temp number. Check the top of the stack and pop when you find the next greatest number.
+    **Solution:** Use a monotonic decreasing 2d array stack to help find the next greatest temp number by checking if the top of the descending stack has a smaller number than the current temp.
+    
+    To find the difference of when the next larger temperature is for the previous temperature, we need to get the difference of the current largest temp day and compare with previous smaller temp day.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f9a49265-ddef-4476-b90d-9c15927237cb/Untitled.png)
     
@@ -864,7 +866,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     - 2D array helps keep track of what index the previous temp number was
     - Monotonic decreasing stack is uses to maintain elements in a decreasing order from the top to bottom
-        - In this specific problem, we use it to find the next greatest element of a previous temperature
+        - In this specific problem, we use it to find the next greatest element of multiple previous temperatures
 
 ## 853 - Car Fleets
 
