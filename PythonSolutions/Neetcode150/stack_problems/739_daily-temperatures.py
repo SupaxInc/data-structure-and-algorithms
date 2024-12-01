@@ -7,18 +7,19 @@ class Solution:
         res = [0] * n
         stack = [] # Pair of (temp, index)
 
-        for currIndex, currTemp in enumerate(temperatures):
+        for currDay, currTemp in enumerate(temperatures):
             # Helps find the smallest previous temp in the decreasing stack 
                 # The stack already has temperatures that we've seen
             # If theres a smaller temp than the current temp
                 # That means those smaller temps have found a larger temperature
+            # ** Essentially finding the next greater element of the previous temps **
             while stack and currTemp > stack[-1][0]:
-                prevIndex = stack.pop()[1]
+                prevDay = stack.pop()[1]
 
                 # Then count the different between current warmer day and previous colder day
-                    # In the index of the previous colder day
-                res[prevIndex] = currIndex - prevIndex
-            stack.append([currTemp, currIndex])
+                    # Place it in the the previous colder day res index
+                res[prevDay] = currDay - prevDay
+            stack.append([currTemp, currDay])
         
         return res
     
