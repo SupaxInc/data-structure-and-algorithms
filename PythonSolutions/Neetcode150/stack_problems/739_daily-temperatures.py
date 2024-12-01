@@ -1,22 +1,24 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        if len(temperatures) < 2:
+        n = len(temperatures)
+        if n < 2:
             return [0]
+        
+        res = [0] * n
+        stack = [] # Pair of (temp, index)
 
-        res = [0] * len(temperatures)
-        descStack = [] # Pair of [temp, index]
+        for currIndex, currTemp in enumerate(temperatures):
+            # Helps find the smallest previous temp in the decreasing stack 
+                # The stack already has temperatures that we've seen
+            # If theres a smaller temp than the current temp
+                # That means those smaller temps have found a larger temperature
+            while stack and currTemp > stack[-1][0]:
+                prevIndex = stack.pop()[1]
 
-        for i, currTemp in enumerate(temperatures):
-            # Maintains decreasing order by checking if top of stack is smaller than curr temp
-                # E.g. [73, 72] -> curr temp is 74 -> pop all elements -> [74] is left
-            while descStack and currTemp > descStack[-1][0]:
-                # Pop the previous smallest temp
-                prevTempIndex = descStack.pop()[1]
-                # Grab the difference between current day and smallest temp day
-                res[prevTempIndex] = i - prevTempIndex
-            
-            # 2D array helps keep track of index for pushed temp
-            descStack.append([currTemp, i])
+                # Then count the different between current warmer day and previous colder day
+                    # In the index of the previous colder day
+                res[prevIndex] = currIndex - prevIndex
+            stack.append([currTemp, currIndex])
         
         return res
     
