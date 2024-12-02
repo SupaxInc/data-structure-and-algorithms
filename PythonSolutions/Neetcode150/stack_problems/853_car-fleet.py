@@ -10,21 +10,22 @@ class Solution:
         cars = sorted(zip(position, speed), reverse=True)
 
         # Stores the time, and each time stored symbolizes a fleet
-        stack = []
+        fleets = []
         
         for pos, spd in cars:
             # Calculate the time it takes for the car to reach the target
-            time = (target - pos) / spd
+            timeToTarget = (target - pos) / spd
 
             # If the stack is empty then it means we can add one fleet
             # If not empty, compare the current time to the top of the stack (which is the car fleet at the front)
+
             # If the time is greater, that means the fleet would not likely join the fleet in the front as its too slow
             # So we append a new time (a new fleet) to the stack as it will be its own fleet
-            if not stack or time > stack[-1]:
-                stack.append(time)
+            if not fleets or timeToTarget > fleets[-1]:
+                fleets.append(timeToTarget)
             # If the time is less than or equal to the fleet at the front, then its likely to join the fleet as it will intersect
             # Therefore, no need to add it to the stack as its joining the fleet at the front.
             else:
                 continue
         
-        return len(stack)  # The stack size is the number of fleets
+        return len(fleets)  # The stack size is the number of fleets
