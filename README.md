@@ -881,7 +881,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Time Complexity:  O(n log n), could become more expensive dealing with fleet mergers
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Use a monotonic decreasing stack 
+    **Optimized Approach:** Use a ~~monotonic decreasing stack,~~ not really a monotonic decreasing stack since were not actively popping the stack
     
     - Time Complexity: O(n log n)
     - Space Complexity: O(n)
@@ -895,7 +895,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - It allows us to know that any car we are currently processing can only join the fleet of what we most recently processed.
         - If we started from left to right, its hard to know if we can join the car in the front since we don’t know if it already joined a fleet thats even more ahead.
     - Calculate the time it takes for a car to reach target:
-        - Push it to a stack if it is a fleet.
+        - Push it to a stack if it is a new fleet if it can go faster than previous fleet (it can catch up)
         - **OR** to skip iteration if the previous fleet is going too fast since it can’t catch up to it.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/709ef3ff-b3eb-43dd-972b-58461f88b809/Untitled.png)
@@ -906,7 +906,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Sorted sorts an iterable list like tuples, list, dictionaries, etc.
         - Zip combines two arrays by joining the elements in the same index as a tuple
     - Uses reverse=True to reverse an array
-    - Uses a monotonic decrease stack algorithm to find the next greater element
+    - Uses a ~~monotonic decrease stack algorithm~~ to find the next greater element
+        - Not really a monotonic decreasing stack since we don’t actively pop elements
     - Uses physics formula: time = distance / speed
 
 ## 84 - Largest Rectangle in a Histogram
