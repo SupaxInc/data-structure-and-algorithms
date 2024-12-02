@@ -886,7 +886,17 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Time Complexity: O(n log n)
     - Space Complexity: O(n)
     
-    **Solution:** Zip the position and speed. Sort it to get cars beside each other to easily find which cars join a fleet. Calculate the time it takes for a car to reach target and push it to a stack if it is a fleet. 
+    **Solution:** 
+    
+    - Zip the position and speed into a tuple (position, speed) pairing.
+    - Sort tuple to get cars beside each other to easily find which cars join a fleet.
+    - Reverse the array of tuples so that we don’t have to iterate the array backwards.
+        - More intuitive to process right to left because we want to start with the car closes to target position.
+        - It allows us to know that any car we are currently processing can only join the fleet of what we most recently processed.
+        - If we started from left to right, its hard to know if we can join the car in the front since we don’t know if it already joined a fleet thats even more ahead.
+    - Calculate the time it takes for a car to reach target:
+        - Push it to a stack if it is a fleet.
+        - **OR** to skip iteration if the previous fleet is going too fast since it can’t catch up to it.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/709ef3ff-b3eb-43dd-972b-58461f88b809/Untitled.png)
     
@@ -897,6 +907,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Zip combines two arrays by joining the elements in the same index as a tuple
     - Uses reverse=True to reverse an array
     - Uses a monotonic decrease stack algorithm to find the next greater element
+    - Uses physics formula: time = distance / speed
 
 ## 84 - Largest Rectangle in a Histogram
 
