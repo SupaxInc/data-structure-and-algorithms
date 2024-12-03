@@ -1,32 +1,36 @@
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         maxArea = 0
-        stack = [] # Pair of (index, height)
+        # Stack stores tuples of (index, height)
+        # We use this to track increasing heights and their starting positions
+        stack = []
 
         for currIdx, currHeight in enumerate(heights):
-            newStart = currIdx # Keep track of what the new index might be
+            # Start position for current height, may change if we pop items
+            newStart = currIdx
 
-            # Maintain increasing order
-                # Check if current height is less than top of stack (prev max height)
+            # When we find a smaller height, we need to calculate areas of all taller rectangles
+            # that must end at this position
             while stack and currHeight < stack[-1][1]:
-                prevMaxHeightIdx, prevMaxHeight = stack.pop()
-                # The width of the popped height could have possibly increased
-                    # Due to the nature of increasing order
-                    # This means that the height in front was larger so it could extend the rectangle
-                maxArea = max(maxArea, prevMaxHeight * (currIdx - prevMaxHeightIdx))
+                prevIdx, prevHeight = stack.pop()
+                
+                # Calculate area for the rectangle we're popping:
+                # Width = current position - start position of prev height
+                # Height = height of rectangle we're popping
+                maxArea = max(maxArea, prevHeight * (currIdx - prevIdx))
 
-                # Since the stack was popped, we extend the new added height
-                    # This means that it can extend since the previous heights were larger
-                newStart = prevMaxHeightIdx
+                # The current height can extend left to where the popped rectangle started
+                # This is because all heights in between were taller
+                newStart = prevIdx
             
-            # Append the possible new starting index
+            # Add current height to stack, using the leftmost possible starting point
             stack.append((newStart, currHeight))
         
-        # There may be heights still in the stack
+        # Process remaining rectangles in stack
+        # These are rectangles that never found a smaller height to their right,
+        # so they extend all the way to the end
         for idx, height in stack:
-            # So we calculate the area based on the length of heights
-                # This means that the rest of the other heights was just extended
-                    # Unless it was the last height added
+            # Width = total length - start position
             maxArea = max(maxArea, height * (len(heights) - idx))
         
         return maxArea
