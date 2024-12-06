@@ -925,6 +925,38 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9463fc77-71e2-4aab-8a7d-57c2d9946ec0/Untitled.png)
     
+    **Example of popping heights:**
+    
+    ```markdown
+    heights = [6, 5, 2]
+    indices = [0, 1, 2]
+    
+    When we're at index 1 (height=2):
+    - Previous largest height in stack is 6
+    - We can't extend the rectangle of height 6 past index 1 because 
+      height 2 "cuts it off"
+    - So we calculate: 6 * (2-1) = 6 * 1 = 6 as the area
+    
+    After calculating, the first largest height, we see there is also another
+    height 5 that is bigger than 2.
+    - Calculate: 5 * (2 - 0) = 5 * 2 = 10 as the area
+    - The reason why the length is 2 (2-0) is because we know for sure that
+      5 can extend to 6 since we know its a larger number thus creating a bigger
+      rectangle.
+      
+    At this point, we push (2,2) to the stack, a length of 2 since we now know
+    that the smaller height 2 can extend all the way to height 5. 
+    Creating a new rectangle.
+    
+           ┌─┐
+         ┌─┤6│
+         │5│ │ ┌─┐
+         │ │ │ │2│
+         │ │ │ │ │
+       ──┴─┴─┴─┴─┴──
+          0 1   2
+    ```
+    
     **Unique uses:**
     
     - Uses monotonic increasing stack where the values in the stack are in increasing order

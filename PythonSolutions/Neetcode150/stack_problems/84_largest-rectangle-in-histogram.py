@@ -9,9 +9,11 @@ class Solution:
             # Start position for current height, may change if we pop items
             newStart = currIdx
 
-            # When we find a smaller height, we need to calculate areas of all taller rectangles
-            # that must end at this position
+            # If current height is smaller than the previous height in our stack,
+            # we've found the right boundary for the previous rectangles.
+            # We must pop and calculate their areas since they can't extend further right.
             while stack and currHeight < stack[-1][1]:
+                # Pop the previous largest height (monotonic increasing stack)
                 prevIdx, prevHeight = stack.pop()
                 
                 # Calculate area for the rectangle we're popping:
@@ -20,15 +22,17 @@ class Solution:
                 maxArea = max(maxArea, prevHeight * (currIdx - prevIdx))
 
                 # The current height can extend left to where the popped rectangle started
-                # This is because all heights in between were taller
+                # This is because all heights in between the current index and the previous index were taller
+                # Allows us to extend rectangle from largest previous height position to the current smaller height position
                 newStart = prevIdx
             
             # Add current height to stack, using the leftmost possible starting point
             stack.append((newStart, currHeight))
         
         # Process remaining rectangles in stack
-        # These are rectangles that never found a smaller height to their right,
-        # so they extend all the way to the end
+        # Since we maintain a monotonic increasing stack, these rectangles
+        # represent heights that can extend all the way to the end of the array
+        # (because any heights after them in the stack were taller)
         for idx, height in stack:
             # Width = total length - start position
             maxArea = max(maxArea, height * (len(heights) - idx))

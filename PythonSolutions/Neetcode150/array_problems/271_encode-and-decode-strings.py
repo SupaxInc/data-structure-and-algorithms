@@ -56,7 +56,8 @@ class LessOptimalSolution:
         i = 0
 
         while i < len(s):
-            # Get the index of # so we can slice to get the length
+            # Get the index of #, starting the search from index i, so we can slice to get the length
+            # E.g. i = 1, begin search from index 1 in the string s
             j = s.find('#', i)
             # Find() could return -1 if we can't find a string with "#"
             if j != -1:
