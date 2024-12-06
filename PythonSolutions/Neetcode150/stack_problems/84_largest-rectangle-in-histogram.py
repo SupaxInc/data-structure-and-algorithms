@@ -35,6 +35,7 @@ class Solution:
         # because the heights before them were taller thus allowing them to extend their rectangle all the way to the tallest height before them
         for idx, height in stack:
             # Width = total length - start position
+            # Subtract by total length because we don't know how far the position extends to for the creation of the possible extended rectangle
             maxArea = max(maxArea, height * (len(heights) - idx))
         
         return maxArea
