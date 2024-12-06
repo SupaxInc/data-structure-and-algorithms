@@ -923,6 +923,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Use a stack to maintain increasing heights and calculate the maximum rectangle area by popping from the stack when a shorter height is encountered, extending the width of rectangles to the current index.
     
+    The remaining rectangles in the stack are rectangles where the heights before them were taller thus allowing them to extend their rectangle all the way to the left to the tallest height before them.
+    
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9463fc77-71e2-4aab-8a7d-57c2d9946ec0/Untitled.png)
     
     **Example of popping heights:**

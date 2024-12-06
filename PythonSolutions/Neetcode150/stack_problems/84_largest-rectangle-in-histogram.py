@@ -32,7 +32,7 @@ class Solution:
         # Process remaining rectangles in stack
         # Since we maintain a monotonic increasing stack, these rectangles
         # represent heights that can extend all the way to the end of the array
-        # (because any heights after them in the stack were taller)
+        # because the heights before them were taller thus allowing them to extend their rectangle all the way to the tallest height before them
         for idx, height in stack:
             # Width = total length - start position
             maxArea = max(maxArea, height * (len(heights) - idx))
