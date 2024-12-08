@@ -929,6 +929,15 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Example of popping heights:**
     
+    We pop heights from our stack when we encounter a smaller height because:
+    
+    1. When we find a smaller height, it represents a "right boundary" for all taller rectangles in our stack
+        - Since our stack is monotonic increasing (from bottom to top), we pop larger heights first. This helps calculate smaller heights in the loop if there are since it can be extended to the larger height.
+        - Each pop calculates the maximum possible rectangle for that height, extending from its start position to our current position
+    2. As we pop each height, we also learn how far left our current (smaller) height can extend
+        - Each time we pop a height, we update our current height's start position to the popped height's start position
+        - This works because all heights between these positions were taller, so our current height can form a valid rectangle across this entire width
+    
     ```markdown
     heights = [6, 5, 2]
     indices = [0, 1, 2]
