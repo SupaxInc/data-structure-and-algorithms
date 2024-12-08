@@ -1,5 +1,24 @@
 # Types of Stack Problems
 
+## Quick Visualization to Help Understand
+
+When we talk about a monotonic increasing/decreasing stack, we're referring to the order of elements from bottom to top of the stack, not from a LIFO (Last In, First Out) perspective.
+
+```markdown
+Stack visualization (bottom to top):
+[2,3,4]  ← Monotonic Increasing
+│ 4 │ ← Top
+│ 3 │
+│ 2 │ ← Bottom
+└───┘
+
+[7,5,2]  ← Monotonic Decreasing
+│ 2 │ ← Top
+│ 5 │
+│ 7 │ ← Bottom
+└───┘
+```
+
 ## Monotonic decreasing stack
 
 - **Definition**:
@@ -14,6 +33,8 @@
     - **Optimize time complexity** in algorithms that would otherwise be quadratic.
     - **Handle range queries** where you need to maintain a certain order.
 - **Appends the index to the stack**
+- **Best Example:**
+    - 739 - Daily Temperatures
 
 **Example template code:**
 

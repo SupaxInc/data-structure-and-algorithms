@@ -19,6 +19,7 @@ class Solution:
                 # Calculate area for the rectangle we're popping:
                 # Width = current position - start position of prev height
                 # Height = height of rectangle we're popping
+                # Prev height since it can extend from the new rectangle boundaries
                 maxArea = max(maxArea, prevHeight * (currIdx - prevIdx))
 
                 # The current height can extend left to where the popped rectangle started
