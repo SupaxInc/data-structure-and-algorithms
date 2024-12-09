@@ -1057,12 +1057,12 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 - Solutions
     
-    **Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the piles then loop through each K per banana piles
+    **Brute Force:**  Create a K array (the amount of bananas Koko can eat per hour) from 1 to max of the banana in the piles then loop through each K per banana piles looking for the new minimum calculating the piles that can be eaten in less than an hour.
     
     - Time Complexity: O(p * max(P))
     - Space Complexity: O(max(P))
     
-    **Optimized Approach:** Use binary search within a K array
+    **Optimized Approach:** Use binary search within a K array instead of just a normal for loop
     
     - Time Complexity: O(p * log(max(P)))
         - Max of the piles since we know for sure the if bananas per hour eat speed is equal to the max piles. Koko would be able to hit the hour limit.
