@@ -12,6 +12,7 @@ class Solution:
                 # So move lo pointer to the right to find smaller numbers
                 lo = mid + 1
             # If mid smaller than end, then its rotated in a way that smaller numbers are on the left
+                # This could also mean its not even rotated anymore
             else:
                 # So move hi pointer to the left to find smaller numbers
                 hi = mid - 1
