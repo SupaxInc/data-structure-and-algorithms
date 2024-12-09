@@ -29,15 +29,18 @@ class OptimizedSolution:
             return False
         
         # Get total rows and columns of the 2d matrix
-        rows, cols = len(matrix), len(matrix[0])
+        ROWS, COLS = len(matrix), len(matrix[0])
 
-        # Treat it as a 1d array, so the highest pointer is at the end of the 2d array
-        lo, hi = 0, rows * cols - 1
+        # Treat it as a 1d array, so the highest pointer is the last number of the 2d array
+        lo, hi = 0, ROWS * COLS - 1
 
         while lo <= hi:
             mid = lo + ((hi - lo) // 2) # Grab the mid idx within a "1d array"
+
             # Grab the (y, x) coordinates to get the value of a "1d array"
-            midVal = matrix[mid // cols][mid % cols]
+            # Integer division the mid to COLS to get the row, this helps find how far we are from the first column. E.g. 6//4 = 1
+            # Modulus operation gives us the remainder after dividing by column indicating the offset from start of the row.
+            midVal = matrix[mid // COLS][mid % COLS]
 
             if midVal == target:
                 return True
