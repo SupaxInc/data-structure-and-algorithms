@@ -1,5 +1,7 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # * Partitioning means dividing the array into two halves - a left and right portion *
+
         # Always make nums1 the shorter array to optimize our binary search
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
@@ -12,7 +14,8 @@ class Solution:
         while low <= high:
             # Binary search on the smaller array (nums1) to find where to partition it
             # partitionX represents how many elements we take from nums1 for the left half
-            partitionX = (low + high) // 2
+                # Remember x is used to reference pointer high
+            partitionX = low + ((high-low) // 2)
 
             # Once we know how many elements we're taking from nums1,
             # we can calculate how many we need from nums2 to make the left half complete

@@ -1167,10 +1167,69 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Optimized Approach:** Partition the two arrays ****
     
-    - Time Complexity: O(log(m+n)
+    - Time Complexity: O(log(m+n))
     - Space Complexity: O(1)
     
     **Solution:** Perform binary search on the shorter array to find a partition that balances the number of elements on either side, ensuring the maximum left-side element is less than or equal to the minimum right-side element, and calculating the median based on the parity of the total number of elements.
+    
+    **Visualization:**
+    
+    Odd numbers
+    
+    ```markdown
+    Step 1: Initial setup
+    nums1: [1, 3, 8, 9]        length = 4 (x)
+    nums2: [4, 5, 6, 7, 10]    length = 5 (y)
+    Total elements = 9 (odd), so we need 5 elements in left half
+    
+    Step 2: Binary search process
+    Try partitionX = 2 (taking 2 elements from nums1)
+                            left │ right
+    nums1: [1, 3 │ 8, 9]       maxX = 3, minX = 8
+    nums2: [4, 5, 6 │ 7, 10]   maxY = 6, minY = 7
+                    ↑
+                    partitionY = 3 (need 5 total in left, so 5-2=3 from nums2)
+    
+    Check if valid:
+    Left side max = max(maxX, maxY) = max(3, 6) = 6
+    Right side min = min(minX, minY) = min(8, 7) = 7
+    6 < 7, so this is valid!
+    
+    Final partition:
+    Left half:  [1, 3] + [4, 5, 6]
+    Right half: [8, 9] + [7, 10]
+    
+    Since total length is odd, median is max of left half = 6
+    ```
+    
+    Even numbers
+    
+    ```markdown
+    nums1 = [1, 3]
+    nums2 = [2, 4]
+    
+    Step 1: Initial setup
+    nums1: [1, 3]      length = 2 (x)
+    nums2: [2, 4]      length = 2 (y)
+    Total elements = 4 (even), so we need 2 elements in left half
+    
+    Step 2: Binary search process
+    Try partitionX = 1 (taking 1 element from nums1)
+                        left │ right
+    nums1: [1 │ 3]         maxX = 1, minX = 3
+    nums2: [2 │ 4]         maxY = 2, minY = 4
+                ↑
+                partitionY = 1
+    
+    Check if valid:
+    Left side max = max(maxX, maxY) = max(1, 2) = 2
+    Right side min = min(minX, minY) = min(3, 4) = 3
+    2 < 3, so this is valid!
+    
+    Since length is even, median = (max(left) + min(right))/2
+                                 = (2 + 3)/2 
+                                 = 2.5
+    ```
     
     **Unique uses:**
     
