@@ -1172,6 +1172,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Perform binary search on the shorter array to find a partition that balances the number of elements on either side, ensuring the maximum left-side element is less than or equal to the minimum right-side element, and calculating the median based on the parity of the total number of elements.
     
+    Look at the visualization below to understand how it works better! Read it line by line!
+    
     **Visualization:**
     
     Odd numbers
