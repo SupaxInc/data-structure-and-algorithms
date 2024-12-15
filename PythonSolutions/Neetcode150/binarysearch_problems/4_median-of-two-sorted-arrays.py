@@ -3,6 +3,7 @@ class Solution:
         # * Partitioning means dividing the array into two halves - a left and right portion *
 
         # Always make nums1 the shorter array to optimize our binary search
+            # Having fewer elements means a smaller search space and nums1 is the only array we are binary searching
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
             
@@ -19,6 +20,7 @@ class Solution:
 
             # Once we know how many elements we're taking from nums1,
             # we can calculate how many we need from nums2 to make the left half complete
+                # Essentially, partition X is for binary search and partition Y adjusts accordingly
             # The +1 handles both odd and even total lengths
                 # E.g. x = 3, y = 4, 8 // 2 = 4
                 # E.g. x = 4, y = 4, 8 + 1 = 9 // 2 = 4.5 = 4

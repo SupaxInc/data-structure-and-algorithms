@@ -1202,6 +1202,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     Right half: [8, 9] + [7, 10]
     
     Since total length is odd, median is max of left half = 6
+    We use the max of left half since the highest number on the left half
+    is the middle point of the "virtually sorted array"
     ```
     
     Even numbers
