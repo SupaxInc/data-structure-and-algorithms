@@ -5,7 +5,7 @@
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        # Need to reference a variable to a dummy node since we will be traversing using the dummy node
+        # * Reference a variable to a dummy node since we will be traversing using the dummy node *
             # This way we can have a reference to the head of the dummy node that is traversing and creating a new list
         mergedList = dummy = ListNode()
 
