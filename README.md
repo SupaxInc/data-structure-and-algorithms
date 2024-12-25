@@ -1154,7 +1154,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Timestamps are added ascending so we can binary search to find the highest previous time stamp or equal to target time stamp.
     - Uses default dict
 
-## 4 - Median of Two Sorted Arrays
+## 4 - Median of Two Sorted Arrays **** Need to go back to this ****
 
 **Intuition:** Find the median of two sorted arrays, requiring a method to efficiently combine and balance the arrays to determine the median value.
 
@@ -1321,6 +1321,29 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Find mid point using slow and fast pointers allows us to split the linked list in half, get second list from referencing slow pointer, reverse second list so that we are able to connect to the last nodes, then merge the lists. Now the list will be reordered where every 2nd node are the last nodes of the original list.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/fa7d1b48-e72c-4815-8787-405be58f4090/Untitled.png)
+    
+    **Finding midpoint using slow and fast pointers:**
+    
+    ```markdown
+    Initial:
+    1 -> 2 -> 3 -> 4 -> 5 -> NULL
+    s,f
+    
+    After 1 iteration:
+    1 -> 2 -> 3 -> 4 -> 5 -> NULL
+         s    f
+    
+    After 2 iterations:
+    1 -> 2 -> 3 -> 4 -> 5 -> NULL
+              s         f
+    
+    Final (fast can't move 2 more steps):
+    1 -> 2 -> 3 -> 4 -> 5 -> NULL
+              s         f
+    
+    The key is the relationship: fast_position = 2 × slow_position
+    Therefore fast must always be twice as far along as slow
+    ```
     
     **Unique uses:**
     

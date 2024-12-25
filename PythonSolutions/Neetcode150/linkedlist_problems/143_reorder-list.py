@@ -3,6 +3,55 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+class WayMoreReadableSolution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        def reverseList(head):
+            currNode, prevNode = head, None
+
+            while currNode:
+                nextNode = currNode.next
+                currNode.next = prevNode
+                prevNode = currNode
+                currNode = nextNode
+            
+            return prevNode
+
+
+        # 1. Find mid point
+        slow = fast = head
+        while fast and fast.next:
+            # Slow becomes the mid point as the fast is twice as large as slow
+            slow = slow.next
+            fast = fast.next.next
+        
+        # 2. Split into two groups
+        # Second list will be after slow pointer
+        second = slow.next
+        slow.next = None # Point to none so first list no longer connects to second list
+        first = head # First list points to head (slow pointer has separated it away from 2nd list)
+
+        # 3. Reverse second list
+        second = reverseList(second)
+
+        # 4. Merge first and second list
+        while second:
+            next1, next2 = first.next, second.next
+            # Merge first node to second node
+            first.next = second
+            # The next of the second node connects to the next node of the first list
+            second.next = next1
+            # Iterate to the next nodes of each first and second list
+            first, second = next1, next2
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class BetterReadableSolution:
     def reorderList(self, head) -> ListNode:
         if not head or not head.next:
