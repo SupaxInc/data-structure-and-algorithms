@@ -6,10 +6,10 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         # * Reference a variable to a dummy node since we will be traversing using the dummy node *
-            # This way we can have a reference to the head of the dummy node that is traversing and creating a new list
+            # This way we can have a reference to the head of the dummy node that will bes traversing and creating a new merged list
         mergedList = dummy = ListNode()
 
-        # Connect the lists till 1 of them are empty
+        # Merge the lists till 1 of them are empty
         while list1 and list2:
             # Connect the nodes depending on value
             if list1.val < list2.val:

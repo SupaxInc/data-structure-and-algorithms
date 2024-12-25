@@ -26,7 +26,8 @@ class BetterReadableSolution:
         # 1 -> 2 -> 3 , 5 -> 4
         # 1 -> 5 -> 2 -> 4 -> 3
 
-        # Find mid point of the list
+        # Find mid point of the list by using Floyd's algorithm
+            # Key relationship: fast = 2 x slow position, therefore, halfway point is double of slow
         slow, fast = head, head
         while fast and fast.next:
             slow = slow.next
@@ -77,6 +78,7 @@ class Solution:
         return prevNode
     def reorderList(self, head: Optional[ListNode]) -> None:
         # Find the mid point of the linked list using a fast and slow pointer
+            # Key relationship: fast = 2 x slow position, therefore, halfway point is double of slow
         # Slow pointer will be the middle of the linked list
         slow, fast = head, head
         while fast and fast.next:
