@@ -15,9 +15,9 @@ class Solution:
         # Step 2: Find the cycle entry point
             # Cycle ENTRY point (where cycle begins) is the duplicate value
         # - Reset a NEW slow pointer to beginning of list
-        # - Keep the slow/fast pointer from where the intersection was met for the cycle
-        # - Move them 1 by 1
+        # - Keep the old slow pointer from where the intersection was met for the cycle
         # - The distance between cycle intersection and beginning of list is the same (P = C-X)
+            # - Therefore, move the 2 pointers 1 by 1 until distance P meets distance C-X
         slow2 = 0
         while True:
             slow = nums[slow]

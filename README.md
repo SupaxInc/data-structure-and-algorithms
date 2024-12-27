@@ -1391,6 +1391,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Adds two numbers (long addition) represented by two linked lists, digit by digit, taking care of carries and remainders, and returns the sum as a new linked list. 
     
+    **NOTE: We are doing long addition from left to right instead of right to left due to the direction of the linked list**
+    
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/8249d086-8e8e-46ab-b188-8c51e8aff9dc/Untitled.png)
     
     **Unique uses:**
@@ -1424,10 +1426,22 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Unique uses:**
     
     - Pretends a list is a linked list by using the indices as pointers
-    - A cycle tells us that there was a duplicate somewhere
-    - The cycle entry point is the duplicate number value (in the case above 2 is the entry point)
-        - To find entry point, we move 1 by 1 from the beginning and the cycle intersection point
-        - Using mathematical proofs, the distance between entry and intersection is the same, thus finding the cycle entry point.
+    - **Solution:**
+        - Step 1: Detect if there’s a cycle
+            - A cycle tells us that there was a duplicate somewhere
+            - However, it does not tell us the duplicate value.
+        - Step 2: Find the cycle entry point
+            - The cycle entry point is the duplicate number value (in the case above, 2 is the entry point)
+                - To find entry point, we move 1 by 1 from the beginning and the cycle intersection point
+                - Using mathematical proofs, the distance between entry and intersection is the same, thus finding the cycle entry point.
+            - More intuitive explanation:
+                
+                Once they meet at the cycle intersection where loop was detected:
+                
+                - We know we're somewhere in the loop
+                - If we start a new person at the beginning and have them move at the same pace as someone from the meeting point
+                - They'll meet at the duplicate number
+                - Why? Because the duplicate number is where multiple paths converge - it's the 'entrance' to our loop"
 
 ## 138 - Copy List with Random Pointer
 
