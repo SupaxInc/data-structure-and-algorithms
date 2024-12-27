@@ -5,16 +5,16 @@ class Solution:
             # It does not give us the duplicate value. If you look at the examples, 
             # a duplicate number just brings us to the "linked list" index
             # E.g. Example 1, value "2" brings us to index 2 which is value "4"
-        slow = fast = 0
+        slow = fast = 0 # Begin at index 0
         while True:
             slow = nums[slow]
-            fast = nums[nums[fast]]
+            fast = nums[nums[fast]] # Fast skips a connection each time due to nested checks
             if slow == fast:
                 break
 
         # Step 2: Find the cycle entry point
             # Cycle ENTRY point (where cycle begins) is the duplicate value
-        # - Reset a slow pointer to beginning of list
+        # - Reset a NEW slow pointer to beginning of list
         # - Keep the slow/fast pointer from where the intersection was met for the cycle
         # - Move them 1 by 1
         # - The distance between cycle intersection and beginning of list is the same (P = C-X)
