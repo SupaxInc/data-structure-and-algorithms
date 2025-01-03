@@ -12,7 +12,9 @@ class Solution:
         if not head:
             return None
 
+        # * Without an old to new node hash map, we could end up pointing to a random node that does not exist yet. *
         oldToNew = {}
+        
         current = head
         # 1st iteration: Create a map of the old node to the new node (only the value of new node)
         while current:
@@ -20,7 +22,7 @@ class Solution:
             current = current.next
         
         # 2nd iteration: Start adding next and random pointers to the new node
-        # This allows us to actually map random pointers as previously it could point to non-existing nodes
+            # This allows us to actually map random pointers as previously it could point to non-existing nodes
         current = head
         while current:
             # Begin mapping the new nodes for both the next and random pointer
@@ -33,5 +35,6 @@ class Solution:
                 oldToNew[current].random = oldToNew[current.random]
             current = current.next
         
+        # Return the NEW head node (remember it points the old nodes to the new nodes)
         return oldToNew[head]
         
