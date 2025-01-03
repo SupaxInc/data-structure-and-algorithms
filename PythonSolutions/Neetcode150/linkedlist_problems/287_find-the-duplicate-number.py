@@ -10,7 +10,7 @@ class Solution:
             slow = nums[slow]
             fast = nums[nums[fast]] # Fast skips a connection each time due to nested checks
             if slow == fast:
-                break
+                break # Intersection has been found
 
         # Step 2: Find the cycle entry point
             # Cycle ENTRY point (where cycle begins) is the duplicate value
@@ -20,7 +20,7 @@ class Solution:
             # - Therefore, move the 2 pointers 1 by 1 until distance P meets distance C-X
         slow2 = 0
         while True:
-            slow = nums[slow]
-            slow2 = nums[slow2]
+            slow = nums[slow] # Previous slow pointer stays at intersection
+            slow2 = nums[slow2] # New slow pointer will try and intersect with first slow pointer
             if slow == slow2:
                 return slow
