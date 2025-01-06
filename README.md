@@ -1456,6 +1456,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Use a hashmap to map old current nodes to new nodes. 1st iteration will map with just values without the next or random pointer. 2nd iteration will map next and random pointers to the new mapped nodes due to 1st iteration. A map that is created from 1st iteration is needed as random pointers could possibly point to non-existent nodes when we begin connecting them.
     
+    Without an old to new node hash map, we could end up pointing to a random node that does not exist yet.
+    
     **Unique uses:**
     
     - Uses a dictionary as a key in a hash map
@@ -1476,6 +1478,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Use a doubly linked list to access LRU (head) and MRU (tail). Use a hashmap to map a key to a node, helps to also access a node in O(1) time in the list, faster removal and access.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c8ffa08e-e57e-4293-885e-2f20a7e14f54/Untitled.png)
+    
+    **NOTE:** I’ve updated the code to make it more intuitive by making the MRU the head and the LRU the tail. It is easier to visualize this way as its similar to a structure of a stack. 
     
     **Unique uses:**
     
