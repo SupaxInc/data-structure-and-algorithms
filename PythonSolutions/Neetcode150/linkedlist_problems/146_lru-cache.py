@@ -62,3 +62,96 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+
+# * LRU Cache where the head is the MRU and the tail is LRU, more intuitive: *
+class Node:
+    def __init__(self, key = 0, val = 0, next = None, prev = None):
+        self.key = key
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.cache = {}
+
+        self.head = Node() # MRU
+        self.tail = Node() # LRU
+        # Initialize the doubly linked list
+        self.head.next, self.tail.prev = self.tail, self.head
+
+    '''
+        Add node to head as the new node becomes MRU
+    '''
+    def _add(self, node):
+        prev, next = self.head, self.head.next
+
+        # Connect new node to the old
+        node.prev = prev
+        node.next = next
+
+        # Connect old nodes to the new node
+        next.prev = node
+        prev.next = node
+        
+        self.cache[node.key] = node
+    
+    ''' 
+        Remove an existing node from anywhere in the doubly linked list
+    '''
+    def _remove(self, node):
+        prev, next = node.prev, node.next
+        prev.next = next
+        next.prev = prev
+        
+        del self.cache[node.key]
+
+    '''
+        Removes the LRU node
+    '''
+    def _evict(self):
+        lruNode = self.tail.prev
+        self._remove(lruNode)
+
+    '''
+        Get the node's value based on key and ensure that it is now the MRU
+    '''
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        
+        node = self.cache[key]
+        # Turn the found node into MRU
+        self._remove(node)
+        self._add(node)
+
+        return node.val
+        
+
+    '''
+        If key exists: Update the value of the node then make it MRU
+        If key does not exist: Place new node in the doubly linked list 
+    '''
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            node = self.cache[key]
+            node.val = value
+            self._remove(node)
+            self._add(node)
+        else:
+            # Capacity reached, evict the LRU then add the new node
+            if len(self.cache) >= self.cap:
+                self._evict()
+            
+            node = Node(key, value)
+            self._add(node)
+
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
