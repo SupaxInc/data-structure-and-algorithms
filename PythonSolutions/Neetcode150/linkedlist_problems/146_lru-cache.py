@@ -74,7 +74,7 @@ class Node:
 
 class LRUCache:
 
-    def __init__(self, capacity: int):
+    def __init__(self, capacity: int) -> None:
         self.cap = capacity
         self.cache = {}
 
@@ -83,10 +83,8 @@ class LRUCache:
         # Initialize the doubly linked list
         self.head.next, self.tail.prev = self.tail, self.head
 
-    '''
-        Add node to head as the new node becomes MRU
-    '''
-    def _add(self, node):
+    def _add(self, node: Node):
+        """Add node to head as the new node becomes MRU"""
         prev, next = self.head, self.head.next
 
         # Connect new node to the old
@@ -99,27 +97,21 @@ class LRUCache:
         
         self.cache[node.key] = node
     
-    ''' 
-        Remove an existing node from anywhere in the doubly linked list
-    '''
-    def _remove(self, node):
+    def _remove(self, node: Node) -> None:
+        """Remove an existing node from anywhere in the doubly linked list"""
         prev, next = node.prev, node.next
         prev.next = next
         next.prev = prev
         
         del self.cache[node.key]
 
-    '''
-        Removes the LRU node
-    '''
-    def _evict(self):
+    def _evict(self) -> None:
+        """Removes the LRU node"""
         lruNode = self.tail.prev
         self._remove(lruNode)
 
-    '''
-        Get the node's value based on key and ensure that it is now the MRU
-    '''
     def get(self, key: int) -> int:
+        """Get the node's value based on key and ensure that it is now the MRU."""
         if key not in self.cache:
             return -1
         
@@ -130,12 +122,11 @@ class LRUCache:
 
         return node.val
         
-
-    '''
-        If key exists: Update the value of the node then make it MRU
-        If key does not exist: Place new node in the doubly linked list 
-    '''
     def put(self, key: int, value: int) -> None:
+        """
+        If key exists: Update the value of the node then make it MRU.
+        If key doesn't exist: Place new node in the doubly linked list.
+        """
         if key in self.cache:
             node = self.cache[key]
             node.val = value
