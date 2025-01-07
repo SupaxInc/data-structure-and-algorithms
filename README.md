@@ -1501,21 +1501,38 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Optimized Approach:** Use a min heap
     
-    - Time Complexity: O(n log k)
-    - Space Complexity: O(n)
+    - Time Complexity: O(n log k), where k is number of linked lists and N is total number of nodes across entire list
+    - Space Complexity: O(k)
     
-    **Optimized Approach:** Use pair wise merging
+    **Optimized Approach:** Use pair wise merging **(more intuitive)**
     
     - Time Complexity: O(n log k), where k is the lists and n is total nodes across all lists
-    - Space Complexity: O(n)
+    - Space Complexity: O(k)
     
-    **Solution:** Heapify the first values of K linked lists into a tuple, pop the heap and add it to a merged list until the heap is empty.
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/579d126a-f6e3-4ac4-96b0-0561bfdadabc/Untitled.png)
+    
+    **Solution:** Heapify the first values of K linked lists into a tuple, pop the heap and add it to a merged list until the heap is empty. **Min Heap,** is the ffaster approach.
     
     **Unique uses:**
     
     - Pushes a tuple to a min heap, the tuple needs a second element to iterate to in the case that the first element (node value) contains duplicate elements in the heap already.
         - Heaps usually sort by first element unless there’s a duplicate
         - So we need to use an index so that the heap can use a unique ID to sort with next in the case of a duplicate
+    - Uses pairwise combinatorics
+        - Pairwise Definition:
+            
+            In mathematics, "pairwise" means relating to or occurring between pairs of items. It is a fundamental concept in combinatorics.
+            
+            Simple mathematical example:
+            
+            - Given set S = {1, 2, 3}
+            - Pairwise comparisons would be: (1,2), (1,3), (2,3)
+            
+            The term is commonly used in phrases like:
+            
+            - "pairwise disjoint" (no two items overlap)
+            - "pairwise distinct" (no two items are equal)
+            - "pairwise operations" (operations performed on two elements at a time)
 
 ## 25 - Reverse Nodes in K-group
 
