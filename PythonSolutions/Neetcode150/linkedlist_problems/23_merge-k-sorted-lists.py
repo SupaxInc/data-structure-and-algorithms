@@ -43,37 +43,43 @@ class MinHeapSolution:
 
 
 class PairWiseSolution:
-    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists or len(lists) == 0:
             return None
 
-        # Iterate until all lists have been merged
+        # Continue merging until all pairs of lists are combined
         while len(lists) > 1:
             mergedLists = []
-            # Iterate for every pair of lists
+
+            # Combine 2 pairs each time by skipping 2 indices
             for i in range(0, len(lists), 2):
                 l1 = lists[i]
-                # Grab second list if it exists, else it is marked as None
+                # Check if a second list exists and its not out of bounds
                 l2 = lists[i + 1] if (i + 1) < len(lists) else None
-                mergedLists.append(self.mergeList(l1, l2))
+                mergedLists.append(self.mergeLists(l1, l2))
+
+            # Replace the lists to the merged lists
             lists = mergedLists
         
         # Return the only list which is the full merged list
         return lists[0]
-
-    # Merging two sorted lists
-    def mergeList(self, l1, l2):
-        tail = dummy = ListNode()
+            
+        
+    
+    def mergeLists(self, l1, l2):
+        """Sort two lists and merge them"""
+        current = dummy = ListNode()
 
         while l1 and l2:
-            if l1.val < l2.val:
-                tail.next = l1
-                l1 = l1.next
-            else:
-                tail.next = l2
+            if l1.val > l2.val:
+                current.next = l2
                 l2 = l2.next
-            tail = tail.next
+            else:
+                current.next = l1
+                l1 = l1.next
+            
+            current = current.next
         
-        tail.next = l1 or l2
+        current.next = l1 or l2
 
         return dummy.next
