@@ -44,7 +44,7 @@ class MinHeapSolution:
 
 class PairWiseSolution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not lists or len(lists) == 0:
+        if not lists:
             return None
 
         # Continue merging until all pairs of lists are combined
