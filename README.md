@@ -1536,7 +1536,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 25 - Reverse Nodes in K-group
 
-**Intuition:** Reverse nodes in a singly linked list in groups of k, meaning you should reverse the first k nodes, then the next k nodes, and so on, with any remaining nodes at the end that don't make up a full group left as they are.
+**Intuition:** Reverse nodes in a singly linked list in groups of k, meaning you should reverse the first k nodes, then the next k nodes, and so on, with any remaining nodes at the end that don't make up a full group left as they are. (remember it is **k at a time** meaning its not just first k but **every k**)
 
 - Solutions
     
@@ -1548,6 +1548,77 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Check for ‘k’ group length, reversing the group, and then reconnecting the reversed group with the rest of the list, using a dummy node for simplified edge handling.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/88c75354-a71f-4611-a851-565b1c77bbc2/Untitled.png)
+    
+    **The solution has 4 steps:**
+    
+    Step 1) Check if we have enough k nodes left to reverse
+    
+    Step 2) Setup the pointer to be ready for reversal
+    
+    Step 3) Reverse the current group
+    
+    Step 4) Connect the reversed group to the new group
+    
+    **Visualization:**
+    
+    ```markdown
+    Initial List:
+    dummy -> [1] -> [2] -> [3] -> [4] -> [5] -> [6]
+      ^
+      |
+    groupPrev
+    
+    STEP 1: Check if we have k nodes left (using getKth)
+    dummy -> [1] -> [2] -> [3] -> [4] -> [5] -> [6]
+      ^                    ^      ^
+      |                    |      |
+    groupPrev             kth   groupNext
+    
+    STEP 2: Set up pointers for reversal
+    dummy -> [1] -> [2] -> [3] -> [4] -> [5] -> [6]
+      ^      ^                    ^
+      |      |                    |
+    groupPrev curr              prev
+             (groupPrev.next)   (groupNext)
+    
+    STEP 3: Reverse the group (showing each iteration)
+    Iteration 1:
+    dummy -> [1] ────┐
+      ^      │       ↓
+      |      └-> [2] -> [3] -> [4] -> [5] -> [6]
+    groupPrev
+    
+    Iteration 2:
+    dummy -> [1] <── [2] ────┐
+      ^                      ↓
+      |                [3] -> [4] -> [5] -> [6]
+    groupPrev
+    
+    Iteration 3:
+    dummy -> [1] <── [2] <── [3] -> [4] -> [5] -> [6]
+      ^                             ^
+      |                             |
+    groupPrev                    groupNext
+    
+    STEP 4: Connect with rest of the list
+    Before connections:
+    dummy       [1] <── [2] <── [3]    [4] -> [5] -> [6]
+      ^          ^                ^      ^
+      |          |                |      |
+    groupPrev  oldGroupStart    prev   groupNext
+    
+    After connections:
+    dummy -> [3] -> [2] -> [1] -> [4] -> [5] -> [6]
+                            ^
+                            |
+                        groupPrev (for next iteration)
+    
+    Next Iteration Starts:
+    dummy -> [3] -> [2] -> [1] -> [4] -> [5] -> [6]
+                            ^
+                            |
+                        groupPrev (ready to process next group)
+    ```
     
 
 # Binary Tree
