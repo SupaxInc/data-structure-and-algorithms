@@ -161,34 +161,222 @@ def postorderTraversal(root):
 
 ## Iteratively
 
-### Level Order
+### **Standard BFS**
+
+**Use Case**: When you need to process all nodes in level-by-level order, like finding the first occurrence of a value.
 
 ```python
-def levelOrderTraversal(root):
+def bfs_standard(root):
     if not root:
         return []
     
     result = []
-    queue = deque([root])  # Initialize queue with root node
+    queue = deque([root])
     
     while queue:
-        level_size = len(queue)  # Number of nodes at the current level
-        current_level = []  # List to store nodes of the current level
+        node = queue.popleft()
+        result.append(node.val)
+        
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+            
+    return result
+```
+
+**Real-world example**: Finding the shortest path to a target node or searching for a specific value in a file system tree.
+
+---
+
+### **Level Order Traversal**
+
+**Use Case**: When you need to process nodes level by level and keep track of which level each node belongs to.
+
+```python
+def level_order_traversal(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level = []
+        level_size = len(queue)  # Important: Capture size before processing level
         
         for _ in range(level_size):
-            node = queue.popleft()  # Remove and return the leftmost node
-            current_level.append(node.val)  # Add the node's value to the current level list
+            node = queue.popleft()
+            level.append(node.val)
             
-            # Add the node's children to the queue for future processing
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+        result.append(level)
+    
+    return result
+```
+
+**Real-world example**:
+
+- Visualizing an organizational hierarchy
+- Printing a family tree generation by generation
+- UI rendering of nested components
+
+---
+
+### **Zigzag Level Order**
+
+**Use Case**: When you need to process levels in alternating directions (left-to-right, then right-to-left).
+
+```python
+def zigzag_level_order(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    left_to_right = True
+    
+    while queue:
+        level = []
+        level_size = len(queue)
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            level.append(node.val)
+            
             if node.left:
                 queue.append(node.left)
             if node.right:
                 queue.append(node.right)
         
-        result.append(current_level)  # Add the current level list to the result list
+        if not left_to_right:
+            level.reverse()
+            
+        result.append(level)
+        left_to_right = not left_to_right
     
     return result
 ```
+
+**Real-world example**:
+
+- Printing data in a snake-like pattern
+- Efficient scanning of 2D structures
+
+---
+
+## **Bottom-Up Level Order**
+
+**Use Case**: When you need to process levels from bottom to top.
+
+```python
+def level_order_bottom(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level = []
+        level_size = len(queue)
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            level.append(node.val)
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+        result.insert(0, level)  # Key difference: insert at beginning
+    
+    return result
+```
+
+**Real-world example**:
+
+- Displaying hierarchical data from most specific to most general
+- Showing file system paths from deepest to root
+
+---
+
+### **Right Side View**
+
+**Use Case**: When you need to see what's visible from the right side of the tree.
+
+```python
+def right_side_view(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level_size = len(queue)
+        
+        for i in range(level_size):
+            node = queue.popleft()
+            
+            # Only take rightmost node of each level
+            if i == level_size - 1:
+                result.append(node.val)
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+    return result
+```
+
+**Real-world example**:
+
+- Visualizing profile views of hierarchical structures
+- Finding boundary nodes in a network
+
+---
+
+### **Level Average**
+
+**Use Case**: When you need to compute averages at each level.
+
+```python
+def level_average(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level_sum = 0
+        level_size = len(queue)
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            level_sum += node.val
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+        result.append(level_sum / level_size)
+    
+    return result
+```
+
+**Real-world example**:
+
+- Computing average salary per level in an organization
+- Finding average response time at each network hop
 
 # Different Facts about the Traversals
 
