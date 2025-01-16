@@ -1557,7 +1557,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     Step 3) Reverse the current group
     
-    Step 4) Connect the reversed group to the new group
+    Step 4) Connect prev group to the new reversed group and prep for possible next kth group
     
     **Visualization:**
     
@@ -1574,38 +1574,54 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
       |                    |      |
     groupPrev             kth   groupNext
     
-    STEP 2: Set up pointers for reversal
+    STEP 2: Set up pointers
     dummy -> [1] -> [2] -> [3] -> [4] -> [5] -> [6]
       ^      ^                    ^
       |      |                    |
-    groupPrev curr              prev
+    groupPrev curr               prev
              (groupPrev.next)   (groupNext)
     
     STEP 3: Reverse the group (showing each iteration)
+    
     Iteration 1:
-    dummy -> [1] ────┐
-      ^      │       ↓
-      |      └-> [2] -> [3] -> [4] -> [5] -> [6]
+    # temp = curr.next ([2])
+    # curr.next = prev ([4])
+    # prev = curr ([1])
+    # curr = temp ([2])
+    
+    dummy -> [1] ----------------> [4] -> [5] -> [6]
+      ^            [2] -> [3]
+      |
     groupPrev
     
     Iteration 2:
-    dummy -> [1] <── [2] ────┐
-      ^                      ↓
-      |                [3] -> [4] -> [5] -> [6]
-    groupPrev
+    # temp = curr.next ([3])
+    # curr.next = prev ([1])
+    # prev = curr ([2])
+    # curr = temp ([3])
+    
+    dummy -> [1] ----------------> [4] -> [5] -> [6]
+      ^       ↑
+      |       |
+    groupPrev [2] -> [3]
     
     Iteration 3:
-    dummy -> [1] <── [2] <── [3] -> [4] -> [5] -> [6]
-      ^                             ^
-      |                             |
-    groupPrev                    groupNext
+    # temp = curr.next ([4])
+    # curr.next = prev ([2])
+    # prev = curr ([3])
+    # curr = temp ([4])
+    
+    dummy -> [1] ----------------> [4] -> [5] -> [6]
+      ^       ↑
+      |       |
+    groupPrev [2] <-- [3]
     
     STEP 4: Connect with rest of the list
-    Before connections:
-    dummy       [1] <── [2] <── [3]    [4] -> [5] -> [6]
-      ^          ^                ^      ^
-      |          |                |      |
-    groupPrev  oldGroupStart    prev   groupNext
+    Before final connections:
+    dummy       [3] -> [2] -> [1] -> [4] -> [5] -> [6]
+      ^          ^           ^
+      |          |           |
+    groupPrev    prev    oldGroupStart
     
     After connections:
     dummy -> [3] -> [2] -> [1] -> [4] -> [5] -> [6]
@@ -1613,11 +1629,11 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
                             |
                         groupPrev (for next iteration)
     
-    Next Iteration Starts:
+    Ready for next group:
     dummy -> [3] -> [2] -> [1] -> [4] -> [5] -> [6]
-                            ^
-                            |
-                        groupPrev (ready to process next group)
+                            ^      ^      ^      ^
+                            |      |      |      |
+                        groupPrev curr   kth   groupNext
     ```
     
 
