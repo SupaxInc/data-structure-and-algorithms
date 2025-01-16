@@ -5,39 +5,42 @@
 #         self.next = next
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = ListNode(0, head) # Dummy node that points to head of list
-
-        # prev is a pointer to the LAST node of the previous block of reversed k node groups.
-        prev = dummy
+        dummy = ListNode(0, head)
+        groupPrev = dummy # Get the initial group node (this would be the tail of the group during iteration)
 
         while True:
-            # tail is used to traverse to the tail of the current k node groups
-            tail = prev 
-
-            ## Check if there are atleast 'k' nodes in the group
-            for _ in range(k):
-                tail = tail.next
-                if not tail:
-                    return dummy.next # Return the head of the current modified list
+            # Step 1: Check if there are Kth nodes left to reverse
+            kthNode = self.getKth(groupPrev, k)
+            if not kthNode:
+                break
             
-            # nex is the head of the next group of k nodes
-            nex = tail.next
+            # Step 2: Grab pointers to setup for reversal
+            groupNext = kthNode.next # Node of the next group
+            curr = groupPrev.next    # Current node of the current group
+            prev = groupNext         # First node of the next group
 
-            # cur is the head of the group of k nodes we just traversed with the tail
-            cur = prev.next # this is where we need to begin reversing
-            # pre is what will be used as the new 'next' for cur when we are reversing
-                # instead of pointing it to a null like in normal reverse linked lists without k groups
-                # we need to point it to the head of next group of k nodes (nex)
-            pre = nex 
-
-            ## Begin reversing the group of k nodes starting from cur
+            # Step 3: Reverse k amount of current group
             for _ in range(k):
-                temp = cur.next # Temporarily store the next node so we can reverse it and still have reference
-                cur.next = pre  # Reverse the cur nodes pointer
-                pre = cur       # Move pre to the cur node as that will be used to be the new 'next'
-                cur = temp      # Proceed to next node in the list for next iteration
+                nextTemp = curr.next 
+                curr.next = prev
+                prev = curr
+                curr = nextTemp
+            
+            # At this point:
+                # - current group is only connected to head of next group at the tail (first reversed node)
+                # - prev node is at the end of the current group
 
-            ## Connect the tail of the previous reversed group to the start of the just reversed group
-            temp = prev.next # Head of the current group before reversal
-            prev.next = pre  # Connect head of current group to the head of the just reversed group
-            prev = temp      # Prev is now set as the tail of the just reversed group, ready for next iteration
+            # Step 4: Connect prev group to the new reversed group and prep for possible next kth group
+            oldGroupStart = groupPrev.next # Save reference of start of current group (non-reversed)
+                                           # Remember start of non-reversed group is now the TAIL of reversed group
+            groupPrev.next = prev          # Connect tail of previous group to tail of new reversed group
+            groupPrev = oldGroupStart      # Prep the new tail of the current group to be used as prev group node
+
+        return dummy.next
+    
+    def getKth(self, curr, k):
+        while curr and k > 0:
+            curr = curr.next
+            k -= 1
+        
+        return curr
