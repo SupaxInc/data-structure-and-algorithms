@@ -16,8 +16,23 @@ class Solution:
             
             left = dfs(node.left)
             right = dfs(node.right)
-            # When the stack pops for each left and right sub tree
-            # We can add the max depth of both sub trees to get the max diameter
+
+            # The diameter of a binary tree is the longest path between any two nodes
+            # This path does NOT need to pass through the root
+            
+            # For each node, we calculate two things:
+            # 1. Diameter: left + right
+            #    - This is the path going through the current node
+            #    - We don't add +1 here because we're counting EDGES not NODES
+            #    - Example: For path 4->2->5, diameter = 2 edges, not 3 nodes
+            #
+            # 2. Height: 1 + max(left, right) 
+            #    - This is returned to parent nodes for their calculations
+            #    - We add +1 here because we're counting the edge to the current node
+            #    - Example: At node 2 with children 4,5: height = 1 + max(1,1) = 2 edges
+            
+            # We use postorder traversal to ensure we have both heights
+            # before calculating diameter at each node
             maxDiameter = max(maxDiameter, left + right) 
 
             # Return the max depth of the current subtree including current root level
