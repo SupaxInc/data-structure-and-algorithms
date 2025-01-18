@@ -12,10 +12,9 @@ class Solution:
             
             left = dfs(node.left)
             # Once an imbalance is detected no further work is necessary
-            # Propogate up the call stack to return -1
+            # Propagate up the call stack to return -1
             if left == -1: return -1
             right = dfs(node.right)
-            # Propogate up the call stack to return -1
             if right == -1: return -1
         
             # Detect if there an imbalance of levels between left and right subtree
