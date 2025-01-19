@@ -9,16 +9,16 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         curr = root
         while curr:
-            # If both nodes are greater than the current root node then move to the right
-            # We need to find a DEEPER common ancestor
+            # Find a deeper ancestor on the right since the LCA can be found in deeper subtrees 
             if p.val > curr.val and q.val > curr.val:
                 curr = curr.right
-            # Vice-versa
+            # Find a deeper ancestor on the left
             elif p.val < curr.val and q.val < curr.val:
                 curr = curr.left
             else:
-                # Return the node we are on when:
-                # 1) The nodes could be in split in different subtrees, so can't find deeper common ancestors
-                # 2) The curr node can equal the same as one of the nodes
-                    # A node can be its own descendant, so it would be the LCA
+                # 1: Could mean p, q nodes are on diff subtrees so we can't go deeper thus making current node the ancestor
+                # 2: Could mean the values equal to the current value so the deepest ancestor is current node we are on
+                    # The LCA could be a descendant of itself. 
                 return curr
+        
+        return None
