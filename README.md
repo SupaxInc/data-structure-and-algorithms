@@ -1750,6 +1750,40 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 **Intuition:** When looking at a BST from its root downwards, the lowest common ancestor between two nodes is the lowest node in the tree that has both nodes as descendants in its subtree.
 
+- **Example Visualization:**
+    
+    ```python
+    '''
+    Let's look at this BST:
+    
+                    6
+                  /   \
+                2       8
+               / \     / \
+              0   4   7   9
+                 / \
+                3   5
+    
+    Example 1: Finding LCA of nodes 2 and 8
+    - LCA is 6 (root) because it's the first node that has 2 in left subtree 
+      and 8 in right subtree
+    
+    Example 2: Finding LCA of nodes 2 and 4
+    - LCA is 2 because it's the first node that has both 2 (itself) 
+      and 4 in its subtree
+    
+    Example 3: Finding LCA of nodes 7 and 9
+    - LCA is 8 because it's the first node that has 7 in left subtree 
+      and 9 in right subtree
+    
+    Key Intuition:
+    - Start from root
+    - If both nodes are greater than current node, go right
+    - If both nodes are less than current node, go left
+    - If nodes are split (one <= current, one > current), we found LCA!
+    '''
+    ```
+    
 - Solutions
     
     **Optimized Approach:** Just traverse down the tree iteratively
