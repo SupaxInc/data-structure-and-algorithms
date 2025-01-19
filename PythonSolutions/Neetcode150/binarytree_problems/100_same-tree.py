@@ -6,18 +6,15 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        def dfs(p, q):
-            # When it reaches the end of the subtrees, both should be a None
-            # Since it hasn't hit the False base cases, this means the sub trees are the same
-            if not p and not q:
-                return True
-            # False base cases
-            if not p or not q or p.val != q.val:
-                return False
-            
-            # Traverses all of the left and right leaf nodes
-            # Then propagates the value to the parent node
-            return dfs(p.left, q.left) and dfs(p.right, q.right)
+        # When we reach end of subtrees and both values are None, then no issues were found
+        # Which means the subtree is the same
+        if not p and not q:
+            return True
         
-        return dfs(p, q)
-            
+        # Fail 1: If a node still is available but other one is not
+        # Fail 2: Values are not the same
+        if not p or not q or p.val != q.val:
+            return False
+        
+        # If both left and right subtrees are True then the tree is the same
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
