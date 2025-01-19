@@ -6,32 +6,29 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        # If the sub root is empty it means that its true b/c you can get an empty subtree of root
+        # Base case 1: If subroot is None then we can always find that subroot in any root
         if not subRoot:
             return True
-        # First run: Empty root means we can't compare it with an existing subroot so theres no subtree of root
-        # Recursive run: Propagate the False value when we couldn't find a subroot for root
+
+        # Base case 2: If we ended up traversing to a None root, then that means we couldn't find the subRoot
         if not root:
             return False
-
-        # Compare root and subRoot every traversal of root, allows us to use the same subRoot all the time
+        
+        # Each recursion, check if a root equals the subRoot
         if self.isSameTree(root, subRoot):
             return True
         
-        # Checks to see if the subroot exists in the left or right sub trees
-        # Continuously traverses through all the root nodes
+        # Check if either the right or left subtree contains the subroot
         return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
         
-    
-    def isSameTree(self, node, subNode):
-        # When we reach the end of the traversal (we're at leaf nodes) that means we had no issue comparing with subRoot
-        if not node and not subNode:
+    def isSameTree(self, p, q):
+        # If we traversed to both subtrees as empty then that means the tree is the same
+        if not p and not q:
             return True
-        # Continously compare the root and subroot when the values and nodes are the same
-        if node and subNode and node.val == subNode.val:
-            return self.isSameTree(node.left, subNode.left) and self.isSameTree(node.right, subNode.right)
         
-        # Propogate False value when the sub root compared with root is not the same tree
-        return False
-            
-            
+        # Fail 1: If a node still is available but other one is not
+        # Fail 2: Values are not the same
+        if not p or not q or p.val != q.val:
+            return False
+        
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
