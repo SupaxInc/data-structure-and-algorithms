@@ -7,18 +7,18 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         def validate(node, low=float("-Inf"), high=float("Inf")):
-            # True if we hit a null value since we didn't find any issues with range
+            # Base case 1: No more nodes to traverse to, therefore, no issues finding ranges
             if not node:
                 return True
             
-            # Check if current node is within correct range
+            # Base case 2: Check if current node value is in the correct range
             if not (low < node.val < high):
                 return False
             
-            # The highest and lowest values changes as we move left or right so we need a way to keep track of it
-            # Going left -> change high value as the current node value
-                # Allows us to compare the next nodes range with the newest highest value
-            # Going right -> change low value as the current node value
+            # Going left -> Pass current node value as new high
+                # Since all values to the left of the node should be lower than the ancestor (current node)
+            # Going right -> Pass current node value as new low
+                # Since all values to the right of the node should be higher than the ancestor (current node)
             return validate(node.left, low, node.val) and validate(node.right, node.val, high)
         
         return validate(root)
