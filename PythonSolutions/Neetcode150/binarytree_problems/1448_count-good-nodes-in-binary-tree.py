@@ -7,7 +7,7 @@ class Solution:
             
             count = 0  # Initialize count of good nodes seen so far to 0.
             
-            # Check if the current node is a "good" node. A node is considered "good"
+            # Check if the current node is a "good" node if its value is greater than or equal to the current max in path
             if node.val >= maxInPath:
                 count += 1
 
@@ -15,14 +15,13 @@ class Solution:
             # we carry forward the maximum value seen along this particular path.
             maxInPath = max(node.val, maxInPath)
             
-            # Recursively call dfs for the left and right children, passing the updated maxInPath.
             # Accumulate the count of good nodes from both subtrees and add them to the current count.
             count += dfs(node.left, maxInPath)
             count += dfs(node.right, maxInPath)
 
             # Return the total count of good nodes found in the subtree rooted at this node.
-            # This will propogate the accumulated count for both left and right subtrees
-            # Even though count is initialized back to 0, it is accumulated as it propogates the value
+            # This will propagate the accumulated count for both left and right subtrees
+            # Even though count is initialized back to 0, it is accumulated as it propagates the value
             return count
         
         # Start the DFS traversal from the root, with the root's value as the initial maximum value seen on the path.
