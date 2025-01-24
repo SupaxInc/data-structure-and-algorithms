@@ -385,6 +385,8 @@ def level_average(root):
 - **First Value**: The first value in a preorder traversal is always the root of the tree.
 - **Root-Subtree Relationship**: Preorder traversal provides a straightforward way to understand the root-subtree relationships in the tree. The order reflects how subtrees are encountered relative to each root node.
 - **Reconstruction**: Given a preorder traversal along with one of the other traversals (inorder or postorder), it's possible to uniquely reconstruct the binary tree.
+- The preorder traversal has a different way of propagating values up.
+    - You can see this as an example in Leetcode 1448
 
 ## **Inorder Traversal (Left, Node, Right)**
 
