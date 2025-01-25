@@ -6,22 +6,37 @@
 #         self.right = right
 class RecursiveSolution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        count = 0
-        result = None
+        # Keep track of count
+        # We can't pass it in the parameters since the count will be recursively called during in-order
+        self.count = 0 
+
         def inorder(node):
-            nonlocal count, result
+            # Base case 1: Hit the end leaf node
             if not node:
-                return
+                return None
             
-            inorder(node.left)
-            count += 1
-            if count == k:
-                result = node.val
-                return
-            inorder(node.right)
+            # Receives either None or the value of kth smallest element
+            leftVal = inorder(node.left)
+            # Propagate value up if value was found
+            if leftVal is not None:
+                return leftVal
+            
+            self.count += 1
+            if self.count == k:
+                return node.val
+            
+            rightVal = inorder(node.right)
+            if rightVal is not None:
+                return rightVal
+            
+            # Return a None if kth smallest element was found
+            return None
         
-        inorder(root)
-        return result
+        return inorder(root)
+            
+
+            
+
     
 # Definition for a binary tree node.
 # class TreeNode:
