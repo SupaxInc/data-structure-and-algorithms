@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+class NonOptimizedSolution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         # Base case: If one of the arrays are empty then we are at the end of the leaf nodes
         if not preorder or not inorder:
@@ -37,33 +37,34 @@ class Solution:
 #         self.right = right
 class OptimizedSolution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        # Build a hashmap to store value -> its index mappings for quick look-up
-        inorder_index_map = {val: idx for idx, val in enumerate(inorder)}
-        preorder_index = 0
+        inorderIdxMap = { val: idx for idx, val in enumerate(inorder) }
+        self.preorderIndex = 0
+
+        # Left idx and right idx is the range of the inorder array index
+        def createTree(leftIdx, rightIdx):
+            # Base case: When left slice gets bigger than right slice of inorder then were at end of leaf node
+            if leftIdx > rightIdx:
+                return None
+
+            # Root node is first value in preorder
+            rootVal = preorder[self.preorderIndex]
+            rootNode = TreeNode(rootVal)
+
+            # Increase preorder index used for next function call
+            self.preorderIndex += 1
+
+            # Find mid index in inorder to delinneate between left and right subtrees
+            mid = inorderIdxMap[rootVal]
+
+            # Build the left and right subtrees using inorder splicing
+
+            # Slice left side of mid index for left subtree
+            rootNode.left = createTree(leftIdx, mid - 1)
+
+            # Slice right side of mid index for right subtree
+            rootNode.right = createTree(mid + 1, rightIdx)
+
+            return rootNode
         
-        # Left and right is the range of the inorder array index
-            # We are essentially slicing the inorder array
-            # Inorder is what we really need to to know which nodes are on the left or right
-        def arrayToTree(left, right):
-            nonlocal preorder_index
-            # When we end up going pass the range, then we reached end of tree
-            if left > right: return None
-            
-            # Select the preorder_index element as the root and increment it
-            root_val = preorder[preorder_index]
-            root = TreeNode(root_val)
-            
-            # Increment preorder index since we just need the next index as root for next recurse
-            preorder_index += 1
-            
-            # Slice the inorder array from current left to new right
-                # Grabbing just the left side of the inorder array
-            root.left = arrayToTree(left, inorder_index_map[root_val] - 1)
-            # Slice the inorder array from new left to current right
-                # Grabs just the right side of the inorder array
-            root.right = arrayToTree(inorder_index_map[root_val] + 1, right)
-            
-            return root
-        
-        return arrayToTree(0, len(inorder) - 1)
+        return createTree(0, len(inorder) - 1)
         
