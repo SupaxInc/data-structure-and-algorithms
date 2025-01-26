@@ -4,32 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class NotOptimizedSolution:
+class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        # If one of the arrays are empty then we have hit the end of the tree
+        # Base case: If one of the arrays are empty then we are at the end of the leaf nodes
         if not preorder or not inorder:
             return None
-        
-        # Grab the root node, 1st value in preorder array
-        rootVal = preorder[0]
-        root = TreeNode(rootVal)
 
-        # Find the mid index of inorder
-        # Left side of inorder gives us left sub tree
-        # Right side gives us right sub tree
+        # Root node is first value in preorder
+        rootVal = preorder[0]
+        rootNode = TreeNode(rootVal) # Create the root node so it can be rebuilt with subtrees
+
+        # Find where the root node is in inorder to know where the left and right subtrees are
         mid = inorder.index(rootVal)
 
-        # Create the left sub tree
-        # Preorder: Grab the next root node for left sub tree, "mid+1" is needed as the end is exclusive in lists
-            # It'll use the mid index from inorder to slice 
-        # Inorder: Get the nodes that will be all on the left of mid number
-        root.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
-        # Create the right sub tree
-        # Preorder: Grab the next root node for right sub tree, which are just all nodes to the right
-        # Inorder: Get the nodes that will be all on the right of mid number
-        root.right = self.buildTree(preorder[mid+1:], inorder[mid+1:])
+        # Since we now know where the left and right subtrees are we can build them out
 
-        return root
+        # Preorder: Grab the next root node for left sub tree, "mid+1" is needed as the end is exclusive in lists
+        # Inorder: Get the nodes that will be all on the left of mid number
+        rootNode.left = self.buildTree(preorder[1:mid+1], inorder[:mid])
+
+        # Preorder: Grab the next root node for right sub tree, which are just all nodes to the right of left root node
+        # Inorder: Get the nodes that will be all on the right of mid number
+        rootNode.right = self.buildTree(preorder[mid+1:], inorder[mid+1:])
+
+        return rootNode
         
 # Definition for a binary tree node.
 # class TreeNode:
