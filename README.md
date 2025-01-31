@@ -1976,7 +1976,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 124 - Binary Tree Maximum Path Sum
 
-**Intuition:** Path must consist of nodes connected by their edges and may start and end at any node in the tree, essentially identifying the highest possible sum of values following any tree path.
+**Intuition:** Path must consist of a straight path and no zig zags/U shape.
 
 - Solutions
     
@@ -1985,7 +1985,11 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Time Complexity: O(n)
     - Space Complexity: O(h)
     
-    **Solution:** Go as deep as possible for the left and right subtrees and calculate a new path that intersects both paths and compare it with current max path sum. Propagate the current node value + only one of the paths that has a higher value since it has to be a straight path.
+    **Solution:** Go as deep as possible for the left and right subtrees and calculate a new path using both left and right paths with current root node. Then compare it with current max path sum. 
+    
+    Propagate the current node value + only one of the paths that has a higher value since it has to be a straight path. 
+    
+    We need to compare the left and right sub trees with a zero to remove any paths with negative values or else it will be included in the path calculations. E.g. A path may have -10 or -5, we will end up keeping -5 which will be included in the calculation. So its better to just remove it and possibly just keep the root node.
     
     **Unique uses:**
     
