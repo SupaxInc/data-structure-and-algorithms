@@ -1980,7 +1980,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 - Solutions
     
-    **Optimized Approach:** Use DFS
+    **Optimized Approach:** Use DFS, post order traversal
     
     - Time Complexity: O(n)
     - Space Complexity: O(h)
