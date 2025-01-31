@@ -6,31 +6,23 @@
 #         self.right = right
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        max_path_sum = float("-inf")
+        self.pathMaxSum = float("-inf")
 
         def dfs(node):
-            nonlocal max_path_sum
             if not node:
                 return 0
             
-            # Calculate the left path and right path as deep as possible
-                # Compare it with a 0 since we only want POSITIVE values
-                # We are essentially pruning paths that are negative
-            left_path = max(dfs(node.left), 0)
-            right_path = max(dfs(node.right), 0)
+            # Comparing with 0 to prune the path with negative values
+                # This prevents us from keeping negative paths after call stack pops
+                # Essentially cutting the path short and possibly keeping only the root node
+            leftPathSum = max(dfs(node.left), 0)
+            rightPathSum = max(dfs(node.right), 0)
 
-            # Calculate the new path by adding the current node value and the paths
-                # So if one path is 0, that means it was negative so we pruned it
-                # We need to add current node since it becomes part of the path when it propogates up the tree
-            new_path_sum = node.val + left_path + right_path
+            self.pathMaxSum = max(node.val + leftPathSum + rightPathSum, self.pathMaxSum)
 
-            # Compare if the new path is the maximum
-            max_path_sum = max(max_path_sum, new_path_sum)
-
-            # Return the current node value plus the max between the two paths and propogate this value to the parent node
-                # We are creating a new path that does not include one of the paths
-                # This is because we can't just go back and forth in a path it has to be a straight path
-            return node.val + max(left_path, right_path)
+            # You can only keep the sum of the left or right sub tree
+            # This helps create a straight path instead of a U path which is not allowed when call stack pops
+            return node.val + max(leftPathSum, rightPathSum)
         
         dfs(root)
-        return max_path_sum
+        return self.pathMaxSum
