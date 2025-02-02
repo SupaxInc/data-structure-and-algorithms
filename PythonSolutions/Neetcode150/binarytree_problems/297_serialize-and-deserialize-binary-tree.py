@@ -13,20 +13,21 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        values = []
 
-        # Preorder traversal as it processes the root node first helps when reconstructing the tree
-        def dfs(root):
-            if not root:
-                values.append("N")
-                return values
+        tree = []
+
+        # Encode the tree as a string using preorder traversal
+        def dfs(node):
+            if not node:
+                tree.append("N")
+                return tree
             
-            values.append(str(root.val))
-            dfs(root.left)
-            dfs(root.right)
-            return values
+            tree.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+
+            return tree
         
-        # Serialize the tree as a string separated with a comma delimiter
         return ','.join(dfs(root))
         
 
@@ -36,25 +37,30 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        # Create an iterable object of an array of each node value
-        values = iter(data.split(','))
-
-        # Use preorder traversal to re-construct the tree
+        
+        # Instead of keeping track of each node in an index and incrementing it
+        # Use an iter instead and we can iterate through the list using next()
+        data = iter(data.split(','))
+        
+        # Preorder traversal to reconstruct the tree
         def dfs():
-            # Iterate through the next item in the iterable object
-            rootVal = next(values)
+            # No need to pass a node as a param in the dfs
+            # Just iterate to the next value (preorder gives us the root nodes in order from left to right)
+            rootVal = next(data)
 
-            # Connect a null if the root val is an N
             if rootVal == "N":
                 return None
             
-            # Create the new root node with the iterated root value
-            rootNode = TreeNode(rootVal)
-            # Create all of the subtrees for the root node
-                # When it hits a null value it'll propogate up
-            rootNode.left = dfs()
-            rootNode.right = dfs()
+            node = TreeNode(rootVal)
+            node.left = dfs()
+            node.right = dfs()
 
-            return rootNode
-        
+            return node
+
         return dfs()
+        
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))
