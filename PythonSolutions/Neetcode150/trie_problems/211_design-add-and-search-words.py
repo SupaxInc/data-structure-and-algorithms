@@ -1,13 +1,13 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.end = False
+        self.isEnd = False
 
 class WordDictionary:
 
     def __init__(self):
-        self.root = TrieNode()    
-
+        self.root = TrieNode()
+        
     def addWord(self, word: str) -> None:
         curr = self.root
 
@@ -18,45 +18,47 @@ class WordDictionary:
                 curr.children[char] = TrieNode()
                 curr = curr.children[char]
         
-        curr.end = True
+        curr.isEnd = True
 
     def search(self, word: str) -> bool:
-        def dfs(j, root):
-            curr = root
+        def dfs(j, node):
+            """
+            Args:
+                index: Current position in the word
+                node: Current TrieNode we're examining
+            """
+            curr = node
 
-            # Similar to backtracking, we will explore the children nodes as deep as possible starting from j
-                # j is the index of the word we are currently on, and it will be used to be able to skip the letter
-                # If we end up passing the length of word when we skip the letter, it checks if the current node is the end of a word
+            # Process the entire length of word that is being searched
+            # This helps us know when to stop searching if we end up at a length too long due to usage of wildcards
             for i in range(j, len(word)):
                 char = word[i]
 
+                # If char is a wild card, use DFS to search all possibilities in the current node
                 if char == ".":
-                    # Go through all children trie nodes
+                    # Go through all children in current node
                     for child in curr.children.values():
-                        # Do a dfs on the next character since were passing all child nodes
-                        # This means we've essentially skipped the "." character
-                        # Example: "d..", on the last . we would be on the last node
-                            # So if the last nodes end property is true, it would return true
-                            # which lets us return True again breaking the DFS, returning True from the function
+                        # Increment the index, essentially skipping the current character
+                        # However, we still need to look if the next character is another wildcard or not
                         if dfs(i+1, child):
+                            # If path was found return True, this breaks the DFS
                             return True
-                        
-                    # If the DFS fails, it means we couldn't find a match for the whole word
+                    
+                    # No path could be found
                     return False
-                else: 
-                    # If the char does not exist, return False so that we can check other children nodes if it contains the letter
+                else:
+                    # If char was not found in children, return False so we can backtrack and check other paths
                     if char not in curr.children:
                         return False
-
-                    # Normal traversal 
-                    curr = curr.children[char]
-
-            # Check if the end of search is an inserted word
-            return curr.end
-        
-        return dfs(0, self.root)
                     
+                    # If char was found, traverse to it
+                    curr = curr.children[char]
             
+            # When the loop ends, either when length breaks or we have searched all possible paths
+            # Check if were at the end of the word
+            return curr.isEnd
+
+        return dfs(0, self.root)
 
 
 # Your WordDictionary object will be instantiated and called as such:
