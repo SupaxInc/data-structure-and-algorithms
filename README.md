@@ -2013,6 +2013,20 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Uses `iter` and `next`
         - `iter`  creates an iterable object from an array (mimics a stream of data)
         - `next`  will iterate to the next item in the iterable object
+        - Example use:
+            
+            ```python
+            # This is essentially what happens when we do:
+            # values = iter(data.split(','))
+            values_list = "1,2,N,N,3,N,N".split(',')  # ['1', '2', 'N', 'N', '3', 'N', 'N']
+            iterator = TreeValuesIterator(values_list)
+            
+            # This is what happens when we call next(values):
+            print(next(iterator))  # '1'
+            print(next(iterator))  # '2'
+            print(next(iterator))  # 'N'
+            ```
+            
 
 # Tries
 

@@ -36,7 +36,7 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        # Create an iterable object of an array of the each node value
+        # Create an iterable object of an array of each node value
         values = iter(data.split(','))
 
         # Use preorder traversal to re-construct the tree
