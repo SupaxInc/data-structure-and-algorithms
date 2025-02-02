@@ -45,7 +45,12 @@ class NotOptimizedTrie:
                 return False
 
         return True
-    
+
+class TrieNode:
+    def __init__(self):
+        self.children = [None] * 26 # Create 26 length for alphabet
+        self.isEndOfWord = False    
+
 class OptimizedTrie:
 
     def __init__(self):
