@@ -2093,7 +2093,18 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Brute Force:** DFS over each word
     
     - Time Complexity: w * mn * 4 ^k
-        - w is the word, mn is size of grid, k is length of longest word
+        - w is the word, mn is size of grid, k is length of longest word, and 4 is because we have 4 choices (up, down, left, right). 
+        Example:
+        
+        ```
+        If we're looking for a word of length 3 starting at 'E':
+                             E
+                    /    |    \    \
+                   B     D     F     H   (4 choices)
+                /|\|\   /|\|\  /|\|\  /|\|\
+               A B C... A B C... (4 choices each)
+        ```
+        
     - Space Complexity: O(h)
     
     **Optimized Approach:** Create a trie and use it to search for multiple words
@@ -2101,7 +2112,21 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Time Complexity: mn * 4 ^ k
     - Space Complexity: O(h)
     
-    **Most Optimized Approach:** Similarly use a trie but remove a word from trie when its been found, prevents from finding it again
+    This approach is inefficient for problems where the word is shown multiple times in the word search:
+    
+    ```
+    board = [
+        ["a", "a", "a"],
+        ["a", "a", "a"],
+        ["a", "a", "a"]
+    ]
+    words = ["aaa"]
+    
+    We will end up searching "aaa" across all directions thus 
+    hitting a worst case time complexity.
+    ```
+    
+    **Most Optimized Approach:** Similarly use a trie but remove a word from trie when its been found, prevents from finding it again similar to the issue shown above.
     
     - Time Complexity: mn * 4 ^ k
     - Space Complexity: O(h)
@@ -3066,7 +3091,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration. Helps adhere to ‘at most k stops’ constraint too.
-        - See example here why we copy: ‣
+        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
         - Or here’s a summary why:
             1. **Initialization**:
                 - `distances = [0, inf, inf]`
@@ -3234,7 +3259,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: ‣ 
+    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     

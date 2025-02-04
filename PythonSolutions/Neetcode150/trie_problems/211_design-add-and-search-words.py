@@ -27,6 +27,7 @@ class WordDictionary:
                 index: Current position in the word
                 node: Current TrieNode we're examining
             """
+            
             curr = node
 
             # Process the entire length of word that is being searched

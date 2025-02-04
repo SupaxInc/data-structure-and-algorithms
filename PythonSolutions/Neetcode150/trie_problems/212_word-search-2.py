@@ -61,7 +61,8 @@ class LessOptimizedSolution:
         self.board[row][col] = char
         path.pop()
 
-# MORE OPTIMIZED SOLUTION
+
+# * MORE OPTIMIZED SOLUTION *
 
 class TrieNode:
     def __init__(self):
