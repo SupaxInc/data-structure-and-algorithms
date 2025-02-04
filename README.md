@@ -2092,6 +2092,20 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Brute Force:** DFS over each word
     
+    - Code Example:
+        
+        ```python
+        # DFS for each word
+        for word in words:
+          for row in range(self.ROWS):
+              for col in range(self.COLS):
+                  if board[row][col] == word[0] and dfs(row, col, word, 0):
+                      found.append(word)
+                      break  # Move to next word once found
+              if word in found:
+                  break
+        ```
+        
     - Time Complexity: w * mn * 4 ^k
         - w is the word, mn is size of grid, k is length of longest word, and 4 is because we have 4 choices (up, down, left, right). 
         Example:
