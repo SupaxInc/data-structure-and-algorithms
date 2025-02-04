@@ -1,12 +1,12 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.end = False
+        self.isEnd = False
 
 class Trie:
     def __init__(self):
         self.root = TrieNode()
-
+    
     def addWord(self, word):
         curr = self.root
 
@@ -16,50 +16,57 @@ class Trie:
 
             curr = curr.children[char]
         
-        curr.end = True
+        curr.isEnd = True
 
-class LessOptimizedSolution:
+class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        self.res = set() # Set to avoid duplicates
         self.board = board
+        self.DIRS = [(0,1), (1, 0), (-1, 0), (0, -1)]
         self.ROWS, self.COLS = len(board), len(board[0])
-        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        self.trie = Trie()
+        self.res = set() # Prevents duplication of answers in result set
 
-        trie = Trie()
-
+        # Add each word to the Trie first so it can be used to search
         for word in words:
-            trie.addWord(word)
-
+            self.trie.addWord(word)
+        
+        # Do a DFS in each cell in the board
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                self.dfs(row, col, trie.root, [])
+                self.dfs(row, col, self.trie.root, [])
         
-        return self.res
+        return list(self.res)
 
     def dfs(self, row, col, node, path):
-        # Base case: Boundary check
-        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0 or self.board[row][col] == "":
+        # Base case 1: Boundary checks
+        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
             return
         
-        char = self.board[row][col]
-        # Prune search: Letter not in current trie path
+        # Base case 2: Visited check
+        if self.board[row][col] == "":
+            return
+        
+        char = self.board[row][col] # Keep track of current character
+        # Check if character is in the Trie, else prune the search and backtrack
         if char not in node.children:
             return
         
-        # Visit
-        self.board[row][col] = ""
+        # Visit the cell if the character exists in the Trie
+        self.board[row][col] = ""  # Visit the cell
+        node = node.children[char] # Traverse the trie to next char node
         path.append(char)
-        node = node.children[char]
-        if node.end:
+        # Add the path to result set if we are at the end
+        if node.isEnd:
             self.res.add("".join(path))
 
-        # Explore
-        for rowDir, colDir in self.DIRS:
-            self.dfs(row+rowDir, col+colDir, node, path)
+        # Traverse to the four other directions to find more matches in current Trie node
+        for dx, dy in self.DIRS:
+            self.dfs(row + dx, col + dy, node, path)
         
-        # Unvisit
+        # Unvisit the cell
         self.board[row][col] = char
         path.pop()
+
 
 
 # * MORE OPTIMIZED SOLUTION *
