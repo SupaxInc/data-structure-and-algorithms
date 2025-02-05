@@ -35,14 +35,18 @@ class CleanerSolution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         maxHeap = []
 
+        # Create a max heap by multiplying each number by -1
         for stone in stones:
             heapq.heappush(maxHeap, stone * -1)
+        
+        while(len(maxHeap) > 1):
+            # Pop the 2 stones
+            x = heapq.heappop(maxHeap) * -1 
+            y = heapq.heappop(maxHeap) * -1
 
-        while len(maxHeap) > 1:
-            firstStone = heapq.heappop(maxHeap) * -1
-            secondStone = heapq.heappop(maxHeap) * -1
-
-            if firstStone != secondStone:
-                heapq.heappush(maxHeap, abs(firstStone-secondStone) * -1)
-
+            # Only calculate if x does not equal y, if they equal each other they have already been popped thus destroyed
+            if x != y:
+                # subtract x - y since x is the larger stone due to being popped first
+                heapq.heappush(maxHeap, (x-y) * -1)
+            
         return maxHeap[0] * -1 if len(maxHeap) > 0 else 0
