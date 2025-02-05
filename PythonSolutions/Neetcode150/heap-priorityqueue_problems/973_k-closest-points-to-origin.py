@@ -1,23 +1,24 @@
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         minHeap = []
-        res = []
-        for x, y in points:
-            # Calculate the Euclidean distance
-                # Square root does not matter since the highest number has a higher sqrt anyways
-                    # Just need to just get the coords with the power of 2 since the origin is just (0, 0), so rest of formula doesn't matter
-                # Create a tuple of the (Euclidean distance calculation, x, y), helps us know what x,y coords were for the distance
-            minHeap.append((x**2 + y**2, x, y))
-        
-        # Heapify will only sort using the first value in a tuple
-            # IF there are duplicates then it uses the next value in the tuple
-        heapq.heapify(minHeap)
 
-        # The one closest to the origin is the smallest value in the heap
-        for _ in range(k):
-            # Destruct the tuple
+        # First calculate the euclidean distance to find which points are closest to origin
+            # The euclidean distance tells us the value that is smallest is closer to the origin
+        for point in points:
+            x = point[0]
+            y = point[1]
+            # For euclidean distance calculation, we need to subtract the points with the origin
+            # Since the origin is 0,0, we don't need to subtract the points to see how far it is since its 0
+            # We just need to square it
+            # E.g. point = [1,3], sqrt((1-0)^2 + (3-0)^2) = sqrt((1) + (9)) = sqrt(10)
+            # NOTE: No need to sqrt since the largest value is always bigger than the smallest value regardless of sqrt
+            heapq.heappush(minHeap, ((x**2)+(y**2), x, y))
+        
+        res = []
+        for i in range(k):
+            # Get the smallest value
+                # When you pop a tuple from heap, it uses the first index in tuple
             val, x, y = heapq.heappop(minHeap)
-            # Append only coordinates
             res.append([x, y])
         
         return res
