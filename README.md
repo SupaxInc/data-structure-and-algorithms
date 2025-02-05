@@ -2207,7 +2207,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     - Creates a max heap work around by multiplying by -1
 
-## 972 - K Closest Points to Origin
+## 973 - K Closest Points to Origin
 
 **Intuition:** Return the top K closest points to the origin on a graph
 
