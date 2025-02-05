@@ -110,6 +110,7 @@ class Trie:
             parent = stack.pop()
 
             # Check if current node we are still on is a leaf node (no children) and is not the end of a word
+                # * This prevents removing a node that contains connections to other words
             if not curr.children and not curr.isEnd:
                 # Begin removal of the current node using the parent
                 del parent.children[char]
