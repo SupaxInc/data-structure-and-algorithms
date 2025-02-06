@@ -15,19 +15,20 @@ class NotOptimizedSolution:
     
 class BetterOptimizedSolution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        # Min heap of size k, helps us return the Kth largest element
-        # since we can get the root of the heap minHeap[0] which is the Kth number
+        # Resize nums array to size k from the beginning
         minHeap = nums[:k]
+        # Heapify to a min heap of size k
+            # Now that we have a heap of size k, the root of the heap [0] is always the Kth largest
         heapq.heapify(minHeap)
 
-        # Start comparing against all nums starting from index k
+        # Go through nums array except for the first Kth elements
         for num in nums[k:]:
+            # If the number is greater than the Kth largest then replace it
             if num > minHeap[0]:
-                # Heap push pop, will push the larger number to heap then pop the smaller number
-                # Helps sort the heap to get the kth largest
+                # Removes the Kth largest and adds the new Kth largest
                 heapq.heappushpop(minHeap, num)
         
-        # Root of min heap will be kth largest element since its of size k
+        # Returns the Kth largest (root of min heap)
         return minHeap[0]
     
 class MyQuickSelectSolution:
