@@ -2,32 +2,39 @@ class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         countLetters = defaultdict(int)
 
-        for c in tasks: # O(26)
-            countLetters[c] -= 1 # Negative so we can turn min heap to max heap
-
-        # Max heap allows us to fill the CPU with the most frequent tasks first
-        # Helps with the least amount of time waiting as we can fill other tasks in between waiting for most frequent to be ready
+        for task in tasks:
+            # Decrement the counts to negatives since we need to create a max heap
+            countLetters[task] -= 1
+        
+        # Max heap to keep track of the most frequent letters
         maxHeap = list(countLetters.values())
         heapq.heapify(maxHeap)
-        
+
+        # Queue to keep track of what task is next to execute
+        queue = deque() # Pairs of [-count, idle time]
         time = 0
-        # We need a queue to know which tasks are ready to be executed again
-        queue = deque() # Pairs of [-count, idleTime]
+
+        # Begin executing the tasks
+            # If the max heap is not empty then there are tasks no longer idle and ready to execute
+            # If the queue is not empty then there are idle tasks cooling down
         while len(maxHeap) > 0 or len(queue) > 0:
             time += 1
 
             if len(maxHeap) > 0:
-                # Grab the most frequent task and decrement it (executes the task)
-                # Add the idle time to check when we can run the task again
-                task = [heapq.heappop(maxHeap)+1, time+n] # O(26 log 26)
-
-                # Add to queue if there are more of the same tasks to execute
+                # Execute the task and prepare to queue it to cool it down for next execution
+                    # Incrementing the task to (remember max heaps are negatives) 
+                    # Add cooldown time to know when its ready again
+                task = [heapq.heappop(maxHeap)+1, time+n]
+            
+                # Add to queue if the SAME task is not yet 0 (still has more to execute)
                 if task[0] < 0:
                     queue.append(task)
-
-            # Push to heap if the next tasks idle time is done and is ready to be executed again
-            if queue and queue[0][1] == time: # O(26 log 26)
-                heapq.heappush(maxHeap, queue.popleft()[0])
+            
+            if queue and len(queue) > 0:
+                # Check if the first task in the queue is ready to be executed again
+                # NOTE: There will never be two tasks ready at once since we only process 1 at a time
+                if queue[0][1] == time:
+                    # Add the task negative increment back to the heap for execution
+                    heapq.heappush(maxHeap, queue.popleft()[0])
         
         return time
-
