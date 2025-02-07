@@ -6,11 +6,11 @@ class Solution:
             # Decrement the counts to negatives since we need to create a max heap
             countLetters[task] -= 1
         
-        # Max heap to keep track of the most frequent letters
+        # Max heap to keep track of the most frequent letters and what is ready to execute
         maxHeap = list(countLetters.values())
         heapq.heapify(maxHeap)
 
-        # Queue to keep track of what task is next to execute
+        # Queue to keep track of what task is next to execute due to cool down
         queue = deque() # Pairs of [-count, idle time]
         time = 0
 
@@ -26,15 +26,14 @@ class Solution:
                     # Add cooldown time to know when its ready again
                 task = [heapq.heappop(maxHeap)+1, time+n]
             
-                # Add to queue if the SAME task is not yet 0 (still has more to execute)
+                # Add to queue if the SAME task's increment is not yet 0 (still has more to execute)
                 if task[0] < 0:
                     queue.append(task)
             
             if queue and len(queue) > 0:
                 # Check if the first task in the queue is ready to be executed again
-                # NOTE: There will never be two tasks ready at once since we only process 1 at a time
                 if queue[0][1] == time:
-                    # Add the task negative increment back to the heap for execution
+                    # Add only the task's negative increment back to the heap for execution in next process
                     heapq.heappush(maxHeap, queue.popleft()[0])
         
         return time
