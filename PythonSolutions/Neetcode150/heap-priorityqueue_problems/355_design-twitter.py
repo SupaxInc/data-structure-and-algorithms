@@ -1,54 +1,60 @@
 class Twitter:
 
     def __init__(self):
-        self.count = 0
-        self.followerMap = defaultdict(set) 
-        self.tweetMap = defaultdict(list) # Pair of [count, tweetId]
+        # Tracks the users following
+        self.followingMap = defaultdict(set)
+        # Tracks each users tweet
+        self.tweetMap = defaultdict(list) # Pairs of [-time, tweetId]
+        # Timestamp
+        self.time = 0
 
-    # Pretend that the user will always exist
     def postTweet(self, userId: int, tweetId: int) -> None:
-        self.tweetMap[userId].append([self.count, tweetId])
-        self.count -= 1 # Decrement since its a max heap
+        self.tweetMap[userId].append([self.time, tweetId])
+
+        # Decerement the time since the time will be used as the first value in the max heap
+            # We are assuming here since posting tweet is synchronous that each posted tweet is an increment of time
+        self.time -= 1
 
     def getNewsFeed(self, userId: int) -> List[int]:
-        maxHeap = []
         res = []
+        maxHeap = []
 
-        # Make user follow themselves so we can see their own recent tweets
-        self.followerMap[userId].add(userId)
+        # A) Make user follow themselves so they can see their own recent tweets
+        self.followingMap[userId].add(userId)
 
-        # Do a first run at grabbing recent tweets for each follower
-        # Gives us the reference to the tweetmap for each user since we have the following id and the last index
-        for followingId in self.followerMap[userId]:
+        # B) Grab the first recent tweet for EACH user that the current user is following
+            # Allows us to know amongst which user being followed has the most recent tweet using a heap
+        for followingId in self.followingMap[userId]:
+            # Check if user has tweets, grab the latest tweet
             if followingId in self.tweetMap:
-                lastIndex = len(self.tweetMap[followingId]) - 1
-                count, tweetId = self.tweetMap[followingId][lastIndex] # Get most recent tweet
-                # Add following id and last index to heap so we can traverse and find next recent tweets later
-                # Decrement last index again to get next recent tweet
-                heapq.heappush(maxHeap, [count, tweetId, followingId, lastIndex - 1])
+                latestTweetIdx = len(self.tweetMap[followingId]) - 1
+                time, tweetId = self.tweetMap[followingId][latestTweetIdx]
+                # Decrement latest tweet idx so we can get the next latest tweet below
+                heapq.heappush(maxHeap, (time, latestTweetIdx - 1, tweetId, followingId))
         
-        # Keep looking for the most recent tweets until result is 10
-        # If max heap is empty that means there was only less than 10 tweets
+        # C) Start adding the most recent tweets to result using the timestamp added to heap
+            # If heap is empty, no more tweets have been found
         while maxHeap and len(res) < 10:
-            # Max heap will give us the most recent tweet first using the count (timestamp)
-            count, tweetId, followingId, lastIndex = heapq.heappop(maxHeap)
-            # Add recent tweet to result
+            time, latestTweetIdx, tweetId, followingId = heapq.heappop(maxHeap)
             res.append(tweetId)
 
-            # Grab next recent tweet for the user id if they have more tweets
-            if lastIndex >= 0:
-                count, tweetId = self.tweetMap[followingId][lastIndex]
-                heapq.heappush(maxHeap, [count, tweetId, followingId, lastIndex - 1])
+            # Check if the user has more tweets left by using the users tweet map list index
+                # If its greater than or equal to 0 then that means there are more in the list
+            if latestTweetIdx >= 0:
+                time, tweetId = self.tweetMap[followingId][latestTweetIdx]
+                # Decrement the index to get the next latest tweet for next iteration
+                heapq.heappush(maxHeap, (time, latestTweetIdx-1, tweetId, followingId))
         
         return res
 
+
     def follow(self, followerId: int, followeeId: int) -> None:
-        self.followerMap[followerId].add(followeeId)
+        self.followingMap[followerId].add(followeeId)
 
     def unfollow(self, followerId: int, followeeId: int) -> None:
-        if followeeId in self.followerMap[followerId]:
-            self.followerMap[followerId].remove(followeeId)
-
+        # First check if the followee is part of the users following list
+        if followeeId in self.followingMap[followerId]:
+            self.followingMap[followerId].remove(followeeId)
 
 # Your Twitter object will be instantiated and called as such:
 # obj = Twitter()
