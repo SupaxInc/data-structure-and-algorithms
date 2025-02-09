@@ -22,7 +22,7 @@ class MedianFinder:
             heapq.heappush(self.largerNumbers, num)
         
         # * B) Balance the heaps if the length difference between them is greater than 1 *
-            # If there is a difference of 1+ then its harder to find the median
+            # If there is a difference of 1+ then we cant find the median
         
         # Add to larger number MIN heap if:
             # The smaller number MAX heap has more numbers than the MIN heap
@@ -33,7 +33,7 @@ class MedianFinder:
 
     def findMedian(self) -> float:
         # * A) Return the middle point as the median *
-            # addNum function handles if there are differences of 2
+            # addNum function handles if there are larger differences of 1, no need to worry about it here
         
         # If there is a difference of 1 then that means the larger length heap has the mid point:
             # Smaller numbers has the difference then return the largest SMALLEST number
