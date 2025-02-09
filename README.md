@@ -2301,7 +2301,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Using a max heap for managing task frequencies and a cooldown queue, ensuring tasks are executed with a minimum interval **`n`**, and calculates the total execution time by dynamically adjusting tasks' availability based on cooldown requirements.
     
-    Use the most frequent task to be processed first and fill in between other tasks to prevent high amount of idle times.
+    Essentially just use the most frequent task to be processed first and fill in between other tasks to prevent high amount of idle times.
     
     **Unique uses:**
     
@@ -2318,10 +2318,28 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Brute Force:**  Compare each recent tweet for every user in a normal loop
     
+    - Time Complexity: O(n*t log n*t) where:
+        - N is number of users being followed
+        - T is number of tweets per user
+    - Space Complexity: O(n)
+    
+    This approach essentially: 
+    
+    - Gets ALL tweets from ALL followed users
+    - Sorts ALL of them
+    - Then takes top 10
+    
     **Optimized Approach:** Just add each recent tweet for every user in a max heap
     
     - Time Complexity: O(K log n), each pop operation is log n and we do it at most 10 times
     - Space Complexity: O(n)
+    
+    This approach essentially: 
+    
+    - Only takes the LATEST tweet from each followed user initially
+    - Uses heap to keep track of the most recent tweets
+    - Only processes more tweets from a user when needed
+    - Stops after finding 10 tweets
     
     **Solution:** Uses a heap to manage the most recent tweets from a user and their followees, allowing efficient retrieval of the top 10 latest tweets for any user's news feed, while also supporting follow and unfollow operations with a follower map.
     
