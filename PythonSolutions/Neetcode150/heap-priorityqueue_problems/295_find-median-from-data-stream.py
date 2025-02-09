@@ -1,38 +1,50 @@
 class MedianFinder:
 
     def __init__(self):
-        self.smallerNums = [] # Max heap
-        self.largerNums = [] # Min heap
+        # Need to get the largest of the smaller numbers
+        self.smallerNumbers = [] # Max heap
+        # Need to get the smallest of the larger numbers
+        self.largerNumbers = [] # Min heap
+
+        # Helps find the median easier by:
+            # Knowing what is the mid number or the two middle numbers 
 
     def addNum(self, num: int) -> None:
-        # Add to smaller nums first
-            # Then begin checking if the current num is smaller than root of max heap (largest num in smaller nums)
-        if len(self.smallerNums) == 0 or num <= (self.smallerNums[0] * -1):
-            heapq.heappush(self.smallerNums, num * -1)
-        # Add to larger numbers if current num is greater than largest num in smaller nums
+        # * A) Add the current numbers to the heaps *
+
+        # Add to smaller number MAX heap if:
+            # The max heap is empty or
+            # The current number is less than or equal to the largest SMALLEST number
+        # Handles both first function call and later calls
+        if len(self.smallerNumbers) == 0 or num <= (self.smallerNumbers[0] * -1):
+            heapq.heappush(self.smallerNumbers, num * -1)
         else:
-            heapq.heappush(self.largerNums, num)
+            heapq.heappush(self.largerNumbers, num)
         
-        # Begin balancing the heap if there are differences of 2
-            # If there is a difference of 2 we cant find the median properly
-        if len(self.smallerNums) - len(self.largerNums) > 1:
-            # Push the largest num in smaller nums (max heap) to larger nums (min heap)
-            heapq.heappush(self.largerNums, heapq.heappop(self.smallerNums) * -1)
-        elif len(self.largerNums) - len(self.smallerNums) > 1:
-            heapq.heappush(self.smallerNums, heapq.heappop(self.largerNums) * -1)
+        # * B) Balance the heaps if the length difference between them is greater than 1 *
+            # If there is a difference of 1+ then its harder to find the median
+        
+        # Add to larger number MIN heap if:
+            # The smaller number MAX heap has more numbers than the MIN heap
+        if (len(self.smallerNumbers) - len(self.largerNumbers)) > 1:
+            heapq.heappush(self.largerNumbers, heapq.heappop(self.smallerNumbers)*-1)
+        elif (len(self.largerNumbers) - len(self.smallerNumbers)) > 1:
+            heapq.heappush(self.smallerNumbers, heapq.heappop(self.largerNumbers)*-1)
 
     def findMedian(self) -> float:
-        # At this point, there could only be a difference of 1 or it equals
-
-        # If there is a difference of 1 return the root of the heap with the larger difference
-        if len(self.smallerNums) > len(self.largerNums):
-            return self.smallerNums[0] * -1
-        elif len(self.largerNums) > len(self.smallerNums):
-            return self.largerNums[0]
+        # * A) Return the middle point as the median *
+            # addNum function handles if there are differences of 2
         
-        # Else, if there are no differences, get the median by getting the average of the largest roots of both heaps
-        return ((self.smallerNums[0] * -1) + self.largerNums[0]) / 2
+        # If there is a difference of 1 then that means the larger length heap has the mid point:
+            # Smaller numbers has the difference then return the largest SMALLEST number
+            # Largest numbers has the difference then return the smallest LARGEST number
+        if len(self.smallerNumbers) > len(self.largerNumbers):
+            return self.smallerNumbers[0] * -1
+        elif len(self.largerNumbers) > len(self.smallerNumbers):
+            return self.largerNumbers[0]
 
+        # * B) Return the two middle numbers / 2 as the median *
+        return ((self.smallerNumbers[0] * -1) + self.largerNumbers[0]) / 2
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
