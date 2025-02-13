@@ -12,7 +12,7 @@ class Solution:
                 # Include the choice
                 subset.append(nums[i])
 
-                # Recurse, explore the next option deeper
+                # Recurse, explore the next option deeper by increment index, also prevents reusing the same number twice
                 backtrack(i+1)
 
                 # Exclude, backtrack to previous choice

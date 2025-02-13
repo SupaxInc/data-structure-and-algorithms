@@ -16,7 +16,7 @@ class Solution:
                 combinations.append(candidates[i])
 
                 # Recurse, explore the current option deeper
-                    # Continue with the same option UNTIL the path gets pruned or loop ends, allows us to reuse the same number
+                    # Continue with the same last candidate UNTIL the path gets pruned or loop ends, allows us to reuse the same number
                 backtrack(i, remainingToTarget - candidates[i])
 
                 # Exclude the choice, backtrack to remove last added candidate and try other combinations
