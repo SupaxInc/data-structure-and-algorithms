@@ -9,7 +9,6 @@ class Solution:
                 return
             
             if remainingToTarget == 0:
-                # Add the combinations to the result
                 res.append(combinations[:])
             
             for i in range(start, len(candidates)):
@@ -17,10 +16,10 @@ class Solution:
                 combinations.append(candidates[i])
 
                 # Recurse, explore the current option deeper
-                    # Continue with the same option UNTIL the path gets pruned or loop ends
+                    # Continue with the same option UNTIL the path gets pruned or loop ends, allows us to reuse the same number
                 backtrack(i, remainingToTarget - candidates[i])
 
-                # Exclude the choice, bactrack
+                # Exclude the choice, backtrack to remove last added candidate and try other combinations
                 combinations.pop()
             
         backtrack(0, target)
