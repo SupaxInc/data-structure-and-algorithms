@@ -2510,6 +2510,19 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     Base case: Stop when the current index has same length as input set
     First choice (inclusion): Swap current index
     Second choice (exclusion): Undo swap
+    
+    Example of the first left subtree:
+    start = 0: [1|2,3] -> We're deciding what goes in first position
+    start = 1: [1,2|3] -> First position is fixed, deciding second position
+    start = 2: [1,2,3|] -> First two fixed, deciding last position
+    start = 3: [1,2,3] -> All positions filled! (base case hit) back to start=2
+    
+    Example of backtracking after first left subtree:
+     start=2: [1,2,3] -> backtrack, undo 3,3 swap
+     start=1: [1,2,3] -> backtrack, undo 2,2 swap
+             [1,2,3] -> now swap 2,3 to get [1,3,2]
+     start=2: [1,3,2|] -> continue with new arrangement
+     start=3: BASE CASE! Save [1,3,2]
     ```
     
 
