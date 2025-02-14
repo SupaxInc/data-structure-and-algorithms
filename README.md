@@ -2476,6 +2476,14 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/0bc255c7-7b70-458d-9be5-5ae0a61c38e1/Untitled.png)
     
+    ![image.png](attachment:228ae965-cfef-4bc9-8a44-e642dfea96f0:image.png)
+    
+    - As an example in the picture above, see the first sub tree.
+        - We found a valid parentheses where `open brackets === closed brackets === n`
+        - Once that happened, we prune the search space and go ALL the way back to `“((”`
+        - The reason for this is that the previous functions has already finished as it passed through the last if statement to add the closing bracket so after we popped the stack with pruning, the other functions finished thus popping more of the stack.
+        - The call stack popped all the way back to `“((”`
+        - Which then begins to include the next closing bracket instead as we’ve already added the 3rd closing bracket previously before the stack popped.
 
 ## 46 - Permutations
 
