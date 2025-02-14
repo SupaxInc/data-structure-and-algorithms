@@ -2493,7 +2493,18 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Brute Force:** Use backtracking
     
-    - Time Complexity: O(2^n)
+    - Time Complexity: O(n!)
+    
+    ```
+    Why its n! complexity:
+    n    2^n    n!
+    1    2      1
+    2    4      2
+    3    8      6
+    4    16     24
+    5    32     120
+    ```
+    
     - Space Complexity: O(n)
     
     **Solution:** Swap each number into the "current" position, recursively generating permutations of the remaining numbers, and backtracking to undo swaps for the next iteration.
