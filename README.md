@@ -2503,6 +2503,14 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     3    8      6
     4    16     24
     5    32     120
+    
+    The number of permutations of a list of length n is !
+    (n factorial). This is because for the first position, 
+    you have n choices, for the second position  n−1 choices, 
+    and so on, down to 1 choice for the last position.
+    
+    In the example below, we had 3 choices for the 2nd level,
+    then it becomes 2 choices in the first level until down to 1 choice.
     ```
     
     - Space Complexity: O(n)
