@@ -2518,13 +2518,19 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Swap each number into the "current" position, recursively generating permutations of the remaining numbers, and backtracking to undo swaps for the next iteration.
     
     ```
-                                    [1, 2, 3]
-                            /           |           \
-                          /             |             \
-                    [1, 2, 3]        [2, 1, 3]       [3, 2, 1]
-                    /     \            /     \           /     \
-                  /       \          /       \         /       \
-            [1, 2, 3] [1, 3, 2] [2, 1, 3] [2, 3, 1] [3, 2, 1] [3, 1, 2]
+                             [1,2,3]
+                                |
+                  ______________|______________
+                 |             |              |
+            [1|2,3]        [2|1,3]        [3|1,2]    <- start=0: try each number in first position
+              |               |               |
+           ___|___         ___|___         ___|___
+          |       |       |       |       |       |
+    [1,2|3]   [1,3|2] [2,1|3]   [2,3|1] [3,1|2]   [3,2|1]    <- start=1: try each number in second position
+       |         |        |         |        |         |
+       |         |        |         |        |         |
+    [1,2,3]  [1,3,2]  [2,1,3]   [2,3,1]  [3,1,2]   [3,2,1]    <- start=2: final position
+    
     Constraints: A number cannot appear more than once
     Base case: Stop when the current index has same length as input set
     First choice (inclusion): Swap current index
