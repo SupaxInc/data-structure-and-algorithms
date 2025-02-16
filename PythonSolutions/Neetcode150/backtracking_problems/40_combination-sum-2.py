@@ -1,35 +1,35 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        candidates.sort()
         res = []
         combinations = []
+        # Sort so that duplicates numbers are adjacent to each other
+        candidates.sort()
 
         def backtrack(start, remainingToTarget):
-            # Constraint #1: Total cannot exceed target
+            # Base case 1: Current sum was greater than the target, prune search
             if remainingToTarget < 0:
                 return
             
-            # Constraint #2: Prune search space after finding valid combination
-                # Helps avoid identical subsets
+            # Base case 2: Current sum hit the target, prune search since there will be no more combinations
             if remainingToTarget == 0:
                 res.append(combinations[:])
                 return
-
-            # Iterate through all choices
+            
             for i in range(start, len(candidates)):
-                # Constraint #3: Look for adjacent duplicats when we backtrack then go to next choice
-                    # Prevents duplicates since if we backtrack, the prev index choice may be a duplicate
-                    # Example: [1, 2, 2], target = 3
-                    # [1, 2] and [1, 2] are the same solution sets
+                # Check if there are adjacent duplicate numbers
+                    # We are checking for start since options change when we explore a choice deeper
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
                 
-                # Inclusion choice
+                # Inclusion choice: Add the current number
                 combinations.append(candidates[i])
-                # Explore choice as deep as possible
-                backtrack(i + 1, remainingToTarget - candidates[i])
-                # Exclude previous choice
-                combinations.pop()
 
+                # Explore the current choice (current combinations) deeper with new options
+                    # We are adding i + 1 here so we don't use the same number more than once
+                backtrack(i+1, remainingToTarget - candidates[i])
+
+                # Exclusion choice: Remove the curent number then try new options in new loop iteration
+                combinations.pop()
+        
         backtrack(0, target)
         return res
