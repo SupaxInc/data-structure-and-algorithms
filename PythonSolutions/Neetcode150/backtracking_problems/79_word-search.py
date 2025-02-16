@@ -1,63 +1,53 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        if not board or not board[0]:
-            return False
+        self.board, self.word = board, word
+        self.DIRS = [(0,1), (1, 0), (-1, 0), (0, -1)]
+        self.COLS, self.ROWS = len(board[0]), len(board)
 
-        self.word, self.board = word, board
-        self.rows, self.cols = len(board), len(board[0])
-
-        # Count the frequencies of the letters for the board
-            # Creates a counter for the letters for each row
-            # Sums the counters for each row
-            # Creates a dictionary using the summed counters as the initialization
+        # Count the number of letter 
+            # map(Counter, board) -> An array of counters for each row on the board
+            # sum(map, Counter()) -> Sums all counters into one counter
+            # defaultdict(int, sum) -> Places the summed counter as a default dict to be used as one dictionary
         count = defaultdict(int, sum(map(Counter, board), Counter()))
 
-        # Reverse the target word if the board's freq of first letter is more than freq of last letter
-            # Helps lead quicker pruning of invalid paths
-            # Since we will end up traversing to more paths if the first letter is shown more
+        # Optimization:
+            # Check if the beginning of the target word has more occurences on the board than the end of the word
         if count[word[0]] > count[word[-1]]:
-            self.word = self.word[::-1]
-    
-        for row in range(0, self.rows):
-            for col in range(0, self.cols):
-                # DFS each letter on the board
-                    # Begin with the first index of the word (either reversed or not)
-                if self.backtrack(row, col, 0):
+            # Reverse the word so that we trigger less DFS's on the board since the end of the word has less occurences
+            self.word = word[::-1]
+        
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if self.dfs(row, col, 0):
                     return True
-    
+        
         return False
-
-    # currIndex is the index we are currently on for the word we are searching for
-    def backtrack(self, row, col, currIndex):
-        # Stop if we find the word
-        if currIndex == len(self.word):
+    
+    def dfs(self, row, col, currIdx):
+        # Base case 1: Word is found
+        if len(self.word) == currIdx:
             return True
-        
-        # Prune search if we hit boundaries
-        if row > self.rows-1 or col > self.cols-1 or col < 0 or row < 0:
+
+        # Base case 2: Boundary check
+        if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
             return False
 
-        # Prune search if current letter doesn't match the word letters, or if we visited node before
-        if self.board[row][col] != self.word[currIndex] or self.board[row][col] == "":
+        # Base case 3: Already visited or not part of the target word check
+        if self.board[row][col] == "" or self.board[row][col] != self.word[currIdx]:
             return False
         
-        dirs = [(0, 1), (1, 0), (-1, 0), (0, -1)]
-
-        # Visit node (inclusion)
+        # Visit the cell
         self.board[row][col] = ""
-
-        # Travel to left, right, up, or down (explore)
-        for rowDir, colDir in dirs:
-            # Explore as deep as possible for one of direction choices
-                # We are ONLY EXPLORING if the letter we are on matches the curr index (see prune search criterias above)
-            if self.backtrack(row+rowDir, col+colDir, currIndex + 1):
-                # Pop the call stacks if we end up finding the word
+        
+        # Explore the current choice deeper
+        for dx, dy in self.DIRS:
+            # Increase word index here instead of when visitng the cell so that we can backtrack when we unvisit later
+            if self.dfs(row + dx, col + dy, currIdx + 1):
+                # Return True if word has been found
                 return True
         
-        # Unvisit node so add original letter (exclusion)
-            # Exclusion after traversal since at this point the letter we are on matches the current index
-            # Therefore, we have visited the node (inclusion), so we need to replace it back with current index we are on
-        self.board[row][col] = self.word[currIndex]
-
+        # Unvisit the cell (backtrack if the current choice had no valid paths)
+        self.board[row][col] = self.word[currIdx]
+        
+        # Return false since there were no valid paths and word has not been found
         return False
-            
