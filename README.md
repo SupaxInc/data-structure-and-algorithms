@@ -2548,6 +2548,16 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
              [1,2,3] -> now swap 2,3 to get [1,3,2]
      start=2: [1,3,2|] -> continue with new arrangement
      start=3: BASE CASE! Save [1,3,2]
+     
+     There are no duplicates because for example trying position 0 (start = 0):
+     start=0:
+        i=0: [1|2,3] → try 1 in first position
+        i=1: [2|1,3] → try 2 in first position
+        i=2: [3|1,2] → try 3 in first position
+        
+        We never try:
+        - Same number twice in same position
+        - Already used positions
     ```
     
 
@@ -2571,7 +2581,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
               /    \     
             [1,2]  [1]    
            /    \     
-       [1,2,2]  [1,2] 
+       [1,2,2]  [1,2]X Skip search here since [**1**, 2, **2**] is a duplicate
     ```
     
     - **Explanation of how duplicate subsets could happen:**
@@ -2584,6 +2594,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - **At `[1,2]`, we face a decision with the second `2`, which is a duplicate.**
             - Including the second **`2`** moves us to **`[1,2,2]`**. This is allowed because we included the first **`2`**.
             - Not including the second **`2`** keeps us at **`[1,2]`**.
+                - [1, 2] would be a duplicate so we need to prune the search here so its not included.
     
     **Unique Uses:**
     

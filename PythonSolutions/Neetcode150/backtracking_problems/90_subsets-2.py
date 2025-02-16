@@ -2,27 +2,30 @@ class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         res = []
         subset = []
-        nums.sort() # Sort so duplicates are adjacent to each other
+
+        # Sort the numbers so that duplicate numbers are adjacent to each other
+        nums.sort()
 
         def backtrack(start):
+            # No need for a base case here
+                # Our base case is the range of the for loop, function stack will pop when range finishes
             res.append(subset[:])
-            
-            # Iterate through the choices
+
             for i in range(start, len(nums)):
-                # Prune the search if we find a duplicate adjacent to each other
-                    # Example of a duplicate: [1, 2, 2]
-                    # [1, 2] and [1, 2] could happen
+                # Skip if the previous number is a duplicate number
+                    # Effectively pruning the search for current branch
+                    # We check if current index is greater than start since deeper depths means a new option
                 if i > start and nums[i] == nums[i-1]:
                     continue
-
-                # Include the choice
+                
+                # Inclusion choice: Add the number
                 subset.append(nums[i])
 
-                # Explore the choice as deep as possible
-                backtrack(i+1)
+                # Explore current option (current subset) deeper with more numbers
+                backtrack(i + 1)
 
-                # Remove the choice
+                # Exclusion choice: Remove the number from current subset then try a new option in new loop iteration
                 subset.pop()
-
+        
         backtrack(0)
         return res

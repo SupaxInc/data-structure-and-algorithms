@@ -3,12 +3,15 @@ class Solution:
         result = []
 
         def backtrack(start):
-            # When start hits same index as length of nums
-                # This means a complete permutation has formed
+            # Base case 1: When start equals len(nums), it means we've filled all positions from 0 to n - 1
+                # Remember that start represents "Which position am I currently filling"
+                # If start reaches end, it means we have tried all positions
+                # This prevents duplications
             if start == len(nums):
                 result.append(nums[:]) # Deep copy
                 return
 
+            # We are always going to try the "start" position to swap with current index "i"
             for i in range(start, len(nums)):
                 # Swap index and start
                 nums[start], nums[i] = nums[i], nums[start]
