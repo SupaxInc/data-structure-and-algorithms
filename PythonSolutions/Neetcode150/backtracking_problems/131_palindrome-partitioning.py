@@ -3,30 +3,36 @@ class Solution:
         res = []
         pals = []
 
-        def isPalindrome(left, right):
-            while left < right:
-                if s[left] != s[right]:
+        def isPalindrome(l, r):
+            while l < r:
+                if s[l] != s[r]:
                     return False
-                left, right = left + 1, right - 1
+                l += 1
+                r -= 1
+            
             return True
 
+
         def backtrack(start):
-            # Prune the search space when we end up farther than the length of the string
-            if start > len(s)-1:
+            # Base case: Add to the result if our start boundary is greater than the length of input set
+                # A palindrome partition requires all letters to be a part of the result
+                # INCLUDING the last option which is why its not == but a >
+            if start > len(s) - 1:
                 res.append(pals[:])
+                #  Prune since there would be no other options to find if we have checked all options now
                 return
-            
+
             for end in range(start, len(s)):
-                # The choices are the palindrome substrings
+                # Check if current option substring is a palindrome
                 if isPalindrome(start, end):
-                    # Include the palindrome (inclusion choice)
+                    # Include current substring choice as a palindrome
                     pals.append(s[start:end+1])
 
-                    # Explore the palindrome partition further and look for more
-                    backtrack(end+1)
+                    # Explore more substring choices with the next letter
+                    backtrack(end + 1)
 
-                    # Exclude the palindrome (exclusion choice)
+                    # Exclude the current substring choice then move onto a new choice in next iteration
                     pals.pop()
-
+        
         backtrack(0)
         return res
