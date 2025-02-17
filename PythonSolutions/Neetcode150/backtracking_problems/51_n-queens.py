@@ -1,49 +1,46 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-        if not n:
-            return []
-    
-        cols = set()
-        posDiags = set()
-        negDiags = set()
-        # Rows do not need a set since we know for sure we are just visiting 1 row per choice
-            # Thus there would never be a Queen on the same row
-
         res = []
-        # Create a n * n board
-            # [['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.'], ['.', '.', '.', '.']]
+        # E.g. n=4, [["...."], ["...."], ["...."], ["...."]]
         board = [["."] * n for i in range(n)]
 
+        posDiag = set()
+        negDiag = set()
+        cols = set()
+        
+        # Explore each *row* options
         def backtrack(row):
-            # Stop when we reach end of board
+            # Base case: Our reach is at the end of the board, no more options left
             if row == n:
-                # ['....', '....', '....', '....']
+                # E.g. [[".Q..","...Q","Q...","..Q."]]
                 joinedBoard = ["".join(boardRow) for boardRow in board]
                 res.append(joinedBoard)
+                # Prune the search, no need to look for anymore options
                 return
             
-            # Go through all the choices per row
-                # (n is number of rows since board is n*n)
+            # Traverse each *col* choices
             for col in range(n):
-                # Prune search if a Queen can eliminate another Queen
-                if (row + col) in posDiags or (row - col) in negDiags or col in cols:
+                # Prune the search if there is an existing queen that can eliminate the new position
+                if (row+col) in posDiag or (row-col) in negDiag or col in cols:
                     continue
                 
                 # Inclusion choice: Place the queen
                 board[row][col] = "Q"
-                # Add where the Queen can eliminate another Queen
-                posDiags.add(row+col)
-                negDiags.add(row-col)
+                # Add the positions where the queen can now eliminate on the board
+                posDiag.add(row+col)
+                negDiag.add(row-col)
                 cols.add(col)
 
-                # Explore the choice further (Go to next row and explore the next col choices)
+                # Explore the choice deeper with different row options
                 backtrack(row + 1)
 
-                # Exclusion choice: Remove the queen
+                # Exclusion choice: Remove the queen and try other col choices
                 board[row][col] = "."
-                posDiags.remove(row+col)
-                negDiags.remove(row-col)
+                # Remove the positions of elimination since placed queen is gone
+                posDiag.remove(row+col)
+                negDiag.remove(row-col)
                 cols.remove(col)
-            
+
+
         backtrack(0)
         return res
