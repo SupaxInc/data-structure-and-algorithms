@@ -1,27 +1,29 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         res = []
+
         if not digits:
             return res
-        
-        phoneNumber = { "2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs",
-                        "8": "tuv", "9": "wxyz" }
 
-        def backtrack(digitIndex, pathCombination):
-            # Prune search space if we find a valid combination, which backtracks to last recurse in callstack
-            if len(digits) == len(pathCombination):
-                res.append(pathCombination)
+        digitsMap = { "2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz" }
+
+        def backtrack(digitIdx, path):
+            # Base case: We reached the end of the options for the current digit
+            if digitIdx == len(digits):
+                res.append(path)
+                # Prune we can't choose any more choices as we've hit the length of digits
                 return
             
-            # Grab the letters for the digit index, this will be our choices
-            letters = phoneNumber[digits[digitIndex]]
-            # Iterate through all choices
-            for letter in letters:
-                # Inclusion choice: Add current choice letter to path, and check next digit index
-                backtrack(digitIndex + 1, pathCombination + letter)
-                # Exclusion choice: Happens when call stack pops, it removes previous letter
-                    # This is since the letter is being added in the params
-                    # When call stack pops the params are changed
+            # Get the letters for current digit options
+            letters = digitsMap[digits[digitIdx]]
 
+            for letter in letters:
+                # Inclusion choice: Choose the current letter
+                    # We track the choices in the param
+                # Explore the current choice (current path) deeper using the next digit
+                backtrack(digitIdx + 1, path + letter)
+                # Exclusion choice: When we backtrack out of the function it removes the added letter in the params
+        
         backtrack(0, "")
         return res
+        
