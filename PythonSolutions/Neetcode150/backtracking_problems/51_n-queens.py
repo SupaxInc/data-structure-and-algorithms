@@ -12,7 +12,7 @@ class Solution:
         def backtrack(row):
             # Base case: Our reach is at the end of the board, no more options left
             if row == n:
-                # E.g. [[".Q..","...Q","Q...","..Q."]]
+                # E.g. [".Q..","...Q","Q...","..Q."]
                 joinedBoard = ["".join(boardRow) for boardRow in board]
                 res.append(joinedBoard)
                 # Prune the search, no need to look for anymore options
