@@ -1,4 +1,4 @@
-class DFSSolution:
+class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         self.grid = grid
         self.ROWS, self.COLS = len(grid), len(grid[0])
@@ -34,35 +34,36 @@ class DFSSolution:
             # Continue to sink all of the islands that have not been visited yet
             self.dfs(row+dx, col+dy)
 
-class BFSSolution(object):
-    def numIslands(self, grid):
-        """
-        :type grid: List[List[str]]
-        :rtype: int
-        """
+class BFSSolution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        self.grid = grid
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
         count = 0
 
-        for row in range(0, len(grid)):
-            for col in range(0, len(grid[0])):
-                if grid[row][col] == "1":
-                    self.bfs(grid, row, col)
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if self.grid[row][col] == "1":
+                    self.bfs(row, col)
                     count += 1
         
         return count
     
-    def bfs(self, grid, startRow, startCol):
-        dirs = [(0, 1), (1, 0), (-1, 0), (0, -1)]
-
-        queue = deque([(startRow, startCol)])
+    def bfs(self, row, col):
+        queue = deque([(row, col)])
 
         while queue:
             row, col = queue.popleft()
 
-            if row < 0 or col < 0 or row > len(grid)-1 or col > len(grid[0])-1 or grid[row][col] == "0":
+            if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
                 continue
             
-            grid[row][col] = "0"
+            if self.grid[row][col] == "0":
+                continue
 
-            for rowDir, colDir in dirs:
-                queue.append([row + rowDir, col + colDir])
+            self.grid[row][col] = "0"
+
+            for dx, dy in self.DIRS:
+                queue.append((row+dx, col+dy))
                     
