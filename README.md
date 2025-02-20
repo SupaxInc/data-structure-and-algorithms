@@ -2763,7 +2763,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     - Exclusion choice for back track happens when call stack pops as path combinations is part of the parameter so no need to pop in loop
 
-## 51 - N Queens
+## 51 - N Queens (great to practice visualizing backtracking)
 
 **Intuition:** Find out how many Queen pieces you can fit in a n x n chess board without the pieces eliminating each other.
 
@@ -2777,6 +2777,10 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Track which positions a placed Queen can eliminate by adding the positions of the board using a set, a cols set to track horizontal, posDiags and negDiags set to track diagonals. Rows do not need to be tracked as we will only surely just place 1 Queen per row since its a choice.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d915bf42-5f96-4f74-b162-2e35c27ad7a8/Untitled.png)
+    
+    ```
+    
+    ```
     
     **Unique uses:**
     
@@ -2825,6 +2829,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** Clone a graph using DFS by mapping nodes to their copies and recursively connecting neighbors.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/18888442-afab-40f3-8b7c-aacb3178606a/Untitled.png)
+    
+    ![image.png](attachment:818a8ed2-c614-4587-9198-00b2890faf60:image.png)
     
     **Unique uses:**
     

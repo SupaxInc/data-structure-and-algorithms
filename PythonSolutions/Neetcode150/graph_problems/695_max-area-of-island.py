@@ -25,7 +25,7 @@ class DFSSolution:
             return 0
         
         # Visit the cell
-        self.grid[row][col] = 0
+        self.grid[row][col] = 0 # "Sink" the island and leave it as 0 so we don't end up calling more DFS later on the same island
         totalArea = 1 # The total area for current cell is just a 1
 
         for dx, dy in self.DIRS:
