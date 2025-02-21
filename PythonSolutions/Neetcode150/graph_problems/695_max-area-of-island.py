@@ -37,34 +37,41 @@ class DFSSolution:
         
 class BFSSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        self.grid = grid
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
         maxArea = 0
 
-        for row in range(0, len(grid)):
-            for col in range(0, len(grid[row])):
-                if grid[row][col] == 1:
-                    maxArea = max(self.bfs(grid, row, col), maxArea)
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if self.grid[row][col] == 1:
+                    maxArea = max(maxArea, self.bfs(row, col))
         
         return maxArea
 
-    def bfs(self, grid, startRow, startCol):
-        DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        area = 0
-        
-        queue = deque([(startRow, startCol)])
+    def bfs(self, row, col):
+        queue = deque([(row, col)])
+
+        totalArea = 0
         while queue:
             row, col = queue.popleft()
 
-            if row < 0 or col < 0 or row > len(grid) - 1 or col > len(grid[row]) - 1:
+            # Base case 1: Boundary check
+            if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
                 continue
-
-            if grid[row][col] == 0:
-                continue
-
-            area += 1
-            grid[row][col] = 0
             
-            for rowDir, colDir in DIRS:
-                queue.append([row + rowDir, col + colDir])
+            # Base case 2: Visited check
+            if self.grid[row][col] == 0:
+                continue
+            
+            # Visit the cell
+            self.grid[row][col] = 0
+            totalArea += 1 # Add the total area as its iterative compared to DFS
+
+            # Explore the four directions
+            for dx, dy in self.DIRS:
+                queue.append((row+dx, col+dy))
         
-        return area
+        return totalArea
         
