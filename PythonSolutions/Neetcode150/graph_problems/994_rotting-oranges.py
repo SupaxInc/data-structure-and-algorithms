@@ -1,88 +1,57 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
+        self.grid = grid
         self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
         fresh = 0
         queue = deque()
 
-        # Find all fresh oranges and rotten oranges
-        for row in range(0, self.ROWS):
-            for col in range(0, self.COLS):
-                if grid[row][col] == 1:
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if self.grid[row][col] == 1:
                     fresh += 1
-                elif grid[row][col] == 2:
+                # Add rotten oranges to queue since the rotten oranges all begin rotting at the same time
+                # This ensures that we count the minutes accurately
+                elif self.grid[row][col] == 2:
                     queue.append((row, col))
         
-        # Run a level order BFS on the queue of rotten oranges
-            # This is because rotten oranges rot at the same time and there may be more than 1 rotten orange
-        return self.levelOrderBFS(grid, queue, fresh)
+        return self.levelOrderBFS(queue, fresh)
     
-    def levelOrderBFS(self, grid, queue, fresh):
-        # If all oranges are already rotten then return 0 minutes
-        if not fresh:
+    def levelOrderBFS(self, queue, fresh):
+        if fresh == 0:
             return 0
         
-        DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-
         minutes = -1 # Begin at -1 since it'll count the first traversal of a rotten orange
-
-        while queue:
-            for _ in range(0, len(queue)):
-                row, col = queue.popleft()
-
-                # Do the validations right away on the new row and col so we only add rotten oranges to the queue
-                    # If we don't do validations right away, we may end up adding fresh oranges to the queue
-                    # Then our level order traversal will incorrectly count the minutes up
-                for rowDir, colDir in DIRS:
-                    newRow = row + rowDir
-                    newCol = col + colDir
-
-                    if newRow < 0 or newCol < 0 or newRow > self.ROWS - 1 or newCol > self.COLS - 1:
-                        continue
-                    if grid[newRow][newCol] != 1:
-                        continue
-                    
-                    fresh -= 1
-                    grid[newRow][newCol] = 2
-
-                    queue.append([newRow, newCol])
-            
-            minutes += 1
-
-        return minutes if fresh == 0 else -1
-    
-class Solution2:
-    def orangesRotting(self, grid: List[List[int]]) -> int:
-        ROWS, COLS = len(grid), len(grid[0])
-        queue = deque()
-        fresh = 0
-
-        for row in range(ROWS):
-            for col in range(COLS):
-                if grid[row][col] == 2:
-                    queue.append((row, col))
-                elif grid[row][col] == 1:
-                    fresh += 1
-
-        if not fresh:
-            return 0
-        
-        DIRS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        minutes = -1
 
         while queue:
             levelSize = len(queue)
 
-            for _ in range(levelSize):
+            for i in range(levelSize):
                 row, col = queue.popleft()
-                for dx, dy in DIRS:
-                    newRow, newCol = row + dx, col + dy
 
-                    if 0 <= newRow < ROWS and 0 <= newCol < COLS:
-                        if grid[newRow][newCol] == 1:
-                            grid[newRow][newCol] = 2
-                            queue.append((newRow, newCol))
-                            fresh -= 1
-            
+                # Process the new cells ahead of time rather than processing in the current level
+                # If we process in current level, it will incorrectly add minutes due to:
+                # - Possibly adding new cells to process that are in the base cases for next iteration
+                # - If the cells are incorrect to process it will still add to queue thus incorrectly increase minutes
+                for dx, dy in self.DIRS:
+                    newRow, newCol = row+dx, col+dy
+
+                    # Base case 1: Boundary check
+                    if newRow > self.ROWS-1 or newCol > self.COLS-1 or newRow < 0 or newCol < 0:
+                        continue
+                    
+                    # Base case 2: Check if the cell is already a rotten orange or is an empty cell
+                    if self.grid[newRow][newCol] != 1:
+                        continue
+                    
+                    # Visit the cell
+                    self.grid[newRow][newCol] = 2 # Turns into a rotten orange
+                    fresh -= 1
+
+                    # Add the new cell to the queue
+                    queue.append((newRow, newCol))
+                
             minutes += 1
-        
+    
         return minutes if fresh == 0 else -1
