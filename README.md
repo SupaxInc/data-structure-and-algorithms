@@ -2981,6 +2981,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         preMap[crs].append(pre)  *# For input [1,0], creates preMap[1] = [0]*
         ```
         
+        ***Think about how it "backtracks", we complete the course when we backtrack so it goes backwards***
+        
         This creates a graph where:
         
         - Each key (course) points to what you need to take before it
