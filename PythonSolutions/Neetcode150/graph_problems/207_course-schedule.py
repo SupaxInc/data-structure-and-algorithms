@@ -2,13 +2,13 @@ class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         preMap = defaultdict(list)
 
-        # Create an adjacency list where prerequisites -> courses
-            # prereq is pointing to course because it answers "what do I need to complete before taking the course"
+        # Create an adjacency list where courses -> prerequisites
+            # crs is pointing to pre because it answers "what do I need to complete before taking the course"
                 # Allows us to check what we need to complete first before taking a course
-                # Think about how it "backtracks", we complete the course when we backtrack so it goes backwards
+                # *Think about how it "backtracks", we complete the course when we backtrack so it goes backwards*
             # If we flip it around, it answers instead "what courses does this unlock"
-        for pre, crs in prerequisites:
-            preMap[pre].append(crs)
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
         
         completed, visited = set(), set()
 
