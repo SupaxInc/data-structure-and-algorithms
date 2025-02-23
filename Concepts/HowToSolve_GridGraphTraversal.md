@@ -420,6 +420,184 @@ class Solution:
 
 ```
 
+# Graph Representation Guide
+
+## **1. Adjacency List**
+
+Most common and space-efficient for sparse graphs. Uses a dictionary or list to store nodes and their neighbors.
+
+**Use Adjacency List when**:
+
+- Graph is sparse (E << V²)
+- Need to find neighbours quickly
+- Memory is a concern
+- Most common choice for interviews
+
+```python
+# Using dictionary (most flexible)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C']
+}
+
+# Using defaultdict
+from collections import defaultdict
+graph = defaultdict(list)
+edges = [('A', 'B'), ('B', 'C')]
+for u, v in edges:
+    graph[u].append(v)
+    # For undirected: graph[v].append(u)
+
+# Using list for 0-indexed nodes
+graph = [[] for _ in range(n)]  # n = number of nodes
+edges = [[0, 1], [1, 2]]
+for u, v in edges:
+    graph[u].append(v)
+    # For undirected: graph[v].append(u)
+```
+
+## **2. Adjacency Matrix**
+
+Good for dense graphs. Uses a 2D matrix where matrix[i][j] represents edge from i to j.
+
+**Use Adjacency Matrix when**:
+
+- Graph is dense (E ≈ V²)
+- Need to check edge existence quickly
+- Graph is weighted
+- Memory is not a concern
+
+```python
+# Using 2D list
+n = 4  # number of nodes
+graph = [[0] * n for _ in range(n)]
+edges = [[0, 1], [1, 2]]
+for u, v in edges:
+    graph[u][v] = 1  # or weight if weighted
+    # For undirected: graph[v][u] = 1
+
+# Using numpy (more efficient for large graphs)
+import numpy as np
+graph = np.zeros((n, n))
+for u, v in edges:
+    graph[u][v] = 1
+```
+
+## **3. Edge List**
+
+Simple list of edges. Good when you need to process edges directly.
+
+**Use Edge List when**:
+
+- Need to process edges directly
+- Implementing algorithms like Kruskal's
+- Graph is constantly changing
+
+```python
+# Simple edge list
+edges = [(0, 1), (1, 2), (2, 3)]
+
+# Weighted edge list
+weighted_edges = [(0, 1, 5), (1, 2, 3)]  # (from, to, weight)
+```
+
+## **4. Graph Class Implementation**
+
+For more complex graph operations.
+
+```python
+class Graph:
+    def __init__(self, directed=False):
+        self.graph = defaultdict(list)
+        self.directed = directed
+    
+    def add_edge(self, u, v, weight=1):
+        self.graph[u].append((v, weight))
+        if not self.directed:
+            self.graph[v].append((u, weight))
+    
+    def get_neighbors(self, node):
+        return self.graph[node]
+
+# Usage
+g = Graph()
+g.add_edge(0, 1)
+g.add_edge(1, 2)
+```
+
+## **5. Object-Oriented Node Representation**
+
+Useful for complex graph problems where nodes need to store additional information.
+
+```python
+class Node:
+    def __init__(self, val=0):
+        self.val = val
+        self.neighbors = []
+        # Additional attributes as needed
+        self.visited = False
+        self.parent = None
+        self.distance = float('inf')
+
+class Graph:
+    def __init__(self):
+        self.nodes = {}
+    
+    def add_node(self, val):
+        if val not in self.nodes:
+            self.nodes[val] = Node(val)
+    
+    def add_edge(self, u, v):
+        if u not in self.nodes:
+            self.add_node(u)
+        if v not in self.nodes:
+            self.add_node(v)
+        self.nodes[u].neighbors.append(self.nodes[v])
+```
+
+## Common Graph Operations (DFS, BFS)
+
+```python
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    
+    while queue:
+        node = queue.popleft()
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+def dfs(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    
+    visited.add(node)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+```
+
+## Time Complexity Comparison
+
+```python
+| Operation      | Adjacency List | Adjacency Matrix | Edge List |
+|----------------|----------------|------------------|-----------|
+| Add Edge       | O(1)           | O(1)             | O(1)      |
+| Remove Edge    | O(E)           | O(1)             | O(E)      |
+| Find Edge      | O(V)           | O(1)             | O(E)      |
+| Get Neighbors  | O(V)           | O(V)             | O(E)      |
+| Space          | O(V + E)       | O(V²)            | O(E)      |
+
+Where:
+- \( V \) = number of vertices
+- \( E \) = number of edges
+```
+
 # Famous Algorithms
 
 ## Dijkstra + Bellman-Ford
@@ -502,6 +680,86 @@ Step 4) Backtrack from L and then to J then back to H.
 Step 5) From H, visit I and then backtrack to H
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/65f2d1fc-f5e6-46c5-bc93-4613d7e01fc3/Untitled.png)
+
+## Example Template
+
+```python
+from collections import defaultdict
+
+class TopologicalSort:
+    def solve(self, n: int, prerequisites: List[List[int]]) -> bool:
+        # 1. Build adjacency list
+        adj = defaultdict(list)
+        for crs, pre in prerequisites:
+            adj[crs].append(pre)
+        
+        # 2. Initialize visit sets for cycle detection
+        visit = set()      # Current path being explored
+        done = set()       # Completed nodes (fully explored)
+        
+        def dfs(crs):
+            # Base cases
+            if crs in done:
+                return True     # Already verified, no cycles
+            if crs in visit:
+                return False    # Cycle detected
+            
+            # Add to current path
+            visit.add(crs)
+            
+            # Explore all prerequisites
+            for pre in adj[crs]:
+                if not dfs(pre):
+                    return False
+            
+            # Backtrack: remove from path and mark as done
+            visit.remove(crs)
+            done.add(crs)
+            return True
+        
+        # 3. Check all nodes (handles disconnected components)
+        for crs in range(n):
+            if not dfs(crs):
+                return False
+        
+        return True
+
+    # Variation: Return the topological order
+    def findOrder(self, n: int, prerequisites: List[List[int]]) -> List[int]:
+        # 1. Build adjacency list
+        adj = defaultdict(list)
+        for crs, pre in prerequisites:
+            adj[crs].append(pre)
+        
+        # 2. Initialize states and result
+        visit = set()
+        done = set()
+        order = []
+        
+        def dfs(crs):
+            if crs in done:
+                return True
+            if crs in visit:
+                return False
+            
+            visit.add(crs)
+            
+            for pre in adj[crs]:
+                if not dfs(pre):
+                    return False
+            
+            visit.remove(crs)
+            done.add(crs)
+            order.append(crs)  # Add to order after exploring all prerequisites
+            return True
+        
+        # 3. Process all nodes
+        for crs in range(n):
+            if not dfs(crs):
+                return []
+        
+        return order
+```
 
 # Connected Components
 
