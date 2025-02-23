@@ -2964,6 +2964,45 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9e10da09-1255-49da-9646-f94a471144b9/Untitled.png)
     
+    - **The Intuition:**
+        
+        Example of **`prerequisites = [1,0]` :**
+        
+        In the example "To take course 1 you should have finished course 0":
+        
+        - This is represented as [1,0] in the prerequisites list
+        - This means: Course 1 → Course 0 (where the arrow means "depends on")
+        
+        Let's break down both approaches:
+        
+        **Current Implementation (Course → Prerequisite)**:
+        
+        ```python
+        preMap[crs].append(pre)  *# For input [1,0], creates preMap[1] = [0]*
+        ```
+        
+        This creates a graph where:
+        
+        - Each key (course) points to what you need to take before it
+        - It directly answers the question: "What do I need to complete before taking this course?"
+        - When doing DFS, we start at a course and check if we can complete all its prerequisites
+        
+        **Alternative (Prerequisite → Course)**:This would create a graph where:
+        
+        ```python
+        preMap[pre].append(crs)  *# For input [1,0], would create preMap[0] = [1]*
+        ```
+        
+        - Each key (prerequisite) points to what courses it unlocks
+        - Less intuitive because it answers: "What courses does this unlock?"
+        - Makes it harder to check if a course can be completed
+        
+        **The current implementation (approach 1) is more intuitive because:**
+        
+        - It models the dependency relationship directly
+        - Makes it easier to detect cycles (if we find a course we're currently visiting)
+        - Matches the natural question: "To take course X, what do I need to complete first?"
+    
     **Unique uses:**
     
     - Representing a graph as an adjacency list
