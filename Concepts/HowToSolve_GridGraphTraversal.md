@@ -17,7 +17,7 @@
     1. Prevents the traversal of already visited nodes
 2. Before we traverse we need to check if the direction we are going to is valid.
     1. Check if the cell exists
-    2. Check if there is a certain condition why we would not want to go to that cell (its a boundary, value we don’t want to traverse to, etc.)
+    2. Check if there is a certain condition why we would not want to go to that cell (its a boundary, value we don't want to traverse to, etc.)
     3. Check if the cell is already visited
 
 ### Template Code
@@ -608,7 +608,7 @@ Where:
 
 ## Bellman-Ford
 
-- More effective solving a shortest path compared to Dijkstra’s algorithm
+- More effective solving a shortest path compared to Dijkstra's algorithm
     - Because it **can accommodate negative weights.**
 - Can take a long time to run in terms of complexity.
 - **Not the most efficient algorithm.**
@@ -631,7 +631,7 @@ It is an ordering of the nodes in a directed graph where for each directed edge 
 
 Used to model real world situations that can be represented as a graph with directed edges that has dependencies
 
-- School class prerequisites, example, you can’t take courses that you don’t have prerequisites for.
+- School class prerequisites, example, you can't take courses that you don't have prerequisites for.
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/cbb2426a-3ad1-46d2-90e1-5112e3ff31d3/Untitled.png)
 
@@ -644,7 +644,7 @@ Used to model real world situations that can be represented as a graph with dire
 ## Directed Acyclic Graphs (DAG)
 
 - The only type of graph that has a valid topological ordering is a Directed Acyclic Graph.
-    - To verify that your graph does not contain a cycle, you can use Tarjan’s strongly connected component algorithm to detect cycles.
+    - To verify that your graph does not contain a cycle, you can use Tarjan's strongly connected component algorithm to detect cycles.
 - Every tree has a topological ordering since they do not contain any cycles
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d9b7cafd-a96a-46c1-9b91-01b896a9f39f/Untitled.png)
@@ -763,23 +763,260 @@ class TopologicalSort:
 
 # Connected Components
 
+Connected components are fundamental structures in graph theory that help us understand the connectivity patterns within a graph. They are crucial for solving many graph-related problems in coding interviews.
+
+## Overview and Applications
+
+**What are Connected Components?**
+- Subgraphs where any two vertices are connected by a path
+- Used to identify isolated "islands" of connectivity
+- Critical for network analysis, image segmentation, and social network clustering
+
+**Common Applications in Interviews:**
+- Island counting problems (e.g., count number of islands in a grid)
+- Network connectivity problems
+- Community detection in social networks
+- Image segmentation and object recognition
+
+**Time Complexity Analysis:**
+- Finding all connected components: O(V + E) using DFS or BFS
+- Checking if two nodes are in the same component: O(V + E) for a one-time check, or O(1) with preprocessing using Union-Find
+
 ## Directed Graphs
 
 ### Strongly Connected Components (SCC)
 
 **Definition:** A subset of vertices in a directed graph where every vertex is reachable from every other vertex within the same subset.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/77b85faf-69a1-4fe7-a37b-14a94943c040/Untitled.png)
+![Untitled](../images/howtosolve_scc1.png)
+
+**Properties:**
+- SCCs form a partition of the graph
+- The condensation graph (treating each SCC as a single vertex) is always a DAG
+- Used to simplify complex directed graphs
+
+**Benefits:**
+- Identifies cycles in directed graphs
+- Helps in solving problems related to graph reachability
+- Useful for analyzing dependencies in systems
+
+**Algorithms:**
+1. **Kosaraju's Algorithm** - Two-pass DFS approach
+   - Time Complexity: O(V + E)
+   - Space Complexity: O(V)
+2. **Tarjan's Algorithm** - Single-pass DFS with lowlink values
+   - Time Complexity: O(V + E)
+   - Space Complexity: O(V)
+
+#### Template Code: Kosaraju's Algorithm
+
+```python
+from collections import defaultdict
+
+def find_sccs(graph):
+    """
+    Find all strongly connected components in a directed graph using Kosaraju's algorithm.
+    
+    Args:
+        graph: Dictionary representing adjacency list of the graph
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one SCC
+    """
+    def dfs_first_pass(node):
+        visited.add(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                dfs_first_pass(neighbor)
+        finish_order.append(node)
+    
+    def dfs_second_pass(node, component):
+        visited.add(node)
+        component.append(node)
+        for neighbor in reversed_graph[node]:
+            if neighbor not in visited:
+                dfs_second_pass(neighbor, component)
+    
+    # Create reversed graph
+    reversed_graph = defaultdict(list)
+    for node in graph:
+        for neighbor in graph[node]:
+            reversed_graph[neighbor].append(node)
+    
+    # First DFS pass to get finish order
+    visited = set()
+    finish_order = []
+    for node in graph:
+        if node not in visited:
+            dfs_first_pass(node)
+    
+    # Second DFS pass to find SCCs
+    visited = set()
+    sccs = []
+    for node in reversed(finish_order):
+        if node not in visited:
+            component = []
+            dfs_second_pass(node, component)
+            sccs.append(component)
+    
+    return sccs
+
+# Example usage
+graph = {
+    0: [1],
+    1: [2],
+    2: [0, 3],
+    3: [4],
+    4: [5, 7],
+    5: [6],
+    6: [4, 7],
+    7: []
+}
+sccs = find_sccs(graph)
+print("Strongly Connected Components:", sccs)
+```
+
+#### Template Code: Tarjan's Algorithm
+
+```python
+def tarjan_scc(graph):
+    """
+    Find all strongly connected components in a directed graph using Tarjan's algorithm.
+    
+    Args:
+        graph: Dictionary representing adjacency list of the graph
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one SCC
+    """
+    index_counter = [0]
+    index = {}  # node -> index
+    lowlink = {}  # node -> lowlink value
+    onstack = set()  # nodes currently on the stack
+    stack = []
+    result = []
+    
+    def strongconnect(node):
+        # Set the depth index for node
+        index[node] = index_counter[0]
+        lowlink[node] = index_counter[0]
+        index_counter[0] += 1
+        stack.append(node)
+        onstack.add(node)
+        
+        # Consider successors of node
+        for successor in graph.get(node, []):
+            if successor not in index:
+                # Successor has not yet been visited; recurse on it
+                strongconnect(successor)
+                lowlink[node] = min(lowlink[node], lowlink[successor])
+            elif successor in onstack:
+                # Successor is in stack and hence in the current SCC
+                lowlink[node] = min(lowlink[node], index[successor])
+        
+        # If node is a root node, pop the stack and generate an SCC
+        if lowlink[node] == index[node]:
+            scc = []
+            while True:
+                successor = stack.pop()
+                onstack.remove(successor)
+                scc.append(successor)
+                if successor == node:
+                    break
+            result.append(scc)
+    
+    for node in graph:
+        if node not in index:
+            strongconnect(node)
+    
+    return result
+```
 
 ### Weakly Connected Components (WCC)
 
 **Definition:** A subset of vertices in a directed graph where every vertex is reachable from every other vertex, if the direction of the edges is ignored. It's as if all edges were undirected.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/48741468-ca74-4f08-9514-802a45b61ecb/Untitled.png)
+![Untitled](../images/howtosolve_wcc1.png)
 
-Sometimes weakly connected just means connected but it becomes **weakly** if the directed graph’s vertices are not reachable in other vertices. E.g. A → C cannot be reached above.
+Sometimes weakly connected just means connected but it becomes **weakly** if the directed graph's vertices are not reachable in other vertices. E.g. A → C cannot be reached above.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5cdc9b9e-aa13-40d0-9090-ffba0996e170/Untitled.png)
+![Untitled](../images/howtosolve_wcc2.png)
+
+**Properties:**
+- Every SCC is contained within a WCC
+- A directed graph can have fewer SCCs than WCCs
+- Easier to compute than SCCs
+
+**Benefits:**
+- Simpler to identify than SCCs
+- Useful for preliminary graph analysis
+- Can be found using standard BFS/DFS by ignoring edge directions
+
+**Algorithm:**
+- Convert the directed graph to undirected
+- Run standard connected components algorithm (BFS/DFS)
+- Time Complexity: O(V + E)
+
+#### Template Code: Finding WCCs
+
+```python
+from collections import defaultdict, deque
+
+def find_wccs(directed_graph):
+    """
+    Find all weakly connected components in a directed graph.
+    
+    Args:
+        directed_graph: Dictionary representing adjacency list of the directed graph
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one WCC
+    """
+    # Convert directed graph to undirected
+    undirected_graph = defaultdict(list)
+    for node in directed_graph:
+        for neighbor in directed_graph[node]:
+            undirected_graph[node].append(neighbor)
+            undirected_graph[neighbor].append(node)
+    
+    # Find connected components in the undirected graph
+    visited = set()
+    components = []
+    
+    def bfs(start_node):
+        component = []
+        queue = deque([start_node])
+        visited.add(start_node)
+        
+        while queue:
+            node = queue.popleft()
+            component.append(node)
+            
+            for neighbor in undirected_graph[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        
+        return component
+    
+    for node in undirected_graph:
+        if node not in visited:
+            components.append(bfs(node))
+    
+    return components
+
+# Example usage
+directed_graph = {
+    'A': ['B'],
+    'B': ['C'],
+    'C': [],
+    'D': ['E'],
+    'E': ['F'],
+    'F': []
+}
+wccs = find_wccs(directed_graph)
+print("Weakly Connected Components:", wccs)
+```
 
 For a graph to be **connected** the underlying graph of a directed graph has to be connected. So the graph above is called **disconnected** since vertices from A to C cannot reach E to F.
 
@@ -787,7 +1024,7 @@ For a graph to be **connected** the underlying graph of a directed graph has to 
 
 For an undirected graph, connected components are simply the subsets of vertices where each vertex is reachable from every other vertex within the same subset, without considering any directionality of edges (since the edges are undirected). Each component is, in essence, an isolated "island" of connectivity.
 
-```python
+```
     1---2       3
      \ /       / \
       4       5---6
@@ -800,6 +1037,343 @@ In this graph, there are two connected components:
 1. **Component 1:** Consists of vertices **`{1, 2, 4}`**. These vertices are all connected to each other directly or indirectly through undirected paths.
 2. **Component 2:** Consists of vertices **`{3, 5, 6, 7}`**. These vertices form another separate group where each vertex is reachable from every other vertex in the same group.
 
-## Union Find
+**Algorithms for Finding Connected Components:**
+1. **DFS-based approach** - O(V + E)
+2. **BFS-based approach** - O(V + E)
+3. **Union-Find (Disjoint Set)** - O(V + E·α(V)) where α is the inverse Ackermann function
+
+**Benefits:**
+- Identifies isolated subgraphs
+- Useful for network analysis
+- Essential for solving island counting problems
+
+### Template Code: DFS Approach
+
+```python
+def find_connected_components_dfs(graph):
+    """
+    Find all connected components in an undirected graph using DFS.
+    
+    Args:
+        graph: Dictionary representing adjacency list of the undirected graph
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one connected component
+    """
+    visited = set()
+    components = []
+    
+    def dfs(node, component):
+        visited.add(node)
+        component.append(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                dfs(neighbor, component)
+    
+    for node in graph:
+        if node not in visited:
+            component = []
+            dfs(node, component)
+            components.append(component)
+    
+    return components
+
+# Example usage
+undirected_graph = {
+    1: [2, 4],
+    2: [1, 4],
+    3: [5, 6],
+    4: [1, 2],
+    5: [3, 6, 7],
+    6: [3, 5],
+    7: [5]
+}
+components = find_connected_components_dfs(undirected_graph)
+print("Connected Components:", components)
+```
+
+### Template Code: BFS Approach
+
+```python
+from collections import deque
+
+def find_connected_components_bfs(graph):
+    """
+    Find all connected components in an undirected graph using BFS.
+    
+    Args:
+        graph: Dictionary representing adjacency list of the undirected graph
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one connected component
+    """
+    visited = set()
+    components = []
+    
+    def bfs(start_node):
+        component = []
+        queue = deque([start_node])
+        visited.add(start_node)
+        
+        while queue:
+            node = queue.popleft()
+            component.append(node)
+            
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        
+        return component
+    
+    for node in graph:
+        if node not in visited:
+            components.append(bfs(node))
+    
+    return components
+```
+
+### Template Code: Union-Find Approach
+
+```python
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+        self.count = n  # Number of connected components
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])  # Path compression
+        return self.parent[x]
+    
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        
+        if root_x == root_y:
+            return
+        
+        # Union by rank
+        if self.rank[root_x] < self.rank[root_y]:
+            self.parent[root_x] = root_y
+        elif self.rank[root_x] > self.rank[root_y]:
+            self.parent[root_y] = root_x
+        else:
+            self.parent[root_y] = root_x
+            self.rank[root_x] += 1
+        
+        self.count -= 1  # Decrease the number of connected components
+
+def find_connected_components_union_find(n, edges):
+    """
+    Find all connected components in an undirected graph using Union-Find.
+    
+    Args:
+        n: Number of nodes (0 to n-1)
+        edges: List of edges as pairs [u, v]
+        
+    Returns:
+        List of lists, where each inner list contains vertices in one connected component
+    """
+    uf = UnionFind(n)
+    
+    # Process all edges
+    for u, v in edges:
+        uf.union(u, v)
+    
+    # Group nodes by their root
+    components = {}
+    for i in range(n):
+        root = uf.find(i)
+        if root not in components:
+            components[root] = []
+        components[root].append(i)
+    
+    return list(components.values())
+
+# Example usage
+n = 7  # Nodes are 0-indexed (0 to 6)
+edges = [(0, 1), (0, 3), (1, 3), (2, 4), (2, 5), (4, 5), (4, 6)]
+components = find_connected_components_union_find(n, edges)
+print("Connected Components:", components)
+```
+
+## Grid-Based Connected Components
+
+Many interview problems involve finding connected components in a 2D grid (e.g., islands in a matrix).
+
+**Common Problem Types:**
+- Count number of islands
+- Find the largest island
+- Determine if there's a path from one cell to another
+
+**Time Complexity:** O(rows × columns) for grid traversal
+
+### Template Code: Finding Islands in a Grid
+
+```python
+def count_islands(grid):
+    """
+    Count the number of islands in a grid.
+    An island is a group of 1's connected horizontally or vertically.
+    
+    Args:
+        grid: 2D list where 1 represents land and 0 represents water
+        
+    Returns:
+        Number of islands
+    """
+    if not grid or not grid[0]:
+        return 0
+    
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+    
+    def dfs(r, c):
+        # Check boundaries and if it's land
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != 1:
+            return
+        
+        # Mark as visited
+        grid[r][c] = '#'  # You can also use 0 or any other marker
+        
+        # Explore all 4 directions
+        dfs(r+1, c)  # Down
+        dfs(r-1, c)  # Up
+        dfs(r, c+1)  # Right
+        dfs(r, c-1)  # Left
+    
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                count += 1
+                dfs(r, c)  # Mark all connected land
+    
+    return count
+
+# Example usage
+grid = [
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1]
+]
+print("Number of islands:", count_islands(grid))
+```
+
+## Biconnected Components
+
+**Definition:** A biconnected component is a maximal biconnected subgraph - a connected subgraph that remains connected even after removing any single vertex.
+
+**Properties:**
+- Contains no articulation points (cut vertices)
+- Every pair of vertices has at least two distinct paths between them
+- Used to identify critical points in networks
+
+**Benefits:**
+- Identifies vulnerable points in networks
+- Useful for network reliability analysis
+- Helps in designing robust systems
+
+**Time Complexity:** O(V + E) using Tarjan's algorithm
+
+### Template Code: Finding Biconnected Components
+
+```python
+def find_biconnected_components(graph):
+    """
+    Find all biconnected components in an undirected graph.
+    
+    Args:
+        graph: Dictionary representing adjacency list of the undirected graph
+        
+    Returns:
+        List of lists, where each inner list contains edges in one biconnected component
+    """
+    disc = {}  # Discovery time
+    low = {}   # Earliest visited vertex reachable from subtree
+    parent = {}
+    time = [0]
+    stack = []
+    components = []
+    
+    def dfs(u):
+        disc[u] = low[u] = time[0]
+        time[0] += 1
+        children = 0
+        
+        for v in graph[u]:
+            # If v is not visited
+            if v not in disc:
+                parent[v] = u
+                children += 1
+                stack.append((u, v))
+                dfs(v)
+                
+                # Check if subtree rooted at v has a connection to ancestor of u
+                low[u] = min(low[u], low[v])
+                
+                # If u is an articulation point or root
+                if (parent.get(u) is None and children > 1) or (parent.get(u) is not None and low[v] >= disc[u]):
+                    component = []
+                    while stack and stack[-1] != (u, v):
+                        component.append(stack.pop())
+                    if stack:
+                        component.append(stack.pop())
+                    components.append(component)
+            
+            # Update low value of u for parent function calls
+            elif v != parent.get(u):
+                low[u] = min(low[u], disc[v])
+                if disc[v] < disc[u]:
+                    stack.append((u, v))
+    
+    for node in graph:
+        if node not in disc:
+            dfs(node)
+            # Check if there are any edges left in stack
+            if stack:
+                components.append(stack[:])
+                stack.clear()
+    
+    return components
+
+# Example usage
+undirected_graph = {
+    0: [1, 2],
+    1: [0, 2],
+    2: [0, 1, 3, 5],
+    3: [2, 4],
+    4: [3, 5],
+    5: [2, 4]
+}
+biconnected = find_biconnected_components(undirected_graph)
+print("Biconnected Components:", biconnected)
+```
+
+## Common Interview Problems
+
+1. **Number of Islands (LeetCode 200)**
+   - Count connected components in a grid
+   - Use DFS or BFS to explore each island
+
+2. **Number of Connected Components in an Undirected Graph (LeetCode 323)**
+   - Count connected components in a graph
+   - Use DFS, BFS, or Union-Find
+
+3. **Critical Connections in a Network (LeetCode 1192)**
+   - Find bridges in a graph (edges that, when removed, increase the number of connected components)
+   - Use Tarjan's algorithm
+
+4. **Redundant Connection (LeetCode 684)**
+   - Find an edge that can be removed while keeping the graph connected
+   - Use Union-Find
+
+5. **Accounts Merge (LeetCode 721)**
+   - Merge accounts based on common emails
+   - Use Union-Find to group related accounts
+
+# Union Find
 
 # Possible Interview Questions
