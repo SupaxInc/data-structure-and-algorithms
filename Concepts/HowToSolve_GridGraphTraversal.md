@@ -690,11 +690,11 @@ Used to model real world situations that can be represented as a graph with dire
 
 - School class prerequisites, example, you can't take courses that you don't have prerequisites for.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/cbb2426a-3ad1-46d2-90e1-5112e3ff31d3/Untitled.png)
+![Untitled](../images/topsort1.png)
 
 - Program dependencies, for example, you want to build program J so you would need H and G then E and F then C, B and D and so on.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6a38b339-7465-4ce6-bb81-8fc02629fd32/Untitled.png)
+![Untitled](../images/topsort2.png)
 
 - Event scheduling
 
@@ -704,11 +704,11 @@ Used to model real world situations that can be represented as a graph with dire
     - To verify that your graph does not contain a cycle, you can use Tarjan's strongly connected component algorithm to detect cycles.
 - Every tree has a topological ordering since they do not contain any cycles
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/d9b7cafd-a96a-46c1-9b91-01b896a9f39f/Untitled.png)
+![Untitled](../images/dag1.png)
 
 - To see how topological ordering works for a tree, keep picking off leaf nodes in any order until you reach the root node
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9dd80c24-e450-4f99-8754-43ba02ef7b82/Untitled.png)
+![Untitled](../images/dag2.png)
 
 ## How does the general algorithm work?
 
@@ -720,23 +720,23 @@ Used to model real world situations that can be represented as a graph with dire
 
 Step 1) Pick Node H
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a2bc1f8a-5b81-4335-86d4-5b12ea1fe6bb/Untitled.png)
+![Untitled](../images/traversetopsort1.png)
 
 Step 2) DFS and explore unvisited nodes. H → J → M
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/2545d496-68ce-433a-8b97-609913ac922c/Untitled.png)
+![Untitled](../images/traversetopsort2.png)
 
 Step 3) Pop recursive stack of M and backtrack to J and then explore L. Every time stack recursion pops add to topological ordering.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5b205de6-f7c9-4932-8032-6aaf97fc431c/Untitled.png)
+![Untitled](../images/traversetopsort3.png)
 
 Step 4) Backtrack from L and then to J then back to H.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/290cd49f-4b78-472a-bbaf-42accbb672a7/Untitled.png)
+![Untitled](../images/traversetopsort4.png)
 
 Step 5) From H, visit I and then backtrack to H
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/65f2d1fc-f5e6-46c5-bc93-4613d7e01fc3/Untitled.png)
+![Untitled](../images/traversetopsort5.png)
 
 ## Example Template
 
