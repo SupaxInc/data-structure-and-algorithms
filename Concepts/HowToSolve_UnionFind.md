@@ -26,7 +26,7 @@ Disjoint sets and operations
     - **Initialization**: Initialize the Union-Find data structure.
     - **Union Operation**: For each edge in the graph, perform a union operation.
     - **Cycle Detection**: If the union operation connects two vertices that are already in the same component, a cycle is detected.
-- **Kruskal’s algorithm** for finding the Minimum Spanning Tree (MST).
+- **Kruskal's algorithm** for finding the Minimum Spanning Tree (MST).
 - **Connected components** in graphs.
 - **Dynamic connectivity** problems.
 
@@ -299,6 +299,118 @@ Updated `parent` and `rank`:
     - 1's parent is now 0.
 - `rank`: [2, 1, 1, 1, 1]
     - Rank of 0 increases to 2.
+
+Visually:
+```
+    0
+   /
+  1
+```
+
+### Union(2, 3)
+
+```python
+uf.union(2, 3)
+```
+
+- Find roots of 2 and 3:
+    - Root of 2 is 2.
+    - Root of 3 is 3.
+- Union by rank:
+    - Both have the same rank. Arbitrarily choose 2 as the root and increase its rank.
+
+Updated `parent` and `rank`:
+
+- `parent`: [0, 0, 2, 2, 4]
+    - 3's parent is now 2.
+- `rank`: [2, 1, 2, 1, 1]
+    - Rank of 2 increases to 2.
+
+Visually, we now have two separate trees:
+```
+    0       2
+   /       /
+  1       3
+```
+
+### Union(0, 2)
+
+```python
+uf.union(0, 2)
+```
+
+- Find roots of 0 and 2:
+    - Root of 0 is 0.
+    - Root of 2 is 2.
+- Union by rank:
+    - Both have rank 2. Arbitrarily choose 0 as the root and increase its rank.
+
+Updated `parent` and `rank`:
+
+- `parent`: [0, 0, 0, 2, 4]
+    - 2's parent is now 0.
+- `rank`: [3, 1, 2, 1, 1]
+    - Rank of 0 increases to 3.
+
+Visually:
+```
+      0
+     / \
+    1   2
+       /
+      3
+```
+
+### Union(4, 3)
+
+```python
+uf.union(4, 3)
+```
+
+- Find roots of 4 and 3:
+    - Root of 4 is 4.
+    - Root of 3 is 0 (after path compression: 3 → 2 → 0).
+- Union by rank:
+    - Rank of 4 is 1, rank of 0 is 3. Attach 4 to 0.
+
+Updated `parent` and `rank`:
+
+- `parent`: [0, 0, 0, 2, 0]
+    - 4's parent is now 0.
+- `rank`: [3, 1, 2, 1, 1]
+    - No rank changes as we attached the smaller tree to the larger one.
+
+Visually:
+```
+      0
+    / | \
+   1  2  4
+     /
+    3
+```
+
+### Path Compression Example
+
+If we now call `find(3)`:
+
+```python
+uf.find(3)
+```
+
+The function will traverse from 3 → 2 → 0 and compress the path:
+
+Updated `parent`:
+- `parent`: [0, 0, 0, 0, 0]
+    - 3's parent is now directly 0.
+
+Visually after path compression:
+```
+      0
+    / | | \
+   1  2 3  4
+```
+
+This demonstrates how Union-Find with path compression and union by rank efficiently maintains disjoint sets while keeping the tree height minimal, resulting in near-constant time operations.
 
 ## Example - Counting Connected Components (Leetcode 323)
 
