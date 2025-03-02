@@ -39,12 +39,6 @@
     - [Template Code: DFS Approach](#template-code-dfs-approach)
     - [Template Code: BFS Approach](#template-code-bfs-approach)
     - [Template Code: Union-Find Approach](#template-code-union-find-approach)
-  - [Grid-Based Connected Components](#grid-based-connected-components)
-    - [Template Code: Finding Islands in a Grid](#template-code-finding-islands-in-a-grid)
-  - [Biconnected Components](#biconnected-components)
-    - [Template Code: Finding Biconnected Components](#template-code-finding-biconnected-components)
-  - [Common Interview Problems](#common-interview-problems)
-- [Union Find](#union-find)
 - [Possible Interview Questions](#possible-interview-questions)
 
 # Graph Representation Guide
@@ -534,6 +528,10 @@ negative weights.
 - However, it is a lot faster than Bellman-Ford algorithm and more
 efficient.
 
+<br><br>
+
+---
+
 # Topological Sorting (Top Sort)
 
 Has a runtime complexity of O(Vertices+Edges) time.
@@ -554,6 +552,10 @@ Used to model real world situations that can be represented as a graph with dire
 
 - Event scheduling
 
+<br>
+
+---
+
 ## Directed Acyclic Graphs (DAG)
 
 - The only type of graph that has a valid topological ordering is a Directed Acyclic Graph.
@@ -565,6 +567,10 @@ Used to model real world situations that can be represented as a graph with dire
 - To see how topological ordering works for a tree, keep picking off leaf nodes in any order until you reach the root node
 
 ![Untitled](../images/dag2.png)
+
+<br>
+
+---
 
 ## How does the general algorithm work?
 
@@ -674,6 +680,10 @@ class TopologicalSort:
         return order
 ```
 
+<br><br>
+
+---
+
 # Connected Components
 
 Connected components are fundamental structures in graph theory that help us understand the connectivity patterns within a graph. They are crucial for solving many graph-related problems in coding interviews.
@@ -694,6 +704,10 @@ Connected components are fundamental structures in graph theory that help us und
 **Time Complexity Analysis:**
 - Finding all connected components: O(V + E) using DFS or BFS
 - Checking if two nodes are in the same component: O(V + E) for a one-time check, or O(1) with preprocessing using Union-Find
+
+<br>
+
+---
 
 ## Directed Graphs
 
@@ -933,6 +947,10 @@ print("Weakly Connected Components:", wccs)
 
 For a graph to be **connected** the underlying graph of a directed graph has to be connected. So the graph above is called **disconnected** since vertices from A to C cannot reach E to F.
 
+<br>
+
+---
+
 ## Undirected Graphs
 
 For an undirected graph, connected components are simply the subsets of vertices where each vertex is reachable from every other vertex within the same subset, without considering any directionality of edges (since the edges are undirected). Each component is, in essence, an isolated "island" of connectivity.
@@ -959,6 +977,8 @@ In this graph, there are two connected components:
 - Identifies isolated subgraphs
 - Useful for network analysis
 - Essential for solving island counting problems
+
+---
 
 ### Template Code: DFS Approach
 
@@ -1004,6 +1024,8 @@ undirected_graph = {
 components = find_connected_components_dfs(undirected_graph)
 print("Connected Components:", components)
 ```
+
+---
 
 ### Template Code: BFS Approach
 
@@ -1111,182 +1133,5 @@ edges = [(0, 1), (0, 3), (1, 3), (2, 4), (2, 5), (4, 5), (4, 6)]
 components = find_connected_components_union_find(n, edges)
 print("Connected Components:", components)
 ```
-
-## Grid-Based Connected Components
-
-Many interview problems involve finding connected components in a 2D grid (e.g., islands in a matrix).
-
-**Common Problem Types:**
-- Count number of islands
-- Find the largest island
-- Determine if there's a path from one cell to another
-
-**Time Complexity:** O(rows × columns) for grid traversal
-
-### Template Code: Finding Islands in a Grid
-
-```python
-def count_islands(grid):
-    """
-    Count the number of islands in a grid.
-    An island is a group of 1's connected horizontally or vertically.
-    
-    Args:
-        grid: 2D list where 1 represents land and 0 represents water
-        
-    Returns:
-        Number of islands
-    """
-    if not grid or not grid[0]:
-        return 0
-    
-    rows, cols = len(grid), len(grid[0])
-    count = 0
-    
-    def dfs(r, c):
-        # Check boundaries and if it's land
-        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != 1:
-            return
-        
-        # Mark as visited
-        grid[r][c] = '#'  # You can also use 0 or any other marker
-        
-        # Explore all 4 directions
-        dfs(r+1, c)  # Down
-        dfs(r-1, c)  # Up
-        dfs(r, c+1)  # Right
-        dfs(r, c-1)  # Left
-    
-    for r in range(rows):
-        for c in range(cols):
-            if grid[r][c] == 1:
-                count += 1
-                dfs(r, c)  # Mark all connected land
-    
-    return count
-
-# Example usage
-grid = [
-    [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 1, 1]
-]
-print("Number of islands:", count_islands(grid))
-```
-
-## Biconnected Components
-
-**Definition:** A biconnected component is a maximal biconnected subgraph - a connected subgraph that remains connected even after removing any single vertex.
-
-**Properties:**
-- Contains no articulation points (cut vertices)
-- Every pair of vertices has at least two distinct paths between them
-- Used to identify critical points in networks
-
-**Benefits:**
-- Identifies vulnerable points in networks
-- Useful for network reliability analysis
-- Helps in designing robust systems
-
-**Time Complexity:** O(V + E) using Tarjan's algorithm
-
-### Template Code: Finding Biconnected Components
-
-```python
-def find_biconnected_components(graph):
-    """
-    Find all biconnected components in an undirected graph.
-    
-    Args:
-        graph: Dictionary representing adjacency list of the undirected graph
-        
-    Returns:
-        List of lists, where each inner list contains edges in one biconnected component
-    """
-    disc = {}  # Discovery time
-    low = {}   # Earliest visited vertex reachable from subtree
-    parent = {}
-    time = [0]
-    stack = []
-    components = []
-    
-    def dfs(u):
-        disc[u] = low[u] = time[0]
-        time[0] += 1
-        children = 0
-        
-        for v in graph[u]:
-            # If v is not visited
-            if v not in disc:
-                parent[v] = u
-                children += 1
-                stack.append((u, v))
-                dfs(v)
-                
-                # Check if subtree rooted at v has a connection to ancestor of u
-                low[u] = min(low[u], low[v])
-                
-                # If u is an articulation point or root
-                if (parent.get(u) is None and children > 1) or (parent.get(u) is not None and low[v] >= disc[u]):
-                    component = []
-                    while stack and stack[-1] != (u, v):
-                        component.append(stack.pop())
-                    if stack:
-                        component.append(stack.pop())
-                    components.append(component)
-            
-            # Update low value of u for parent function calls
-            elif v != parent.get(u):
-                low[u] = min(low[u], disc[v])
-                if disc[v] < disc[u]:
-                    stack.append((u, v))
-    
-    for node in graph:
-        if node not in disc:
-            dfs(node)
-            # Check if there are any edges left in stack
-            if stack:
-                components.append(stack[:])
-                stack.clear()
-    
-    return components
-
-# Example usage
-undirected_graph = {
-    0: [1, 2],
-    1: [0, 2],
-    2: [0, 1, 3, 5],
-    3: [2, 4],
-    4: [3, 5],
-    5: [2, 4]
-}
-biconnected = find_biconnected_components(undirected_graph)
-print("Biconnected Components:", biconnected)
-```
-
-## Common Interview Problems
-
-1. **Number of Islands (LeetCode 200)**
-   - Count connected components in a grid
-   - Use DFS or BFS to explore each island
-
-2. **Number of Connected Components in an Undirected Graph (LeetCode 323)**
-   - Count connected components in a graph
-   - Use DFS, BFS, or Union-Find
-
-3. **Critical Connections in a Network (LeetCode 1192)**
-   - Find bridges in a graph (edges that, when removed, increase the number of connected components)
-   - Use Tarjan's algorithm
-
-4. **Redundant Connection (LeetCode 684)**
-   - Find an edge that can be removed while keeping the graph connected
-   - Use Union-Find
-
-5. **Accounts Merge (LeetCode 721)**
-   - Merge accounts based on common emails
-   - Use Union-Find to group related accounts
-
-# Union Find
 
 # Possible Interview Questions
