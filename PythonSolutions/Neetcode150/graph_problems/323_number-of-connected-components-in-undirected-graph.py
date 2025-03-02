@@ -74,7 +74,7 @@ class UnionFind:
             # If both trees are of same rank then just choose any root to connect to
             self.root[rootX] = rootY
             # Depending on root you connect to increase the rank by 1
-                # Because the longest path in each tree is now part of the longest path in the new tree, resulting in a taller tree.
+                # Because the new tree is now part of the root of the old tree, resulting in a taller tree.
             self.rank[rootY] += 1
 
 class UnionFindSolution:
