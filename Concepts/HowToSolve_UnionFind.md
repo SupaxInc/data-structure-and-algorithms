@@ -18,6 +18,8 @@ Disjoint sets and operations
 - **Union**: Combine two sets into one.
 - **Find**: Determine which set a particular element belongs to.
 
+<br>
+
 ## Common Applications
 
 - **Detecting cycles** in undirected graphs.
@@ -27,6 +29,8 @@ Disjoint sets and operations
 - **Kruskal’s algorithm** for finding the Minimum Spanning Tree (MST).
 - **Connected components** in graphs.
 - **Dynamic connectivity** problems.
+
+<br>
 
 ## Complexities
 
@@ -38,6 +42,8 @@ Space Complexity: O(n)
 
 - Without optimizations, Union Find **`find`** operations could be *O*(log*n*) in the worst case.
 - With path compression and union by rank (or size), the time complexity is improved to *O*(*α*(*n*)), which is nearly constant and much better than *O*(log*n*) for all practical numbers of elements *n*.
+
+<br>
 
 ## Path Compression
 
@@ -72,6 +78,8 @@ def find(self, x):
       self.root[x] = self.find(self.root[x])
   return self.root[x]
 ```
+
+<br>
 
 ## Ranks
 
@@ -114,7 +122,7 @@ From: https://www.youtube.com/watch?v=ayW5B2W9hfo
 
 **Function 2)** `union(x, y)` Unions the groups containing x and y
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/68ac88da-2a2d-475d-ac81-695907b7a560/Untitled.png)
+![Untitled](../images/unionfind_ex1.png)
 
 **Example)** We can `find(2)` = 0 and `find(3)` = 1, then we can `union(0, 1)` to combine the two groups.
 
@@ -124,11 +132,11 @@ From: https://www.youtube.com/watch?v=ayW5B2W9hfo
 
 **Step 1)** Create edges for a vertices and connect them in different groups.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/283334e5-5372-4de7-a6f5-b6388d7d67e6/Untitled.png)
+![Untitled](../images/unionfind_ex2.png)
 
 **Step 2)** Designate a representative vertex for the different groups. Representatives finds out if two different vertices belong to the same group.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a000e0de-9482-41cd-ad24-45bba40b14c9/Untitled.png)
+![Untitled](../images/unionfind_ex3.png)
 
 Example: `find(4)` = 0 and `find(2)` = 5
 
@@ -136,21 +144,21 @@ Example: `find(4)` = 0 and `find(2)` = 5
 
 **Step 3)** Rearrange the graph so that the groups are now trees.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/04571b3f-2090-43ce-8906-d5206833ae00/Untitled.png)
+![Untitled](../images/unionfind_ex4.png)
 
 The root nodes will be the designed representatives. We now have a parent and child representation.
 
 **Step 4)** To find the representative node, we need to traverse up the tree.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5d8a3055-9935-4499-a112-1f035ee9e26b/Untitled.png)
+![Untitled](../images/unionfind_ex5.png)
 
 **Step 5)** To union two trees, we can just set the root of one tree as a child of the other tree.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/21ee997b-5e12-42da-992e-6255a4372063/Untitled.png)
+![Untitled](../images/unionfind_ex6.png)
 
 ## Code Template
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/e06c837a-8c8c-4049-8a15-22b40037e3a1/Untitled.png)
+![Untitled](../images/unionfind_template.png)
 
 1. Create the find function, finds the root of the tree.
     1. If the parent of x is not itself then we have not yet find the root of the tree
