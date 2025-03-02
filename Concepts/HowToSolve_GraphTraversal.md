@@ -243,7 +243,7 @@ Where:
 2. Exploration of a vertex
     1. Can only visit one node as deep as possible at a time
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c3933954-71ec-4496-8852-19ce4fbd6eb5/Untitled.png)
+![Untitled](../images/dfsgraphs1.png)
 
 How to use DFS to traverse example above:
 
@@ -373,7 +373,7 @@ def validTree(self, n: int, edges: List[List[int]]) -> bool:
 2. Exploration of a vertex
     1. Visit all adjacent vertices in any order
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c3933954-71ec-4496-8852-19ce4fbd6eb5/Untitled.png)
+![Untitled](../images/bfsgraphs1.png)
 
 How BFS traversal works based on example above:
 
