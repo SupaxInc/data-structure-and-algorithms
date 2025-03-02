@@ -58,6 +58,7 @@ class DFSSolution:
             # Check:
                 # - If u and v are in the graph before calling a DFS between the two nodes
                 # - Prevents DFS since if these nodes don't exist then we can't find a path from source to target
+                # *- Check if there's an existing path between source and target, if there is then a cycle will be created*
             if u in self.graph and v in self.graph and self.dfs(u, v, visited):
                 # Return the edge that creates a cycle
                 return [u, v]
