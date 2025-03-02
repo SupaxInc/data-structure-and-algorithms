@@ -1,90 +1,94 @@
 class DFSSolution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        if not n:
-            return True
+        graph = defaultdict(list)
+
+        # Create an undirected graph
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
         
         visited = set()
-        graph = {v: [] for v in range(n)}
-
-        # Create an bi-directional graph (undirected)
-        for x, y in edges:
-            graph[x].append(y)
-            graph[y].append(x)
-
-        def dfs(source, prev):
-            # Check if a cycle is detected
-            if source in visited:
+        def dfs(node, prev):
+            """
+            Prev is used to keep track of what the previous node we was that we just traversed from.
+            Prevents incorrect cycle detection in undirected graphs.
+            """
+            # Base case 1: There is a cycle
+            if node in visited:
                 return False
             
-            visited.add(source)
-            for adj in graph[source]:
-                # Don't do a DFS on the neighbor we just traversed from since we have visited it already
-                    # Prevents detecting a cycle this way
-                if adj == prev:
+            # Visit the vertex
+            visited.add(node)
+
+            # Explore the neighbors for the current node
+            for nei in graph[node]:
+                # Base case 2: Skip an incorrect cycle detection from previous node
+                if nei == prev:
                     continue
                 
-                # Explore the next neighbors and add the current node we are on as the previous
-                if not dfs(adj, source):
+                # Explore the current neighbor and make the current node the new previous node
+                if not dfs(nei, node):
                     return False
-            
+
+            # No cycle was found, return True
             return True
         
-        # DFS checks if there is a cycle
-        # Length of visited checks if all of the vertices are connected
-        return dfs(0, -1) and len(visited) == n
+        # Not valid tree check 1: There is a cycle in the graph
+            # - Begins search at node 0
+            # - Previous node is -1 which doesn't exist yet since there is no current prev node
+            # - Only 1 DFS call is needed since we don't care about disconnected components
+        if not dfs(0, -1):
+            return False
+        
+        # Not valid tree check 2: There are more than 1 component
+            # Checks if we've visited the correct amount of nodes compared to the size of nodes
+            # If we have not visited all nodes, then that means that are more than 1 components
+        return len(visited) == n
 
 class UnionFind:
     def __init__(self, size):
-        self.root = [n for n in range(size)]
+        self.size = size
+
+        # Create the beginning of root and rank using size
+        self.root = [i for i in range(size)]
         self.rank = [1] * size
-    
+
     def find(self, x):
-        # Check if the index equals its value (it is its own root node, does not point to another root)
+        # Check if it is a root of itsself, if not flatten the tree so its easier to search
         if self.root[x] != x:
-            # Go as deep as possible to find the root node
-                # (the node where its index equals its value)
-                # E.g. [0, 0, 1] , index 2 (root 2) points to index 1, index 1 points to index 0
-                    # 0 is the parent node of all nodes
             self.root[x] = self.find(self.root[x])
+        
         return self.root[x]
     
     def union(self, x, y):
-        parentX = self.find(x)
-        parentY = self.find(y)
+        rootX = self.find(x)
+        rootY = self.find(y)
 
-        # Cycle is detected if an edges pair have the same vertices in the same component
-        if parentX == parentY:
+        # Cycle detection: Check if the nodes we are connecting are in the same component
+        if rootX == rootY:
             return False
-        else:
-            # Connect the root with the smallest rank (smaller tree) to the root has a larger rank
-                # If its the same rank then just choose whatever
-            if self.rank[parentX] > self.rank[parentY]:
-                # No need to add a rank as the structure is flattened
-                self.root[parentY] = parentX
-            elif self.rank[parentX] < self.rank[parentY]:
-                # No need to add a rank as the structure is flattened
-                self.root[parentX] = parentY
-            else:
-                self.root[parentX] = parentY
-                # Add a rank since
-                # Longest path in each tree is now part of the longest path in the new tree, resulting in a taller tree.
-                self.rank[parentY] += 1
         
+        if self.rank[rootX] > self.rank[rootY]:
+            self.root[rootY] = rootX
+        elif self.rank[rootY] > self.rank[rootX]:
+            self.root[rootX] = rootY
+        else:
+            self.root[rootY] = rootX
+            self.rank[rootX] += 1
+        
+        # Return True since no cycle was detected
         return True
-
-
 class UnionFindSolution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         uf = UnionFind(n)
 
-        for x, y in edges:
-            # Checking for cycles, if an edges pair has the same vertex then it connects to same component
-            if not uf.union(x, y):
+        for u, v in edges:
+            # Valid tree check 1: Check if theres any cycles between the union of two nodes
+            if not uf.union(u, v):
                 return False
-
-        # Check if there is only one connection, since if theres more than 1 thats not a valid tree
-            # It will compress the paths for each node to 1 singular parent node
-            # If it returns more than one different node and is created as a set with a greater length of 1, that means there are multiple connections
-            # If [1, 1, 1, 1] as an example, it is all the same root nodes set([1, 1, 1, 1]) == length 1, so only 1 connection
-        return len(set([uf.find(x) for x in range(n)])) == 1
+        
+        # Valid tree check 2: Ensure that there are only 1 root node (1 component)
+            # - Since the path has been compressed there should only be 1 root node for 1 component
+            # - If [1, 1, 1, 1] as an example, it is all the same root nodes set([1, 1, 1, 1]) == length 1, so only 1 connection
+        return len(set([uf.find(i) for i in range(n)])) == 1
         
