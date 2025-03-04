@@ -3014,7 +3014,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 210 - Course Schedule 2
 
-**Intuition:** Find a possible order of courses to complete based on prerequisites, akin to organizing tasks with dependencies using a directed graph to ensure all prerequisites are met before taking any course.
+**Intuition:** Find a possible order of courses to complete based on prerequisites, similar to organizing tasks with dependencies using a directed graph to ensure all prerequisites are met before taking any course.
 
 - Solutions
     
@@ -4090,11 +4090,11 @@ Read code solution comments if you are confused.
         - **Row 1** (**`'('`**):
             - **`dp[1][1]`** becomes true because processing **`(`** increases the unmatched count by 1 (from **`dp[0][0]`**).
         - **Row 2** (**`'*'`**):
-            - **`dp[2][0]`**: True because **``** can act as an empty character, carrying over **`dp[1][0]`** (not applicable here).
-            - **`dp[2][1]`**: True because **``** can act as **`(`**, increasing the unmatched count from **`dp[1][0]`**.
-            - **`dp[2][2]`**: True because **``** can also act as **`(`**, increasing the unmatched count from **`dp[1][1]`**.
+            - **`dp[2][0]`**: True because  can act as an empty character, carrying over **`dp[1][0]`** (not applicable here).
+            - **`dp[2][1]`**: True because  can act as **`(`**, increasing the unmatched count from **`dp[1][0]`**.
+            - **`dp[2][2]`**: True because  can also act as **`(`**, increasing the unmatched count from **`dp[1][1]`**.
         - **Row 3** (**`')'`**):
-            - **`dp[3][0]`**: Remains false because you cannot have zero unmatched parentheses after an odd number of symbols unless compensated by a **``**.
+            - **`dp[3][0]`**: Remains false because you cannot have zero unmatched parentheses after an odd number of symbols unless compensated by a .
             - **`dp[3][1]`**: True because **`)`** decreases the unmatched count by 1 from **`dp[2][2]`**.
             - **`dp[3][2]`**: True as **`)`** decreases the unmatched count by 1 from **`dp[2][3]`** (if it were applicable).
         - **Row 4** (**`')'`**):
@@ -4103,7 +4103,7 @@ Read code solution comments if you are confused.
         ### **How to Read the Table:**
         
         - Each **column** represents a possible number of unmatched opening parentheses (**`j`**) after processing the first **`i`** characters.
-        - Each **row** corresponds to processing another character in the string, updating possible states based on the character's nature (**`(`** increases, **`)`** decreases, **``** has multiple effects).
+        - Each **row** corresponds to processing another character in the string, updating possible states based on the character's nature (**`(`** increases, **`)`** decreases,  has multiple effects).
     
     **Best Optimized Approach:** Use greedy solution
     
