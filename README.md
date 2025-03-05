@@ -3129,6 +3129,27 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/df0fa26a-0172-478c-bf57-930f9c377a54/Untitled.png)
     
+    ```python
+    # Above drawing was missing some nodes.
+    # What the graph adjacency looks like based on example above:
+    graph = {
+        "*ot": ["hot", "dot", "lot"],
+        "h*t": ["hot", "hit"],
+        "ho*": ["hot"],
+        "d*t": ["dot"],
+        "do*": ["dot", "dog"],
+        "*og": ["dog", "log", "cog"],
+        "d*g": ["dog"],
+        "l*t": ["lot"],
+        "lo*": ["lot", "log"],
+        "l*g": ["log"],
+        "c*g": ["cog"],
+        "co*": ["cog"],
+        "*it": ["hit"],
+        "hi*": ["hit"]
+    }
+    ```
+    
     **Unique uses:**
     
     - BFS level order traversal
