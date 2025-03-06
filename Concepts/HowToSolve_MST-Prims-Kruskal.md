@@ -117,13 +117,13 @@ How it works:
 
 - Always select the minimum weight edge.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/ec5b5870-e74b-403b-aac5-bd0b0c98fd44/Untitled.png)
+![Untitled](../images/mst_kruskal1.png)
 
 - Compared to Prim’s algorithm, we don’t care if its connected to the previous vertices we have selected.
     - So just select it even if vertices are not connected to each other
 - If we start forming a cycle, do NOT include it in the solution. Discard the edge and choose another minimum weighted edge.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5e01b1cd-0e3b-4c6b-975e-deedbaadf773/Untitled.png)
+![Untitled](../images/mst_kruskal2.png)
 
 - In the picture above, you can see that it created the same tree as Prim’s algorithm.
 
