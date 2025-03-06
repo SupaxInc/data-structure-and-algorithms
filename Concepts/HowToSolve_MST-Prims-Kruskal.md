@@ -1,6 +1,6 @@
 # What is a Minimum Spanning Tree?
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/4e30c958-3e10-415f-8ba4-bd13e0f62dd3/Untitled.png)
+![Untitled](../images/mst1.png)
 
 - A span tree is a sub-graph of a graph that takes all vertices but only n-1 edges
     - See example picture above, total number of 6 vertices and 5 edges.
@@ -13,7 +13,7 @@
 
 ## How about a weighted graph?
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/a9267e59-39d2-4cd4-8938-cac14757d44f/Untitled.png)
+![Untitled](../images/mst2.png)
 
 - Using our equation:
 Spanning tree = (V, E)
@@ -39,18 +39,18 @@ How it works:
     - Starting at the first point, lets say in a graph is usually (0, 0). This is a common strategy for Prims algorithm.
         - **It helps ensure that the MST construction begins with a known point and a cost of 0**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/96ec3627-d98c-4175-8b3b-2b6e4593db63/Untitled.png)
+![Untitled](../images/mst_prim1.png)
 
 - Continuously select the most minimum weight BUT we can only select the edges based on the vertices we have.
     - In the example above, we can only select edges that connect to 1 and 6.
 - We can see that between 1 and 6, 1 has an edge with weight of 28 and 6 has an edge with weight of 25. Therefore, 25 is smaller.
     - Continuously repeat this until 6 edges.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b179e05f-7436-4ab9-b11a-293c2df26c85/Untitled.png)
+![Untitled](../images/mst_prim2.png)
 
 - The minimum spanning tree should now look like the graph below. From each vertices selected, we always selected the most minimum edge and continued from there to create 6 edges. (|V| = 7, |V| - 1 = 6 total edges)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/1c85098b-8775-42e5-8061-11172bdf4587/Untitled.png)
+![Untitled](../images/mst_prim3.png)
 
 - The cost of the tree above would be 99.
 
