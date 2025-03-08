@@ -3211,16 +3211,109 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Brute Force:** Bellman Ford’s algorithm
     
-    - Time Complexity: O(V*E) → O(n^2)
-    - This is due to Bellman Fords being less efficient for graphs without negative weights
+    - Time Complexity: O(V*E) → O(V^2)
+        - O(V^2) since vertices could be proportional to size of edges
+    - Space Complexity: O(V)
+        - Our distance list will be the same size of vertices
+    - Easier to understand
+    - **Solution Example**
+        
+        ## **Initialization:**
+        
+        `distances = [inf, inf, 0, inf, inf]  # 0-indexed is unused, distances[2] = 0`
+        
+        ## **Iteration 1:**
+        
+        Process edges:
+        
+        - Edge (2,1,1): distances[2] = 0, so distances[1] = 0 + 1 = 1
+        - Edge (2,3,1): distances[2] = 0, so distances[3] = 0 + 1 = 1
+        - Edge (3,4,1): distances[3] = 1, so distances[4] = 1 + 1 = 2
+        
+        After iteration 1:
+        
+        `distances = [inf, 1, 0, 1, 2]`
+        
+        ## **Iteration 2:**
+        
+        Process edges:
+        
+        - Edge (2,1,1): distances[2] = 0, distances[1] = 1. No update needed.
+        - Edge (2,3,1): distances[2] = 0, distances[3] = 1. No update needed.
+        - Edge (3,4,1): distances[3] = 1, distances[4] = 2. No update needed.
+        
+        No updates occurred, so we break early.
+        
+        ## **Iteration 3:**
+        
+        We don't reach this iteration because of the early termination.
+        
     
     **Optimized Approach:** Use Dijkstra’s algorithm BFS
     
-    - Time Complexity: *O*(*E*log*E*)+*O*(*E*)+*O*(*N*)
+    - Time Complexity: *O*(*E*log*E*)+*O*(*E*)+*O*(V)
         - Graph construction: O(E)
-        - Time mapping: O(n)
+        - Time mapping: O(V)
         - Dijkstra’s algorithm: O(E log E), each edge can result in a heap operation
-    - Space Complexity: O(N + E)
+    - Space Complexity: O(V + E)
+    - **Solution Example**
+        
+        For the example: times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
+        
+        ## **Initial State**
+        
+        - Distance map: {1: inf, 2: 0, 3: inf, 4: inf}
+        - Min heap: [(0, 2)] (time, node)
+        - Visited: {}
+        
+        ## **Step 1: Process node 2**
+        
+        - Pop (0, 2) from heap
+        - Mark node 2 as visited
+        - Process neighbors:
+            - Update node 1: distance = 1
+            - Update node 3: distance = 1
+        - New state:
+            - Distance map: {1: 1, 2: 0, 3: 1, 4: inf}
+            - Min heap: [(1, 1), (1, 3)]
+            - Visited: {2}
+        
+        ## **Step 2: Process node 1**
+        
+        - Pop (1, 1) from heap
+        - Mark node 1 as visited
+        - No neighbors to process
+        - New state:
+            - Distance map: {1: 1, 2: 0, 3: 1, 4: inf}
+            - Min heap: [(1, 3)]
+            - Visited: {1, 2}
+        
+        ## **Step 3: Process node 3**
+        
+        - Pop (1, 3) from heap
+        - Mark node 3 as visited
+        - Process neighbors:
+            - Update node 4: distance = 2
+        - New state:
+            - Distance map: {1: 1, 2: 0, 3: 1, 4: 2}
+            - Min heap: [(2, 4)]
+            - Visited: {1, 2, 3}
+        
+        ## **Step 4: Process node 4**
+        
+        - Pop (2, 4) from heap
+        - Mark node 4 as visited
+        - No neighbors to process
+        - New state:
+            - Distance map: {1: 1, 2: 0, 3: 1, 4: 2}
+            - Min heap: []
+            - Visited: {1, 2, 3, 4}
+        
+        ## **Final Result**
+        
+        - All nodes visited
+        - Maximum distance = 2
+        - Return: 2
     
     **Solution:** Uses Dijkstra’s algorithm to find the shortest path to make all nodes receive the network.
     

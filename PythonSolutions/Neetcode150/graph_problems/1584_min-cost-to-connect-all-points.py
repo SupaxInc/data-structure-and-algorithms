@@ -36,7 +36,7 @@ class PrimSolution:
                 # neiPoint is an index in the points list which matches to a vertex
                 # e.g. points = [[0,0],[2,2]], neiPoint = 1 is vertex 1 which is point [2, 2]
             for neiPoint in range(totalVertices):
-                # Only explore the and calculate the cost of the points that have not been visited
+                # Only explore and calculate the cost of the points that have not been visited
                 if neiPoint not in visited:
                     heapq.heappush(minHeap, (manhattan(currPoint, neiPoint), neiPoint))
 

@@ -66,7 +66,7 @@ https://www.youtube.com/watch?v=pVfj6mxhdMw
 - **Step 5) Visit the unvisited vertex with the smallest known distance. Vertex D < B.**
     - Repeat the algorithm again from step 3.
     - Remember, if there is a shorter known distance from the start node, assign it with the shorter distance
-        - See below, there is a shorter distance from A → B if we go to D first
+        - See below, there is a shorter distance from A → B (total 6) if we go to D first which is A → D → B (total 3)
 
 ![alt text](../images/djikstra_7.png)
 
