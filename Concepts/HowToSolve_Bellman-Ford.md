@@ -168,7 +168,7 @@ def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int
 
 ### Why do we copy the prices above?
 
-Consider a graph with the following
+The key reason for copying the distances array in the k-limited Bellman-Ford algorithm is to ensure that each iteration represents exactly one additional hop/stop. Without copying, updates from earlier edges in an iteration could cascade through later edges in the same iteration, allowing multi-hop paths to be considered in a single iteration.
 
 ```python
 Consider a graph with a cycle and the edges:
@@ -191,28 +191,28 @@ Iteration Details without Copying
     - `distances = [0, inf, inf]`
 2. **First Iteration** (`0`): (relaxing the edges inner loop)
     - Processing (0, 1, 100): `distances[1] = 100` -> `distances = [0, 100, inf]`
-    - Processing (1, 0, 50): `distances[0] = 150` (incorrect update) -> `distances = [150, 100, inf]`
-    - Processing (0, 2, 500): No update because `distances[0] = 150`
+    - Processing (1, 0, 50): `distances[0] = 50 + 100 = 150` (incorrect update) -> `distances = [150, 100, inf]`
+    - Processing (0, 2, 500): `distances[2] = 150 + 500 = 650` (using the incorrectly updated value) -> `distances = [150, 100, 650]`
 
-You can see the cycle messes the calculations because the inner loop is comparing the current distance in place in the same iteration:
- `if distances[s] != float('inf') and distances[s] + p < distances[t]:`
+The problem here is that we've allowed a 2-hop path (0→1→0) in a single iteration, which violates our constraint of counting exactly one hop per iteration. The in-place updates cause later edge relaxations to use values that were just updated in the same iteration.
 
 Iteration Details with Copying
 
 1. **Initialization**:
     - `distances = [0, inf, inf]`
 2. **First Iteration** (`0`): (relaxing the edges inner loop)
-    - `new_distances = [0, inf, inf]`
+    - `new_distances = [0, inf, inf]` (copy of current distances)
     - Processing (0, 1, 100): `new_distances[1] = 100` -> `new_distances = [0, 100, inf]`
-    - Processing (1, 0, 50): No update because `distances[1] = inf`
+    - Processing (1, 0, 50): No update because `distances[1] = inf` (using original distances)
     - Processing (0, 2, 500): `new_distances[2] = 500` -> `new_distances = [0, 100, 500]`
     - Update `distances = [0, 100, 500]`
 3. **Second Iteration** (`1`): 
-    - `new_distances = [0, 100, 500]`
-    - Processing (0, 1, 100): No update because `distances[1] = 100`
-    - Processing (1, 2, 100): `new_distances[2] = 200` -> `new_distances = [0, 100, 200]`
-    - Processing (0, 2, 500): No update because `distances[2] = 500`
-    - Update `distances = [0, 100, 200]`
+    - `new_distances = [0, 100, 500]` (copy of current distances)
+    - Processing (0, 1, 100): No update because `new_distances[1] = 100 <= distances[0] + 100 = 100`
+    - Processing (1, 0, 50): `new_distances[0] = 50 + 100 = 150` -> `new_distances = [150, 100, 500]`
+    - Processing (0, 2, 500): No update because `new_distances[2] = 500 <= distances[0] + 500 = 500`
+    - Update `distances = [150, 100, 500]`
 
-You can see here that we are comparing the new iteration distance with the PREVIOUS distances:
-`if distances[s] != float('inf') and distances[s] + p < new_distances[t]:`
+By copying the distances array, we ensure that all edge relaxations in a single iteration use the distances from the previous iteration, enforcing the "exactly one additional hop per iteration" constraint that's essential for the k-limited Bellman-Ford algorithm.
+
+This copying is not needed in the standard Bellman-Ford algorithm (like in LeetCode 743) where we're finding the shortest path regardless of the number of hops.
