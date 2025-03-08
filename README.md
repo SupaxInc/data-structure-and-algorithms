@@ -3163,7 +3163,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 - Solutions
     
-    **Brute Force:** Kruskal’s algorithm with sorting
+    **NOTE:** Keep in mind that the graph is a COMPLETE graph which means from any point we can connect to any other point. Therefore, algorithms like Prim does not need to be done in a traditional sense where we need to only connect to vertices we have visited.
+    
+    **Kruskal Approach:** Kruskal’s algorithm with sorting
     
     - How it works:
         1. Calculate the Manhattan distance between every pair of points and create a list of edges with their distances.
@@ -3176,7 +3178,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - O(N^2 log N) for sorting the edges based on distance
     - Space Complexity: O(n^2) since storing all Manhattan distances at the beginning
     
-    **Optimized Approach:** Use Prim’s algorithm with a priority queue (BFS)
+    **Prim Approach:** Use Prim’s algorithm with a priority queue (BFS)
     
     - How it works:
         1. Start with an arbitrary point as the current vertex and add all other points with their distances to the current vertex into a min-heap.
@@ -3184,8 +3186,8 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         3. Update the heap with distances to this newly visited point for all non-visited points, if the new distances are smaller.
         4. Repeat steps 2 and 3 until all points have been visited.
     - Time Complexity: O(n^2 log N) → similar to Kruskal
-    - Space Complexity: O(n) → since we are just storing min heap and visited
-        - Prim’s algorithm doesn’t necessarily store all edges at once in memory
+    - Space Complexity: O(n^2)
+        - We end up storing all edges to the min heap when we visit an edge to check which point is the min cost.
     
     **Solution:** Prim's algorithm with a priority queue (min heap) to build a minimum spanning tree by iteratively adding the nearest unvisited point based on Manhattan distance, starting from point 0.
     
@@ -3199,6 +3201,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Also useful in scenarios where movement is restricted to only horizontally and vertically directions, such as navigating a city with a grid-like street layout.
             - Not allowed diagonally.
         - In this case, its used to determine the smallest edge to add to MST in Prims algorithm.
+    - The graph is a **COMPLETE** graph where we can connect to any point from a point.
 
 ## 743 - Network Delay Time (Advanced)
 
