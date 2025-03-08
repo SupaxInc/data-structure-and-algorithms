@@ -3,6 +3,7 @@ class PrimSolution:
         # *This problem is a COMPLETE graph*
             # Meaning that all points can connect with each other
             # Therefore, we are not limited only to the vertices that we have visited
+                # Not like exploring with graph[neiPoint] instead visiting all vertices with range(totalVertices)
             # We can actually visit any vertex that we want
         totalVertices = len(points)
         visited = set()
@@ -67,37 +68,62 @@ class UnionFind:
             return True
         return False
 
+class UnionFind:
+    def __init__(self, size):
+        self.root = [i for i in range(size)]
+        self.rank = [1] * size
+
+    def find(self, x):
+        if self.root[x] != x:
+            self.root[x] = self.find(self.root[x])
+        return self.root[x]
+    
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+
+        if rootX == rootY:
+            return False
+        
+        if self.rank[rootX] > self.rank[rootY]:
+            self.root[rootY] = rootX
+        elif self.rank[rootY] > self.rank[rootX]:
+            self.root[rootX] = rootY
+        else:
+            self.root[rootY] = rootX
+            self.rank[rootX] += 1
+        
+        return True
+
 class UnionFindSolution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        # Each point is a vertex on the complete graph
         totalVertices = len(points)
+
+        # Create the complete edge list that includes the cost (manhattan distance)
         edges = []
-
-        # Generate all possible edges with their weights (Manhattan distances)
         for i in range(totalVertices):
-            # i+1 since we need to compare i (x1, y1) with every other j (x2, y2), generating all possible edges for each point
+            # Need to compare i (x[i], y[i]) with every j (x[j], y[j]) to get all cost for each i'th point
             for j in range(i + 1, totalVertices):
-                # Manhattan distance: (x1 - x2) + (y1 - y2)
-                weight = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
-                edges.append((weight, i, j))
-
-        # Sort edges by weight
-            # Allows us to select and connect the most minimum weights first for each point (weight, x, y)
+                cost = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])
+                edges.append((cost, i, j)) # (cost, curr point, next point)
+        
+        # Need to sort the edge list by cost to get the most minimum costs first
         edges.sort()
 
-        # Kruskal's algorithm to form MST
+        # Begin joining the edge list
         uf = UnionFind(totalVertices)
-        mst_cost = 0  # Total cost of the MST
-        edges_used = 0  # Number of edges added to the MST
+        totalCost = 0
+        edgesUsed = 0
 
-        for weight, u, v in edges:
-            # Add edges 1 by 1, connecting points (u, v) together to form a graph
-                # Check if it doesn't form a cycle
-            if uf.union(u, v):  
-                mst_cost += weight  # Add the edge's weight to the total cost
-                edges_used += 1  # Increment the count of edges used in the MST
+        for cost, curr, to in edges:
+            # Check if we can join the edges without forming a cycle
+            if uf.union(curr, to):
+                totalCost += cost
+                edgesUsed += 1
 
-                # If we've used enough edges to form a MST (Edges = Vertices - 1)
-                if edges_used == totalVertices - 1:  
-                    break  # Exit the loop early
-
-        return mst_cost
+                # Stop joining edges when we've reached E = V - 1
+                if edgesUsed == totalVertices - 1:
+                    return totalCost
+        
+        return totalCost
