@@ -3336,13 +3336,13 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     Bellman Ford and BFS with a priority queue does have similar time complexity
     
     - Time Complexity: O(|E| * K)
-        - Usually O(|V| * |E|) → O(n^2), but we can optimize to only do it within K stops
-    - Space Complexity: O(|E|)
+        - Usually O(|V| * |E|) → O(V^2), but we can optimize to only do it within K stops
+    - Space Complexity: O(V)
     
     **Optimized Approach:** Dijkstra’s algorithm
     
-    - Time Complexity: O((V + E) log V)
-    - Space Complexity: O(|E|)
+    - Time Complexity: O((E + V log V)
+    - Space Complexity: O(V + E)
     
     **Solution:** Update flight prices to find the cheapest price from source to destination within k stops by relaxing all edges up to k+1 times, ensuring the minimum cost path is considered even if direct flights are not available.
     
@@ -3351,29 +3351,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Unique uses:**
     
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
-        - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration. Helps adhere to ‘at most k stops’ constraint too.
-        - See example here why we copy: ‣
-        - Or here’s a summary why:
-            1. **Initialization**:
-                - `distances = [0, inf, inf]`
-            2. **First Iteration** (`0`): (relaxing the edges inner loop)
-                - Copy the distance
-                    - `new_distances = [0, inf, inf]`
-                - Processing (0, 1, 100): `new_distances[1] = 100` -> `new_distances = [0, 100, inf]`
-                - Processing (1, 0, 50): No update because `distances[1] = inf`
-                - Processing (0, 2, 500): `new_distances[2] = 500` -> `new_distances = [0, 100, 500]`
-                - Update `distances = [0, 100, 500]`
-            3. **Second Iteration** (`1`): 
-                - Copy the previous distance
-                    - `new_distances = [0, 100, 500]`
-                - Processing (0, 1, 100): No update because `distances[1] = 100`
-                - Processing (1, 2, 100): `new_distances[2] = 200` -> `new_distances = [0, 100, 200]`
-                - Processing (0, 2, 500): No update because `distances[2] = 500`
-                - Update `distances = [0, 100, 200]`
-            
-            You can see here that we are comparing the new iteration prices with the PREVIOUS prices:
-            `if prices[s] != float('inf') and prices[s] + p < new_COPIED_prices[t]:`
-            
+        - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration to ensure that we do not do **multi-hops.**
+        - The constraint here is that we need to do it at k-stops and keeping the same distances array cascades the in-place array to allow us to hop multiple times per relaxed edge.
+        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
 
 ## 332 - Reconstruct Itinerary (Advanced)
 
