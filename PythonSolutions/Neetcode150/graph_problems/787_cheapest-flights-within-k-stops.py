@@ -1,30 +1,30 @@
 class BellmanFordSolution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        # Create a map of distances per node
-        distances = [float("inf")] * n
-        distances[src] = 0 # Set source node distance as 0 as we are starting here
+        # Create a map of costs per node
+        costs = [float("inf")] * n
+        costs[src] = 0 # Set source node distance as 0 as we are starting here
 
         # Relax the edges k times (a stop PER relaxation)
         for _ in range(k+1): # k+1, since the end is non-inclusive so we need to add 1
             # Deep copy the distance to:
                 # - Make sure we don't multi-hop stops in 1 iteration
-                # - Happens due to calculating the distances to other nodes so we'll end up cascading to other paths
+                # - Happens due to calculating the costs to other nodes so we'll end up cascading to other paths
                 # - Ensure that we adhere to the constraint of only K stops (relax once per stop)
-            newDistances = distances.copy()
+            newCosts = costs.copy()
 
-            for source, target, distance in flights:
-                # Calculate a new distance only if:
+            for source, target, costs in flights:
+                # Calculate a new costs only if:
                     # - We have already found a path to the current source node
-                    # - The distance from current source to target is less than the PREVIOUS relaxation distance of target
-                        # - Compare CURRENT (distances) relaxation with PREVIOUS (newDistances) relaxation distances
-                if distances[source] != float("inf") and distances[source] + distance < newDistances[target]:
-                    newDistances[target] = distances[source] + distance
+                    # - The costs from current source to target is less than the PREVIOUS relaxation costs of target
+                        # - Compare CURRENT (costs) relaxation with PREVIOUS (newCosts) relaxation costs
+                if costs[source] != float("inf") and costs[source] + costs < newCosts[target]:
+                    newCosts[target] = costs[source] + costs
             
-            # Change the previous new iteration of relaxation distances to the updated distances
-            distances = newDistances
+            # Change the previous new iteration of relaxation costs to the updated costs
+            costs = newCosts
         
         # Return the destinations distance if we were able to reach it
-        return distances[dst] if distances[dst] < float("inf") else -1
+        return costs[dst] if costs[dst] < float("inf") else -1
 
 
 class DjikstraSolution:
