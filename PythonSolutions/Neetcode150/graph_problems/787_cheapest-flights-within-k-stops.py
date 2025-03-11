@@ -58,14 +58,14 @@ class DjikstraSolution:
 
             # Explore the neighbors to try and add more nodes that have not been visited
             for neiNode, neiCost in graph[currNode]:
-                newPrice = currCost + neiCost
+                newCost = currCost + neiCost
 
                 # Add the new price to heap if:
                     # - We have not visited the node with current stop + 1 yet (replaces traditional visited set)
                     # - OR if we have visited the node with current stop + 1 BUT new price is less than nodes curr price
-                if (neiNode, currStop + 1) not in costs or newPrice < costs[(neiNode, currStop + 1)]:
-                    costs[(neiNode, currStop + 1)] = newPrice
-                    heapq.heappush(minHeap, (newPrice, neiNode, currStop + 1))
+                if (neiNode, currStop + 1) not in costs or newCost < costs[(neiNode, currStop + 1)]:
+                    costs[(neiNode, currStop + 1)] = newCost
+                    heapq.heappush(minHeap, (newCost, neiNode, currStop + 1))
         
         # If we were able to reach the distance, return -1
         return -1
