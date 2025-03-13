@@ -1,55 +1,65 @@
 class OptimizedSolution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        # Create graph adjacent list (min heap)
         graph = defaultdict(list)
-
-        # Create adjacency list
-            # O(E Log E)
         for frm, to in tickets:
-            # Using min heap so that the graph neighbours are in lexical order when pop it
+            # graph[frm] which is initially a list is treated as a min heap
+                # Adds to min heap so that cities are in lexical order
             heapq.heappush(graph[frm], to)
-
+        
+        # Keep track of itinerary using a queue
         itinerary = deque()
 
-        def dfs(src):
-            # Visit (nothing here)
+        # Post-order DFS, backtrack
+        def dfs(node):
+            # Visit (do nothing)
 
-            # Explore as deep as possible
-                # Using while loop instead of for loop so we can heap pop and grab lexical order
-                # For loop prevents from being able to heappop the next node
-            while graph[src]:
-                next_node = heapq.heappop(graph[src])
-                dfs(next_node)
+            # Explore current option (node) as deep as possible
+                # Hard to empty a heap with for loop, while loop is better here
+            while graph[node]:
+                newNode = heapq.heappop(graph[node]) # O(E log E) instead of O(E) for pop(0)
+                dfs(newNode)
             
-            # Unvisit (backtrack)
-                # Add the node to the front of the itinerary (reverse order of visitation completion)
-                # E.g. A > B > C -> backtrack so we explore as deep as possible to C
-                    # The backtrack order will be: C -> B -> A, which creates array: [A, B, C]
-            itinerary.appendleft(src)
-        
-        # Always starting at JFK
-        dfs('JFK')
+            # Backtrack (visit node during backtracking after exploring all child nodes)
+                # appendleft() allows us to add to beginning of list
+                # during backtracking, the order gets reversed and using appendleft prevents that
+                # this is also a small optimization without having to reverse list at the end
+                    # normal append still works, this is a minimal optimization
+            itinerary.appendleft(node) # O(1)
 
+        dfs("JFK")
         return list(itinerary)
     
 class LessOptimizedSolution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        # Create a graph as an adjacency list
+        # Create adjacent list graph
         graph = defaultdict(list)
-        for src, dst in tickets:
-            graph[src].append(dst)
+        for frm, to in tickets:
+            graph[frm].append(to)
         
-        # Sort each adjacency list lexicographically
-            # Less Optimized O(V Log V)
-        for src in graph:
+        # Sort each neighbor list in the graph in lexical order (alphabetical)
+        for src in graph: # O(E log E)
             graph[src].sort()
+        
+        # Keep track of the order of visited cities in lexical order
+        itinerary = []
 
-        result = []
-
+        # Postorder DFS, backtracking
         def dfs(node):
-            while graph[node]:
-                next_node = graph[node].pop(0)  # Use pop(0) which is less efficient, takes O(E) time compared to popleft() which is O(1)
-                dfs(next_node)
-            result.append(node)
+            # Visit (do nothing)
 
+            # Explore current option (node) as deep as possible
+                # Uses while loop over for loop since we can't pop from list properly
+            while graph[node]:
+                # Use pop(0) to pop from the beginning of list to get first city in lexical order
+                    # O(n) operation in normal lists
+                newNode = graph[node].pop(0) # O(E) -> becomes O(E^2) since we visit all edges
+                dfs(newNode)
+            
+            # Backtrack
+            itinerary.append(node) # Append will add the cities in reverse order
+
+        # Always begin at JFK
         dfs("JFK")
-        return result[::-1]
+        # Reverse the itinerary so it is in reversed order
+        return itinerary[::-1]

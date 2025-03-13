@@ -3365,7 +3365,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     - Time Complexity: O(E^2)
         - **Graph Construction:** O(E), create graph then we sort later
-        - **Sorting Adjacency Lists:** O(V Log V) → sorting each vertex edges
+        - **Sorting Adjacency Lists:** O(E Log E) → sorting each vertex edges
         - **DFS traversal with pop(0):** O(E^2)
             - First O(E) is traversal with DFS
             - Second O(E) is pop(0) will need to iterate through entire array to pop first index in array
