@@ -3353,7 +3353,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration to ensure that we do not do **multi-hops.**
         - The constraint here is that we need to do it at k-stops and keeping the same distances array cascades the in-place array to allow us to hop multiple times per relaxed edge.
-        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
+        - See example here why we copy: ‣
 
 ## 332 - Reconstruct Itinerary (Advanced)
 
@@ -3382,16 +3382,23 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - **Overall**: O(Elog⁡E)
     - Space Complexity: O(E)
     
-    **Solution:** Create the graph and sort the adjacency list so that the edges of each destination (vertex) is in lexical order. After that, DFS and backtrack to get results (Visit, Explore, Un Visit)
+    **Solution:** 
+    
+    - Create an adjacency list graph.
+    - When creating the graph, the graph will be pushing to the list (min heap).
+    - Trigger a post order DFS (visit all children vertices then process them),
+        - For each node, heap pop so we grab nodes in the adjacency list in lexical order
+    - Process the node after visiting all children
+        - Add it to a queue using append left (added to left of array) instead of push (added to end of array) so that its in reverse order
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/b35e3516-36af-4271-852b-59c815ef1dac/Untitled.png)
     
     **Unique uses:**
     
     - Uses a while loop in DFS traversal of graph to traverse through all nodes instead of for loop
-        - Allows us to heap pop the nodes rather than a for loop to that just iterates through the list in order
+        - Allows us to heap pop the nodes rather than a for loop that just iterates through the list in order
     - Backtracks by exploring as deep possible first then when we explore it, we add it to the queue result that adds it in reverse order
-        - Similar to post order traversal
+        - Uses post order traversal
 
 ## 778 - Swim in Rising Water (Advanced)
 
