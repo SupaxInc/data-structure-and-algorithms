@@ -130,6 +130,76 @@ shortest_paths = dijkstra(graph, 'A')
 print(shortest_paths)
 ```
 
+## Template Code (Grid)
+
+```python
+import heapq
+
+def dijkstra_on_grid(grid, start, end=None):
+    """
+    Applies Dijkstra's algorithm to a grid.
+    
+    :param grid: 2D list of non-negative numbers representing cost to enter each cell.
+    :param start: Tuple (row, col) representing the starting cell.
+    :param end: Optional tuple (row, col) representing the target cell.
+                If provided, the function can return early once the target is reached.
+    :return: If end is specified, returns the minimum cost to reach the end cell.
+             Otherwise, returns the entire cost matrix.
+    """
+    rows, cols = len(grid), len(grid[0])
+    
+    # Initialize a cost matrix with "infinity" (use a high value or float('inf'))
+    costs = [[float('inf')] * cols for _ in range(rows)]
+    sr, sc = start
+    costs[sr][sc] = grid[sr][sc]  # Depending on problem, you might start with 0.
+    
+    # Priority queue: (current_cost, row, col)
+    pq = [(costs[sr][sc], sr, sc)]
+    
+    # Directions for movement: right, left, down, up
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    
+    while pq:
+        curr_cost, r, c = heapq.heappop(pq)
+        
+        # Optional: early exit if we reached the target cell.
+        if end is not None and (r, c) == end:
+            return curr_cost
+        
+        # If we already found a better way to this cell, skip it.
+        if curr_cost > costs[r][c]:
+            continue
+        
+        # Check all valid adjacent cells.
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                # Calculate new cost to reach neighbor.
+                new_cost = curr_cost + grid[nr][nc]
+                # If new cost is lower, update and push onto the heap.
+                if new_cost < costs[nr][nc]:
+                    costs[nr][nc] = new_cost
+                    heapq.heappush(pq, (new_cost, nr, nc))
+    
+    # If an end cell is not provided, return the full cost matrix.
+    return costs
+
+# Example usage:
+grid = [
+    [1, 3, 1],
+    [1, 5, 1],
+    [4, 2, 1]
+]
+
+start = (0, 0)      # Starting at top-left corner
+end = (2, 2)        # Target is bottom-right corner
+
+min_cost = dijkstra_on_grid(grid, start, end)
+print("Minimum cost from start to end:", min_cost)
+```
+
+![image.png](../images/djikstra_grid_ex.png)
+
 # Problem with greedy algorithms
 
 Dijkstra’s algorithm is greedy mainly because of the first part of the repeat step:
