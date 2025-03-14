@@ -2,35 +2,45 @@ class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
-        
-        maxHeight = grid[0][0]
-        # Heap to select the most minimum height in elevation levels first
-            # Begin at the top left corner of the grid which is current max height/time
-        minHeap = [(maxHeight, 0, 0)] # (max time/height, row, column)
 
-        # Add the first row, column to set since we will process cells in the next cell over
-        visited = set((0,0))
+        # Keep track of max height (current time)
+            # We use the height as time when traversing since: time == height we can traverse to
+            # Due to the water rising based on time: e.g. height 2 means we waited a time of 2 for water to rise
+        maxHeight = grid[0][0] # Current max height (& time) is the start point
 
+        # Min heap so that we can select the smallest height to traverse to for each direction
+        minHeap = [(maxHeight, 0, 0)] # (maxHeight/Time, row, col)
+
+        visited = set()
+        # Heap BFS traversal 
         while minHeap:
+            # Pop smallest time within heap so we find the SHORTEST path
+                # Height becomes the time since: time == height we can traverse to
             currMaxTime, row, col = heapq.heappop(minHeap)
 
-            # If we are in the bottom right corner return the max time
+            # Solved case: Return max time/height traversed to when we hit the end bottom right corner (last row, last col)
             if row == ROWS - 1 and col == COLS - 1:
                 return currMaxTime
 
-            for dr, dc in DIRS:
-                newRow, newCol = row+dr, col+dc
-                # Processing cells next cell over
+            for dx, dy in DIRS:
+                newRow, newCol = row+dx, col+dy
+
+                # *Do checks right away BEFORE traversing to the cells*
+                    # Prevents adding the wrong cell to visited after popping heap
+
+                # Base case 1: Out of bounds
                 if newRow > ROWS - 1 or newCol > COLS - 1 or newRow < 0 or newCol < 0:
                     continue
+                
+                # Base case 2: Cell has been visited
                 if (newRow, newCol) in visited:
                     continue
-                
+
+                # Visit the cell
                 visited.add((newRow, newCol))
-                # Our max time is measured based on the highest elevation in our path 
-                    # Because we have to wait for the elevation to rise (rain to fall) before we swim to the cell
-                    # IF the next cells is smaller than our max height, we don't have to wait for time to pass
-                    # Therefore, the highest elevation in our path is our max time
+                # Find the max time/height between current cell or new cell
+                    # If we are on a larger height than other cells, we can traverse to those cells right away without waiting
+                    # Therefore, it helps us keep track of the shortest time when the heap pops (thus finding shortest path)
                 heapq.heappush(minHeap, (max(currMaxTime, grid[newRow][newCol]), newRow, newCol))
-        
-        return maxHeight # This should never be reached
+            
+        return maxHeight
