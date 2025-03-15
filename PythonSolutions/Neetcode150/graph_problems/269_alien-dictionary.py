@@ -2,55 +2,61 @@ class Solution:
     def foreignDictionary(self, words: List[str]) -> str:
         graph = defaultdict(list)
 
-        # Create directed graph
+        # Create the directed graph to order the aliens alphabet
         for i in range(len(words) - 1):
             a, b = words[i], words[i+1]
-            minLength = min(len(a), len(b))
+            minWordLength = min(len(a), len(b))
 
-            # Invalid: Second word is smaller than first word and a is prefix of b
-                # (E.g. "abc" and "ab") breaks alien dictionary rules 
-            if len(b) < len(a) and a[:minLength] == b:
+            # Invalid: length of b is smaller than a AND b is a prefix of a
+                # E.g. a = "abc", b = "ab" -> ab == ab, breaks dictionary rules
+            if len(b) < len(a) and b == a[:minWordLength]:
                 return ""
             
-            # Find the first occurence of different letters between string a and b
-            for j in range(minLength):
+            # Connect the letters in a graph for first words that differ by word prefix length
+                # minWordLength is prefix length
+                # Covers scenarios:
+                    # - Where length of b > a, so we need to use prefix of smaller word
+                    # - Both words have same length
+            for j in range(minWordLength):
                 if a[j] != b[j]:
-                    # Vertex is the first string a
-                    # Edge would be the second string b
                     graph[a[j]].append(b[j])
+
+                    # Only 1 letter can be connected
                     break
         
-        cycle = set()
+        visited = set()
         completed = set()
-        order = []
-
-        # Topological sort
-        def dfs(char):
-            if char in cycle:
+        order = deque()
+        # Run topographical sort on the created graph to get order of alphabet
+        def dfs(node):
+            # Base case 1: Node has already been visited, possible cycle detected
+            if node in visited:
                 return False
-            
-            if char in completed:
+            # Base case 2: Node prereq has already been completed
+            if node in completed:
                 return True
             
-            cycle.add(char)
-            for neiChar in graph[char]:
-                # Cycle detected
-                    # There is no valid order for the result from the given rules
-                if not dfs(neiChar):
+            # Visit node
+            visited.add(node)
+            
+            # Explore current node as deep as possible and try other options
+            for nei in graph[node]:
+                if not dfs(nei):
                     return False
-
-            cycle.remove(char)
-            completed.add(char)
-            order.append(char)
+            
+            # Backtrack
+            visited.remove(node)
+            completed.add(node) # Add the node as completed since we just visited it, "finishing" the ordering
+            order.appendleft(node) # Append to the left of array since in backtracking it adds order in reverse
 
             return True
         
         for word in words:
-            for char in word:
-                # Need to begin traversal on every character to check if prereqs have been completed
-                    # for each character so there is a correct order
-                if not dfs(char):
-                    return "" # Return no result if there is no valid order
+            for letter in word:
+                # DFS on every char to check if prereq was completed for each char
+                if not dfs(letter):
+                    # Cycle was detected, return empty string
+                    return ""
         
-        # Order will be in reverse order b/c of backtracking
-        return "".join(order)[::-1]
+        return "".join(list(order))
+            
