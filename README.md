@@ -3399,10 +3399,13 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Allows us to heap pop the nodes rather than a for loop that just iterates through the list in order
     - Backtracks by exploring as deep possible first then when we explore it, we add it to the queue result that adds it in reverse order
         - Uses post order traversal
+    - Similar to topographical sort traversal
 
 ## 778 - Swim in Rising Water (Advanced)
 
-**Intuition:** Find the minimum time to reach the bottom-right corner from the top-left corner of a grid. Time is measured by water elevation rising because it is raining. Let’s say adjacent cells are 2 and 3, we have to wait till water rise to that level so if we go to 2, we waited time of 2, if we go to 3, we waiting time of 3. The time is determined by the highest water level you encounter on your path. So if the next cells after the 3 is 1, then time is still 3 because we don’t have to wait for the water to rise to get to cell 1.
+**Intuition:** Find the minimum time to reach the bottom-right corner from the top-left corner of a grid. Time is measured by water elevation rising because it is raining. Let’s say adjacent cells are 2 and 3, we have to wait till water rise to that level. 
+
+If we go to 2, we need to wait a time of 2, if we go to 3, we wait a time of 3. The time is determined by the highest water level you encounter on your path. So if the next cells after the 3 is 1, then time is still 3 because we don’t have to wait for the water to rise to get to cell 1.
 
 - Solutions
     
@@ -3422,16 +3425,16 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 269 - Alien Dictionary (Advanced)
 
-**Intuition:** Figure out how the Alien Dictionary works by checking which letters are lexicographically smaller in a list of words that are already sorted lexically. 
+**Intuition:** The alien language has its own ordering of letters that's different from English. Figure out how the alphabets are ordered in the Alien Dictionary by checking which letters are lexicographically smaller in a list of words that are **already** sorted lexically. 
+For example, `ac` and `ab`  → `c` < `b` which means c comes before b in the alien language which is wrong for english language.
+
+**Lexicographically definition:** 
 
 String `a` letter is lexicographically smaller than string `b` letter when comparing two words:
 
-1. The first difference in letters (e.g. `hrn` and `hrf` , n is lexically smaller than f)
-2. **OR** if the lengths of the words are different
-    1. If string a is smaller than string b and they are prefixes except for the last word
-
-**INVALID:** If string b is smaller than string a (e.g. `abc`  and `ab` , `ab` are prefixes but first string is longer, so return `""` )
-
+1. The first difference in letters determines the order (e.g., "`hrn`" and "`hrf`", where 'f' is lexicographically smaller than 'n', so "`hrf`" is smaller than "`hrn`")
+2. If one string is a prefix of the other, the shorter string is lexicographically smaller.
+    1. Example: "`cat`" vs "`caterpillar`" → "`cat`" is a **prefix** of "`caterpillar`", so "`cat`" is **smaller** than "`caterpillar`".
 - Solutions
     
     **Optimized Approach:** Topological sort
@@ -3442,7 +3445,9 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     - Space Complexity: O(V + E) → O(C)
         - We create a graph of all characters
     
-    **Solution:** 
+    **Solution:** Build a directed graph from adjacent words in the sorted list, where edges represent the relative ordering of letters in the alien language (for example, if "ac" comes before "ab", then 'c' comes before 'b' in the alien alphabet). 
+    
+    A topological sort is then performed on this graph to derive a valid ordering of the alien alphabet, returning an empty string if any contradictions (cycles) are detected, which indicates the ordering rules are inconsistent.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/9f7ca770-e3df-4016-b2ea-31cce3799fc4/Untitled.png)
     
