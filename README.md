@@ -3439,11 +3439,17 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Topological sort
     
-    - Time Complexity: O(V + E) → O(C)
-        - O(V + E), we visit each vertex and edge which means we visit all characters
-            - This includes graph construction when finding first different letter
-    - Space Complexity: O(V + E) → O(C)
-        - We create a graph of all characters
+    - Time Complexity: O(C)
+        - Where C is the total number of characters across all words in the input list
+        - Building the graph takes O(C) time as we iterate through each character in each word once
+        - The topological sort (DFS) visits each character in the alien alphabet at most once, and each edge at most once
+    - Space Complexity: O(1) or O(U)
+        - Where U is the number of unique characters in the alien alphabet
+        - Since we're dealing with lowercase letters, the graph can have at most 26 nodes (if we assume only lowercase English letters)
+        - The visited, completed sets, and order deque each take O(U) space
+        - The recursion stack for DFS can go up to O(U) in the worst case
+        - If we consider the alphabet size as constant (26 letters), then the space complexity is O(1)
+        - Otherwise, it's O(U) where U is the number of unique characters
     
     **Solution:** Build a directed graph from adjacent words in the sorted list, where edges represent the relative ordering of letters in the alien language (for example, if "ac" comes before "ab", then 'c' comes before 'b' in the alien alphabet). 
     
