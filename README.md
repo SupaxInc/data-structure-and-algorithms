@@ -3509,6 +3509,8 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
 
 ## 746 - Min Cost Climbing Stairs
 
+**Intuition:** Find out the min cost of current step i, where you can either take 1 or 2 steps at a time selecting the most minimum cost per step.
+
 - Solutions
     
     **Brute Force:**  Use recursion to calculate all sub problems for taking one step and taking two steps.
@@ -3518,7 +3520,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: ‣ 
+    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
