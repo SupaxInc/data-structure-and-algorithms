@@ -9,14 +9,14 @@ n = 2, 2 ways, 1 step + 1 step, 2 steps
 
 State: Our state will be dp[i] = number of distinct ways to reach step i
 
+Base Cases:
+- dp[0] = 1 (1 way to reach step 0)
+- dp[1] = 1 (1 way to reach step 1)
+
 Recurrence Relation:
 - To get all possible steps to get to step 3 you need,
     - dp[i-1], all possibilities from previous step
     - dp[i-2], all possibilities from 2 steps ago
-
-Base Cases:
-- dp[0] = 1 (1 way to reach step 0)
-- dp[1] = 1 (1 way to reach step 1)
 """
 class BottomUpSolution:
     def climbStairs(self, n: int) -> int:
@@ -44,7 +44,7 @@ class BottomUpSolution:
         # Return the last in the array which is all of the possibilities from all steps until the last step
         return steps[n]
 
-class Solution:
+class TopDownSolution:
     def climbStairs(self, n: int) -> int:
         cache = {}
         

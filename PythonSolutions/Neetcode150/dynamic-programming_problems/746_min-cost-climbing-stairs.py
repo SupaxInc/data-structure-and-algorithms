@@ -1,34 +1,66 @@
+"""
+- Cost is positive only 0 - 999
+- Cost length can be from 2 - 1000
+
+State: dp[i], where i is step, therefore, dp[i] represents the minimum cost to reach step i
+
+Base cases: We can either take take 1st step or jump to 2nd step right away
+- dp[0] = costs[0], most min cost for 1st step is the cost of the 1st step
+- dp[1] = costs[1], most min cost for 2nd step is the cost of the 2nd step
+
+Recurrence Relation: At each step i, we can arrive from either step i-1 or i-2
+There will be the use of 2 possibilities,
+- dp[i-1], the min cost of all possibilities for previous step
+- dp[i-2], the min cost of all possibilities for 2 steps ago
+- min(dp[i-1], dp[i-2]), for current step i we need to select the most min between the 2 steps
+- cost[i], cost of current step to add for current step possibility
+Transition: dp[i] = min(dp[i-2], dp[i-1]) + costs[i]
+
+Returns: Either the last step or 2nd last step since we can jump from 2nd last step
+"""
 class BottomUpSolution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        costLength = len(cost)
-        if costLength < 2: # If there is only 1 step, then just return the 1st step
-            return cost[0]
-        
-        mccs = [1] * costLength # Create an array of 1's based on length of cost array
+        # State: minCosts[i], where i is step, and minCosts[i] represents the min cost to reach step i
+        minCosts = [0] * len(cost)
 
-        mccs[0], mccs[1] = cost[0], cost[1] # Base cases
+        # Base cases: We can either take the 1st or 2nd step right away
+            # dp[0] = cost[0], cost of 1st step
+            # dp[1] = cost[1], cost of 2nd step
+        minCosts[0] = cost[0]
+        minCosts[1] = cost[1]
 
-        for i in range(2, len(mccs)): 
-            mccs[i] = cost[i] + min(mccs[i-1], mccs[i-2]) # Recurrence relation formula
-        
-        # Return the last 2 steps since it has cumulative min cost was between the 2 steps
-            # and we can take the 2nd last step or the 1st step to reach the end.
-        return min(mccs[-1], mccs[-2])
+        # Recurrence relation: The current min costs i including all possibilities of previous 2 steps
+        for i in range(2, len(cost)):
+            # Transition: Find min of all min cost possibilities of the past 2 steps and add the current step cost
+            minCosts[i] = min(minCosts[i-1], minCosts[i-2]) + cost[i]
+
+        # Returns either the last step or 2nd last step since we can jump from 2nd last step
+        return min(minCosts[-1], minCosts[-2])
     
-class TopDownSolution:
+class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         cache = {}
 
-        def dfsMinCost(n):
-            if n in cache:
-                return cache[n]
-            else:
-                if n < 2:
-                    return cost[n]
-                
-                cache[n] = cost[n] + min(dfsMinCost(n-1), dfsMinCost(n-2))
-                return cache[n]
+        # States:
+            # step, represents the current step we are on that contains a min cost
+        def dfs(step):
+            # Base case 1: Step already exists in cache
+            if step in cache:
+                return cache[step]
+            
+            # Base case 2: We can either take step 0 or step 1 at the beginning
+            if step < 2:
+                return cost[step]
+            
+            # Recurrence relation: At each step i, we can arrive from either step-1 or step-2
+            cache[step] = min(dfs(step-1), dfs(step-2)) + cost[step]
+
+            return cache[step]
         
         costLength = len(cost)
-        dfsMinCost(costLength-1)
-        return min(dfsMinCost(costLength-1), dfsMinCost(costLength-2))
+        dfs(costLength-1) # Run DFS on the last step in the cost array
+
+        # Return either the last cost or 2nd last cost because we can get to the end from both steps
+            # Runs DFS again to ensure both last steps are in the cache
+            # It does not necessarily runs DFS again because if it already exists it'll just return from cache using base case
+        return min(dfs(costLength-1), dfs(costLength-2))
