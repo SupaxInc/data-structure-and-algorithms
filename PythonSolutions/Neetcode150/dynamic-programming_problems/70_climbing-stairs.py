@@ -1,29 +1,71 @@
+"""
+- Positive numbers, n > 0
+
+Example:
+n = 2:
+n = 0, There is 1 way to reach 0 steps which is not taking a step at all
+n = 1, There is 1 way to reach 1 step whihch is to take 1 step
+n = 2, 2 ways, 1 step + 1 step, 2 steps 
+
+State: Our state will be dp[i] = number of distinct ways to reach step i
+
+Recurrence Relation:
+- To get all possible steps to get to step 3 you need,
+    - dp[i-1], all possibilities from previous step
+    - dp[i-2], all possibilities from 2 steps ago
+
+Base Cases:
+- dp[0] = 1 (1 way to reach step 0)
+- dp[1] = 1 (1 way to reach step 1)
+"""
 class BottomUpSolution:
     def climbStairs(self, n: int) -> int:
+        # If steps are 0 or 1, then only 1 way to climb
         if n <= 1:
-            return 1 # There's only one way to climb 0 or 1 stair.
+            return 1
 
-        result = [1, 1] # Base cases: 1 way to climb 0 and 1 stairs.
+        # State: steps[i] is numbers of distinct ways to reach step i
+            # - Initialize steps array
+        steps = [0] * (n + 1)
 
-        for i in range(2, n + 1): # Start from 2 as we already know the first two cases. n+1 is similar to i <= n in Python
-            result.append(result[i-1] + result[i-2])
-        
-        return result.pop() # Return the last element in the list which corresponds to `n` stairs.
+        # Base cases:
+            # steps[0] = 1, steps[1] (1 way to reach step 0 and step 1)
+        steps[0] = 1
+        steps[1] = 1
 
-class TopDownSolution:
+        # Begin recurrence relation: Begin at step 2 since step 0 and 1 are already 1
+        for i in range(2, n+1):
+            # Transition: 
+                # Add all possibilities to reach step i using previous step answers
+                # - steps[i-1] -> All possibilities from previous step
+                # - steps[i-2] -> All possibilities from two steps ago
+            steps[i] = steps[i-1] + steps[i-2]
+
+        # Return the last in the array which is all of the possibilities from all steps until the last step
+        return steps[n]
+
+class Solution:
     def climbStairs(self, n: int) -> int:
         cache = {}
-
-        def dfs(n):
-            if n in cache:
-                return cache[n]
-            else:
-                if n <= 1:
-                    return 1 # Return 1 at 0 or 1 steps because there is 1 way to do something at 0 steps.
-                
-                cache[n] = dfs(n-1) + dfs(n-2)
-                return cache[n]
         
+        # States:
+            # - step, the number of distinct way to reach the current step
+        def dfs(step):
+            # Base case 1: The step is already in the cache
+            if step in cache:
+                return cache[step]
+            
+            # Base cases 2: Step 0 or 1 have 1 way to get to it
+            if step <= 1:
+                return 1
+            
+            # Recurrence relation: To get all possibilities for current step add possibilities of the previous steps:
+                # step-1, all possibilities from previous step
+                # step-2, all possibiliities from previous 2 steps
+            cache[step] = dfs(step-1) + dfs(step-2)
+
+            return cache[step]
+
         return dfs(n)
 
 
