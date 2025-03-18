@@ -62,5 +62,5 @@ class TopDownSolution:
         # We can reach the top from either:
             # 1. The last step (costLength-1) by taking 1 more step
             # 2. The second-to-last step (costLength-2) by taking a 2-step jump
-        # We take the minimum of these two options to find the overall minimum cost
+        # Therefore, we need to run the DFS on these last 2 steps
         return min(dfs(costLength-1), dfs(costLength-2))

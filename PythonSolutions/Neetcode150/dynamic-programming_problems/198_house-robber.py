@@ -1,3 +1,48 @@
+"""
+- Adjacent numbers cannot be robbed (houses beside each other)
+- nums array can be a length of 1
+- nums is positive from 0 - 400
+- return: max money that can be robbed without alerting police
+
+State: dp[i] where i is the house index, and dp[i] represents the max cost at that house
+
+Base Cases:
+1. dp[0] = nums[0], first house can be robbed
+2. dp[1] = max(nums[0], nums[1]), can't rob adjacent houses, so we can only select one of them
+
+Recurrence Relation: At each step i, we can only take with us the max of current house and previous non-adjacent house or previous house.
+- nums[i] + dp[i-2], can take current house + previous non adjacent house max costs
+- dp[i-1], OR take the previous house
+Transition: max(nums[i] + dp[i-2], dp[i-1])
+
+Returns: dp[-1], last cost accumulated would be the max cost we can get
+"""
+class NonOptimizedBottomUpSolution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        # If there are only 2 houses, return the max of the array
+        if n <= 2:
+            return max(nums)
+        
+        # Initialize dp array
+            # State: i is the house index, value[i] is the max cost for the current house
+        value = [0] * n
+        # Base cases:
+            # - Can only get value of first house when robbing first house 
+            # - Cannot rob adjacent houses so we can only take 1 of the first 2 houses
+        value[0] = nums[0]
+        value[1] = max(nums[0], nums[1])
+
+        # Recurrence relation: At each step i, can only take the max cost of previous non-adjacent houses
+        for i in range(2, n):
+            # Transition: Max between non-adjacent houses cost OR just the previous house 
+            value[i] = max(nums[i] + value[i-2], value[i-1])
+
+        # Return: The last accumulated max cost that was robbed
+        return value[-1]
+        
+        
+
 class BottomUpSolution:
     def rob(self, nums: List[int]) -> int:
         # If the list is empty, there's nothing to rob.
@@ -33,6 +78,37 @@ class BottomUpSolution:
         # constraint.
         return prevAdj
 
+class TopDownSolution:
+    def rob(self, nums: List[int]) -> int:
+        cache = {}
+
+        # State: house, current house we are at that we can possibly rob
+        def dfs(house):
+            # Base case 1: Cost is already cached
+            if house in cache:
+                return cache[house]
+
+            # Base case 2: No more houses left to rob
+            if house < 0:
+                return 0
+            
+            # Base case 3: First house, the only house that can current be robbed 
+            if house == 0:
+                return nums[house]
+
+            # Base case 4: Second house, can either rob first or this house (can't rob adjacent houses)
+            if house == 1:
+                return max(nums[house], nums[0])
+            
+            # Recurrence Relation: Can take either the non-adjacent houses or the previous adjacent house
+            cache[house] = max(nums[house] + dfs(house-2), dfs(house-1))
+
+            return cache[house]
+        
+        # Passes in length of nums - 1 since nums is 0-indexed base
+            # Runs DFS on last house which has the accumulation max cost of all previous houses
+        return dfs(len(nums) - 1)
+
 class NonOptimizedSolution:
     def rob(nums):
     # Recursive function to calculate the maximum amount
@@ -46,31 +122,4 @@ class NonOptimizedSolution:
             return max(nums[i] + robFrom(i + 2), robFrom(i + 1))
     
         # Start the recursion from the first house
-        return robFrom(0)
-
-class Solution:
-    def rob(self, nums: List[int]) -> int:
-        memo = {}
-
-        def robFrom(i):
-            # If the current index is beyond the last house, return 0
-            # because there's no more money to be made.
-            if i >= len(nums):
-                return 0
-            
-            # If we have already solved this subproblem, return the stored result.
-            if i in memo:
-                return memo[i]
-            
-            # The core recursive formula:
-            # Choose the maximum between robbing the current house plus the money from houses
-            # starting from i+2 (since we skip the next house to avoid alert), or skipping the
-            # current house and considering the money from houses starting from i+1.
-            result = max(robFrom(i + 1), nums[i] + robFrom(i + 2))
-            
-            # Store the result in our memoization table before returning.
-            memo[i] = result
-            return result
-        
-        # Start the recursion from the first house (index 0).
         return robFrom(0)
