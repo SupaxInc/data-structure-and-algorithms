@@ -3520,7 +3520,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
+    See example of how it was solved here: ‣ 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
@@ -3546,10 +3546,20 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     - Time Complexity: O(2^n)
     - Space Complexity: O(h) → height of tree
     
-    **Optimized Approach:** Use tabulation
+    **Somewhat Optimized Approach:** Top-down solution
     
     - Time Complexity: O(n)
-    - Space Complexity: O(1)
+    - Space Complexity: O(n), cache can contain length of nums
+    
+    **Somewhat Optimized Approach:** Bottom-up solution
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(n), dp array can contain length of nums
+    
+    **Optimized Approach:** Use tabulation (bottom-up) with no dp array
+    
+    - Time Complexity: O(n)
+    - Space Complexity: O(1), use pointers instead of dp array
     
     **Solution:** Calculates the maximum loot by tracking the best choices up to each house, deciding at each step between robbing it (and adding to the loot from the house before last) or moving on with the loot from the last house.
     
