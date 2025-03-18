@@ -37,7 +37,7 @@ class BottomUpSolution:
         # Returns either the last step or 2nd last step since we can jump from 2nd last step
         return min(minCosts[-1], minCosts[-2])
     
-class Solution:
+class TopDownSolution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         cache = {}
 
@@ -58,9 +58,9 @@ class Solution:
             return cache[step]
         
         costLength = len(cost)
-        dfs(costLength-1) # Run DFS on the last step in the cost array
-
-        # Return either the last cost or 2nd last cost because we can get to the end from both steps
-            # Runs DFS again to ensure both last steps are in the cache
-            # It does not necessarily runs DFS again because if it already exists it'll just return from cache using base case
+        # The goal is to reach the top (position n, which is beyond the last element)
+        # We can reach the top from either:
+            # 1. The last step (costLength-1) by taking 1 more step
+            # 2. The second-to-last step (costLength-2) by taking a 2-step jump
+        # We take the minimum of these two options to find the overall minimum cost
         return min(dfs(costLength-1), dfs(costLength-2))
