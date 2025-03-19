@@ -3582,7 +3582,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     - Time Complexity:O(n)
     - Space Complexity: O(1)
     
-    **Solution:** Maximizes the robbery amount by separately handling two scenarios: excluding the first and excluding the last house, then taking the maximum of these two.
+    **Solution:** Maximizes the robbery amount by separately handling two scenarios: excluding the first and excluding the last house, then taking the maximum of these two. After that just rob linearly using same concepts as House Robber 1.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/30c1cdab-acc2-49ee-bf4f-83f36e205a56/Untitled.png)
     
