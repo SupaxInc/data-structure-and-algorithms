@@ -3401,7 +3401,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Uses post order traversal
     - Similar to topographical sort traversal
 
-## 778 - Swim in Rising Water (Advanced)
+## **778 - Swim in Rising Water (Advanced)**
 
 **Intuition:** Find the minimum time to reach the bottom-right corner from the top-left corner of a grid. Time is measured by water elevation rising because it is raining. Let’s say adjacent cells are 2 and 3, we have to wait till water rise to that level. 
 
@@ -3601,7 +3601,9 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     **Optimized Approach:** Use palindrome expand
     Palindromes are symmetric around their center. The optimal way to identify a palindrome involves moving outward from the center rather than inward from the edges. Starting from the edges works for problems like "valid palindrome" checks but not for finding the longest palindromic substring where the palindrome can start anywhere within the string.
     
-    Odd length: “racecar”, Even length: “abba
+    ![image.png](attachment:9367b760-a5cf-4c45-8a0e-7ecd2ddf2cbe:image.png)
+    
+    Odd length: “racecar”, Even length: “abba”
     
     - Time Complexity: O(n^2)
     - Space Complexity: O(n)
