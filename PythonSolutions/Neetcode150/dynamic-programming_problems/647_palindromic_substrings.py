@@ -1,3 +1,6 @@
+"""
+Literally almost the same as leetcode 647, instead of finding longest palindrome it counts all palindromes
+"""
 class Solution:
     def countSubstrings(self, s: str) -> int:
         count = 0

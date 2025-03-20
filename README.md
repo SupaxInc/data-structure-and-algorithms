@@ -3628,7 +3628,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     - Time Complexity: O(n^2)
     - Space Complexity: O(n)
     
-    **Solution:** Outward expand to find palindromes
+    **Solution:** Outward expand to find palindromes. Same as Leetcode 5 but counts ALL palindromes instead of just finding the longest palindromic substring.
     
 
 ## 91 - Decode Ways
