@@ -48,7 +48,7 @@ class Solution:
             # 2. Exclusing the last house [:-1], -1 will exclude the last house due to being non-exclusive
         # This prevents the circular array relationship and allows us to rob linearly
         return max(robLinear(nums[1:]), robLinear(nums[:-1]))
-        
+
 
 class BottomUpOptimizedSolution:
     def rob(self, nums: List[int]) -> int:
