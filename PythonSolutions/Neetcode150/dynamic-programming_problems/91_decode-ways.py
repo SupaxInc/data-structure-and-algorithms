@@ -55,7 +55,7 @@ class NonOptimizedBottomUpSolution:
         
         return ways[-1]
 
-class Solution:
+class OptimizedBottomUpSolution:
     def numDecodings(self, s: str) -> int:
         n = len(s)
         # Early base case to prevent a "0" being counted as 1 way to decode during base cases
