@@ -42,8 +42,8 @@ class BottomUpSolution:
                     # If negative number, coin goes over limit of amount
                 if amountAfterUsingCoin >= 0:
                     # Transition: Check min between current amount of remaining amount
-                        # coinsUsed[i], represents best solution found so far SAME amount after trying other coins
-                        # coinsUsed[i-coin], represents best solution from PREVIOUS remaining amount after using coin
+                        # coinsUsed[i], represents best solution found so far for SAME amount after trying other coins
+                        # coinsUsed[i-coin], represents best solution from REMAINDER amount after using current coin
                         # +1, is using the current coin to add to the amount of coins used
                     coinsUsed[i] = min(coinsUsed[i], coinsUsed[amountAfterUsingCoin] + 1)
         
@@ -51,32 +51,47 @@ class BottomUpSolution:
         return coinsUsed[amount] if coinsUsed[amount] != float("inf") else -1
 
 class TopDownSolution:
-    def coinChange(coins, amount):
-        # Memoization cache, initialized with None values
-        memo = [None] * (amount + 1)
-        
-        def dp(n):
-            # Base case: When amount is 0, no coins are needed
-            if n == 0: return 0
-            # If the amount is negative, return -1 indicating it's not possible to form this amount
-            if n < 0: return -1
-            # If we have already solved this subproblem, return the answer from cache
-            if memo[n] is not None: return memo[n]
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        memo = {}
+
+        # State: amt represents the amount we are trying to achieve with current coin selection
+        def change(amt):
+            # Base case 1: The best possible solution for the current amount has already been found
+            if amt in memo:
+                return memo[amt]
             
-            # Initialize the minimum count to a large value
-            min_coins = float('inf')
-            # Try every coin and take the best option
+            # Base case 2: If amount is 0, then we don't have to use a coin
+            if amt == 0:
+                return 0
+            
+            # Base case 3: If amount is negative, then the current coin used is not possible
+            if amt < 0:
+                return -1
+            
+            # Indicates the min count of used coins for the current amount
+                # Infinity b/c it may not be possible
+            minCoinsUsed = float('inf')
+
+            # Explore each coin as deep as possible
             for coin in coins:
-                res = dp(n - coin)
-                # If it's possible to form the amount n - coin, update min_coins
-                if res >= 0:
-                    min_coins = min(min_coins, 1 + res)
-            
-            # Update the memo cache with the result for this amount
-            memo[n] = min_coins if min_coins != float('inf') else -1
-            return memo[n]
+                # Try to find change for current coin
+                remainderAmount = amt-coin
+                currentCoinUsages = change(remainderAmount)
+
+                # Check that the coin was able to contribute to the remainder amount
+                if currentCoinUsages >= 0:
+                    # Transition: Find the min between previous solutions of coins used and current coin usage
+                        # minCoinsUsed -> best solution for CURRENT amount using PREVIOUS coin options (for loop)
+                        # currentCoinUsage -> best solution from REMAINDER amount using CURRENT coin option
+                        # currentCoinUsage+1 -> using the current coin along with best solution from remainder amount
+                    minCoinsUsed = min(minCoinsUsed, currentCoinUsages + 1)
+
+            # Return min coins if it was possible else -1
+            memo[amt] = minCoinsUsed if minCoinsUsed != float('inf') else -1
+            return memo[amt]
         
-        return dp(amount)
+        return change(amount)
+                    
 
 class BruteForceDFS:
     def coinChange(self, coins: List[int], amount: int) -> int:
