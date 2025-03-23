@@ -3654,6 +3654,62 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Solution:** Count the number of ways to decode a string, using two variables to cache the last two states and update them iteratively based on current and previous digit validity.
     
+    **Actual top down approach example:**
+    
+    ```
+    Function calls:
+    
+    decode(2) [Looking at '6']
+    ├── Single digit: '6' is valid → call decode(1)
+    │   │
+    │   └── decode(1) [Looking at '2']
+    │       ├── Single digit: '2' is valid → call decode(0)
+    │       │   │
+    │       │   └── decode(0) [Looking at '2']
+    │       │       ├── Single digit: '2' is valid → call decode(-1)
+    │       │       │   │
+    │       │       │   └── decode(-1) [Base case] → return 1
+    │       │       │
+    │       │       └── Two-digit: Not enough digits → skip
+    │       │       Result: 1
+    │       │
+    │       └── Two-digit: '22' is valid → call decode(-1)
+    │           │
+    │           └── decode(-1) [Base case] → return 1
+    │       Result: 1 + 1 = 2
+    │
+    └── Two-digit: '26' is valid → call decode(0)
+        │
+        └── decode(0) [Already calculated] → return 1 from memo
+    Result: 2 + 1 = 3
+    
+    Decision Tree:
+                                 decode(2) ["6"]
+                                /           \
+                               /             \
+                  Single digit '6'          Two-digit '26'
+                             /                 \
+                            /                   \
+                     decode(1) ["2"]           decode(0) ["2"]
+                     /          \                   |
+                    /            \                  |
+        Single digit '2'     Two-digit '22'    Single digit '2'
+                  /               \                 |
+                 /                 \                |
+         decode(0) ["2"]       decode(-1)      decode(-1)
+         /          \             |                |
+        /            \            |                |
+    Single digit '2'  (No 2-digit) return 1       return 1
+           |
+           |
+      decode(-1)
+           |
+           |
+        return 1
+    ```
+    
+    **Bottom up visualization approach:**
+    
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/816cd966-6643-479e-993b-fad4843d095f/Untitled.png)
     
 
@@ -3663,19 +3719,43 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
 
 - Solutions
     
-    **Brute Force:** Bottom up memoized solution
+    **Brute Force:** Backtracking DFS
     
-    - Time Complexity: O(2^S*n), with cache O(S*n) → where S is amount and n is coins
-    - Space Complexity: O(S)
+    - Time Complexity: O(n^m)
+        - n is the number of different coins available
+        - m is the amount we are trying to make
+    - Space Complexity: O(h)
     
-    **Optimized Approach:** Top down tabulation
+    **Optimized Approach:** Top down
     
-    - Time Complexity: O(S)
-    - Space Complexity: O(S)
+    - Time Complexity: O(2^S*n), with cache O(m * n) → where m is amount and n is coins
+    - Space Complexity: O(m)
+    
+    **Optimized Approach:** Bottom up
+    
+    - Time Complexity: O(m * n)
+    - Space Complexity: O(m)
     
     **Solution:** Fill a table with the minimum number of coins needed for each amount up to the target, updating each entry based on the smallest number of coins needed to reach that amount with the given denominations. **Greedy is not possible.**
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/6160f84e-cf7e-4cd3-9dae-8ee1176c1241/Untitled.png)
+    
+    **Intuition Explanation:**
+    
+    ```
+    “This looks like a DP problem because we’re trying to build up a 
+    solution using smaller subproblems. 
+    I’ll define dp[i] as the fewest number of coins needed to make amount i.
+    The base case is dp[0] = 0 since we need 0 coins to make 0.
+    
+    For each amount from 1 to amount, I check every coin:
+    If the coin is less than or equal to i, 
+    then dp[i] = min(dp[i], dp[i - coin] + 1).
+    This way, we’re building up solutions iteratively from smaller amounts.
+    The final answer is in dp[amount], 
+    and the time complexity is O(n * m) where n is amount 
+    and m is number of coins.”
+    ```
     
 
 ## 152 - Maximum Product Subarray

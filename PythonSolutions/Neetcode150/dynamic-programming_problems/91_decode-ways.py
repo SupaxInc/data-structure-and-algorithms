@@ -30,7 +30,7 @@ class NonOptimizedBottomUpSolution:
         n = len(s)
         # Early base case to prevent a "0" being counted as 1 way to decode during base cases
             # Leading zeros are not allowed as it invalidates the entire string,
-            # e.g. "0243" -> 0 ways to decode 0 thus invalidating entire base cases
+            # e.g. "0243" -> 0 ways to decode 0 thus invalidating entire base cases since its impossible to ever decode the 1st 0
         if s[0] == "0":
             return 0
 

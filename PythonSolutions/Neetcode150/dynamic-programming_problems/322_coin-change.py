@@ -49,3 +49,37 @@ class TopDownSolution:
             return memo[n]
         
         return dp(amount)
+
+class BruteForceDFS:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        # Edge case: if amount is 0, we need 0 coins
+        if amount == 0:
+            return 0
+        
+        # Initialize result with infinity
+        self.min_coins = float('inf')
+        
+        def dfs(remaining, coin_count):
+            # Base cases
+            if remaining == 0:
+                # Found a valid combination
+                self.min_coins = min(self.min_coins, coin_count)
+                return
+            
+            if remaining < 0:
+                # Invalid path
+                return
+            
+            # If we've already found a better solution, prune this branch
+            if coin_count >= self.min_coins:
+                return
+            
+            # Try using each coin
+            for coin in coins:
+                dfs(remaining - coin, coin_count + 1)
+        
+        # Start DFS
+        dfs(amount, 0)
+        
+        # Return result, or -1 if no solution was found
+        return self.min_coins if self.min_coins != float('inf') else -1
