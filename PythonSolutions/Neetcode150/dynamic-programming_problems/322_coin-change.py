@@ -86,7 +86,7 @@ class TopDownSolution:
                         # currentCoinUsage+1 -> using the current coin along with best solution from remainder amount
                     minCoinsUsed = min(minCoinsUsed, currentCoinUsages + 1)
 
-            # Return min coins if it was possible else -1
+            # Return min coins used for current amount if it was possible else -1
             memo[amt] = minCoinsUsed if minCoinsUsed != float('inf') else -1
             return memo[amt]
         
