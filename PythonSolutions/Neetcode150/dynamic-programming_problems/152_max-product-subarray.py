@@ -75,24 +75,38 @@ class OptimizedSolution:
         if not nums:
             return 0
         
-        # At this point, min and max is the first number
-        # max_product tracks the maximum product ending at the current position.
-        # min_product tracks the minimum product ending at the current position.
-            # Important to track both as a negative number could turn the minimum product into a maximum.
+        # Initialize all three variables with the first number
+        # - result: tracks the global maximum product seen so far
+        # - maxProd: tracks the maximum product ending at current position
+        # - minProd: tracks the minimum product ending at current position
         minProd = maxProd = result = nums[0]
 
         for i in range(1, len(nums)):
             num = nums[i]
 
-            # Swap min and max when num is negative because multiplying two negatives can result in a max.
+            # Essentially just flip the positive and negative subarrays
+                # Allows maxProd to either restart position to new current position
+                # Allows minProd to look for most min after multiplying by negative number
             if num < 0:
                 maxProd, minProd = minProd, maxProd
             
-            # IF at any point the min or max selects the current number
-                # This means we have resetted the subarray to current position
+            # After potential swap, calculate new maxProd and minProd:
+            # We either:
+            # 1. Start a new subarray with just the current number
+            # 2. Continue the existing subarray by multiplying
+            #
+            # EXAMPLE 1: With num=5, maxProd=6
+            # maxProd = max(5, 6*5) = max(5, 30) = 30
+            #
+            # EXAMPLE 2: With num=-3, maxProd=10, minProd=-2 (after swap: maxProd=-2, minProd=10)
+            # maxProd = max(-3, -2*-3) = max(-3, 6) = 6
+            # minProd = min(-3, 10*-3) = min(-3, -30) = -30
             maxProd = max(num, maxProd * num)
             minProd = min(num, minProd * num)
 
+            # Update global result with the new maximum product
+            # Always use max product as the final max result
+            # minProd is just a helper that helps as find negative subarrays to flip to
             result = max(maxProd, result)
         
         return result
