@@ -3728,7 +3728,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Top down
     
-    - Time Complexity: O(2^S*n), with cache O(m * n) → where m is amount and n is coins
+    - Time Complexity: O(2^m*n), with cache O(m * n) → where m is amount and n is coins
     - Space Complexity: O(m)
     
     **Optimized Approach:** Bottom up
@@ -3766,7 +3766,7 @@ Read code solution comments if you are confused.
 
 - Solutions
     
-    Maybe mention that sliding window algorithm won’t work as its better for sums
+    Maybe mention that sliding window algorithm won’t work as its better for sums and not for products
     
     **Brute Force:** Use a nested for loop and check for every possible sub array
     
@@ -3794,10 +3794,10 @@ Read code solution comments if you are confused.
     - Time Complexity: O(2^n)
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Use DP tabulation
+    **Optimized Approach:** Use DP tabulation or top down solution
     
     - Time Complexity: O(n^2)
-    - Space Complexity: O(n)
+    - Space Complexity: O(n) or O(h)
     
     **Solution:** Keep track of where a word has been successfully segmented so for each partitioned substring we know that the start point was previously segmented therefore we can mark the end point as another segment preventing to having to backtrack.
     
