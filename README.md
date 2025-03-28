@@ -3787,6 +3787,8 @@ Read code solution comments if you are confused.
 
 **Intuition:** Determine if a given string can be segmented into one or more dictionary words, ensuring each segment is a valid word from the provided list.
 
+**Check out the solution image to see how it iterates through a word.**
+
 - Solutions
     
     **Brute Force:** Use DFS to backtrack and find other segments

@@ -20,6 +20,8 @@ Base cases:
 
 Returns: dp[len(s)], if end of string is a word then we successfully were able to break all the words
 """
+# * INTUITION ABOVE NEEDS TO BE FIXED*
+# * NEEDS TO TALK ABOUT THAT dp[i] represents string index i-1 can be fully segmented at that point*
 class OptimizedSolution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         # Initialize dp array
@@ -40,9 +42,16 @@ class OptimizedSolution:
             # Partition the strings so we can find segments from start to end
                 # e.g. pineapp, ineapp, neapp, eapp, "app" is a segment
             for start in range(end):
-                word = s[start:end] # No need to do end+1 since we skipped due to base case
+                # No need to do end+1 since we skipped due to base case
+                    # e.g. n = 10, end = 5, start = range(0, 5)
+                    # word = "pine", NOT "pinea" since end is exclusive
+                word = s[start:end] 
 
                 # Transition: Check if the word is in dictionary AND if the string up to start can be segmented
+                    # e.g. "pine" is in wordDict, dp[0] is True (base case)
+                    # we mark dp[5] = True which is AFTER the length of "pine"
+                    # this means current word breaks are: ^pine^ (^ means a word break)
+                    # in next iteration we can then find dp[5] as true when looking for the next word "app"
                 if word in wordDict and wordBreaks[start]:
                     # Mark end as True, meaning s[0:end] can be segmented (whole current string)
                     # NOTE: Remember that dp indices are shifted to the left 
