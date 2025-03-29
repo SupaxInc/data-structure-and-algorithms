@@ -3813,28 +3813,187 @@ Read code solution comments if you are confused.
 
 - Solutions
     
-    **Brute Force:** DFS approach, create a subsequence per index and decide whether to keep current index or not (2 choices)
+    **Brute Force:** Backtracking approach, create a subsequence per index and decide whether to keep current index or not (2 choices)
     
-    - Time Complexity: O(2^n) → can lower with memoization
+    - Time Complexity: O(2^n)
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Use tabulation
+    **Optimized Approach:** Top down DP solution
     
     - Time Complexity: O(n^2)
     - Space Complexity: O(n)
     
+    **Optimized Approach:** Bottom up DP Solution
+    
+    - Time Complexity: O(n^2)
+    - Space Complexity: O(n)
+    
+    **Most Optimized Approach:** Patience Sort
+    
+    - Time Complexity: O(n log n)
+    - Space Complexity: O(n)
+    
     **Solution: C**alculate the longest increasing subsequence of a list, where each element in a DP array **`dp`** is updated based on the maximum length of subsequences ending at each position, ensuring only values from previous smaller elements contribute to the current position’s length calculation.
+    
+    **Bottom Up DP Solution:**
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f1e1eb32-31f3-4a66-9e0d-1fc23a316235/Untitled.png)
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5ccae31e-45c4-4ab1-a19f-6ac02430a34e/Untitled.png)
     
+    **Top Down DP Solution:**
+    
+    ```
+    Decision Tree (simplified):
+    [0,1,0,3,2,3], start at index 0, prev_idx = -1
+    
+                                        index 0, prev_idx = -1
+                                        (Can we take 0? Yes, since no prev)
+                                /                                           \
+                    Take 0 (len=1)                                    Don't take 0
+                    index 1, prev_idx = 0                            index 1, prev_idx = -1
+                /                       \                          /                     \
+        Take 1 (len=2)             Don't take 1            Take 1 (len=1)          Don't take 1
+        (1 > 0)                    index 2, prev_idx=0     index 2, prev_idx=1     index 2, prev_idx=-1
+        /           \                  /         \             /         \              /         \
+    Take 0  Don't take 0          Take 0    Don't take 0   Take 0    Don't take 0  Take 0    Don't take 0
+    (0 ≯ 1)   |                   (0 ≯ 0)      |          (0 ≯ 1)      |          |            |
+        |      |                      |         |             |         |           |            |
+        |      |                      |         |             |         |           |            |
+      ...     ...                    ...       ...           ...       ...         ...          ...
+      
+      
+      Path Example for [0,1,2,3] subsequence:
+    1. index 0, prev_idx = -1
+       - Can take 0? Yes (no previous number)
+       - Decision: Take 0
+       Length so far: 1
+    
+    2. index 1, prev_idx = 0
+       - Can take 1? Yes (1 > 0)
+       - Decision: Take 1
+       Length so far: 2
+    
+    3. index 2, prev_idx = 1
+       - Can take 0? No (0 ≯ 1)
+       - Decision: Don't take 0
+       Length so far: 2
+    
+    4. index 3, prev_idx = 1
+       - Can take 3? Yes (3 > 1)
+       - Decision: Take 3
+       Length so far: 3
+    
+    5. index 4, prev_idx = 3
+       - Can take 2? No (2 ≯ 3)
+       - Decision: Don't take 2
+       Length so far: 3
+    
+    6. index 5, prev_idx = 3
+       - Can take 3? No (3 ≯ 3)
+       - Decision: Don't take 3
+       Length so far: 3
+    
+    7. index 6 = n (base case)
+       Return length: 3
+    ```
+    
+    **Brute Force Backtracking Solution:**
+    
+    ```
+    Decision Tree for Backtracking:
+    [0,1,0,3,2,3], start at index 0
+    Each level represents decision to include/exclude current number
+    
+                                        [] (start)
+                                /                     \
+                        [0]                           []
+                    /         \                    /        \
+                [0,1]         [0]              [1]          []
+               /    \        /    \           /   \        /   \
+          [0,1,0]  [0,1]  [0,0]  [0]      [1,0]  [1]    [0]   []
+          /    \    /  \    /  \   / \     /  \    / \   / \   / \
+    [0,1,0,3] [0,1,0]...  ...   ...  ... ...   ...  ... ... ... ...
+    
+    Let's trace some complete paths:
+    
+    Path 1: Take everything
+    [] -> [0] -> [0,1] -> [0,1,0] -> [0,1,0,3] -> [0,1,0,3,2] -> [0,1,0,3,2,3]
+    is_increasing check: False (1,0 violates increasing)
+    
+    Path 2: Take selective elements
+    [] -> [0] -> [0,1] -> [0,1] (skip 0) -> [0,1,3] -> [0,1,3,2] -> [0,1,3,2,3]
+    is_increasing check: False (3,2 violates increasing)
+    
+    Path 3: Take optimal path
+    [] -> [0] -> [0,1] -> [0,1] (skip 0) -> [0,1,3] -> [0,1,2] -> [0,1,2,3]
+    is_increasing check: True (length = 4)
+    
+    Examples of Sequences Generated:
+    [0] - increasing (length 1)
+    [0,1] - increasing (length 2)
+    [0,1,0] - not increasing
+    [0,1,3] - increasing (length 3)
+    [0,1,2] - increasing (length 3)
+    [0,1,2,3] - increasing (length 4)
+    [0,3,2] - not increasing
+    [1,3,2] - not increasing
+    [2,3] - increasing (length 2)
+    ... and many more
+    ```
+    
     **Subproblem:** Which previous numbers are smaller than the current number we are on? 
     **LIS[i] = max(LIS[..], LIS[..], …) + 1**
+    
+    **Binary Search:**
+    
+    ```
+    Step by step with binary search details:
+    
+    1. num = 0
+       sub = []
+       Empty array, just append
+       sub = [0]
+    
+    2. num = 1
+       sub = [0]
+       1 > sub[-1], append
+       sub = [0,1]
+    
+    3. num = 0
+       sub = [0,1]
+       binary_search:
+         left=0, right=1, mid=0
+         sub[0]=0 == 0, return 0
+       Replace at pos 0
+       sub = [0,1]
+    
+    4. num = 3
+       sub = [0,1]
+       3 > sub[-1], append
+       sub = [0,1,3]
+    
+    5. num = 2
+       sub = [0,1,3]
+       binary_search:
+         left=0, right=2, mid=1
+         sub[1]=1 < 2, left=2
+         sub[2]=3 > 2, right=1
+         return 2
+       Replace at pos 2
+       sub = [0,1,2]
+    
+    6. num = 3
+       sub = [0,1,2]
+       3 > sub[-1], append
+       sub = [0,1,2,3]
+    ```
     
     **Unique ways:**
     
     - Problem 139 and 300 are similar in how it partitions the array and iterates through partition
+    - Uses patience sort
+        - it works by creating piles of cards (or numbers) where each pile maintains a decreasing order from bottom to top. Each new number is placed on the leftmost pile where it can fit (on top of a larger number). The number of piles formed equals the length of the longest increasing subsequence.
 
 ## 416 - Partition Equal Subset Sum
 

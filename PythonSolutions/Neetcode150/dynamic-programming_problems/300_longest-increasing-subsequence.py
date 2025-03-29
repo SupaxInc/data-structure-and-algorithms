@@ -28,7 +28,25 @@ class BruteForceDFSSolution:
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 print(lengthOfLIS(nums))  # Output will depend on the input array's contents
 
-class TopDownDPSolution:
+class TopDownUnoptimizedSolution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        def dfs(index, prev_idx):
+            # Base case: reached end of array
+            if index == len(nums):
+                return 0
+            
+            # Don't take current element
+            length = dfs(index + 1, prev_idx)
+            
+            # Take current element if it's greater than previous element
+            if prev_idx == -1 or nums[index] > nums[prev_idx]:
+                length = max(length, 1 + dfs(index + 1, index))
+            
+            return length
+        
+        return dfs(0, -1)
+
+class TopDownSolution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         n = len(nums)
         # memo[i][prev_idx] represents the LIS starting at index i with prev_idx as previous element
@@ -70,3 +88,32 @@ class BottomUpOptimizedSolution:
         
         # Return the max subsequence count 
         return max(dp)
+
+class MostOptimizedBinarySearchSolution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        def binary_search(sub, target):
+            left, right = 0, len(sub) - 1
+            
+            # Find leftmost position where target should be inserted
+            while left <= right:
+                mid = (left + right) // 2
+                if sub[mid] == target:
+                    return mid
+                elif sub[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+        
+        sub = []
+        
+        for num in nums:
+            # If sub is empty or num is larger than last element
+            if not sub or num > sub[-1]:
+                sub.append(num)
+            else:
+                # Find position to insert num
+                pos = binary_search(sub, num)
+                sub[pos] = num
+        
+        return len(sub)
