@@ -28,8 +28,32 @@ class BruteForceDFSSolution:
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 print(lengthOfLIS(nums))  # Output will depend on the input array's contents
 
+class TopDownDPSolution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        # memo[i][prev_idx] represents the LIS starting at index i with prev_idx as previous element
+        memo = {}
+        
+        def dfs(index, prev_idx):
+            if index == n:
+                return 0
+            
+            if (index, prev_idx) in memo:
+                return memo[(index, prev_idx)]
+            
+            # Don't take current element
+            length = dfs(index + 1, prev_idx)
+            
+            # Take current element if it's greater than previous element
+            if prev_idx == -1 or nums[index] > nums[prev_idx]:
+                length = max(length, 1 + dfs(index + 1, index))
+            
+            memo[(index, prev_idx)] = length
+            return length
+        
+        return dfs(0, -1)
 
-class OptimizedSolution:
+class BottomUpOptimizedSolution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         # Value of 1 since each number is a longest subsequence in of itself
         dp = [1] * (len(nums))

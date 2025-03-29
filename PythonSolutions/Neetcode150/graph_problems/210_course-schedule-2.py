@@ -43,7 +43,7 @@ class Solution:
             return True
             
         
-        # Traverse all courses because there may be disconnected components
+        # *Traverse all courses because there may be disconnected components*
             # 1 DFS is not enough, this is why when we backtrack we unvisit the node so we can test the other courses in the case that its part of another graph
         for crs in range(numCourses):
             if not dfs(crs):

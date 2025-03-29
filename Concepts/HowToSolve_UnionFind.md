@@ -210,7 +210,7 @@ class UnionFind:
                 self.root[rootX] = rootY
             else:
 		            # If ranks are equal, arbitrarily choose one as the root and increase its rank
-		            # Because the longest path in the new tree is now part of the root of the new tree, resulting in a taller tree.
+		            # Because the new tree is now part of the root of the old tree, resulting in a taller tree.
                 self.root[rootY] = rootX
                 self.rank[rootX] += 1
 
