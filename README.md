@@ -3837,11 +3837,17 @@ Read code solution comments if you are confused.
     
     **Bottom Up DP Solution:**
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f1e1eb32-31f3-4a66-9e0d-1fc23a316235/Untitled.png)
+    Better example:
+    
+    ![image.png](attachment:72875a6e-cc24-42ea-a7ca-e8d3a20b4a97:image.png)
+    
+    Worst example
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/5ccae31e-45c4-4ab1-a19f-6ac02430a34e/Untitled.png)
     
     **Top Down DP Solution:**
+    
+    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f1e1eb32-31f3-4a66-9e0d-1fc23a316235/Untitled.png)
     
     ```
     Decision Tree (simplified):
@@ -3898,6 +3904,9 @@ Read code solution comments if you are confused.
        Return length: 3
     ```
     
+    **Subproblem:** Which previous numbers are smaller than the current number we are on? 
+    **LIS[i] = max(LIS[..], LIS[..], …) + 1**
+    
     **Brute Force Backtracking Solution:**
     
     ```
@@ -3941,9 +3950,6 @@ Read code solution comments if you are confused.
     [2,3] - increasing (length 2)
     ... and many more
     ```
-    
-    **Subproblem:** Which previous numbers are smaller than the current number we are on? 
-    **LIS[i] = max(LIS[..], LIS[..], …) + 1**
     
     **Binary Search:**
     
