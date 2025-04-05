@@ -81,12 +81,15 @@ class BruteForceBacktrackingSolution:
 
 class TopDownUnoptimizedSolution:
     def lengthOfLIS(self, nums: List[int]) -> int:
+        # * States: Returns length of LIS start at position index with prev_idx being the index of previous element selected*
+            # index, Current position in the array
+            # prev_idx, Index of the previous element in our subsequence (-1 means no element selected yet)
         def dfs(index, prev_idx):
             # Base case: reached end of array
             if index == len(nums):
                 return 0
             
-            # Don't take current element
+            # Don't take current element, go as deep as possible
             length = dfs(index + 1, prev_idx)
             
             # Take current element if it's greater than previous element
@@ -100,7 +103,7 @@ class TopDownUnoptimizedSolution:
 class TopDownSolution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         n = len(nums)
-        # memo[i][prev_idx] represents the LIS starting at index i with prev_idx as previous element
+        # memo[i, prev_idx] represents the LIS starting at index i with prev_idx as previous element
         memo = {}
         
         def dfs(index, prev_idx):
