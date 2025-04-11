@@ -41,8 +41,7 @@ class OptimizedTopDownSolution:
             # State 1: currIdx, position at current array
             # State 2: remainingSum, sum that is remaining to hit half of total sum (makes subsets equal)
                 # *Remaining sum is used over Curr sum since it helps catch early stopping conditions a lot earlier
-                # * comapred to brute force solution *
-                # Prevents unncessary states in memory
+                # Prevents unncessary states in memory due to negative pruning, target sum is large
         def canFindEqualPartition(currIdx, remainingSum):
             # Base case 1: Current subset is already in the cache
             if (currIdx, remainingSum) in memo:

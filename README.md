@@ -3806,7 +3806,7 @@ Read code solution comments if you are confused.
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/c7b79338-6c32-425f-9d30-70b5f146923d/Untitled.png)
     
 
-## 300 - Longest Increasing Subsequence
+## 300 - Longest Increasing Subsequence (Great for understanding multiple combinations up to index i for recurrence)
 
 **Intuition:** Find the length of the longest subsequence of a given array where the elements of the subsequence are strictly increasing. This subsequence does not need to be contiguous, but it should maintain the order of appearance in the array.
 **Read code if confused.**
@@ -4009,12 +4009,13 @@ Read code solution comments if you are confused.
     
     **Brute Force:** DFS, 2 choices, include or exclude to subset
     
-    - Time Complexity: O(2^n) → can be optimized with memoization
+    - Time Complexity: O(2^n) → can be optimized with memoization which is Top Down solution
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Top down tabulation
+    **Optimized Approach:** Bottom up solution
     
-    - Time Complexity: O(n * sum(nums))
+    - Time Complexity: O(n * (sum(nums)/2))
+        - sum(nums)/2 is the target which is half of the total for entire numbers array
     - Space Complexity: O(n)
     
     **Solution:**  Updates a DP array from right to left for each element to ensure each number contributes only once to each possible subset sum.
@@ -4027,19 +4028,6 @@ Read code solution comments if you are confused.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/00d6bc22-ea7d-4dde-a997-e5e418a692f7/Untitled.png)
     
-    - States
-        
-        ### **Explanation of the States `True` and `False`**
-        
-        **1. `False` State:**
-        
-        - **Meaning**: When **`dp[j]`** is **`False`**, it means that, based on the elements considered so far, there is no subset of those elements that sums to **`j`**.
-        - **Usage**: This is the default state, implying that a sum has not been achieved. As the algorithm processes each element of the input array, it attempts to switch this state to **`True`** for various sums if they can be made with available numbers.
-        
-        **2. `True` State:**
-        
-        - **Meaning**: When **`dp[j]`** is **`True`**, it signifies that there is at least one subset of the numbers processed up to that point which sums to **`j`**.
-        - **Usage**: Once a **`dp[j]`** reaches a **`True`** state, it remains **`True`** for the remainder of the process because once a sum **`j`** can be achieved, adding more numbers to the pool (without subtracting) cannot make this sum impossible.
 
 # 2D Dynamic Programming
 
