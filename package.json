@@ -1,0 +1,26 @@
+{
+  "name": "data-structure-and-algorithms",
+  "version": "1.0.0",
+  "description": "**Intuition:**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "shipping": "tsx TypescriptSolutions/Random_Interviews/Shipping_Cost2/shippingcost2.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SupaxInc/data-structure-and-algorithms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SupaxInc/data-structure-and-algorithms/issues"
+  },
+  "homepage": "https://github.com/SupaxInc/data-structure-and-algorithms#readme",
+  "devDependencies": {
+    "@types/node": "^24.7.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
