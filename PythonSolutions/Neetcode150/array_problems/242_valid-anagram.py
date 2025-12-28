@@ -37,3 +37,20 @@ class Solution2:
         
         # You can also compare hashmaps with another hashmap, it compares both keys and values
         return countS == countT
+
+from collections import defaultdict
+class Solution3:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+            
+        countS = defaultdict(int)
+        countT = defaultdict(int)
+
+        for char in s:
+            countS[char] += 1
+        
+        for char in t:
+            countT[char] += 1
+        
+        return countS == countT
