@@ -1,14 +1,13 @@
 from typing import List
 
-def containsDuplicate(nums: List[int]) -> bool:
-    mySet = set()
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        mySet = set()
 
-    for n in nums:
-        if n in mySet:
-            return True
+        for num in nums:
+            if num in mySet:
+                return True
+            
+            mySet.add(num)
         
-        mySet.add(n)
-    
-    return False
-
-print(containsDuplicate([1,1,1,3,3,4,3,2,4,2]))
+        return False
