@@ -30,16 +30,17 @@ function isSolution1Anagram(s: string, t: string): boolean {
 
 const isSolution2Anagram = (s: string, t:string): boolean => {
     if (s.length != t.length) return false;
+    
+    const myCount: Record<string, number> = {};
 
-    const count: Record<string, number> = {};
+    for (let char of s) {
+        myCount[char] = (myCount[char] || 0) + 1;
+    }
 
-    for (let i = 0; i < s.length; i++) count[s[i]] = (count[s[i]] || 0) + 1;
+    for (let char of t) {
+        if (!myCount[char]) return false;
 
-    for (let i = 0; i < t.length; i++) {
-        // Handles counts that go to 0 and if the character exists
-        if (!count[t[i]]) return false;
-
-        count[t[i]]--;
+        myCount[char] -= 1;
     }
 
     return true;
