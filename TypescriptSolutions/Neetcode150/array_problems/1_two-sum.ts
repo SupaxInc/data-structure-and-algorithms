@@ -13,7 +13,7 @@ function twoSum(nums: number[], target: number): number[] {
     return [];
 };
 
-const twoSum = (nums: number[], target: number): number[] => {
+const twoSum2 = (nums: number[], target: number): number[] => {
     const counts: Record<number, number> = {};
 
     for (let i = 0; i < nums.length; i++) {
