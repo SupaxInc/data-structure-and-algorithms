@@ -1,3 +1,18 @@
+from typing import List
+class MoreReadableDynamicWindowSolution:
+    def maxProfit(self, prices: List[int]) -> int:
+        start, maxProfit = 0, 0
+
+        for end in range(1, len(prices)):
+            # Dynamic window, keep getting max profit until the future day price is less than current stock buy
+            if prices[start] < prices[end]:
+                maxProfit = max(maxProfit, prices[end] - prices[start])
+            else:
+                start = end
+        
+        return maxProfit
+
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         start, end = 0, 1
