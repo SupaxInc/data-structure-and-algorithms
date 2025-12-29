@@ -12,3 +12,19 @@ function twoSum(nums: number[], target: number): number[] {
 
     return [];
 };
+
+const twoSum = (nums: number[], target: number): number[] => {
+    const counts: Record<number, number> = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        const complementary = target - nums[i];
+
+        if (counts[complementary] !== undefined) {
+            return [counts[complementary], i];
+        }
+
+        counts[nums[i]] = i;
+    }
+
+    return [];
+}
