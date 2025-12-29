@@ -17,7 +17,8 @@ class MoreReadableSolution:
             else:
                 stack.append(p)
         
-        return True
+        # Ensure that the stack is exhausted or else we had a mismatched opening bracket
+        return len(stack) == 0
 
 class Solution:
     def isValid(self, s: str) -> bool:
