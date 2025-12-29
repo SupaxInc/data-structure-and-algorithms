@@ -1,3 +1,24 @@
+class MoreReadableSolution:
+    def isValid(s: str) -> bool:
+        complement = {
+            ']' :  '[',
+            ')' : '(',
+            '}' : '{'
+        }
+        stack = []
+        
+        for p in s:
+            # If its a closing bracket
+            if p in complement:
+                # Option 1: Short circuit if stack is empty, it means nothing can be matched
+                # Option 2: Pop the stack and compare last added bracket if it can be matched with current closing bracket
+                if not stack or stack.pop() != complement[p]:
+                    return False
+            else:
+                stack.append(p)
+        
+        return True
+
 class Solution:
     def isValid(self, s: str) -> bool:
         # We need a way to figure out which brackets are closing brackets and what open brackets it matches to
