@@ -46,6 +46,7 @@ class Solution1:
 class SomewhatOptimalSolution:
     def isPalindrome(self, s: str) -> bool:
         # Convert characters into lowercases without alphanumerics
+        # [EXPRESSION for ITEM in ITERABLE if CONDITION]
         chars = [char.lower() for char in s if char.isalnum()]
         # Check if it equals the reverse of it
         return chars == chars[::-1]
