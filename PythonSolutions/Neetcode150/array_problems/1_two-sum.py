@@ -2,12 +2,14 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        myMap = {}
+        myNums = {}
 
-        for i in range(len(nums)):
-            numNeeded = target - nums[i]
-            if numNeeded in myMap:
-                return [myMap[numNeeded], i]
-            myMap[nums[i]] = i
+        for i, num in enumerate(nums):
+            complement = target - num
+
+            if complement in myNums:
+                return [myNums[complement], i]
+            
+            myNums[num] = i
         
         return []
