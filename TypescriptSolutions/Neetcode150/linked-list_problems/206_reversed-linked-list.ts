@@ -13,8 +13,8 @@
 const reverseList = (head: ListNode | null): ListNode | null => {
     if (!head) return head;
 
-    let cur = head;
-    let prv = null;
+    let cur: ListNode | null = head;
+    let prv: ListNode | null = null;
 
     while (cur) {
         let nxt = cur.next;
