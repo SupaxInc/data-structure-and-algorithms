@@ -1,17 +1,19 @@
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+from typing import Optional
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         # * Reference a variable to a dummy node since we will be traversing using the dummy node *
-            # This way we can have a reference to the head of the dummy node that will bes traversing and creating a new merged list
+            # This way we can have a reference to the head of the dummy node that will be traversing 
+            # and creating a new merged list. Allows us to reference the head later while dummy is at tail.
         mergedList = dummy = ListNode()
 
         # Merge the lists till 1 of them are empty
         while list1 and list2:
-            # Connect the nodes depending on value
+            # Connect dummy to the smaller value of list1 or list2
             if list1.val < list2.val:
                 dummy.next = list1
                 list1 = list1.next
@@ -20,9 +22,10 @@ class Solution:
                 list2 = list2.next
             
             # Traverse to the next node we just connected to (either new list1 or list2 node)
+            #* Essentially taking the next node as our own which still references the next node in list1 or list2
             dummy = dummy.next
 
-        # Since there might still be a non-empty list, connect the next ndoe to the rest of that non-empty list
+        # There might still be a non-empty list, connect the next node to the non-empty list to complete it
         dummy.next = list1 or list2
 
         # Since merged list references dummy node at the beginning we can still grab the head of the dummy node
