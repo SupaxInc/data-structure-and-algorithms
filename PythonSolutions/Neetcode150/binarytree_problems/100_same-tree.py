@@ -5,7 +5,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-class Solution:
+class PreOrderTraversalSolution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         # When we reach end of subtrees and both values are None, then no issues were found
         # Which means the subtree is the same
