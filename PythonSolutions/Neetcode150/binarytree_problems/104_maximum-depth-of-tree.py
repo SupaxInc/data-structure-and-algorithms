@@ -18,16 +18,17 @@ class BFSSolution:
         # Adding a while here will help iterate through the nodes in the next level
         # Allows to re-calculate the len(queue) code in the for loop
         while queue:
+            level += 1
+
             # The code len(queue) is only executed at the START of the for loop
             # Therefore, adding to the queue does not change the range of the for loop
             # This helps only iterate through the current level of the tree
-            for i in range(len(queue)):
+            for _ in range(len(queue)):
                 currNode = queue.popleft()
                 if currNode.left:
                     queue.append(currNode.left)
                 if currNode.right:
                     queue.append(currNode.right)
-            level += 1
         
         return level
     
@@ -55,7 +56,7 @@ class PostOrderReadableSolution:
 
             # Post-order Visit
             count = 1 + max(left, right)
-            
+
             return count
         
         return postOrder(root)
