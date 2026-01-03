@@ -1,9 +1,10 @@
+from typing import Optional
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         def dfs(node):
@@ -11,10 +12,10 @@ class Solution:
                 return 0
             
             left = dfs(node.left)
-            # Once an imbalance is detected no further work is necessary
-            # Propagate up the call stack to return -1
+            # Somewhere in left subtree traversal an imabalance was detected so just return
             if left == -1: return -1
             right = dfs(node.right)
+            # Same with right subtree
             if right == -1: return -1
         
             # Detect if there an imbalance of levels between left and right subtree
