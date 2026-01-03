@@ -1,9 +1,10 @@
+from typing import Optional
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         # Post order traversal, pre order traversal also works
@@ -25,3 +26,20 @@ class Solution:
             return node
         
         return traverse(root)
+
+class PreOrderSolution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+        
+        def preOrder(node):
+            if not node:
+                return node
+            
+            node.left, node.right = node.right, node.left
+            node.left = preOrder(node.left)
+            node.right = preOrder(node.right)
+
+            return node
+        
+        return preOrder(root)
