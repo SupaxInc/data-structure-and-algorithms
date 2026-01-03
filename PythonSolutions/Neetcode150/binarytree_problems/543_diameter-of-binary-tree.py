@@ -1,9 +1,34 @@
+from typing import Optional
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class MoreReadableSolution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        self.maxLength = 0
+
+        def dfs(node: Optional[TreeNode]) -> int:
+            if not node:
+                return 0
+            
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            # Re-calculate max length by comparing current max length and the longest paths from left to right
+                # Longest path betweeen nodes will always be left + right as it maximizes finding the longest
+            self.maxLength = max(self.maxLength, left + right)
+
+            # Return 1 (to add the edge) and longest path of EITHER left or right
+                # Gives us current largest path from this root of the tree
+            return 1 + max(left, right)
+        
+        dfs(root)
+        return self.maxLength
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         maxDiameter = 0
