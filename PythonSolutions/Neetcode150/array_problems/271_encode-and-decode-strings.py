@@ -1,3 +1,27 @@
+from typing import List
+class MostReadableOptimizedSolution:
+    def __init__(self):
+        self.decoder = "#"
+
+    def encode(self, strs: List[str]) -> str:
+        return ''.join(f"{len(s)}{self.decoder}{s}" for s in strs)
+
+    def decode(self, s: str) -> List[str]:
+        decoded = []
+        i = 0
+
+        while i < len(s):
+            # .find() helps us look for a string beginning at a certain index i
+                #  Here, we look for decoder start at i (it doesn't splice the string, gives original index)
+            j = s.find(self.decoder, i)
+            length = int(s[i:j])
+
+            # j+length+1 gives us after decoder + length + 1 (end is non inclusive)
+            decoded.append(s[j+1:j+length+1])
+            i = j+length+1
+        
+        return decoded
+
 class OptimizedSolution:
 
     def encode(self, strs: List[str]) -> str:
