@@ -1,3 +1,27 @@
+from collections import defaultdict
+from typing import List
+
+class MostReadableSolution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        groups = defaultdict(list)
+
+        for s in strs:
+            # Create alphabet sized count array
+            count = [0] * 26
+            
+            # For each character in string find what 0-index it lands on based on unicode (e.g. 97(a)-99(c) = 2)
+            for char in s:
+                idx = ord(char) - ord('a')
+                count[idx] += 1
+            
+            # Convert the count array to a tuple key = (0, 2, 2, ...)
+                # Or could use join as well BUT tuple = O(1), join() = O(26)
+                # countStr = ','.join([str(x) for x in count])
+            groups[tuple(count)].append(s)
+
+        # List each value as a group creating a 2D array
+        return list(groups.values())
+
 class MySolution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         if len(strs) < 2:
