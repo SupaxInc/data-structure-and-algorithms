@@ -111,7 +111,7 @@
     - Time Complexity: O(n * mlogm) → n is number of strings, m is letters in each string
     - Space Complexity: O(n)
     
-    **Optimized Approach:** Each iteration create an array of 26 space, use the ascii code as the index of the array. Place the array as the key of the hashmap and add the original strings as the value. (USE A TUPLE AS THE KEY, DO NOT JOIN STRINGS AS ITS O(N))
+    **Optimized Approach:** Each iteration create an array of 26 space, use the ascii code as the index of the array. Place the array as the key of the hashmap and add the original strings as the value. (USE A TUPLE AS THE KEY, DO NOT JOIN STRINGS AS ITS O(N), IN THIS CASE O(26) BUT STILL)
     
     - Time Complexity: O(n * m) → n is each string, m is letters per string
     - Space Complexity: O(n)
@@ -3353,7 +3353,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration to ensure that we do not do **multi-hops.**
         - The constraint here is that we need to do it at k-stops and keeping the same distances array cascades the in-place array to allow us to hop multiple times per relaxed edge.
-        - See example here why we copy: ‣
+        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
 
 ## 332 - Reconstruct Itinerary (Advanced)
 
@@ -3520,7 +3520,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: ‣ 
+    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
