@@ -123,12 +123,19 @@
     - Uses defaultdict
         - Helps optimize checking for existing keys
         - It’ll automatically create a new key for you without check if it exists
+    - Uses `.ord()` to get unicode for python
     - Uses tuples as a key in a hashmap
         - Tuples are hashable because they are immutable
         - Lists are not hashable because they mutable
     - Uses sorted: sorted_string_case_insensitive = ''.join(sorted(my_string, key=str.lower))
         - Sorts characters in a string lexicographically
     - Uses ascii codes as an index in an array to represent alphabets
+    
+    **For Typescript:**
+    
+    - Use `.charCodeAt()` to get unicode
+        - `‘a’` for example is 97 so if we subtract by another lowercase alphabet it gives us 0 index
+    
 
 ## 347 - Top K Frequent Elements
 
@@ -3353,7 +3360,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Uses Bellman Ford’s algorithm within K stops instead of all the way up to |V| - 1 times of edge relaxation
         - This means we need to deep copy the prices of the previous iteration to not mix updates from the same iteration to ensure that we do not do **multi-hops.**
         - The constraint here is that we need to do it at k-stops and keeping the same distances array cascades the in-place array to allow us to hop multiple times per relaxed edge.
-        - See example here why we copy: [Why do we copy the prices above?](https://www.notion.so/Why-do-we-copy-the-prices-above-18388c89a13e4a33a3bc2e602bb4ee1c?pvs=21)
+        - See example here why we copy: ‣
 
 ## 332 - Reconstruct Itinerary (Advanced)
 
@@ -3520,7 +3527,7 @@ String `a` letter is lexicographically smaller than string `b` letter when compa
     
     **Optimized Approach:** Use bottom up DP to find a relationship between sub problems.
     
-    See example of how it was solved here: [Example 2: Min Cost Climbing Stairs](https://www.notion.so/Example-2-Min-Cost-Climbing-Stairs-6401f12756914d30bee9c421a718a8a0?pvs=21) 
+    See example of how it was solved here: ‣ 
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/31c526eb-11a0-4489-8c4e-107d0b0b7d0a/Untitled.png)
     
