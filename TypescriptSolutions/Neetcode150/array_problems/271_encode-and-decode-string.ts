@@ -1,25 +1,36 @@
 class Solution {
-    encode(strs: string[]): string {
-        return strs.map((str) => `${str.length}#${str}`).join('');
+    public decoder:  string;
+
+    constructor() {
+        this.decoder = "#";
     }
 
-    decode(str: string): string[] {
-        const n = str.length;
-        let idx = 0;
-        const res: string[] = []
+    /**
+     * @param {string[]} strs
+     * @returns {string}
+     */
+    encode(strs): string {
+        return strs.map(str => `${str.length}${this.decoder}${str}`).join('');
+    }
 
-        while (idx < n) {
-            let j = idx;
+    /**
+     * @param {string} str
+     * @returns {string[]}
+     */
+    decode(str): string[] {
+        const decoded: string[] = [];
+        let i = 0;
 
-            while (str[j] != "#") j++;
+        while (i < str.length) {
+            const j = str.indexOf(this.decoder, i);
+            const n = parseInt(str.slice(i, j+1));
 
-            const len = parseInt(str.slice(idx, j));
-            const start = j + 1;
-            res.push(str.slice(start, len + start));
+            const decodedStr = str.slice(j+1, j+n+1);
+            decoded.push(decodedStr);
 
-            idx = len + start;
+            i = j + n + 1;
         }
 
-        return res;
+        return decoded;
     }
 }
