@@ -1,3 +1,5 @@
+from collections import defaultdict
+from typing import List
 class OptimizedSolution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         res = []
@@ -17,7 +19,7 @@ class OptimizedSolution:
         # It will use the first index of the tuples in the array to sort the heap
         heapq.heapify(maxHeap)
 
-        for i in range(0, k): # O(k)
+        for _ in range(0, k): # O(k)
             # Append the 2nd value of the tuple to the result array, this will be the element
             res.append(heapq.heappop(maxHeap)[1]) # Insert or popping from heap is O(log n) time
         
@@ -37,7 +39,8 @@ class MoreOptimizedSolution:
         for num in nums:
             count[num] += 1
 
-        # The index will be used as the count
+        # The index will be used as the frequency
+            #* Length of the array is the max amount a number can show up
         # The value will be an array of elements since elements could show up same amount of times
         for key, val in count.items():
             bucket[val].append(key)
