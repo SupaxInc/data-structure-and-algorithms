@@ -135,6 +135,7 @@
     
     - Use `.charCodeAt()` to get unicode
         - `‘a’` for example is 97 so if we subtract by another lowercase alphabet it gives us 0 index
+    - Uses `.join()`  or `.toString()`
     
 
 ## 347 - Top K Frequent Elements
@@ -162,6 +163,8 @@
     
     **Unique uses:**
     
+    - Remember that in the array, the highest frequencies you can get is based on the length of the array
+        - This allows us to create a 2d array and the index of this array is the frequency. Giving us the top K that we require.
     - 1st approach:
         - Use a max heap to heapify the first value of tuple or array
     - 2nd approach
@@ -296,6 +299,13 @@
         - **You can see in the example above, we have to figure out how to escape the “#” encoding. Or else it will not decode the character.**
     - Uses string.find(’#’, i) to get the index of a character in a string
     - Uses string splicing
+    
+    **Typescript:**
+    
+    - `.indexOf`  is exactly the same as `.find()`  in python.
+        - Second argument is where we want to begin finding the index without mutating the string so it returns original index.
+    - Use `.slice()` over splice so you don’t mutate string.
+    
 
 ## 128 - Longest Consecutive Sequence
 
