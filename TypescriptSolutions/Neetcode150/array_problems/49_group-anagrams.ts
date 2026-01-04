@@ -1,18 +1,22 @@
 const groupAnagrams = (strs: string[]): string[][] => {
-    if (strs.length < 2) return [strs];
-    
     const groups: Record<string, string[]> = {};
 
-    for (let str of strs) {
-        const freqs = new Array(26).fill(0);
-        const baseCharNum = "a".charCodeAt(0); // 97
+    for (const str of strs) {
+        const counts = new Array(26).fill(0);
 
-        for (let char of str) freqs[char.charCodeAt(0) - baseCharNum]++;
+        for (const c of str) {
+            const idx = c.charCodeAt(0) - 'a'.charCodeAt(0);
+            counts[idx]++;
+        }
+        
+        // Can use .toString() here as well
+        const countStr = counts.join(',');
 
-        const freqString = freqs.toString();
-        if (!groups[freqString]) groups[freqString] = [];
-        groups[freqString].push(str);
+        // Records will be undefined at first and need to set an array
+        if (!groups[countStr]) groups[countStr] = [];
+        groups[countStr].push(str);
     }
 
+    // Object.values cocnverts to array -> groups values are also already array so creates 2d array
     return Object.values(groups);
 };
