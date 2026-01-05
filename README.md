@@ -206,6 +206,7 @@
     
     **Unique uses:**
     
+    - Prefix–suffix algorithms typically replace nested loops by scanning left and right once, caching partial results so each index in the resulting array is computed in constant time.
     - Uses concept of prefix, postfix, and infix notation:
         
         ```python
