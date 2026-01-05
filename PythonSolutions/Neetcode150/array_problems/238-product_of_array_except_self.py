@@ -1,3 +1,4 @@
+from typing import List
 class ReadableSolution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         res = []
@@ -22,7 +23,7 @@ class ReadableSolution:
             #* Prefix should contain a 1 at the beginning
             #* Postfix should contain a 1 at the end
         #* Since we aren't adding it to the arrays, we need to deal with it here
-        
+
         # Get result by doing cross multiplication between prefix[i-1] * postfix[i+1]
             # First index: Since prefix[i-1] would be out bounds multiple by 1
             # Last index: Similarly postfix[i+1] be out of bounds so just multiply by 1
@@ -38,24 +39,24 @@ class ReadableSolution:
 
 class BetterSpaceSolution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # Check for edge cases
-        if len(nums) < 2:
+        n = len(nums)
+        if n < 2:
             return []
         
-        n = len(nums)
-        res = [1] * n  # Initialize the result array with 1's
+        # Initialize size of result with any value
+        res = [1] * n
 
-        # Compute prefix products directly into result array
-        prefix_product = 1 # Begin with 1 to get the product before index 0 and prevents multiplying by 0
+        # Calculate prefix, begin with a 1
+        prefixProduct = 1
         for i in range(n):
-            res[i] = prefix_product
-            prefix_product *= nums[i] # Accumulate the product of all elements to the left of i
-        
-        # ** The result array now contains the prefix products, begin computing postfix products **
-        # Compute postfix products directly into the result array
-        postfix_product = 1 # Begin with 1 to get the product after index length of nums and prevents multiplying by 0
+            res[i] = prefixProduct
+            prefixProduct *= nums[i]
+
+        # Calculate postfix by reversing prefixes, begin with a 1
+        postfixProduct = 1
         for i in range(n-1, -1, -1):
-            res[i] *= postfix_product
-            postfix_product *= nums[i] # Accumulate the product of all elements to the right of i
-        
+            #* Do not use nums[i], use the current prefixes (res[i]) to get the cross multiplication between prefix and postfix
+            res[i] *= postfixProduct
+            postfixProduct *= nums[i]
+
         return res
