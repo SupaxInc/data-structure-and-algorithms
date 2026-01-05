@@ -19,29 +19,7 @@ class SomewhatOptimalSolution:
             longest = max(length, longest)
 
         return longest 
-
-class MostOptimalAlternativeReadableSolution:
-    def longestConsecutive(self, nums: List[int]) -> int:
-        longest = 0
-        
-        numSet = set(nums)
-
-        for num in numSet:
-            # Check if a left neighbor exists, if not its the start of a new sequence
-            if num - 1 not in numSet:
-                length = 0
-                # Attach num to new variable
-                sequence = num
-
-                while sequence in numSet:
-                    length += 1
-                    # Increment new variable
-                    sequence += 1
-                
-                longest = max(longest, length)
-
-        return longest
-class MostOptimalSolution:
+class MostOptimalReadableSolution:
     def longestConsecutive(self, nums: List[int]) -> int:
         numSet = set(nums)
         maxLength = 0
@@ -63,3 +41,25 @@ class MostOptimalSolution:
                 maxLength = max(maxLength, length)
         
         return maxLength
+
+class MostOptimalAlternativeSolution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        longest = 0
+        
+        numSet = set(nums)
+
+        for num in numSet:
+            # Check if a left neighbor exists, if not its the start of a new sequence
+            if num - 1 not in numSet:
+                length = 0
+                # Attach num to new variable
+                sequence = num
+
+                while sequence in numSet:
+                    length += 1
+                    # Increment new variable
+                    sequence += 1
+                
+                longest = max(longest, length)
+
+        return longest
