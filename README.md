@@ -4920,3 +4920,7 @@ Read code solution comments if you are confused.
     - Helps find int overflow and underflow
     - Uses fmod to handle negative numbers, e.g. -1 % 10 = -1 instead of 9
     - Multiplies by 10 to shift number to left and appends the next number by adding
+
+# Random Vocab
+
+**Amortization:** Across the entire algorithm, the total work is proportional to N (if O(N)) — even if some individual steps are more expensive.
