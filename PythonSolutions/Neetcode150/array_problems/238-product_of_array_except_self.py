@@ -1,42 +1,37 @@
-class MySolution:
+class ReadableSolution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        if len(nums) < 2:
-            return []
-        
-        numsLength = len(nums)
         res = []
+        n = len(nums)
 
-        # Prefix is product starting from left
-        prefix = [nums[0]] # Add first value of nums to prefix
-        
-        # Postfix is product starting from right
-        postfix = [0] * numsLength
-        postfix[-1] = nums[-1] # Add last value of nums to postfix
-
-        # Compute the prefix product
-            # Start from index 1 so we can compute the product of previous numbers
-        for i in range(1, numsLength):
+        # Calculate prefix (left -> right)
+            # Add the first num to prefix (first num is always going to be the same since we are multiplying by 1)
+        prefix = [nums[0]]
+        # Begin at 1 to skip first index, then begin getting the product prefixes
+        for i in range(1, n):
             prefix.append(prefix[i-1] * nums[i])
-        
-        # Compute the postfix product
-            # Start from the 2nd last index to compute previous numbers
-        for i in range(numsLength - 2, -1, -1):
+
+        # Calculate postfix (right -> left)
+            # Similarly to prefix, add the last num in the last index postfix
+        postfix = [0] * n
+        postfix[-1] = nums[-1]
+        # Begin at the 2nd last index
+        for i in range(n-2, -1, -1):
             postfix[i] = postfix[i+1] * nums[i]
+
+        #* Remember:
+            #* Prefix should contain a 1 at the beginning
+            #* Postfix should contain a 1 at the end
+        #* Since we aren't adding it to the arrays, we need to deal with it here
         
-        # For each index i:
-            # prefix[i-1] contains product of all elements to the left of i
-            # postfix[i+1] contains product of all elements to the right of i
-            # Therefore, we are effectively skipping the product of nums[i] (current element we are on)
-        for i in range(len(nums)):
-            if i - 1 < 0: 
-                # Multiply by 1 if we are at the first element so we don't multiply results by 0
+        # Get result by doing cross multiplication between prefix[i-1] * postfix[i+1]
+            # First index: Since prefix[i-1] would be out bounds multiple by 1
+            # Last index: Similarly postfix[i+1] be out of bounds so just multiply by 1
+        for i in range(n):
+            if i == 0:
                 res.append(1 * postfix[i+1])
-            elif i + 1 >= numsLength: 
-                # Multiply by 1 if we are at the last element so we don't multiply results by 0
+            elif i == n - 1:
                 res.append(1 * prefix[i-1])
-            else: 
-                # Multiply the prefix and postfix products to get product of all elements except nums[i]
-                # **Effectively creating a product of array except self**
+            else:
                 res.append(prefix[i-1] * postfix[i+1])
         
         return res
