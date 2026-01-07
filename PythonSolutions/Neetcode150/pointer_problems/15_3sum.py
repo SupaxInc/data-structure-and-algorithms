@@ -1,3 +1,4 @@
+from typing import List
 class MySolution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
@@ -30,17 +31,20 @@ class MySolution:
 class OptimalSolution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = []
+        # Sorting numbers gives us the ability to:
+            # Check for duplicate neighbors
+            # Allows for 2-pointer approach
         nums.sort()
 
+        # Loop only until the last 2 index to prevent index out of range
         for i in range(len(nums)-2):
-            # Check duplicates for index 0
-            # If we don't it may result in a duplicate unique triplet result set
-            # E.g. For array: [-1, -1, -1, 2] → [-1, -1, 2], [-1, -1, 2]
+            # Check duplicates for first for loop pointer
+                # E.g. For array: [-1, -1, -1, 2] → [-1, -1, 2], [-1, -1, 2]
             if i > 0 and nums[i] == nums[i-1]:
                 continue
 
             # Once the first number becomes positive in the array, we can stop as we can't create a total of 0
-            # E.g. [1, 3, 4], impossible to total to 0
+                # E.g. [1, 3, 4], impossible to total to 0
             if nums[i] > 0:
                 break
             
@@ -54,17 +58,16 @@ class OptimalSolution:
                     r -= 1
                 else:
                     res.append([nums[i], nums[l], nums[r]])
-                    l += 1
 
-                    # Check duplicates for index 1
-                    # Loop the next left pointer until we do not find an answer with duplicates
+                    # Increment left pointer so we can easily check if next number has duplicates within 2 pointer
+                    l += 1
                     while l < r and nums[l] == nums[l-1]:
+                        # Keep moving left pointer until no more duplicates
                         l += 1
 
-                    # No need to check for duplicates for index 2
-                    # 3rd index is taken care of because at this point the left pointer has moved enough
-                    # Which means moving the right pointer to the same value will make the total too large
-                    # So if a duplicate is hit for the 3rd index, it wont matter as the total will still be too large.
+                    # No need to check for duplicates for third pointer
+                        # 3rd ptr is taken care of because at this point the 2nd pointer has moved enough
+                        # Which means moving the right pointer to the same value will make the total too large
             
         return res
 
