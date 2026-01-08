@@ -1,3 +1,23 @@
+const alternativeNotOptimizedcharacterReplacement = (s: string, k: number): number => {
+    let start = 0;
+    let longest = 0;
+    const count: Record<string, number> = {};
+
+    for (let end = 0; end < s.length; end++) {
+        if (!count[s[end]]) count[s[end]] = 0;
+        count[s[end]] += 1;
+
+        while ((start < end) && (((end - start + 1) - Math.max(...Object.values(count))) > k)) {
+            count[s[start]] -= 1;
+            start += 1;
+        }
+
+        longest = Math.max(longest, (end - start + 1));
+    }
+
+    return longest;
+};
+
 const notOptimizedCharacterReplacement = (s: string, k: number): number => {
     let start = 0;
     let longestString = 0;
