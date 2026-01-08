@@ -559,6 +559,10 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Solution:** 
     
     - Solution 1:  Keep track of the most frequent characters in a map, shrink the window if length of the window minus max count of the map is greater than K (the amount of letters we can replace) since max count is classified as the longest repeating character. **Then subtracting the max repeating character by length would equal the amount that we have to replace. If its greater than K than we no longer have enough to replace those characters.**
+        - **Equation:**
+            - `abs(max(map.values()) - length)` = Characters that are not part of the highest frequency
+            - `k` = Characters that we can replace
+            - `abs(max(map.values()) - length)`  > `k` = Lets us know if we couldn’t replace the characters that are not part of the highest frequency
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/f8b86622-dae8-4442-bbb5-820e8f6cb4df/Untitled.png)
     
