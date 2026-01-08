@@ -19,7 +19,7 @@ const lengthOfLongestSubstring = (s: string): number => {
     return longestSubstring;
 };
 
-const alternativeLengthOfLongestSubstring = (s: string[]): number => {
+const alternativeLengthOfLongestSubstring = (s: string): number => {
     if (s.length < 2) {
         return s.length;
     }

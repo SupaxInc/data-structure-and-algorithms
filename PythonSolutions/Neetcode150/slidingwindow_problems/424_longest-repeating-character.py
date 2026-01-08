@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 class MySolution:
     def characterReplacement(self, s: str, k: int) -> int:
         count = defaultdict(int)
