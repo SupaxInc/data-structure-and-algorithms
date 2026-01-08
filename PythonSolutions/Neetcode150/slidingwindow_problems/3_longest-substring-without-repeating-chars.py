@@ -1,23 +1,26 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) < 2:
+            return len(s)
+
         maxLength = 0
         start = 0
-        mySet = set()
+        # Begin at the start pointer and add to set right away
+        charSet = set(s[start])
 
-        for end in range(0, len(s)):
-            # Shrink the window if the current index char is in the set (which means there is a duplicate)
-            while s[end] in mySet and start <= end:
-                # To shrink it we remove the start pointer char then continuously move it up
-                
-                # Continuously remove the start pointer char until the duplicate is removed
-                mySet.remove(s[start])
+        # Skip an index so our end pointer is on the 1st index
+        for end in range(1, len(s)):
+            # If the dynamic window shrunk too much or if end ptr is in the set
+            while start <= end and s[end] in charSet:
+                # Remove from char set and increment start pointer
+                charSet.remove(s[start])
                 start += 1
-            
-            # Add the current index char if its no longer in the set
-            mySet.add(s[end])
-            maxLength = max(maxLength, (end-start) + 1)
 
-        return maxLength
+            # After no more duplicates in window add to set and calculate max length
+            charSet.add(s[end])
+            maxLength = max(maxLength, len(charSet))
+        
+        return maxLength 
     
 # *O(n^3) time complexity*
 class BruteForceSolution:
