@@ -49,6 +49,7 @@ class BetterSpaceSolution:
         # Calculate prefix, begin with a 1
         prefixProduct = 1
         for i in range(n):
+            #* No need to multiply here
             res[i] = prefixProduct
             prefixProduct *= nums[i]
 
