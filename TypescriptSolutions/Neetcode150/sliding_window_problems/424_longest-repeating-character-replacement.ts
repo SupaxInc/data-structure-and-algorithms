@@ -4,8 +4,7 @@ const alternativeNotOptimizedcharacterReplacement = (s: string, k: number): numb
     const count: Record<string, number> = {};
 
     for (let end = 0; end < s.length; end++) {
-        if (!count[s[end]]) count[s[end]] = 0;
-        count[s[end]] += 1;
+        count[s[end]] = (count[s[end]] ?? 0) + 1;
 
         while ((start < end) && (((end - start + 1) - Math.max(...Object.values(count))) > k)) {
             count[s[start]] -= 1;
