@@ -18,3 +18,25 @@ const lengthOfLongestSubstring = (s: string): number => {
 
     return longestSubstring;
 };
+
+const alternativeLengthOfLongestSubstring = (s: string[]): number => {
+    if (s.length < 2) {
+        return s.length;
+    }
+
+    let maxLength = 0;
+    let start = 0;
+    const subSet = new Set<string>([s[start]]);
+
+     for (let end = 1; end < s.length; end++) {
+        while (start <= end && subSet.has(s[end])) {
+            subSet.delete(s[start]);
+            start += 1;
+        }
+
+        subSet.add(s[end]);
+        maxLength = Math.max(maxLength, subSet.size);
+     }
+
+     return maxLength;
+};
