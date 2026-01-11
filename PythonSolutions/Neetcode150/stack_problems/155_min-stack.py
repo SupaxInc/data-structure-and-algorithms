@@ -1,7 +1,7 @@
-class SimplerMinStack:
+class SimplestMinStack:
 
     def __init__(self):
-        self.stack = []
+        self.stack = [] # Uses a 2d array (val, minVal) (can just use a tuple too)
 
     def push(self, val: int):
         # If stack is empty, then current min is the val we are pushing
@@ -21,6 +21,29 @@ class SimplerMinStack:
     def getMin(self):
         # Peeks at the last array in the stack just for its min value
         return self.stack[-1][1]
+
+class SimplerMinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+    
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+
+        if len(self.minStack) == 0:
+            self.minStack.append(val)
+        else:
+            self.minStack.append(min(val, self.getMin()))
+    
+    def pop(self) -> None:
+        self.minStack.pop()
+        self.stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> None:
+        return self.minStack[-1]
 
 class MinStack:
 
