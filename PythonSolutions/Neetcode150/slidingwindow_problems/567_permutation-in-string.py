@@ -1,3 +1,4 @@
+
 class MySolution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         windowLength = len(s1)
@@ -25,6 +26,7 @@ class MySolution:
                 # If the count is zero, remove it from the map.
                 # Allows us to properly compare between the string 1 and string 2 count
                 if s2Count[s2[start]] == 0:
+                    # Can use delete keyword here instead of pop
                     s2Count.pop(s2[start])
             
                 # Increment the start pointer so it stays within fixed window length
@@ -54,7 +56,7 @@ class MostOptimalSolution:
             # Remove the character leaving the window if we are at fixed window size
             if (end-start) + 1 > len(s1):
                 if s2[start] in s1Count:
-                    # If the frequency of the start character is 0, then we decrement the matches as its no longer a match
+                    # If the frequency of the start character was 0, then we decrement the matches as its no longer a match
                     if s1Count[s2[start]] == 0:
                         matches -= 1
                     s1Count[s2[start]] += 1
