@@ -1,3 +1,4 @@
+from typing import List
 class BruteForceSolution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if len(matrix) < 1:
@@ -47,7 +48,7 @@ class OptimizedSolution:
 
             if midVal > target:
                 hi = mid - 1
-            elif midVal < target:
+            else:
                 lo = mid + 1
 
         return False
