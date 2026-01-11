@@ -1044,34 +1044,15 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Unique uses:**
     
     - Finds coordinates of an index in a 2d matrix
-        - **y coordinate: index // n**
-            - **`n`**, the number of columns, represents the width of each row.
-            - Therefore, dividing an index (**`idx`**) by **`n`** gives you the row index because it tells you how many full rows you've "passed" to reach the position represented by **`idx`**.
-                - For example, index = 6, number of columns = 4
-                    - 6 // 4 = 1, tells us that we’ve passed 1 full row of 4 columns.
-        - **x coordinate: index % n**
-            - We need to determine the position within the row.
-            - The modulus operation (**`idx % n`**) gives the column index because it represents the remainder after dividing **`idx`** by the row width (**`n`**), indicating the offset from the start of the row.
-                - For example, index = 6, number of columns = 4
-                    - 6 % 4 = 2, tells us the start of the row we’re in
-    - Flattening a 2d array as a 1d array
-    
-    ### Explaining 74 to an interviewer
-    
-    ### **Start with the Brute Force Approach**
-    
-    1. **Initial Understanding**: Begin by explaining your initial approach to solve the problem directly based on the problem statement. For the "Search a 2D Matrix" problem, this might involve iterating over each row and then each column within that row to find the target. Acknowledge the straightforwardness of this method but also its inefficiency.
-    2. **Identify Limitations**: Discuss the limitations of the brute force approach, emphasizing its time complexity. For example, explain that searching every element in a matrix of size **`m x n`** results in a time complexity of O(m*n), which is not efficient for large matrices.
-    
-    ### **Transition to Optimization**
-    
-    1. **Observation**: Share the key observation that led you to consider an optimized solution. For this problem, you might note that both the rows and columns of the matrix are sorted, which is a property that binary search can exploit to significantly reduce the search space.
-    2. **Conceptual Leap**: Explain the conceptual leap to treating the 2D matrix as a 1D sorted array. Emphasize how this perspective change allows you to apply binary search across the entire matrix, not just within a single row or column, thereby leveraging the sorted property of the matrix more fully.
-    
-    ### **Explain the Optimized Solution**
-    
-    1. **Flattening the Matrix**: Describe how you "flatten" the matrix in a logical sense (without actually creating a new array) by mapping a 1D index to 2D row and column indices. Clarify the use of the formulas for row and column (**`row = idx // n`** and **`col = idx % n`**) and why dividing by the number of columns (**`n`**) correctly maps indices.
-    2. **Binary Search Application**: Detail how you apply binary search using the 1D index over the virtual flattened array. Highlight the reduction in time complexity to O(log(m*n)) because you're now performing a single binary search over the entire matrix, treating it as a sorted list.
+        - Remember: we “flattened” 2d array as a 1d array.
+        - **ROWS coordinate: mid index // (LENGTH OF COLUMNS PER ROW)**
+            - `a / b` : Dividing by number `b` , tells us how many times number `b` fits into `a`.
+            - Length of the columns in the matrix is `b` .
+            - This tells us how many times the mid index `a` (full length of columns) can fit into `b` . Giving us the correct row in the matrix.
+        - **COLS coordinate: mid index % (LENGTH OF COLUMNS PER ROW)**
+            - `a % b` : Getting the remainder tells us what is left after fitting number `b` into `a` as many whole times as possible
+            - Length of the columns in the matrix is `b` .
+            - Therefore, we try and fit the mid index `a` as many times to `b`  and the remained of that is the position in the row.
 
 ## 875 - Koko Eating Bananas
 
