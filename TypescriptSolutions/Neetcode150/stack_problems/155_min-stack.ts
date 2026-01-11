@@ -20,3 +20,28 @@ class MinStack {
         return this.stack[this.stack.length-1][1]
     }
 }
+
+class SimplerMinStack {
+    // Uses a "tuple" (val, minimum val)
+    constructor(private stack: number[][] = []) {}
+
+    push(val: number): void {
+        if (this.stack.length > 0) {
+            this.stack.push([val, Math.min(val, this.getMin())]);
+        } else {
+            this.stack.push([val, val]);
+        }
+    }
+
+    pop(): void {
+        this.stack.pop();
+    }
+
+    top(): number {
+        return this.stack[this.stack.length-1][0];
+    }
+
+    getMin(): number {
+        return this.stack[this.stack.length-1][1];
+    }
+}
