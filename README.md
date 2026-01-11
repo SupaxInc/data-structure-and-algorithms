@@ -4909,3 +4909,7 @@ Read code solution comments if you are confused.
 # Random Vocab
 
 **Amortization:** Across the entire algorithm, the total work is proportional to N (if O(N)) — even if some individual steps are more expensive.
+
+# Algorithm Tier List
+
+https://www.reddit.com/r/leetcode/comments/1b10dd4/uptodate_interview_algorithms_tier_list/
