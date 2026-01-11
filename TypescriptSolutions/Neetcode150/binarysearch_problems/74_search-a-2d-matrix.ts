@@ -1,21 +1,26 @@
 const searchMatrix = (matrix: number[][], target: number): boolean => {
-    const ROWS = matrix.length, COLS = matrix[0].length;
+    if (matrix.length < 1) {
+        return false;
+    }
 
-    let lo = 0, hi = ROWS * COLS - 1;
-    
+    const ROWS = matrix.length;
+    const COLS = matrix[0].length;
+
+    let lo = 0;
+    let hi = ROWS * COLS - 1;
+
     while (lo <= hi) {
-        const mid = lo + Math.floor((hi - lo)/2);
+        const midIdx = lo + Math.floor((hi - lo) / 2);
+        const midVal = matrix[Math.floor(midIdx / COLS)][midIdx % COLS];
 
-        const midVal = matrix[Math.floor(mid / COLS)][mid % COLS];
+        if (midVal === target) return true;
 
-        if (midVal === target) {
-            return true;
-        } else if (midVal > target) {
-            hi = mid - 1;
+        if (midVal > target) {
+            hi = midIdx - 1;
         } else {
-            lo = mid + 1;
+            lo = midIdx + 1;
         }
     }
 
     return false;
-}
+};
