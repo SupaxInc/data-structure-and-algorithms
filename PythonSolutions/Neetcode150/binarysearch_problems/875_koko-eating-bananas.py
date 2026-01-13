@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         # Low and high pointer will be the range of 1 to max amount of bananas in a pile
