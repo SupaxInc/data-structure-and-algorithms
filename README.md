@@ -1108,6 +1108,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Use `hi`  to compare with `mid` instead of `lo`  as its a more stable reference point.
         - With `lo`  you usually have to add more conditions to check which part of the array we are on.,
         - With `hi` its a much easier check
+        - **MID is just the best pivot to check for right and left sorted portions**
 
 ## 33 - Search in Rotated Sorted Array
 
@@ -1137,6 +1138,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - For left sorted array:
             - Check if the target < low pointer **OR** target ≥ mid: GO RIGHT
                 - target ≥ mid: Captures edg case scenario where we might still be in left sorted portion
+    - **MID is just the best pivot to check for right and left sorted portions**
 
 ## 981 - Time Based Key Value Store
 
