@@ -1,6 +1,9 @@
+from typing import List
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         lo, hi = 0, len(nums) - 1
+        # Use infinite here to compare with as we don't know the most max number
+            # Or can use an arbitrary number in an array
         minNum = float("inf")
 
         while lo <= hi:
