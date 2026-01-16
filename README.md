@@ -1127,12 +1127,16 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Find out if you are in right or left sorted portion of the array. Binary search based on which side you are on and if target is on the rotated portion or if it is greater or less than our current mid index.
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/08c16a56-47cc-4265-830e-632dbd508557/Untitled.png)
+    ![image.png](attachment:c254e311-15ed-40be-8cc9-200b5a6f6a69:image.png)
     
     **Unique uses:**
     
     - Binary searching a rotated sorted array
         - Checks which portion of the sorted array you are on
+    - Contains two ways for search space:
+        - For left sorted array:
+            - Check if the target < low pointer **OR** target ≥ mid: GO RIGHT
+                - target ≥ mid: Captures edg case scenario where we might still be in left sorted portion
 
 ## 981 - Time Based Key Value Store
 
