@@ -1105,6 +1105,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Binary searching on a rotated sorted array
         - If the mid number is greater than end then it means its rotated in a way that the smaller numbers are on the left.
         - If the mid number is smaller than the end then it means its rotated where the smaller numbers are on the right.
+    - Use `hi`  to compare with `mid` instead of `lo`  as its a more stable reference point.
+        - With `lo`  you usually have to add more conditions to check which part of the array we are on.,
+        - With `hi` its a much easier check
 
 ## 33 - Search in Rotated Sorted Array
 
