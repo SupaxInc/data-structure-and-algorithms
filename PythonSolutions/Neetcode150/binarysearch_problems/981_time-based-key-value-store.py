@@ -1,40 +1,38 @@
+from collections import defaultdict
 class TimeMap:
-
     def __init__(self):
         self.timeMap = defaultdict(list)
-
-    # *Timestamps that are set will be strictly ascending*
+    
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.timeMap[key].append([value, timestamp])
-
+        # There can be multiple values for 1 key in the time map
+        #* Dicts are ordered in python so each key inserted to dict is added in order *
+        self.timeMap[key].append((value, timestamp))
+    
     def get(self, key: str, timestamp: int) -> str:
+        # No values for a key tells us there's no timemap for the key
         if not self.timeMap[key] or not key:
             return ""
-        
-        lo, hi = 0, len(self.timeMap[key]) - 1
 
-        # Track for the current value in the case we don't find a time stamp match
-        curr_value = ""
+        lo, hi = 0, len(self.timeMap[key]) - 1
+        # Keeping track of value allows us to get values of smaller timestamps
+        currValue = ""
 
         while lo <= hi:
-            mid = lo + ((hi - lo) // 2)
-            mid_value = self.timeMap[key][mid][0]
-            mid_timestamp = self.timeMap[key][mid][1]
-            
-            # To find the largest previous timestamp, continuously search on the right side
-            # until we find the largest time stamp or it equals the target timestamp
-            # This allows us to keep track of the value of a smaller previously set time stamp
-                # When searching for a larger timestamp 
-                # This is valid since timestamps are strictly ascending
-            if mid_timestamp <= timestamp:
-                curr_value = mid_value
+            mid = lo + (hi - lo) // 2
+            # mid gives us the ability to choose a value from the list of timeMap based on key
+            midVal = self.timeMap[key][mid][0]
+            midTimestamp = self.timeMap[key][mid][1]
+
+            # The timestamp may not exist so we still need a way to find values for smaller time stamps.
+            # Therefore, anytime there is a smaller timestamp just grab the value of that time stamp
+            if midTimestamp <= timestamp:
+                currValue = midVal
+                # Moving to the right always allows us to get the smaller timestamp to the timestamp we are searching for
                 lo = mid + 1
-            # If the previously set timestamp is greater than the timestamp we are searching for then search on the left
             else:
                 hi = mid - 1
-        
-        return curr_value
 
+        return currValue
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()
