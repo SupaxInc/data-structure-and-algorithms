@@ -1,8 +1,32 @@
+from typing import Optional
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class MoreReadableSolution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head
+
+        # Edge case: Left pointer must begin at dummy pointer so it ends just BEFORE the Nth node
+        left, right = dummy, head
+        
+        # Move right pointer Nth times so that it gives enough between space for left pointer to be BEFORE Nth node
+        for _ in range(n):
+            right = right.next
+
+        # Move left and right pointer same amount
+        while right:
+            left = left.next
+            right = right.next
+
+        # Connect the left pointer 2 nodes head, thus removing Nth node
+        left.next = left.next.next
+
+        # Returns the head we referenced
+        return dummy.next
+
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         # * Edge case: * 
