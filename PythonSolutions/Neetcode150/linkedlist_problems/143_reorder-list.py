@@ -1,8 +1,54 @@
+from typing import Optional
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class MostReadableSolution:
+    def reverseList(self, head: Optional[ListNode]) -> None:
+        cur, prv = head, None
+
+        while cur:
+            nxt = cur.next
+            cur.next = prv
+            prv = cur
+            cur = nxt
+        
+        return prv
+
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        # Keep reference of head pointer in event that we need beginning of list
+        dummy = head
+
+        # 1: Get to mid-way point of the list using slow and fast pointers
+        slow = fast = head
+        while fast and fast.next:
+            # Slow pointer will end up at the middle pointer since fast pointer is twice as fast
+            slow = slow.next
+            fast = fast.next.next
+        
+        # 2: Split into two groups
+        # Create new second group using mid-point
+        second = slow.next
+        # Create first group
+        slow.next = None
+        first = dummy
+
+        # 3: Reverse second group so we can use it to reorder
+        second = self.reverseList(second)
+
+        # 4: Merge the first and second group together
+        while first and second: # Both have to be available else it points to the one thats longest
+            # Connect node from first to node from second
+            nxt = first.next # Temp next reference
+            first.next = second # Point to second list
+            first = nxt # Move first node to next node in first
+
+            # Connect node from second to node from first
+            nxt = second.next
+            second.next = first
+            second = nxt
+
 class WayMoreReadableSolution:
     def reorderList(self, head: Optional[ListNode]) -> None:
         """
@@ -47,11 +93,6 @@ class WayMoreReadableSolution:
             first, second = next1, next2
 
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class BetterReadableSolution:
     def reorderList(self, head) -> ListNode:
         if not head or not head.next:
@@ -107,47 +148,3 @@ class BetterReadableSolution:
                 # This is because we were able to connect the next nodes
                 # Therefore, we traverse to the next nodes and are able to grab the next nodes again in next iteration
             first, second = temp1, temp2 
-
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def reverseList(self, head) -> ListNode:
-        currNode, prevNode = head, None
-
-        while currNode:
-            temp = currNode.next
-            currNode.next = prevNode
-            prevNode = currNode
-            currNode = temp
-
-        return prevNode
-    def reorderList(self, head: Optional[ListNode]) -> None:
-        # Find the mid point of the linked list using a fast and slow pointer
-            # Key relationship: fast = 2 x slow position, therefore, halfway point is double of slow
-        # Slow pointer will be the middle of the linked list
-        slow, fast = head, head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        
-        # Need to go up 1 to get the second half of the list using mid point
-        second = slow.next 
-        slow.next = None # Terminate second half
-
-        # Reverse the second half
-        second = self.reverseList(second)
-
-        # Merge the first half and the second per second node
-        first = head
-        while second:
-            temp1, temp2 = first.next, second.next
-            first.next = second
-            second.next = temp1
-            first, second = temp1, temp2
-
-
-        
