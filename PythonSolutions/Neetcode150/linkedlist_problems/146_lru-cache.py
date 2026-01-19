@@ -106,7 +106,7 @@ class LRUCache:
         prev, next = self.head, self.head.next
 
         # Connect new node to the old
-        node.prev = prev c 
+        node.prev = prev
         node.next = next
 
         # Connect old nodes to the new node
