@@ -1497,8 +1497,10 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Unique uses:**
     
     - Uses a dictionary to map keys to a node for faster access to a node in a doubly linked list
-    - Uses a doubly linked list to keep track of LRU (head) and MRU (tail)
-    - Uses a dummy node for head and tail to prevent null pointers
+        - Allows for O(1) access to a specific index in a linked list
+        - Also keeps track of what keys exist in the list
+    - Uses a doubly linked list for easy removal of nodes in a specific index
+    - Uses a dummy node for head and tail for easy evictions/adds
     - Uses LRU eviction, when at capacity it evicts the LRU
 
 ## 23 - Merge K Sorted Lists
