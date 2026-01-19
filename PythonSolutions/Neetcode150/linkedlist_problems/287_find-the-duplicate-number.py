@@ -24,3 +24,28 @@ class Solution:
             slow2 = nums[slow2] # New slow pointer will try and intersect with first slow pointer
             if slow == slow2:
                 return slow
+
+class SmallerReadableSolution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        # Begins at index 0
+        slow, fast = 0, 0
+
+        # Use values as an index since its from 1 to n (where n is length of nums array)
+        while True:
+            # Go as deep as possible until intersection, treat it as a linked list
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            # Intersection tells us that there was a duplicate somewhere but not the actual value yet
+            if slow == fast:
+                break
+        
+        slow2 = 0
+        while True:
+            # Begin at the intersection point for first slow pointer
+            slow = nums[slow]
+            # Second slow pointer will begin at index 0
+            slow2 = nums[slow2]
+            # Once both pointers reach then we found the value
+            if slow == slow2:
+                return slow
+        
