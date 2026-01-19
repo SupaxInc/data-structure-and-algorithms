@@ -1,62 +1,80 @@
-class Node:
+from typing import Optional
+from __future__ import annotations
 
-    def __init__(self, key=0, val=0, next=None,prev=None):
+class Node:
+    def __init__(self, key: int = 0, val: int = 0, nxt: Optional[Node] = None, prv: Optional[Node] = None) -> None:
         self.key, self.val = key, val
-        self.next, self.prev = next, prev
+        self.nxt, self.prv = nxt, prv
 
 class LRUCache:
-
-    def __init__(self, capacity: int):
+    def __init__(self, capacity: int) -> None:
+        self.capacity = capacity
         self.cache = {}
-        self.cap = capacity
+        self.head, self.tail = Node(), Node()
+        self.head.nxt = self.tail
+        self.tail.prv = self.head
 
-        self.head = Node() # LRU
-        self.tail = Node() # MRU
-        self.head.next, self.tail.prev = self.tail, self.head # Connect the head and tail
-
-    # Add a node at the tail (MRU)
-    def _add(self, node):
-        prev, next = self.tail.prev, self.tail # Grab the prev and next nodes for the new node
-        node.prev = prev # Connect the new node to the previous node of the tail
-        prev.next = node # Connect the previous node of the tail to the new node
-        node.next = next # Connect the new node's next pointer to the next node (the tail)
-        next.prev = node # Connect the tail to the new node
-        self.cache[node.key] = node # Map the new node to the node's key
-
-    # Remove an existing node from anywhere in the list
-    def _remove(self, node):
-        prev, next = node.prev, node.next
-        prev.next = next
-        next.prev = prev
-        del self.cache[node.key]
-    
-    # Evict a node from the head (LRU)
-    def _evict(self):
-        lruNode = self.head.next
-        self._remove(lruNode)
-
-    # Get a node then add it as the new MRU
     def get(self, key: int) -> int:
-        if key in self.cache:
-            node = self.cache[key]
-            self._remove(node)
-            self._add(node)
-            return node.val
-        return -1
+        if key not in self.cache:
+            return -1
         
+        # Getting value means its been used so we need to re-add to head
+        existingNode = self.cache[key]
+        self._remove(existingNode.key)
+        self._add(existingNode)
+
+        return self.cache[key].val
+
     def put(self, key: int, value: int) -> None:
-        # Check if key already exists
-        if key in self.cache:
-            existingNode = self.cache[key]
-            self._remove(existingNode)
-            existingNode.val = value # Change the value since value can change for an existing key
-            self._add(existingNode) # Add the existing node back so its at MRU
+        if key not in self.cache:
+            if len(self.cache) == self.capacity:
+                self._evict()
+
+            # Create new node and add to linked list/cache
+            newNode = Node(key, value)
+            self._add(newNode)
         else:
-            # If the key does not exist then check for the capacity
-            if len(self.cache) >= self.cap:
-                self._evict() # Evict the LRU since were at capacity
-            newNode = Node(key, value) 
-            self._add(newNode) # Add new node if were not at capacity
+            # Just update value if key exists
+            existingNode = self.cache[key]
+            existingNode.val = value
+
+            # It's been used again after updating value so remove then add
+            self._remove(existingNode.key)
+            self._add(existingNode)
+    
+    def _add(self, node: Node) -> None:
+        # Add new node to beginning of head and connect new node to the next node over
+        tempNode = self.head.nxt
+        self.head.nxt = node
+        node.nxt = tempNode
+        node.prv = self.head
+        tempNode.prv = node
+
+        # Add to cache
+        self.cache[node.key] = node
+
+    def _remove(self, key: int) -> None:
+        if key not in self.cache:
+            return
+        
+        # Get existing node and remove it from its index in the linked list
+        existingNode = self.cache[key]
+        prevNode = existingNode.prv
+        nextNode = existingNode.nxt
+        prevNode.nxt = nextNode
+        nextNode.prv = prevNode
+
+        # Remove from cache
+        del self.cache[key]
+    
+    def _evict(self):
+        tailNode = self.tail.prv
+        self._remove(tailNode.key)
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
@@ -88,7 +106,7 @@ class LRUCache:
         prev, next = self.head, self.head.next
 
         # Connect new node to the old
-        node.prev = prev
+        node.prev = prev c 
         node.next = next
 
         # Connect old nodes to the new node
