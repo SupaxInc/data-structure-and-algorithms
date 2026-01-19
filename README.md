@@ -1438,6 +1438,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     **Unique uses:**
     
     - Pretends a list is a linked list by using the indices as pointers
+        - Treating it as a linked list only works because each integer is in the range of 1 to n inclusive. Where n is the length of nums array.
     - **Solution:**
         - Step 1: Detect if there’s a cycle
             - A cycle tells us that there was a duplicate somewhere
