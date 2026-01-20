@@ -1,24 +1,24 @@
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         curr = root
+
+        # Traverse down the tree (BST) normally without DFS/BFS
         while curr:
-            # Find a deeper ancestor on the right since the LCA can be found in deeper subtrees 
-            if p.val > curr.val and q.val > curr.val:
-                curr = curr.right
-            # Find a deeper ancestor on the left
-            elif p.val < curr.val and q.val < curr.val:
+            # If both values are smaller than current val then go left
+            if p.val < curr.val and q.val < curr.val:
                 curr = curr.left
+            # If both values are larger than current val then go right
+            elif p.val > curr.val and q.val > curr.val:
+                curr = curr.right
+            # Once we split off, it means we found LCA:
+                # 1. Both target nodes are in opposite subtrees under current node
+                # 2. OR the target node is current node itself AND the other node is in a subtree below
             else:
-                # 1: Could mean p, q nodes are on diff subtrees so we can't go deeper thus making current node the ancestor
-                # 2: Could mean the values equal to the current value so the deepest ancestor is current node we are on
-                    # The LCA could be a descendant of itself. 
                 return curr
-        
-        return None
