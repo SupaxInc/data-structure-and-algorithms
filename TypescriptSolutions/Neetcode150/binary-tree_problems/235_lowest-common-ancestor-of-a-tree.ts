@@ -14,12 +14,14 @@ const lowestCommonAncestor = (root: TreeNode | null, p: TreeNode | null, q: Tree
     let curr = root;
 
     while (curr) {
-        if (p.val < curr.val && q.val < curr.val) {
+        if (p!.val < curr.val && q!.val < curr.val) {
             curr = curr.left;
-        } else if (p.val > curr.val && q.val > curr.val) {
+        } else if (p!.val > curr.val && q!.val > curr.val) {
             curr = curr.right;
         } else {
             return curr;
         }
     }
+
+    return curr!;
 };
