@@ -1763,7 +1763,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 ## 235 - Lowest Common Ancestor of a Binary Search Tree
 
-**Intuition:** When looking at a BST from its root downwards, the lowest common ancestor between two nodes is the lowest node in the tree that has both nodes as descendants in its subtree.
+**Intuition:** When looking at a BST from its root downwards, the lowest common ancestor between two nodes is the lowest node in the tree that has both target nodes as descendants in its left and right subtree.
 
 - **Example Visualization:**
     
@@ -1796,6 +1796,15 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - If both nodes are greater than current node, go right
     - If both nodes are less than current node, go left
     - If nodes are split (one <= current, one > current), we found LCA!
+    
+    REMEMBER: It is still LCA if its multiple levels down. E.g.
+            6
+           / \
+          2   8
+             /
+            7
+    p = 2, q = 7
+    6 would be LCA
     '''
     ```
     
