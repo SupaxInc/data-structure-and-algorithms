@@ -1898,9 +1898,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
 
 **Intuition:** A node is considered "good" if its value is greater than or equal to all the values in the nodes along the path from the root to that node.
 
+**NOTE: GREAT IF YOU WANT TO UNDERSTAND HOW VALUES ARE PROPAGATED**
+
 - Solutions
-    
-    **NOTE: GREAT IF YOU WANT TO UNDERSTAND HOW VALUES ARE PROPAGATED**
     
     **Optimized Approach:** DFS traversal
     
