@@ -1,28 +1,32 @@
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        def dfs(node, maxInPath):
-            # Base case: If the node is None, return a count of 0 because we've reached beyond a leaf node.
-            if not node:
-                return 0
-            
-            count = 0  # Initialize count of good nodes seen so far to 0.
-            
-            # Check if the current node is a "good" node if its value is greater than or equal to the current max in path
-            if node.val >= maxInPath:
-                count += 1
-
-            # Update maxInPath for the path. This ensures that as we traverse deeper,
-            # we carry forward the maximum value seen along this particular path.
-            maxInPath = max(node.val, maxInPath)
-            
-            # Accumulate the count of good nodes from both subtrees and add them to the current count.
-            count += dfs(node.left, maxInPath)
-            count += dfs(node.right, maxInPath)
-
-            # Return the total count of good nodes found in the subtree rooted at this node.
-            # This will propagate the accumulated count for both left and right subtrees
-            # Even though count is initialized back to 0, it is accumulated as it propagates the value
-            return count
+        if not root:
+            return 0
         
-        # Start the DFS traversal from the root, with the root's value as the initial maximum value seen on the path.
-        return dfs(root, root.val)
+        self.count = 0
+
+        # Preorder traversal
+        def dfs(node, maxInPath):
+            if not node:
+                return maxInPath
+            
+            # Assign the next greater value along the path of DFS
+            if node.val >= maxInPath:
+                self.count += 1
+                maxInPath = node.val
+            
+            # Pass the current maxInPath (or new maxInPath) along left and right subtrees
+            dfs(node.left, maxInPath)
+            dfs(node.right, maxInPath)
+
+            # After left and right subtree traversal propagate the CURRENT maxInPath NOT from subtrees
+            return maxInPath
+        
+        dfs(root, float("-inf"))
+        return self.count
