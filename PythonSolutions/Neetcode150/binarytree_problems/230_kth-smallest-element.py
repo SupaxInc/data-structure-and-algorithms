@@ -15,8 +15,7 @@ class Solution:
                 return -1
 
             leftVal = inorderDFS(node.left)
-            # At some point when we travel to left subtree, it'll return the actual value
-            # during the inorder traversal
+            # At some point in traversal to left subtree, Kth an be hit so it returns the actual value
             if leftVal != -1:
                 return leftVal 
 
