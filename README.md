@@ -1914,22 +1914,26 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     - Traverses through using preorder DFS
         - Allows us to accumulate the propagated count from both left and right subtrees
 
-## 230 - Kth Smallest Element in Tree
+## 230 - Kth Smallest Element in BST
 
 **Intuition:** Return the value of the kth smallest element in a Binary Search Tree
 
 - Solutions
     
-    **Optimized Approach:** Iterative DFS or Recursive DFS
+    **Brute Force Approach:** Create an array and return top K
     
-    - Time Complexity: Same time complexity O(n)
-    - Space Complexity: Iterative may have better space complexity due to non-recursive calls
+    - Time Complexity: O(n)
+    - Space Complexity: O(n)
+    
+    **Optimized Approach:** DFS
+    
+    - Time Complexity: O(h)
+    - Space Complexity: O(1)
     
     **Solution:** Use Inorder traversal and have a counter to check if it equals Kth number. 
     
     **Unique uses:**
     
-    - Uses iterative DFS
     - Uses Inorder traversal
 
 ## 105 - Construct Binary Tree from Inorder and Preorder Traversal
