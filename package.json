@@ -24,6 +24,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@datastructures-js/heap": "^4.3.7",
     "@datastructures-js/queue": "^4.3.0"
   }
 }
