@@ -2205,7 +2205,9 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Add method: O(log k)
     - Space Complexity: O(k), array will be as large as kth elements
     
-    **Solution:** Using a min-heap, maintaining a min heap by removing smallest and replacing with larger values.
+    **Solution:** Using a min-heap, maintaining a min heap of size K (so we can get the “kth largest”, which is top K) by removing smallest and replacing with larger values.
+    
+    The root will now become the top K for the min heap.
     
     **Unique uses:**
     
