@@ -2205,7 +2205,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
         - Add method: O(log k)
     - Space Complexity: O(k), array will be as large as kth elements
     
-    **Solution:** Using a min-heap, maintaining a heap of size k to ensure the kth largest element is always at the top, with adjustments made upon each new addition.
+    **Solution:** Using a min-heap, maintaining a min heap by removing smallest and replacing with larger values.
     
     **Unique uses:**
     
