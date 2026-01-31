@@ -1,39 +1,35 @@
+from collections import defaultdict, heapq, deque
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        countLetters = defaultdict(int)
+        freqTask = defaultdict(int)
+        maxHeap = []
 
         for task in tasks:
-            # Decrement the counts to negatives since we need to create a max heap
-            countLetters[task] -= 1
-        
-        # Max heap to keep track of the most frequent letters and what is ready to execute
-        maxHeap = list(countLetters.values())
+            freqTask[task] -= 1
+
+        # Heapify frequence of tasks so we always use the task thats highest
+            # If we don't we will end up waiting longer since we can't execute same tasks per interval
+        maxHeap = list(freqTask.values())
         heapq.heapify(maxHeap)
 
-        # Queue to keep track of what task is next to execute due to cool down
-        queue = deque() # Pairs of [-count, idle time]
-        time = 0
+        # Use a queue to check when a next time is ready by the next idle time
+        queue: tuple(int, int) = deque()
 
-        # Begin executing the tasks
-            # If the max heap is not empty then there are tasks no longer idle and ready to execute
-            # If the queue is not empty then there are idle tasks cooling down
-        while len(maxHeap) > 0 or len(queue) > 0:
-            time += 1
-
+        t = 0
+        while maxHeap or queue:
+            t += 1
+            # There is a task ready for execution
             if len(maxHeap) > 0:
-                # Execute the task and prepare to queue it to cool it down for next execution
-                    # Incrementing the task to (remember max heaps are negatives) 
-                    # Add cooldown time to know when its ready again
-                task = [heapq.heappop(maxHeap)+1, time+n]
+                task = heapq.heappop(maxHeap)
+                newTask = task + 1
+
+                if newTask != 0:
+                    queue.append((newTask, t + n))
             
-                # Add to queue if the SAME task's increment is not yet 0 (still has more to execute)
-                if task[0] < 0:
-                    queue.append(task)
-            
-            if queue and len(queue) > 0:
-                # Check if the first task in the queue is ready to be executed again
-                if queue[0][1] == time:
-                    # Add only the task's negative increment back to the heap for execution in next process
-                    heapq.heappush(maxHeap, queue.popleft()[0])
-        
-        return time
+            # A task's idle time is complete and is ready for execution
+            if queue and queue[0][1] == t:
+                task = queue.popleft()[0]
+
+                heapq.heappush(maxHeap, task)
+
+        return t
