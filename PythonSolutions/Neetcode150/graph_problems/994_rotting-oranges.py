@@ -1,3 +1,53 @@
+from collections import deque
+from typing import List
+class ReadableSolution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        ROWS, COLS = len(grid), len(grid[0])
+        DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
+        fresh = 0
+        queue = deque()
+        # Iterate through entire grid to count fresh oranges and to queue up rotten oranges
+        for row in range(ROWS):
+            for col in range(COLS):
+                if grid[row][col] == 2:
+                    queue.append((row, col))
+                elif grid[row][col] == 1:
+                    fresh += 1
+        
+        # Edge case: If we found no fresh oranges, just return or else we'll queue up rotten oranges and end up incrementing
+        if fresh == 0:
+            return 0
+        
+        minutes = 0
+        while queue:
+            # Level order traversal so we can spread rot as efficiently as possible
+            levelSize = len(queue)
+            for _ in range(levelSize):
+                r, c = queue.popleft()
+
+                # Since we are already on rotten oranges, begin checks on NEXT cells
+                for dx, dy in DIRS:
+                    newRow, newCol = r + dx, c + dy
+
+                    if newRow < 0 or newCol < 0 or newRow > ROWS - 1 or newCol > COLS - 1:
+                        continue
+                    
+                    # If it is an empty cell or already rotted do not add it to queue
+                    if grid[newRow][newCol] in {0, 2}:
+                        continue
+
+                    grid[newRow][newCol] = 2
+                    fresh -= 1
+                    queue.append((newRow, newCol))
+            
+            # Edge case: Only count the minute if we end up spreading the rot after level iteration
+            if queue:
+                minutes += 1
+        
+        return minutes if fresh == 0 else -1
+
+                    
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         self.grid = grid
