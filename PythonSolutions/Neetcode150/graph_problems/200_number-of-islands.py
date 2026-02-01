@@ -67,4 +67,40 @@ class BFSSolution:
 
             for dx, dy in self.DIRS:
                 queue.append((row+dx, col+dy))
+
+class LevelOrderBFSSolution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        self.grid = grid
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+
+        count = 0
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if grid[row][col] == "1":
+                    self.bfs(row, col)
+
+                    count += 1
+        
+        return count
+        
+    def bfs(self, row, col):
+        queue = deque([[row, col]])
+
+        while queue:
+            n = len(queue)
+
+            for _ in range(n):
+                r, c = queue.popleft()
+
+                if r < 0 or c < 0 or r > self.ROWS - 1 or c > self.COLS - 1:
+                    continue
+                
+                if self.grid[r][c] == "0":
+                    continue
+                
+                self.grid[r][c] = "0"
+                
+                for dx, dy in self.DIRS:
+                    queue.append([r + dx, c + dy])
                     
