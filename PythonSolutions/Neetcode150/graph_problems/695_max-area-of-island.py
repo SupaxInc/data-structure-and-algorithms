@@ -75,3 +75,39 @@ class BFSSolution:
         
         return totalArea
         
+class BFSVisitedSolution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        self.grid = grid
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
+        self.visited = set()
+        maxArea = 0
+        for r in range(self.ROWS):
+            for c in range(self.COLS):
+                if self.grid[r][c] == 1 or (r, c) not in self.visited:
+                    area = self.bfs(r, c)
+                    maxArea = max(maxArea, area)
+        
+        return maxArea
+    
+    def bfs(self, row, col):
+        queue = deque([(row, col)])
+
+        area = 0
+        while queue:
+            r, c = queue.popleft()
+
+            if r < 0 or c < 0 or r > self.ROWS - 1 or c > self.COLS - 1:
+                continue
+
+            if self.grid[r][c] == 0 or (r, c) in self.visited:
+                continue
+            
+            self.visited.add((r, c))
+            area += 1
+
+            for dx, dy in self.DIRS:
+                queue.append((r + dx, c + dy))
+
+        return area
