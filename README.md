@@ -2862,6 +2862,18 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![image.png](attachment:818a8ed2-c614-4587-9198-00b2890faf60:image.png)
     
+    **Image above is a little incorrect. It actually goes:**
+    
+    1. Beginning at 1, goes deep as possible 1 → 2 → 3 → 4 (mapping old to new nodes)
+        1. From 4, it hits 1 again which tells us that 1 has already been mapped
+        2. So we return new copied 1, so function call stack pops which makes 1 added to neighbour of 4.
+    2. From 4, we go to next neighbour which is 3.
+        1. 3 exists in the oldToNew map so it gets return and gets added as neighbour of 4.
+    3. Function call stack pops, and we are back at 3.
+        1. 4 gets added as neighbour of 3
+        2. Then moves on to next neighbours 2.
+    4. Repeats so on and so forth.
+    
     **Unique uses:**
     
     - Using a hash map to map old nodes to new nodes to create a deep copy of a graph
