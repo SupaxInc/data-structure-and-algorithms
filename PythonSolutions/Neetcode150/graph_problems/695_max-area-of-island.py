@@ -1,3 +1,5 @@
+from typing import List
+from collections import deque
 class DFSSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         self.grid = grid
@@ -34,6 +36,38 @@ class DFSSolution:
         
         # Finally, return the last summed total area of all traveled cells
         return totalArea
+
+class DFSVisitedSolution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        self.grid = grid
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
+        self.visited: set[tuple[int, int]] = set()
+        maxArea = 0
+        for r in range(self.ROWS):
+            for c in range(self.COLS):
+                if grid[r][c] == 1 or (r, c) not in self.visited:
+                    area = self.dfs(r, c, 0)
+                    maxArea = max(maxArea, area)
+
+        return maxArea
+    
+    def dfs(self, row, col, area):
+        if row < 0 or col < 0 or row > self.ROWS - 1 or col > self.COLS - 1:
+            return area
+        
+        if self.grid[row][col] == 0 or (row, col) in self.visited:
+            return area
+        
+        self.visited.add((row, col))
+        area += 1
+
+        for dx, dy in self.DIRS:
+            area = self.dfs(row + dx, col + dy, area)
+        
+        return area
+
         
 class BFSSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
