@@ -25,6 +25,7 @@ class Solution:
 
             # Explore the other neighbors of the old node so they can be copied too
             for nei in node.neighbors:
+                # * When it hits base case, it will append the copied node as a neighbour *
                 copyNode.neighbors.append(dfs(nei))
             
             # Returns the copied node when the recursive traversal of neighbors finishes so that it can be appended in the previous recursion call
