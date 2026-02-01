@@ -48,7 +48,7 @@ const numIslandsBFS = (grid: string[][]): number => {
         const queue = new Queue<[number, number]>([[row, col]]);
 
         while (!queue.isEmpty()) {
-            const [r, c] = queue.dequeue();
+            const [r, c] = queue.dequeue()!;
 
             if (r < 0 || c < 0 || r > ROWS - 1 || c > COLS - 1) {
                 continue;
