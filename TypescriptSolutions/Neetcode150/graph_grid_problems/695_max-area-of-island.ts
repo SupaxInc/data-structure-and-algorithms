@@ -43,7 +43,7 @@ const maxAreaOfIslandBFS = (grid: number[][]): number => {
         
         let area = 0;
         while (!queue.isEmpty()) {
-            const [r, c] = queue.dequeue();
+            const [r, c] = queue.dequeue()!;
 
             if (r < 0 || c < 0 || r > ROWS - 1 || c > COLS - 1) continue;
             if (grid[r][c] === 0) continue;
