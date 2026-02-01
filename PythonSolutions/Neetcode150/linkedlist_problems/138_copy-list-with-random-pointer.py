@@ -22,13 +22,15 @@ class Solution:
         curr = head
         #  Traverse through head again, now all new nodes are mapped
         while curr:
-            # Map new node's random and next ptr using oldToNew map
-            if curr.next:
+            # Map new node's random ptr using oldToNew map
+            if not curr.next:
                 oldToNew[curr].next = None
+            else:
+                oldToNew[curr].next = oldToNew[curr.next]
 
-            if curr.random:
+            if not curr.random:
                 oldToNew[curr].random = None
+            else:
+                oldToNew[curr].random = oldToNew[curr.random]
             
             curr = curr.next
-
-        return oldToNew[head]
