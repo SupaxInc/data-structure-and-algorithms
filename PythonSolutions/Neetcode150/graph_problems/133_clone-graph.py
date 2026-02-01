@@ -14,22 +14,20 @@ class Solution:
         
         oldToNew = {}
 
-        def dfs(node):
-            # Base case: If the node has already been mapped to a new node, then return new node
-            if node in oldToNew:
-                return oldToNew[node]
+        def dfs(curr):
+            # Base case: If node is already mapped, return the copied node
+            if curr in oldToNew:
+                return oldToNew[curr]
             
-            # Visit the node
-            copyNode = Node(node.val) # Copy the node so it can be mapped
-            oldToNew[node] = copyNode # Map the old node to the newly copied node
+            copyNode = Node(curr.val) # Copy current node
+            oldToNew[curr] = copyNode # Map current node to new copy
 
-            # Explore the other neighbors of the old node so they can be copied too
-            for nei in node.neighbors:
-                # * When it hits base case, it will append the copied node as a neighbour *
+            # Go through all of neighbours for current node
+            for nei in curr.neighbors:
+                # Add the current nodes neighbors to the copied node
                 copyNode.neighbors.append(dfs(nei))
             
-            # Returns the copied node when the recursive traversal of neighbors finishes so that it can be appended in the previous recursion call
-            # Eventually the last in the call stack would be the "root" node
+            # Need to return copy node in the event base case is not hit for first time visits
             return copyNode
-        
+            
         return dfs(node)
