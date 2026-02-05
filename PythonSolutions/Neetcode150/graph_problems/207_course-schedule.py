@@ -2,48 +2,44 @@ class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         preMap = defaultdict(list)
 
-        # Create an adjacency list where courses -> prerequisites
-            # crs is pointing to pre because it answers "what do I need to complete before taking the course"
-                # Allows us to check what we need to complete first before taking a course
-                # *Think about how it "backtracks", we complete the course when we backtrack so it goes backwards*
-            # If we flip it around, it answers instead "what courses does this unlock"
+        # Create the adjacent list graph where course is pointing to pre-req
+            # This tells us: "To find what courses we need to complete for this course"
+            # If we flip it (pre -> course): "What courses will this unlock?"
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
-        
-        completed, visited = set(), set()
+
+        visit = set() # Current path
+        done = set()  # Nodes that have been fully visited
 
         def dfs(crs):
-            # Base case 1: Course has already been visited, cycle detected
-            if crs in visited:
+            # Base case 1: Cycle detected
+            if crs in visit:
                 return False
-            
-            # Base case 2: Course has already been completed, check for another course
-            if crs in completed:
+            # Base case 2: Already visited in another cycle
+            if crs in done:
                 return True
             
-            # Visit the node
-            visited.add(crs) # Add it to current visited path
+            # Visit the course node and add it to current path
+            visit.add(crs)
 
-            # Explore the neighbours (prereqs) of current course node
+            # Go through all pre-requisites for the course and see if it can be completed
             for pre in preMap[crs]:
-                # Pop stack entirely if a cycle is detected
+                # Check if a the pre-requisite is found in a visit making it impossible to finish the course
                 if not dfs(pre):
                     return False
             
-            # Unvisit the node
-            visited.remove(crs) # Remove it from current path
-            completed.add(crs) # Add the course as completed now since we just visited it, "finishing" the course
+            # Remove course from visit after we have visited all nodes for this course
+            visit.remove(crs)
+            # Mark it as done since we have visited all pre-requisite nodes for this course
+            done.add(crs)
 
-            # Pop a true in the stack when no problems were found after backtracking
+            # Course was able to be completed, mark as true
             return True
-        
-        # Run a topological sort on the adjacency list
-        # *Traverse all courses because there may be disconnected components*
-            # 1 DFS is not enough, this is why when we backtrack we unvisit the node so we can test the other courses in the case that its part of another graph
+
+        # Go through each node in the schedule
         for crs in range(numCourses):
+            # If a cycle was detected then we just couldn't finish the course plan
             if not dfs(crs):
                 return False
         
         return True
-        
-        
