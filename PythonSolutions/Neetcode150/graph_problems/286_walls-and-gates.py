@@ -1,3 +1,6 @@
+from collections.abc import Deque
+from collections import deque
+from typing import List
 class Solution:
     # *Don't have premium leetcode so this is using Islands and Treasure from Neetcode: https://neetcode.io/problems/islands-and-treasure*
     def islandsAndTreasure(self, grid: List[List[int]]) -> None:
