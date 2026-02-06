@@ -4,49 +4,42 @@ class Solution:
         self.grid = grid
         self.ROWS, self.COLS = len(grid), len(grid[0])
         self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        self.INF = 2147483647
 
-        self.INF = 2**31 - 1
-        queue = deque()
+        self.queue: Deque[tuple[int, int]] = deque()
 
+        # Multi-source BFS: Load all treasure chests up-front
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                # Add each treasure chest to a queue so we can look for distance at the same time
                 if self.grid[row][col] == 0:
-                    queue.append((row, col))
-                # Fill the land cells as INF since there may be land that can't be traversed
-                elif self.grid[row][col] != -1:
-                    self.grid[row][col] = self.INF
+                    self.queue.append((row, col))
         
-        self.levelOrderBFS(queue)
-        
-    def levelOrderBFS(self, queue):
-        distance = 0
-        
-        while queue:
-            levelSize = len(queue)
-            # Increment the distance early since we don't count current level
-            distance += 1
-
+        # Run the level order BFS across all treasure chests
+        self.levelOrderBFS()
+    
+    def levelOrderBFS(self):
+        while self.queue:
+            levelSize = len(self.queue)
+            
             for _ in range(levelSize):
-                row, col = queue.popleft()
+                r, c = self.queue.popleft()
 
-                # Check for cells in the NEXT level and not the current level
-                # This is because we are counting the distance from the current level
+                # Iterate through the new rows right away since current cell (treasure chest) is not important
                 for dx, dy in self.DIRS:
-                    newRow, newCol = row+dx, col+dy
+                    nr, nc = r + dx, c + dy
 
-                    # Base case 1: Boundary check
-                    if newRow > self.ROWS-1 or newCol > self.COLS-1 or newRow < 0 or newCol < 0:
+                    if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
                         continue
                     
-                    # Base case 2: Not a land cell so we can't traverse
-                    if self.grid[newRow][newCol] != self.INF:
+                    # No need for a visited set since change INF values to a distance effectively "visiting" the cell
+                    if self.grid[nr][nc] != self.INF:
                         continue
+                    
+                    # Add the distance by incrementing PREVIOUS popped row and col value
+                    self.grid[nr][nc] = self.grid[r][c] + 1
 
-                    # Visit the cell and add the distance
-                    self.grid[newRow][newCol] = distance
+                    self.queue.append((nr, nc))
 
-                    queue.append((newRow, newCol))
 
 #! Single Source BFS
 class BruteForceSolution:
