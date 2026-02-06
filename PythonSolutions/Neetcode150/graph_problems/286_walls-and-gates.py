@@ -47,4 +47,44 @@ class Solution:
                     self.grid[newRow][newCol] = distance
 
                     queue.append((newRow, newCol))
+
+#! Single Source BFS
+class BruteForceSolution:
+    def islandsAndTreasure(self, grid: List[List[int]]) -> None:
+        self.ROWS, self.COLS = len(grid), len(grid[0])
+        self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+        self.grid = grid
+
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
+                if (self.grid[row][col] == 2147483647):
+                    self.bfs(row, col)
+    
+    def bfs(self, row, col) -> None:
+        queue = deque([(row, col)])
+
+        dist = 0
+        visited = set()
+        while queue:
+            levelSize = len(queue)
+            dist += 1
+
+            for _ in range(levelSize):
+                r, c = queue.popleft()
+
+                for dx, dy in self.DIRS:
+                    nr, nc = r + dx, c + dy
+
+                    if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
+                        continue
                 
+                    if self.grid[nr][nc] == -1 or (nr, nc) in visited:
+                        continue
+
+                    if self.grid[nr][nc] == 0:
+                        self.grid[row][col] = dist
+                        return
+                
+                    visited.add((nr, nc))
+
+                    queue.append((nr, nc))
