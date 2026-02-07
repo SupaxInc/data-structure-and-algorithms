@@ -1,24 +1,27 @@
+from typing import List
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        self.heights = heights
         self.ROWS, self.COLS = len(heights), len(heights[0])
         self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
-
-        pacific = set()
-        atlantic = set()
-        res = []
-
-        # Run the DFS on left and right boundaries to mark which cells we can visit based on inner water flow
-        for row in range(self.ROWS):
-            self.dfs(row, 0, pacific, self.heights[row][0])
-            self.dfs(row, self.COLS-1, atlantic, self.heights[row][self.COLS-1])
+        self.heights = heights
         
-        # Run the DFS on the top and bottom boundaries
+        pacific: set[tuple[int, int]] = set()
+        atlantic: set[tuple[int, int]] = set()
+        
+        # Multi-source DFS below: Edges are adjacent to ocean so these cells can already go to that specific ocean
+
+        # DFS through upper pacific and lower atlantic oceans
         for col in range(self.COLS):
-            self.dfs(0, col, pacific, self.heights[0][col])
-            self.dfs(self.ROWS-1, col, atlantic, self.heights[self.ROWS-1][col])
-        
-        # Find the intersection of which cells we were able to visit based on water flow for both pacific and atlantic
+            self.dfs(0, col, pacific)
+            self.dfs(self.ROWS - 1, col, atlantic)
+
+        # DFS through left pacific and right atlantic oceans
+        for row in range(self.ROWS):
+            self.dfs(row, 0, pacific)
+            self.dfs(row, self.COLS - 1, atlantic)
+
+        res = []
+        # Intersection between pacific and atlantic oceans to see which cell can leak to both oceans
         for row in range(self.ROWS):
             for col in range(self.COLS):
                 if (row, col) in pacific and (row, col) in atlantic:
@@ -26,22 +29,23 @@ class Solution:
         
         return res
     
-    def dfs(self, row, col, visited, prevHeight):
-        # Base case 1: Boundary check
-        if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+    def dfs(self, row, col, ocean):
+        # Base case 1: We have already traversed here previously in another DFS so skip
+            # We do not need to do another DFS in a traversed cell since we already know at that point if water can flow
+        if (row, col) in ocean:
             return
         
-        # Base case 2: 
-            # - Visited check 
-            # - Check if current land height is larger than previous land height, water can't flow
-        if self.heights[row][col] < prevHeight or (row, col) in visited:
-            return
+        # Mark that the water can flow to the ocean
+        ocean.add((row, col))
         
-        # Visit the cell
-        visited.add((row, col))
-        prevHeight = self.heights[row][col]
-
         for dx, dy in self.DIRS:
-            self.dfs(row+dx, col+dy, visited, prevHeight)
+            nr, nc = row + dx, col + dy
+
+            if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
+                continue
+            
+            # Only DFS the heights greater than current cell (we are following opposite of rain flow from cell)
+            if self.heights[nr][nc] >= self.heights[row][col]:
+                self.dfs(nr, nc, ocean)
         
         return
