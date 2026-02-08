@@ -2862,7 +2862,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     ![image.png](attachment:818a8ed2-c614-4587-9198-00b2890faf60:image.png)
     
-    **Image above is a little incorrect. It actually goes:**
+    **Image above is a little incorrect for old to new creation hashmap. It actually goes:**
     
     1. Beginning at 1, goes deep as possible 1 → 2 → 3 → 4 (mapping old to new nodes)
         1. From 4, it hits 1 again which tells us that 1 has already been mapped
@@ -2931,7 +2931,7 @@ Think of the image below as an elevated land, so it would be hard to trap rain w
     
     **Solution:** Mark border-connected 'O's as temporary, flip all other 'O's to 'X's, then revert temporary marks back to 'O's to surround regions. 
     
-    If you find a region when convert boundary “O”s as “TEMP”s, turn these into temps as well since they will never be surrounded with X’s if they are connected to a boundary ‘O’
+    Regions that are connected to a temp border “O” should also be marked as temporary since it can no longer be surrounded anymore.
     
     ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f87cabf2-8d22-410c-bb4c-b00e5c7c3bac/3dd92b30-22ae-4d59-a2a6-13c885d7413f/Untitled.png)
     
