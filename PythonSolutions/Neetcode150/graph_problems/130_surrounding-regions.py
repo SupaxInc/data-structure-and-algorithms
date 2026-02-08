@@ -1,49 +1,49 @@
+from typing import List
 class CleanerSolution:
     def solve(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        self.board = board
         self.ROWS, self.COLS = len(board), len(board[0])
         self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
 
-        # 1) Convert O's in the boundary as temp
+        borderRows = set([0, self.ROWS - 1])
+        borderCols = set([0, self.COLS - 1])
+
+        # Mark boundaries as "TEMP", DFS so we mark all cells that are attached to a boundary
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                # - Check if row is in top or bottom, and if col is in left or right boundaries
-                # - Check if the region is an "O" cell
-                if (row in [0, self.ROWS-1] or col in [0, self.COLS-1]) and self.board[row][col] == "O":
-                    # Run the DFS on the "O" in the boundary 
-                    # since ANY region touching this "O" will no longer able to be surrounded by "X"'s
-                    self.dfs(row, col)
+                if (row in borderRows or col in borderCols) and board[row][col] == "O":
+                    # Any "O"s attached to a boundary can no longer be surrounded
+                    self.dfs(row, col, board)
         
-        # 2) Convert O's not in the boundary as X's
+        # Convert any O's that are not connected to a boundary as surrounded "X"
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                if self.board[row][col] == "O":
-                    self.board[row][col] = "X"
+                if board[row][col] == "O":
+                    board[row][col] = "X"
         
-        # 3) Convert temps back to O's
+        # Convert the "TEMP" boundary cells back to an unsurrounded "O"
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                if self.board[row][col] == "TEMP":
-                    self.board[row][col] = "O"
+                if board[row][col] == "TEMP":
+                    board[row][col] = "O"
     
-    def dfs(self, row, col):
-        # Base case 1: Boundary check
-        if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+    def dfs(self, row, col, board):
+        # Base case: Cell has already been visited
+        if board[row][col] == "TEMP":
             return
         
-        # Base case 2: Visited check and if its not an "O" don't change it to TEMP 
-        if self.board[row][col] != "O":
-            return
-        
-        # Visit the cell
-        self.board[row][col] = "TEMP"
+        board[row][col] = "TEMP"
 
         for dx, dy in self.DIRS:
-            self.dfs(row+dx, col+dy)
+            nr, nc = row + dx, col + dy
 
+            if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
+                continue
+            
+            if board[nr][nc] == "X":
+                continue
+            
+            self.dfs(nr, nc, board)
+        
         return
 
 class Solution:
