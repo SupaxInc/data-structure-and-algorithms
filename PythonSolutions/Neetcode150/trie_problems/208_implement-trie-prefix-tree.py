@@ -1,55 +1,57 @@
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        # We need to mark a trie node if it was actually inserted as a word
-        # Ex. We insert apple, but search for "app".
-            # Searching "app" should not return true since it wasn't inserted as a word
-        self.markEndOfWord = False
+from typing import Dict
 
-class NotOptimizedTrie:
+class TrieNode:
+
+    def __init__(self):
+        self.children: Dict[str, TrieNode] = {}
+        self.is_end = False
+
+class Trie:
 
     def __init__(self):
         self.root = TrieNode()
-
-    def insert(self, word: str) -> None:
-        curr = self.root
-        for char in word:
-            # If character exists, traverse to it so we can access the other children nodes
-            if char in curr.children:
-                curr = curr.children[char]
-            else:
-                # If it doesn't exist insert a new trie node
-                curr.children[char] = TrieNode()
-                curr = curr.children[char]
     
-        # Mark the end of the word as true so it can be searchable
-        curr.markEndOfWord = True
+    def insert(self, word: str) -> None:
+        # Begin at root node
+        curr = self.root
 
+        # Traverse through each characters in the word
+        for char in word:
+            # If the char does not exist as child, create it, else traverse
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+
+            curr = curr.children[char]
+        
+        # Mark so we know we were able to create a word
+        curr.is_end = True
+    
     def search(self, word: str) -> bool:
         curr = self.root
-        for char in word:
-            if char in curr.children:
-                curr = curr.children[char]
-            else:
-                return False
-        
-        # Return if the word we searched for was actually inserted as a word
-        return curr.markEndOfWord
 
+        for char in word:
+            if char not in curr.children:
+                return False
+            
+            curr = curr.children[char]
+        
+        return curr.is_end
+    
     def startsWith(self, prefix: str) -> bool:
         curr = self.root
-        for char in prefix:
-            if char in curr.children:
-                curr = curr.children[char]
-            else:
-                return False
 
-        return True
+        for char in prefix:
+            if char not in curr.children:
+                return False
+            
+            curr = curr.children[char]
+
+        return True 
 
 class TrieNode:
     def __init__(self):
         self.children = [None] * 26 # Create 26 length for alphabet
-        self.isEndOfWord = False    
+        self.is_end = False    
 
 class OptimizedTrie:
 
@@ -69,7 +71,7 @@ class OptimizedTrie:
                 curr = curr.children[idx]
     
         # Mark the end of the word as true so it can be searchable
-        curr.markEndOfWord = True
+        curr.is_end = True
 
     def search(self, word: str) -> bool:
         curr = self.root
@@ -81,7 +83,7 @@ class OptimizedTrie:
                 return False
         
         # Return if the word we searched for was actually inserted as a word
-        return curr.markEndOfWord
+        return curr.is_end
 
     def startsWith(self, prefix: str) -> bool:
         curr = self.root
