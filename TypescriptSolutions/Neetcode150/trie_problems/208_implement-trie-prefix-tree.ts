@@ -7,7 +7,7 @@ class TrieNode {
     constructor() {}
 }
 
-class Trie {
+class NotOptimizedTrie {
     root: TrieNode;
 
     constructor () {
@@ -50,3 +50,72 @@ class Trie {
         return true;
     }
 }
+
+class OptimizedTrieNode {
+    children: (OptimizedTrieNode|null)[];
+    is_end: boolean = false;
+
+    constructor () {
+        this.children = new Array(26).fill(null);
+    }
+}
+
+class OptimizedTrie {
+    root: OptimizedTrieNode;
+
+    constructor() {
+        this.root = new OptimizedTrieNode();
+    }
+
+    insert(word: string): void {
+        let curr = this.root;
+
+        for (const char of word) {
+            const idx = char.charCodeAt(0) - "a".charCodeAt(0);
+
+            if (curr.children[idx] === null) {
+                curr.children[idx] = new OptimizedTrieNode();
+            }
+
+            curr = curr.children[idx];
+        }
+
+        curr.is_end = true;
+    }
+
+    search(word: string): boolean {
+        let curr = this.root;
+
+        for (const char of word) {
+            const idx = char.charCodeAt(0) - "a".charCodeAt(0);
+
+            if (curr.children[idx] === null) return false;
+
+            curr = curr.children[idx];
+        }
+
+        return curr.is_end;
+    }
+
+    startsWith(prefix: string): boolean {
+        let curr = this.root;
+
+        for (const char of prefix) {
+            const idx = char.charCodeAt(0) - "a".charCodeAt(0);
+
+            if (curr.children[idx] === null) return false;
+
+            curr = curr.children[idx];
+        }
+
+        return true;
+    }
+}
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
