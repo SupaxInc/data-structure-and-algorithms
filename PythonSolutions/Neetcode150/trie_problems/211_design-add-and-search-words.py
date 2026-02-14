@@ -1,9 +1,66 @@
+from typing import Dict
+
+class TrieNode:
+
+    def __init__(self):
+        self.children: Dict[str, TrieNode] = {}
+        self.is_end = False
+
+class MoreReadableWordDictionary:
+
+    def __init__(self):
+        self.root = TrieNode()
+        
+
+    def addWord(self, word: str) -> None:
+        curr = self.root
+
+        for char in word:
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+
+            curr = curr.children[char]
+        
+        curr.is_end = True
+
+    def search(self, word: str) -> bool:
+        def dfs(i: str, curr: TrieNode) -> bool:
+            if i == len(word):
+                return curr.is_end
+            
+            char = word[i]
+
+            if char == ".":
+                # Go through each CHILD trie node with values()
+                for child in curr.children.values():
+                    # We only care about 1 valid path, so return True right away when we find one
+                    if dfs(i+1, child):
+                        # Short circuits searching for any more paths
+                        return True
+                
+                # If at current char, there are no children nodes then we were unable to match "."
+                return False
+            
+            # After searching for valid ".", check if the character is in key
+            if char not in curr.children:
+                return False
+            
+            # Traverse to the child node for the specific char
+            curr = curr.children[char]
+
+            # Go as deep as possible again for next character using the char Trie node
+            return dfs(i+1, curr)
+
+        return dfs(0, self.root)
+
+
+
 class TrieNode:
     def __init__(self):
         self.children = {}
         self.isEnd = False
 
-class WordDictionary:
+class LessReadableWordDictionary:
 
     def __init__(self):
         self.root = TrieNode()
