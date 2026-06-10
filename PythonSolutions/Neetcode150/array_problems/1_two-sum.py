@@ -9,6 +9,7 @@ class Solution:
             complement = target - num
 
             if complement in myNums:
+                # Return the index of the two pairs
                 return [myNums[complement], i]
 
             myNums[num] = i
