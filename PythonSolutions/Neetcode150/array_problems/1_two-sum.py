@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         myNums = {}
@@ -9,7 +10,8 @@ class Solution:
 
             if complement in myNums:
                 return [myNums[complement], i]
-            
+
             myNums[num] = i
-        
+
         return []
+
