@@ -1,4 +1,6 @@
 from collections import List
+
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         self.grid = grid
@@ -16,24 +18,25 @@ class Solution:
 
                     # Count this as 1 island after sinking the entire island
                     count += 1
-        
+
         return count
 
     def dfs(self, row, col):
         # Base case 1: Boundary check
-        if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
             return
-        
+
         # Base case 2: Visited check
         if self.grid[row][col] == "0":
             return
-        
+
         # Visit the cell, "sink" a part of the island
         self.grid[row][col] = "0"
 
         for dx, dy in self.DIRS:
             # Continue to sink all of the islands that have not been visited yet
-            self.dfs(row+dx, col+dy)
+            self.dfs(row + dx, col + dy)
+
 
 class BFSSolution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -48,25 +51,26 @@ class BFSSolution:
                 if self.grid[row][col] == "1":
                     self.bfs(row, col)
                     count += 1
-        
+
         return count
-    
+
     def bfs(self, row, col):
         queue = deque([(row, col)])
 
         while queue:
             row, col = queue.popleft()
 
-            if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+            if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
                 continue
-            
+
             if self.grid[row][col] == "0":
                 continue
 
             self.grid[row][col] = "0"
 
             for dx, dy in self.DIRS:
-                queue.append((row+dx, col+dy))
+                queue.append((row + dx, col + dy))
+
 
 class LevelOrderBFSSolution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -81,9 +85,9 @@ class LevelOrderBFSSolution:
                     self.bfs(row, col)
 
                     count += 1
-        
+
         return count
-        
+
     def bfs(self, row, col):
         queue = deque([[row, col]])
 
@@ -95,12 +99,12 @@ class LevelOrderBFSSolution:
 
                 if r < 0 or c < 0 or r > self.ROWS - 1 or c > self.COLS - 1:
                     continue
-                
+
                 if self.grid[r][c] == "0":
                     continue
-                
+
                 self.grid[r][c] = "0"
-                
+
                 for dx, dy in self.DIRS:
                     queue.append([r + dx, c + dy])
-                    
+
