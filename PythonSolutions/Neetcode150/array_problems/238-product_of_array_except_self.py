@@ -27,7 +27,7 @@ class ReadableSolution:
         # * Since we aren't adding it to the arrays, we need to deal with it here
 
         # Get result by doing cross multiplication between prefix[i-1] * postfix[i+1]
-        # First index: Since prefix[i-1] would be out bounds multiple by 1
+        # First index: Since prefix[i-1] would be out bounds multiply by 1
         # Last index: Similarly postfix[i+1] be out of bounds so just multiply by 1
         for i in range(n):
             if i == 0:
