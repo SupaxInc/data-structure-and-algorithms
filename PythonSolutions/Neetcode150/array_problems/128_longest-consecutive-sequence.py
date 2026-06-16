@@ -1,13 +1,15 @@
 from typing import List
+
+
 class SomewhatOptimalSolution:
     def longestConsecutive(self, nums: List[int]) -> int:
         numSet = set(nums)
         longest = 0
 
-        for num in nums: # O(n)
+        for num in nums:  # O(n)
             length = 0
             # Check if there's no left neighbour (start of sequence)
-            if (num - 1) not in numSet: 
+            if (num - 1) not in numSet:
                 length += 1
                 # Check if there are further consecutive sequences by checking if the next number is in the set
 
@@ -18,7 +20,9 @@ class SomewhatOptimalSolution:
 
             longest = max(length, longest)
 
-        return longest 
+        return longest
+
+
 class MostOptimalReadableSolution:
     def longestConsecutive(self, nums: List[int]) -> int:
         numSet = set(nums)
@@ -37,15 +41,16 @@ class MostOptimalReadableSolution:
                 # E.g. 1 + 1 = 2, 1 + 2 = 3, 1 + 3 = 4, etc
                 while num + length in numSet:
                     length += 1
-                
+
                 maxLength = max(maxLength, length)
-        
+
         return maxLength
+
 
 class MostOptimalAlternativeSolution:
     def longestConsecutive(self, nums: List[int]) -> int:
         longest = 0
-        
+
         numSet = set(nums)
 
         for num in numSet:
@@ -59,7 +64,8 @@ class MostOptimalAlternativeSolution:
                     length += 1
                     # Increment new variable
                     sequence += 1
-                
+
                 longest = max(longest, length)
 
         return longest
+
