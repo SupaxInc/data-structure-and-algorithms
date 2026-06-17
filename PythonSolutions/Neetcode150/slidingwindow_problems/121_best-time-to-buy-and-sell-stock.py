@@ -1,4 +1,6 @@
 from typing import List
+
+
 class MoreReadableDynamicWindowSolution:
     def maxProfit(self, prices: List[int]) -> int:
         start, maxProfit = 0, 0
@@ -9,7 +11,7 @@ class MoreReadableDynamicWindowSolution:
                 maxProfit = max(maxProfit, prices[end] - prices[start])
             else:
                 start = end
-        
+
         return maxProfit
 
 
@@ -31,8 +33,9 @@ class Solution:
 
                 # So we update the price to the future date price since we found a better buy price as future date is lower
                 start = end
-            
+
             # Move to the next day
             end += 1
-        
+
         return maxProfit
+
