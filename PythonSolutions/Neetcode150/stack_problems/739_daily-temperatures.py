@@ -1,28 +1,32 @@
+from typing import List
+
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         n = len(temperatures)
         if n < 2:
             return [0]
-        
+
         res = [0] * n
-        stack = [] # Pair of (temp, index)
+        stack = []  # Pair of (temp, index)
 
         for currDay, currTemp in enumerate(temperatures):
-            # Helps find the smallest previous temp in the decreasing stack 
-                # The stack already has temperatures that we've seen
+            # Helps find the smallest previous temp in the decreasing stack
+            # The stack already has temperatures that we've seen
             # If theres a smaller temp than the current temp
-                # That means those smaller temps have found a larger temperature
+            # That means those smaller temps have found a larger temperature
             # ** Essentially finding the next greater element of the previous temps **
             while stack and currTemp > stack[-1][0]:
                 prevDay = stack.pop()[1]
 
                 # Then count the different between current warmer day and previous colder day
-                    # Place it in the the previous colder day res index
+                # Place it in the the previous colder day res index
                 res[prevDay] = currDay - prevDay
             stack.append([currTemp, currDay])
-        
+
         return res
-    
+
+
 # Monotonic Decreasing Stack Example
 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
 #  index:       0   1   2   3   4   5   6   7
@@ -53,3 +57,4 @@ temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
 
 # Result array: [1,1,4,2,1,1,0,0]
 #               ^ days to wait for warmer temperature
+
