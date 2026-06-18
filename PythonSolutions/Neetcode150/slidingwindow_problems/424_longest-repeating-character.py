@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 class MySolution:
     def characterReplacement(self, s: str, k: int) -> int:
         count = defaultdict(int)
@@ -12,14 +13,15 @@ class MySolution:
             # Shrink the window if the total replacement is greater than k
             # Total replacement: size of window - max count within frequency map
             # This is because the max would be classified as the longest repeating character
-                # AND the length subtract the max repeating character would equal the amount we have to replace
+            # AND the length subtract the max repeating character would equal the amount we have to replace
             while ((end - start) + 1) - max(count.values()) > k:
                 count[s[start]] -= 1
                 start += 1
-            
+
             maxLength = max(maxLength, (end - start) + 1)
-        
+
         return maxLength
+
 
 class OptimizedSolution:
     def characterReplacement(self, s: str, k: int) -> int:
@@ -30,7 +32,7 @@ class OptimizedSolution:
 
         for end in range(len(s)):
             count[s[end]] += 1
-            
+
             # Update maxFreq if the current character's frequency is the highest seen so far WITHIN THE WINDOW
             maxFreq = max(maxFreq, count[s[end]])
 
@@ -42,7 +44,8 @@ class OptimizedSolution:
                 # maxFreq only decreases when the character with maxFreq is removed from the window
                 # This is a key optimization that avoids recalculating max(count.values())
                 start += 1
-            
+
             maxLength = max(maxLength, end - start + 1)
-        
+
         return maxLength
+
