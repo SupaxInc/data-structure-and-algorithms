@@ -4,9 +4,8 @@ from typing import List
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         maxArea = 0
-        # Stack stores tuples of (index, height)
         # We use this to track increasing heights and their starting positions
-        stack = []
+        stack = []  # (index, height)
 
         for currIdx, currHeight in enumerate(heights):
             # Start position for current height, may change if we pop items
