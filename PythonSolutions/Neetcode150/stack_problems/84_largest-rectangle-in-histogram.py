@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         maxArea = 0
@@ -15,7 +18,7 @@ class Solution:
             while stack and currHeight < stack[-1][1]:
                 # Pop the previous largest height (monotonic increasing stack)
                 prevIdx, prevHeight = stack.pop()
-                
+
                 # Calculate area for the rectangle we're popping:
                 # Width = current position - start position of prev height
                 # Height = height of rectangle we're popping
@@ -26,10 +29,10 @@ class Solution:
                 # This is because all heights in between the current index and the previous index were taller
                 # Allows us to extend rectangle from largest previous height position to the current smaller height position
                 newStart = prevIdx
-            
+
             # Add current height to stack, using the leftmost possible starting point
             stack.append((newStart, currHeight))
-        
+
         # Process remaining rectangles in stack
         # Since we maintain a monotonic increasing stack, these rectangles
         # represent heights that can extend all the way to the end of the array
@@ -38,5 +41,5 @@ class Solution:
             # Width = total length - start position
             # Subtract by total length because we don't know how far the position extends to for the creation of the possible extended rectangle
             maxArea = max(maxArea, height * (len(heights) - idx))
-        
+
         return maxArea
