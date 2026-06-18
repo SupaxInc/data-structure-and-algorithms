@@ -1,7 +1,6 @@
 class SimplestMinStack:
-
     def __init__(self):
-        self.stack = [] # Uses a 2d array (val, minVal) (can just use a tuple too)
+        self.stack = []  # Uses a 2d array (val, minVal) (can just use a tuple too)
 
     def push(self, val: int):
         # If stack is empty, then current min is the val we are pushing
@@ -10,23 +9,24 @@ class SimplestMinStack:
 
         # Push an array with structure of: [value, minimum value]
         self.stack.append([val, minVal])
-    
+
     def pop(self):
         self.stack.pop()
-    
+
     def top(self):
         # Peeks at the last array in the stack just for its value
         return self.stack[-1][0]
-    
+
     def getMin(self):
         # Peeks at the last array in the stack just for its min value
         return self.stack[-1][1]
+
 
 class SimplerMinStack:
     def __init__(self):
         self.stack = []
         self.minStack = []
-    
+
     def push(self, val: int) -> None:
         self.stack.append(val)
 
@@ -34,7 +34,7 @@ class SimplerMinStack:
             self.minStack.append(val)
         else:
             self.minStack.append(min(val, self.getMin()))
-    
+
     def pop(self) -> None:
         self.minStack.pop()
         self.stack.pop()
@@ -45,8 +45,8 @@ class SimplerMinStack:
     def getMin(self) -> None:
         return self.minStack[-1]
 
-class MinStack:
 
+class MinStack:
     def __init__(self):
         self.stack = []
         self.minStack = []
@@ -54,9 +54,9 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        self.minNum = min(self.minNum, val) 
+        self.minNum = min(self.minNum, val)
         # Append a min num per push so that we don't lose track of what the min number is per index
-            # Therefore, every push will have the current min num associated with the index of normal stack
+        # Therefore, every push will have the current min num associated with the index of normal stack
         self.minStack.append(self.minNum)
 
     def pop(self) -> None:
@@ -86,3 +86,4 @@ class MinStack:
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()
+
