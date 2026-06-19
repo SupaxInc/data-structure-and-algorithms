@@ -1,16 +1,18 @@
-from typing import List
 from collections import defaultdict
+from typing import List
+
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         preMap = defaultdict(list)
 
         # Create the adjacent list graph where course is pointing to pre-req
-            # This tells us: "To find what courses we need to complete for this course"
-            # If we flip it (pre -> course): "What courses will this unlock?"
+        # This tells us: "To find what courses we need to complete for this course"
+        # If we flip it (pre -> course): "What courses will this unlock?"
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
 
-        visit = set() # Current path
+        visit = set()  # Current path
         done = set()  # Nodes that have been fully visited
 
         def dfs(crs):
@@ -20,7 +22,7 @@ class Solution:
             # Base case 2: Already visited in another cycle
             if crs in done:
                 return True
-            
+
             # Visit the course node and add it to current path
             visit.add(crs)
 
@@ -29,7 +31,7 @@ class Solution:
                 # Check if a the pre-requisite is found in a visit making it impossible to finish the course
                 if not dfs(pre):
                     return False
-            
+
             # Remove course from visit after we have visited all nodes for this course
             visit.remove(crs)
             # Mark it as done since we have visited all pre-requisite nodes for this course
@@ -43,5 +45,6 @@ class Solution:
             # If a cycle was detected then we just couldn't finish the course plan
             if not dfs(crs):
                 return False
-        
+
         return True
+
