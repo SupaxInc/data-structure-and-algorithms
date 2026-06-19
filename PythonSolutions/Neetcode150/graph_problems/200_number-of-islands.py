@@ -1,4 +1,5 @@
-from collections import List
+from collections import deque
+from typing import List
 
 
 class Solution:
@@ -107,4 +108,3 @@ class LevelOrderBFSSolution:
 
                 for dx, dy in self.DIRS:
                     queue.append([r + dx, c + dy])
-
