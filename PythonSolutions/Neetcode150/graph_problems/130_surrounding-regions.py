@@ -91,4 +91,3 @@ class Solution:
         self.capture(board, row, col + 1)
         self.capture(board, row - 1, col)
         self.capture(board, row, col - 1)
-
