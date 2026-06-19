@@ -1,6 +1,8 @@
-from collections.abc import Deque
 from collections import deque
+from collections.abc import Deque
 from typing import List
+
+
 class Solution:
     # *Don't have premium leetcode so this is using Islands and Treasure from Neetcode: https://neetcode.io/problems/islands-and-treasure*
     def islandsAndTreasure(self, grid: List[List[int]]) -> None:
@@ -16,14 +18,14 @@ class Solution:
             for col in range(self.COLS):
                 if self.grid[row][col] == 0:
                     self.queue.append((row, col))
-        
+
         # Run the level order BFS across all treasure chests
         self.levelOrderBFS()
-    
+
     def levelOrderBFS(self):
         while self.queue:
             levelSize = len(self.queue)
-            
+
             for _ in range(levelSize):
                 r, c = self.queue.popleft()
 
@@ -33,11 +35,11 @@ class Solution:
 
                     if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
                         continue
-                    
+
                     # No need for a visited set since change INF values to a distance effectively "visiting" the cell
                     if self.grid[nr][nc] != self.INF:
                         continue
-                    
+
                     # Add the distance by incrementing PREVIOUS popped row and col value
                     self.grid[nr][nc] = self.grid[r][c] + 1
 
@@ -53,9 +55,9 @@ class BruteForceSolution:
 
         for row in range(self.ROWS):
             for col in range(self.COLS):
-                if (self.grid[row][col] == 2147483647):
+                if self.grid[row][col] == 2147483647:
                     self.bfs(row, col)
-    
+
     def bfs(self, row, col) -> None:
         queue = deque([(row, col)])
 
@@ -73,14 +75,15 @@ class BruteForceSolution:
 
                     if nr < 0 or nc < 0 or nr > self.ROWS - 1 or nc > self.COLS - 1:
                         continue
-                
+
                     if self.grid[nr][nc] == -1 or (nr, nc) in visited:
                         continue
 
                     if self.grid[nr][nc] == 0:
                         self.grid[row][col] = dist
                         return
-                
+
                     visited.add((nr, nc))
 
                     queue.append((nr, nc))
+
