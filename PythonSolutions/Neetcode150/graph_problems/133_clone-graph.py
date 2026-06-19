@@ -28,7 +28,7 @@ class Solution:
                 # Add the current nodes neighbors to the copied node
                 copyNode.neighbors.append(dfs(nei))
 
-            # Need to return copy node in the event base case is not hit for first time visits
+            # Need to return copy node in the event the base case is not hit for first time visits
             return copyNode
 
         return dfs(node)
