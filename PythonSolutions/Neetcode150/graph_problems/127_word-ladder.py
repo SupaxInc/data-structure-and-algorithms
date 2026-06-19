@@ -48,7 +48,7 @@ class OptimizedSolution:
                     pattern = currWord[:i] + "*" + currWord[i + 1 :]
                     # Explore each adjacent neighbour for current pattern
                     for neiWord in graph[pattern]:
-                        # Optimization: Check if neighbour word is not in visited before processing it, prevents dequeuing same words multiple times
+                        # Optimization: Check if neighbour word is not in visited before processing it, prevents queueing same words multiple times
                         if neiWord not in visited:
                             visited.add(neiWord)
                             queue.append(neiWord)
