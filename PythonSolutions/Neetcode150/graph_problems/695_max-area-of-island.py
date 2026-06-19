@@ -1,5 +1,7 @@
-from typing import List
 from collections import deque
+from typing import List
+
+
 class DFSSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         self.grid = grid
@@ -12,30 +14,33 @@ class DFSSolution:
             for col in range(self.COLS):
                 if self.grid[row][col] == 1:
                     maxArea = max(maxArea, self.dfs(row, col))
-        
+
         return maxArea
 
     def dfs(self, row, col):
         # Base case 1: Boundary check
-        if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+        if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
             # Returns 0 as its not a valid area
             return 0
-        
+
         # Base case 2: Visited check
         if self.grid[row][col] == 0:
             # Returns 0 as its not a valid area
             return 0
-        
+
         # Visit the cell
-        self.grid[row][col] = 0 # "Sink" the island and leave it as 0 so we don't end up calling more DFS later on the same island
-        totalArea = 1 # The total area for current cell is just a 1
+        self.grid[row][col] = (
+            0  # "Sink" the island and leave it as 0 so we don't end up calling more DFS later on the same island
+        )
+        totalArea = 1  # The total area for current cell is just a 1
 
         for dx, dy in self.DIRS:
             # Explore the four directions and add the total area of them
-            totalArea += self.dfs(row+dx, col+dy)
-        
+            totalArea += self.dfs(row + dx, col + dy)
+
         # Finally, return the last summed total area of all traveled cells
         return totalArea
+
 
 class DFSVisitedSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
@@ -52,23 +57,23 @@ class DFSVisitedSolution:
                     maxArea = max(maxArea, area)
 
         return maxArea
-    
+
     def dfs(self, row, col, area):
         if row < 0 or col < 0 or row > self.ROWS - 1 or col > self.COLS - 1:
             return area
-        
+
         if self.grid[row][col] == 0 or (row, col) in self.visited:
             return area
-        
+
         self.visited.add((row, col))
         area += 1
 
         for dx, dy in self.DIRS:
             area = self.dfs(row + dx, col + dy, area)
-        
+
         return area
 
-        
+
 class BFSSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         self.grid = grid
@@ -81,7 +86,7 @@ class BFSSolution:
             for col in range(self.COLS):
                 if self.grid[row][col] == 1:
                     maxArea = max(maxArea, self.bfs(row, col))
-        
+
         return maxArea
 
     def bfs(self, row, col):
@@ -92,23 +97,24 @@ class BFSSolution:
             row, col = queue.popleft()
 
             # Base case 1: Boundary check
-            if row > self.ROWS-1 or col > self.COLS-1 or row < 0 or col < 0:
+            if row > self.ROWS - 1 or col > self.COLS - 1 or row < 0 or col < 0:
                 continue
-            
+
             # Base case 2: Visited check
             if self.grid[row][col] == 0:
                 continue
-            
+
             # Visit the cell
             self.grid[row][col] = 0
-            totalArea += 1 # Add the total area as its iterative compared to DFS
+            totalArea += 1  # Add the total area as its iterative compared to DFS
 
             # Explore the four directions
             for dx, dy in self.DIRS:
-                queue.append((row+dx, col+dy))
-        
+                queue.append((row + dx, col + dy))
+
         return totalArea
-        
+
+
 class BFSVisitedSolution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         self.grid = grid
@@ -122,9 +128,9 @@ class BFSVisitedSolution:
                 if self.grid[r][c] == 1 or (r, c) not in self.visited:
                     area = self.bfs(r, c)
                     maxArea = max(maxArea, area)
-        
+
         return maxArea
-    
+
     def bfs(self, row, col):
         queue = deque([(row, col)])
 
@@ -137,7 +143,7 @@ class BFSVisitedSolution:
 
             if self.grid[r][c] == 0 or (r, c) in self.visited:
                 continue
-            
+
             self.visited.add((r, c))
             area += 1
 
