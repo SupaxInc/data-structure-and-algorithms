@@ -11,7 +11,7 @@ class Solution:
         self.DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
         self.INF = 2147483647
 
-        self.queue: Deque[tuple[int, int]] = deque()
+        self.queue: Deque[tuple[int, int]] = deque()  # (row, col)
 
         # Multi-source BFS: Load all treasure chests up-front
         for row in range(self.ROWS):
@@ -86,4 +86,3 @@ class BruteForceSolution:
                     visited.add((nr, nc))
 
                     queue.append((nr, nc))
-
