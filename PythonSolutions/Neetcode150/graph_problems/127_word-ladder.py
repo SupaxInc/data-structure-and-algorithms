@@ -45,7 +45,8 @@ class OptimizedSolution:
                     return count
 
                 # Instead of traverse per DIR in a grid, traverse by each pattern of curr word.
-                # The patterns have its own set of neighbouring words that we need to visit
+                # Therefore, PATTERN OF CURRENT WORD = CURRENT NODE.
+                # Patterns have its own set of neighbouring words that we need to visit
                 # and add to queue. Until we find the target word.
                 for i in range(len(currWord)):
                     pattern = currWord[:i] + "*" + currWord[i + 1 :]
