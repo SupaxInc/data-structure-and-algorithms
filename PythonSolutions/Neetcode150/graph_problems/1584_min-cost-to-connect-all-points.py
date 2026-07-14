@@ -78,17 +78,19 @@ class UnionFind:
 class KruskalSolution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         # Each point is a vertex on the complete graph
+        # Complete graph means a point can connect to any other point on the graph
         totalVertices = len(points)
 
         # Create the complete edge list that includes the cost (manhattan distance)
-        edges = []
+        edges = []  # (cost, curr point idx, next point idx)
         for i in range(totalVertices):
             # Need to compare i (x[i], y[i]) with every j (x[j], y[j]) to get all cost for each i'th point
+            # From current point (ith idx), visit every point (j) it can connect to since its a complete graph
             for j in range(i + 1, totalVertices):
                 cost = abs(points[i][0] - points[j][0]) + abs(
                     points[i][1] - points[j][1]
                 )
-                edges.append((cost, i, j))  # (cost, curr point, next point)
+                edges.append((cost, i, j))
 
         # Need to sort the edge list by cost to get the most minimum costs first
         edges.sort()
